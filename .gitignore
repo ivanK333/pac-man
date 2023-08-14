@@ -4,3 +4,8 @@ node_modules/
 .vscode
 dist
 tmp
+<<<<<<< Updated upstream
+yarn.lock
+=======
+yarn-error.log
+>>>>>>> Stashed changes
