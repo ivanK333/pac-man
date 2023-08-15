@@ -16,20 +16,22 @@
   gap: 100px;
 }
 
-.listItem {
-  font-family: Quicksand, sans-serif;
+.link {
   color: var(--text-color);
+  font-family: Quicksand, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-decoration: none;
 }
 
-.listItemActive {
+.linkActive {
   color: var(--main-color);
   font-family: Quicksand, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+  text-decoration: none;
 }

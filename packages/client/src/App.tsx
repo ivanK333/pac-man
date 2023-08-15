@@ -20,6 +20,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<div>Game</div>} />
+        <Route path="/forum" element={<div>Forum</div>} />
+        <Route path="/lead" element={<div>Leaderboard</div>} />
       </Routes>
     </div>
   )
