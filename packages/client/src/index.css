@@ -12,10 +12,11 @@ body {
 }
 
 :root {
-  --excretion-color: #ffdf00;
-  --main-color: #2526d9;
+  --main-color: #ffdf00;
+  --excretion-color: #2526d9;
   --background-color: #000;
   --text-color: #fff;
+  --avatar-background: #fbfbfb;
   --point-color: #a9d44d;
   --ghost_1-color: #fbb6ff;
   --ghost_2-color: #03fefd;

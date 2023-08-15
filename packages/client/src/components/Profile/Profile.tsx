@@ -1,11 +1,22 @@
 import React from 'react'
 import styles from './styles.module.css'
-import pacmanImage from '../../images/pacman-background.svg'
+import defaultAvatar from '../../../static/images/default-avatar.svg'
 
 const Profile = () => {
   return (
     <div className={styles.container}>
-      <img className={styles.image} src={pacmanImage} alt="pacman" />
+      <div className={styles.imageContainer}>
+        <span className={styles.info}>
+          <p className={styles.hoverText}>Change avatar</p>
+          <img
+            className={styles.defaultImage}
+            src={defaultAvatar}
+            alt="Avatar"
+          />
+        </span>
+      </div>
+
+      <nav className={styles.navContainer}></nav>
     </div>
   )
 }
