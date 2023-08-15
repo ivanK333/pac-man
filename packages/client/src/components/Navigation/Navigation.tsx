@@ -1,12 +1,12 @@
 import React from 'react'
 import styles from './styles.module.css'
 
-const Header = () => {
+const Navigation = () => {
   return (
-    <nav className={styles.header}>
+    <nav className={styles.navigation}>
       <ul></ul>
     </nav>
   )
 }
 
-export default Header
+export default Navigation

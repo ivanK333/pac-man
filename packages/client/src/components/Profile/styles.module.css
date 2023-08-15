@@ -30,7 +30,7 @@
   min-width: 130px;
 }
 
-.info {
+.wrapper {
   width: 100%;
   height: 100%;
   display: flex;
@@ -52,6 +52,15 @@
   opacity: 0;
 }
 
+.hoverOverlay {
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
 .image {
   position: absolute;
   width: 100%;
@@ -65,28 +74,24 @@
   position: absolute;
   width: 68px;
   height: 78px;
-  z-index: 2;
   object-fit: cover;
   border-radius: 50%;
 }
 
-.info:hover {
-  background: #000;
+.wrapper:hover .defaultImage {
+  opacity: 1;
+  z-index: 1;
+}
+
+.wrapper:hover .image {
   opacity: 0.5;
 }
 
-.info:hover .defaultImage {
-  opacity: 0;
-}
-
-.info:hover .image {
-  opacity: 0;
-}
-
-.info:hover .hoverText {
+.wrapper:hover .hoverText {
   opacity: 1;
 }
 
-.navContainer {
-  border: 1px solid red;
+.wrapper:hover .hoverOverlay {
+  display: flex;
+  z-index: 2;
 }
