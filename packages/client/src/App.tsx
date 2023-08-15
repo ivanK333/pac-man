@@ -1,5 +1,7 @@
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
+import Header from './components/Header/Header'
+import { Routes, Route } from 'react-router'
 import Profile from './components/Profile/Profile'
 
 function App() {
@@ -15,7 +17,10 @@ function App() {
   }, [])
   return (
     <div className="App">
-      <Profile />
+      <Header />
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
     </div>
   )
 }
