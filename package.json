@@ -9,6 +9,7 @@
     "dev": "lerna run dev",
     "test": "lerna run test",
     "lint": "lerna run lint",
+    "eslint-fix": "lerna run eslint-fix",
     "format": "lerna run format",
     "preview": "lerna run preview"
   },
