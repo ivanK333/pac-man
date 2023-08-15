@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import './App.css';
 
 const App = () => {
   useEffect(() => {
@@ -12,7 +11,7 @@ const App = () => {
 
     fetchServerData();
   }, []);
-  return <div className="App">Вот тут будет жить ваше при ложение :)</div>;
+  return <div>Вот тут будет жить ваше при ложение :)</div>;
 };
 
 export default App;
