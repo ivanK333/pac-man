@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import './App.css'
 
-function App() {
+const App = () => {
   useEffect(() => {
     const fetchServerData = async () => {
       const url = `http://localhost:${__SERVER_PORT__}`
