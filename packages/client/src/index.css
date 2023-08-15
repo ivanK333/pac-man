@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  padding: 0;
+  max-height: 720px;
+  max-width: 1280px;
+}
+
+#root {
+  height: 100dvh;
+  width: 100dvw;
+  box-sizing: border-box;
+}
+
+:root {
+  --excretion-color: #ffdf00;
+  --main-color: #2526d9;
+  --background-color: #000;
+  --text-color: #fff;
+  --point-color: #a9d44d;
+  --ghost_1-color: #fbb6ff;
+  --ghost_2-color: #03fefd;
+  --ghost_3-color: #febc42;
+  --ghost_4-color: #f50100;
+}
