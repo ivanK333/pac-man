@@ -8,6 +8,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.ts",
     "lint": "eslint .",
     "eslint-fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "jest ."
   },

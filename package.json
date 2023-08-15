@@ -11,6 +11,7 @@
     "lint": "lerna run lint",
     "eslint-fix": "lerna run eslint-fix",
     "stylelint-fix": "lerna run stylelint-fix",
+    "type-check": "lerna run type-check",
     "format": "lerna run format",
     "preview": "lerna run preview"
   },
