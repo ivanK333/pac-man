@@ -1,9 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-//import './App.css';
 import { Routes, Route } from 'react-router';
 
+import styles from './styles.module.scss';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 
@@ -19,7 +18,7 @@ const App = () => {
     fetchServerData();
   }, []);
   return (
-    <div className="App">
+    <div className={styles.app}>
       <Header />
       <Routes>
         <Route path="/profile" element={<Profile />} />
