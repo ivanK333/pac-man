@@ -7,11 +7,12 @@ export interface InputProps {
   name: string
   id?: string
   value?: string | number
-  type: string
+  type?: string
   placeholder?: string
   required?: boolean
   autoFocus?: boolean
   validation?: ValidationEntry
+  onBlur?: () => void
 }
 
 const InputWithLabel: React.FC<InputProps> = ({
@@ -32,8 +33,8 @@ const InputWithLabel: React.FC<InputProps> = ({
   } = useFormContext()
 
   return (
-    <label htmlFor={name}>
-      {label}:
+    <>
+      <label htmlFor={name}>{label}:</label>
       <input
         id={id}
         value={value}
@@ -45,7 +46,7 @@ const InputWithLabel: React.FC<InputProps> = ({
         {...rest}
       />
       {errors[name] && <p>{errors[name]?.message as string}</p>}
-    </label>
+    </>
   )
 }
 

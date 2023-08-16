@@ -1,27 +1,29 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { ValidationEntry } from '../../commonTypes'
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import Input from '../../components/InputWithLabel'
 import SubmitButton from '../../components/Button'
+import Link from '../../components/Link'
 
 const validation: Record<string, ValidationEntry> = {
   login: {
-    required: 'Логин необходим',
-    minLength: { value: 3, message: 'не менее 3-х сиволов' },
-    maxLength: { value: 20, message: 'не более 20-ти символов' },
+    required: 'Login is required',
+    minLength: { value: 3, message: 'at least 3 characters' },
+    maxLength: { value: 20, message: 'no more than 20 characters' },
     pattern: {
       value: /^[a-zA-Z0-9-]{3,20}$/,
-      message: `только латиница, цифры, но не состоять из них, без пробелов, 
-      без спецсимволов (допустимы дефис и нижнее подчёркивание)`,
+      message: `Only Latin letters, digits, but not composed solely of them, without spaces, 
+      without special characters (hyphens and underscores are allowed)`,
     },
   },
   password: {
-    required: 'Пароль необходим',
-    minLength: { value: 8, message: 'не менее 8-ми сиволов' },
-    maxLength: { value: 40, message: 'не более 40 символов' },
+    required: 'Password is required',
+    minLength: { value: 8, message: 'at least 8 characters' },
+    maxLength: { value: 40, message: 'no more than 40 characters' },
     pattern: {
       value: /^(?=.*[A-Z])(?=.*\d).{8,40}$/,
-      message: 'обязательно хотя бы одна заглавная буква и цифра',
+      message: 'At least one uppercase letter and one digit are required',
     },
   },
 }
@@ -36,28 +38,34 @@ export const LoginForm: React.FC = () => {
   const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
 
   return (
-    <div className="form-container">
-      <h2>Логин</h2>
-      <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <Input
-            label="Логин"
-            type="text"
-            name="login"
-            placeholder="Введите логин"
-            autoFocus={true}
-            validation={validation.login}
-          />
-          <Input
-            label="Пароль"
-            type="password"
-            name="password"
-            placeholder="Введите пароль"
-            validation={validation.password}
-          />
-          <SubmitButton label="Логин" />
-        </form>
-      </FormProvider>
-    </div>
+    <Router>
+      <div className="form-container">
+        <h2>Login</h2>
+        <FormProvider {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <Input
+              label="Login"
+              type="text"
+              name="login"
+              placeholder="Enter your login"
+              autoFocus={true}
+              validation={validation.login}
+            />
+            <Input
+              label="Password"
+              type="password"
+              name="password"
+              placeholder="Enter your password"
+              validation={validation.password}
+            />
+            <SubmitButton label="Login" />
+            <p>
+              <span>Don't have an account yet? </span>
+              <Link to="/register"> Register</Link>
+            </p>
+          </form>
+        </FormProvider>
+      </div>
+    </Router>
   )
 }
