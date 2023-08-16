@@ -1,6 +1,4 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
-
 import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
