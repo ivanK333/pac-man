@@ -1,26 +1,18 @@
-import { useEffect } from 'react'
-import { LoginForm } from './pages/login/index.login'
-import './App.css'
+import { useEffect } from 'react';
 
-const SERVER_PORT = __SERVER_PORT__ || 3001
-console.log('__SERVER_PORT__', __SERVER_PORT__)
-
-function App() {
+const App = () => {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${SERVER_PORT}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+      const url = `http://localhost:${__SERVER_PORT__}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    };
 
-    fetchServerData()
-  }, [])
-  return (
-    <div className="App">
-      <LoginForm />
-    </div>
-  )
-}
+    fetchServerData();
+  }, []);
 
-export default App
+  return <div>Вот тут будет жить ваше при ложение :)</div>;
+};
+
+export default App;
