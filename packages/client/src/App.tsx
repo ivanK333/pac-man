@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router';
 
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
+import Register from './components/Register/Register';
 
 const App = () => {
   useEffect(() => {
@@ -20,12 +21,13 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <Header />
+      {window.location.pathname !== '/register' ? <Header /> : ''}
       <Routes>
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<div>Game</div>} />
         <Route path="/forum" element={<div>Forum</div>} />
         <Route path="/lead" element={<div>Leaderboard</div>} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </div>
   );
