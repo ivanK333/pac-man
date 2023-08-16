@@ -1,0 +1,38 @@
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 40px;
+}
+
+.list {
+  max-width: 669px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  gap: 100px;
+}
+
+.link {
+  color: var(--text-color);
+  font-family: Quicksand, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.linkActive {
+  color: var(--main-color);
+  font-family: Quicksand, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+}
