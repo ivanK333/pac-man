@@ -32,7 +32,13 @@
 
 ### Линтинг
 
-```yarn lint```
+```yarn lint``` - проверка ошибок;
+
+```yarn type-check``` - проверка ошибок типизации (typescript);
+
+```yarn eslint-fix``` - исправление ошибок eslint;
+
+```yarn stylelint-fix``` - исправление ошибок stylelint;
 
 ### Форматирование prettier
 
