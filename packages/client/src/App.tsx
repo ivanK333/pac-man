@@ -11,6 +11,7 @@ const App = () => {
 
     fetchServerData();
   }, []);
+
   return <div>Вот тут будет жить ваше при ложение :)</div>;
 };
 
