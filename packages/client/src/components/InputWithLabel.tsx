@@ -1,18 +1,19 @@
-import React from 'react'
-import { ValidationEntry } from '../commonTypes'
-import { useFormContext } from 'react-hook-form'
+import React from 'react';
 
+import { useFormContext } from 'react-hook-form';
+
+import { ValidationEntry } from '../commonTypes';
 export interface InputProps {
-  label: string
-  name: string
-  id?: string
-  value?: string | number
-  type?: string
-  placeholder?: string
-  required?: boolean
-  autoFocus?: boolean
-  validation?: ValidationEntry
-  onBlur?: () => void
+  label: string;
+  name: string;
+  id?: string;
+  value?: string | number;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  autoFocus?: boolean;
+  validation?: ValidationEntry;
+  onBlur?: () => void;
 }
 
 const InputWithLabel: React.FC<InputProps> = ({
@@ -30,7 +31,7 @@ const InputWithLabel: React.FC<InputProps> = ({
     register,
     formState: { errors },
     trigger,
-  } = useFormContext()
+  } = useFormContext();
 
   return (
     <>
@@ -47,7 +48,7 @@ const InputWithLabel: React.FC<InputProps> = ({
       />
       {errors[name] && <p>{errors[name]?.message as string}</p>}
     </>
-  )
-}
+  );
+};
 
-export default InputWithLabel
+export default InputWithLabel;
