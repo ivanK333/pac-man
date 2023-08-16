@@ -1,4 +1,4 @@
-@use '../../assets/styles/mixins';
+@import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
 .header {
@@ -10,7 +10,7 @@
   justify-content: flex-end;
   padding: 20px 40px;
   
-  @include mixins.typography-xl;
+  @include typography-xl;
 }
 
 .list {
