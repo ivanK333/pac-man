@@ -5,8 +5,8 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
 import Input from '../../components/InputWithLabel'
 import SubmitButton from '../../components/Button'
 import Link from '../../components/Link'
-
 import { LoginAPI } from '../../api/AuthAPI'
+import '../../styles/common.scss'
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -70,34 +70,36 @@ export const LoginForm: React.FC = () => {
 
   return (
     <Router>
-      <div className="form-container">
-        <h2>Login</h2>
-        {error && <p>{error}</p>}
-        <FormProvider {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <Input
-              label="Login"
-              type="text"
-              name="login"
-              placeholder="Enter your login"
-              autoFocus={true}
-              validation={validation.login}
-            />
-            <Input
-              label="Password"
-              type="password"
-              name="password"
-              placeholder="Enter your password"
-              validation={validation.password}
-            />
-            <SubmitButton label="Login" />
-            <p>
-              <span>Don't have an account yet? </span>
-              <Link to="/register"> Register</Link>
-            </p>
-          </form>
-        </FormProvider>
-      </div>
+      <main className="yellow-bkg">
+        <div className="form-container">
+          <h2>Login</h2>
+          {error && <p>{error}</p>}
+          <FormProvider {...formMethods}>
+            <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+              <Input
+                label="Login"
+                type="text"
+                name="login"
+                placeholder="Enter your login"
+                autoFocus={true}
+                validation={validation.login}
+              />
+              <Input
+                label="Password"
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                validation={validation.password}
+              />
+              <SubmitButton label="Login" />
+              <p>
+                <span>Don't have an account yet? </span>
+                <Link to="/register"> Register</Link>
+              </p>
+            </form>
+          </FormProvider>
+        </div>
+      </main>
     </Router>
   )
 }
