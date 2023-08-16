@@ -9,7 +9,7 @@ import SubmitButton from '../../components/Button';
 import Link from '../../components/Link';
 import { LoginAPI } from '../../api/AuthAPI';
 import '../../assets/styles/index.scss';
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 const validation: Record<string, ValidationEntry> = {
   login: {

@@ -17,11 +17,21 @@ div[id='root'] {
   font-family: Inter, Arial, Helvetica, sans-serif;
   height: 100%;
   width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 body {
   background-color: variables.$color-palette-black;
   color: variables.$color-palette-white;
+}
+
+div[class='App'] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 h1,
