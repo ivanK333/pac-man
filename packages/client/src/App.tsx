@@ -6,6 +6,7 @@ import { Routes, Route } from 'react-router';
 
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
+import LoginForm from './pages/login/index.login';
 
 const App = () => {
   useEffect(() => {
@@ -22,6 +23,7 @@ const App = () => {
     <div className="App">
       <Header />
       <Routes>
+        <Route path="/login" element={<LoginForm />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<div>Game</div>} />
         <Route path="/forum" element={<div>Forum</div>} />

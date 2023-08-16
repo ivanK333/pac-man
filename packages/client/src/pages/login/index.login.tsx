@@ -9,6 +9,7 @@ import SubmitButton from '../../components/Button';
 import Link from '../../components/Link';
 import { LoginAPI } from '../../api/AuthAPI';
 import '../../assets/styles/index.scss';
+import styles from './styles.module.css';
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -37,7 +38,7 @@ type FormValues = {
   password: string;
 };
 
-export const LoginForm: React.FC = () => {
+const LoginForm = () => {
   const formMethods = useForm<FormValues>();
   const [error, setError] = useState<string | null>(null);
 
@@ -71,9 +72,9 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <Router>
-      <main className="yellow-bkg">
-        <div className="form-container">
+    <div className={styles.container}>
+      <div className={styles.contentContainer}>
+        <div className={styles.formContainer}>
           <h2>Login</h2>
           {error && <p>{error}</p>}
           <FormProvider {...formMethods}>
@@ -101,7 +102,79 @@ export const LoginForm: React.FC = () => {
             </form>
           </FormProvider>
         </div>
-      </main>
-    </Router>
+      </div>
+    </div>
   );
 };
+export default LoginForm;
+
+// export const LoginForm: React.FC = () => {
+//   const formMethods = useForm<FormValues>();
+//   const [error, setError] = useState<string | null>(null);
+
+//   const onSubmit: SubmitHandler<FormValues> = async (loginData) => {
+//     setError(null);
+
+//     try {
+//       const response = await LoginAPI(loginData);
+//       console.log('====response==>', response);
+//       const { status } = response;
+//       switch (status) {
+//         case 200:
+//           setError('Login successful');
+//           formMethods.reset();
+//           break;
+//         case 400:
+//           setError('User already in the system');
+//           break;
+//         case 401:
+//           setError('Login failed. Please check your credentials');
+//           break;
+//         case 500:
+//           setError('An error occurred while logging in');
+//           break;
+//         default:
+//           setError(`${status}`);
+//       }
+//     } catch (error) {
+//       setError(`An error occurred while logging in. ${error}`);
+//     }
+//   };
+
+//   return (
+//     <Router>
+//       <div className={styles.container}>
+//         <div className={styles.contentContainer}>
+//           <div className={styles.formContainer}>
+//             <h2>Login</h2>
+//             {error && <p>{error}</p>}
+//             <FormProvider {...formMethods}>
+//               <form onSubmit={formMethods.handleSubmit(onSubmit)}>
+//                 <Input
+//                   label="Login"
+//                   type="text"
+//                   name="login"
+//                   placeholder="Enter your login"
+//                   autoFocus={true}
+//                   validation={validation.login}
+//                 />
+//                 <Input
+//                   label="Password"
+//                   type="password"
+//                   name="password"
+//                   placeholder="Enter your password"
+//                   validation={validation.password}
+//                 />
+//                 <SubmitButton label="Login" />
+//                 <p>
+//                   <span>Don&apos;t have an account yet? </span>
+//                   <Link to="/register"> Register</Link>
+//                 </p>
+//               </form>
+//             </FormProvider>
+//           </div>
+//         </div>
+//       </div>
+//     </Router>
+//   );
+// };
