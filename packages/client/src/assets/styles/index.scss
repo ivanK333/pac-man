@@ -1,0 +1,67 @@
+@use 'variables';
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div[id='root'] {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  scroll-behavior: smooth;
+  font-size: 16px;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: variables.$color-palette-black;
+  color: variables.$color-palette-white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  border: none;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  box-shadow: none;
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+}

@@ -1,0 +1,85 @@
+.mainImage {
+  max-height: 100%;
+  max-width: 100%;
+  margin: 16px 0;
+  box-sizing: border-box;
+}
+
+.imageContainer {
+  background: #efefef;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 130px;
+  min-width: 130px;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.hoverText {
+  width: 107px;
+  font-family: 'PressStart2P', sans-serif;
+  font-size: 15px;
+  line-height: 14px;
+  text-align: center;
+  color: var(--main-color);
+  opacity: 0;
+}
+
+.hoverOverlay {
+  background: rgb(0 0 0 / 50%);
+  display: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.defaultImage {
+  position: absolute;
+  width: 68px;
+  height: 78px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.wrapper:hover .defaultImage {
+  opacity: 1;
+  z-index: 1;
+}
+
+.wrapper:hover .image {
+  opacity: 0.5;
+}
+
+.wrapper:hover .hoverText {
+  opacity: 1;
+}
+
+.wrapper:hover .hoverOverlay {
+  display: flex;
+  z-index: 2;
+}
