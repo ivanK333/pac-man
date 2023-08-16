@@ -1,0 +1,30 @@
+@use '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+
+.header {
+  width: 100%;
+  box-sizing: border-box;
+  background:  variables.$color-palette-black;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px 40px;
+  @include mixins.typography-xl;
+}
+
+.list {
+  max-width: 669px;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  gap: 100px;
+}
+
+.link {
+  color: variables.$color-palette-white;
+}
+
+.linkActive {
+  color: variables.$color-palette-yellow;
+}

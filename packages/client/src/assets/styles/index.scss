@@ -1,4 +1,5 @@
 @use 'variables';
+@use 'fonts';
 
 *,
 ::after,
@@ -9,14 +10,25 @@
 html,
 body,
 div[id='root'] {
-  margin: 0;
-  padding: 0;
   border: 0;
   scroll-behavior: smooth;
+  font-family: Quicksand, sans-serif;
   font-size: 16px;
-  font-family: Inter, Arial, Helvetica, sans-serif;
-  height: 100%;
-  width: 100%;
+  font-style: normal;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  max-height: 720px;
+  max-width: 1280px;
+}
+
+#root {
+  height: 100dvh;
+  width: 100dvw;
+  box-sizing: border-box;
 }
 
 body {

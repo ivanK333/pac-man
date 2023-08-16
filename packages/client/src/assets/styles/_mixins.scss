@@ -1,5 +1,4 @@
 @use 'variables';
-@use 'mixins';
 
 @mixin flexbox(
   $align: variables.$default-flexbox-align,
