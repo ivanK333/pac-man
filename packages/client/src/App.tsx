@@ -1,4 +1,11 @@
-import { useEffect } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useEffect } from 'react';
+
+//import './App.css';
+import { Routes, Route } from 'react-router';
+
+import Header from './components/Header/Header';
+import Profile from './components/Profile/Profile';
 
 const App = () => {
   useEffect(() => {
@@ -11,8 +18,17 @@ const App = () => {
 
     fetchServerData();
   }, []);
-
-  return <div>Вот тут будет жить ваше при ложение :)</div>;
+  return (
+    <div className="App">
+      <Header />
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<div>Game</div>} />
+        <Route path="/forum" element={<div>Forum</div>} />
+        <Route path="/lead" element={<div>Leaderboard</div>} />
+      </Routes>
+    </div>
+  );
 };
 
 export default App;
