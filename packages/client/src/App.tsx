@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 
 //import './App.css';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, useRoutes } from 'react-router';
 
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
@@ -19,16 +19,22 @@ const App = () => {
 
     fetchServerData();
   }, []);
+
+  const routes = [
+    { path: '/login', element: <LoginForm />, showHeader: false },
+    // { path: '/register', element: <RegisterForm />, showHeader: false },
+    { path: '/profile', element: <Profile />, showHeader: true },
+    { path: '/', element: <div>Game</div>, showHeader: true },
+    { path: '/forum', element: <div>Forum</div>, showHeader: true },
+    { path: '/lead', element: <div>Leaderboard</div>, showHeader: true },
+  ];
+
+  const routing = useRoutes(routes);
+
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<div>Game</div>} />
-        <Route path="/forum" element={<div>Forum</div>} />
-        <Route path="/lead" element={<div>Leaderboard</div>} />
-      </Routes>
+      {routing?.props.match?.route?.showHeader && <Header />}
+      {routing}
     </div>
   );
 };

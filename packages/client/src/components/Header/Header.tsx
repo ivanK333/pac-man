@@ -9,16 +9,6 @@ const Header = () => {
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive ? styles.linkActive : styles.link
-            }
-          >
-            login
-          </NavLink>
-        </li>
-        <li className={styles.listItem}>
-          <NavLink
             to="/"
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link

@@ -33,6 +33,11 @@ body {
   box-sizing: border-box;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+}
+
 h1,
 h2,
 h3,
