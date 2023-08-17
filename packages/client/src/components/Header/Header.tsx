@@ -1,9 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
-
 import { NavLink } from 'react-router-dom';
 
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 const Header = () => {
   return (
@@ -26,7 +24,7 @@ const Header = () => {
               isActive ? styles.linkActive : styles.link
             }
           >
-            leaderboard
+            Leaderboard
           </NavLink>
         </li>
         <li className={styles.listItemActive}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { BrowserRouter as Router } from 'react-router-dom';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
@@ -7,6 +7,7 @@ import { ValidationEntry } from '../../commonTypes';
 import Input from '../../components/InputWithLabel';
 import SubmitButton from '../../components/Button';
 import Link from '../../components/Link';
+import { LoginAPI } from '../../api/AuthAPI';
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -36,15 +37,45 @@ type FormValues = {
 };
 
 export const LoginForm: React.FC = () => {
-  const methods = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+  const formMethods = useForm<FormValues>();
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit: SubmitHandler<FormValues> = async (loginData) => {
+    setError(null);
+
+    try {
+      const response = await LoginAPI(loginData);
+      console.log('====response==>', response);
+      const { status } = response;
+      switch (status) {
+        case 200:
+          setError('Login successful');
+          formMethods.reset();
+          break;
+        case 400:
+          setError('User already in the system');
+          break;
+        case 401:
+          setError('Login failed. Please check your credentials');
+          break;
+        case 500:
+          setError('An error occurred while logging in');
+          break;
+        default:
+          setError(`${status}`);
+      }
+    } catch (error) {
+      setError(`An error occurred while logging in. ${error}`);
+    }
+  };
 
   return (
     <Router>
       <div className="form-container">
         <h2>Login</h2>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+        {error && <p>{error}</p>}
+        <FormProvider {...formMethods}>
+          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <Input
               label="Login"
               type="text"
@@ -62,7 +93,7 @@ export const LoginForm: React.FC = () => {
             />
             <SubmitButton label="Login" />
             <p>
-              <span>Don`t have an account yet? </span>
+              <span>Don&apos;t have an account yet? </span>
               <Link to="/register"> Register</Link>
             </p>
           </form>
