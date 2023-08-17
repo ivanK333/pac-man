@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import { BrowserRouter as Router } from 'react-router-dom';
 
 import { ValidationEntry } from '../../commonTypes';
 import Input from '../../components/InputWithLabel';

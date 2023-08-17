@@ -1,4 +1,5 @@
 @use 'variables';
+@use 'fonts';
 
 *,
 ::after,
@@ -9,29 +10,27 @@
 html,
 body,
 div[id='root'] {
-  margin: 0;
-  padding: 0;
   border: 0;
   scroll-behavior: smooth;
+  font-family: Quicksand, sans-serif;
   font-size: 16px;
-  font-family: Inter, Arial, Helvetica, sans-serif;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
+  font-style: normal;
+  font-weight: 400;
 }
 
 body {
+  margin: 0;
+  padding: 0;
+  max-height: 720px;
+  max-width: 1280px;
   background-color: variables.$color-palette-black;
   color: variables.$color-palette-white;
 }
 
-div[class='App'] {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+#root {
+  height: 100dvh;
+  width: 100dvw;
+  box-sizing: border-box;
 }
 
 h1,
