@@ -4,13 +4,11 @@ import Avatar from '../Avatar/Avatar';
 const Profile = () => {
   return (
     <div className={styles.container}>
-      <div className={styles.contentContainer}>
-        <div className={styles.avatarContainer}>
-          <Avatar />
-          <p className={styles.username}>Username</p>
-        </div>
-        <div className={styles.formContainer}></div>
+      <div className={styles.avatarContainer}>
+        <Avatar />
+        <p className={styles.username}>Username</p>
       </div>
+      <div className={styles.formContainer}></div>
     </div>
   );
 };

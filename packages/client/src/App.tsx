@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 
 import { Routes, Route } from 'react-router';
 
-import styles from './styles.module.scss';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import Leaderboard from './components/Leaderboard/Leaderboard';
@@ -19,7 +18,7 @@ const App = () => {
     fetchServerData();
   }, []);
   return (
-    <div className={styles.app}>
+    <div className="app">
       <Header />
       <Routes>
         <Route path="/profile" element={<Profile />} />

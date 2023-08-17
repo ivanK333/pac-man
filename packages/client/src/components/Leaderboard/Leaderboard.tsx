@@ -9,11 +9,14 @@ const Leaderboard = () => {
     { image: defaultImage, index: 4, name: 'Test4', score: 6000, id: 4 },
     { image: defaultImage, index: 5, name: 'Test5', score: 5000, id: 5 },
     { image: defaultImage, index: 6, name: 'Test6', score: 4000, id: 6 },
-    { image: defaultImage, index: 7, name: 'Test7', score: 3000, id: 7 },
+    { image: defaultImage, index: 7, name: 'Test7', score: 2000, id: 7 },
+    { image: defaultImage, index: 8, name: 'Test8', score: 1000, id: 8 },
+    { image: defaultImage, index: 9, name: 'Test9', score: 500, id: 9 },
+    { image: defaultImage, index: 10, name: 'Test10', score: 100, id: 10 },
   ];
 
   return (
-    <section className={styles.container}>
+    <div className={styles.container}>
       <ul className={styles.list}>
         {testLeaderboardData.map((i) => (
           <LeaderboardItem
@@ -25,7 +28,7 @@ const Leaderboard = () => {
           />
         ))}
       </ul>
-    </section>
+    </div>
   );
 };
 

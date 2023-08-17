@@ -4,15 +4,17 @@
 .container {
   display: flex;
   align-items: center;
-  max-width: 440px;
   width: 100%;
+  max-height: 70px;
 }
 
 .index {
   @include typography-xxl;
-
+  line-height: normal;
   font-family: $font-Press-start-2p;
   margin: 0 45px 0 0;
+  min-width: 144px;
+  text-align: center;
 }
 
 .score {
@@ -23,6 +25,7 @@
   margin: 0 28px 0 0;
   max-width: 100px;
   width: 100%;
+  min-width: 100px;
 }
 
 .image {
