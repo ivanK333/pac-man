@@ -6,7 +6,7 @@ import { Routes, Route } from 'react-router';
 
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
-import Register from './components/Register/Register';
+import Register from './pages/Register/Register';
 
 const App = () => {
   useEffect(() => {
@@ -20,7 +20,7 @@ const App = () => {
     fetchServerData();
   }, []);
   return (
-    <div className="App">
+    <div className="app">
       {window.location.pathname !== '/register' ? <Header /> : ''}
       <Routes>
         <Route path="/profile" element={<Profile />} />
@@ -28,6 +28,7 @@ const App = () => {
         <Route path="/forum" element={<div>Forum</div>} />
         <Route path="/lead" element={<div>Leaderboard</div>} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<div>Login</div>} />
       </Routes>
     </div>
   );

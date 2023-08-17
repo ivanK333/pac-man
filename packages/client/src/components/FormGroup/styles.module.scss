@@ -1,0 +1,39 @@
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  padding: 50px 30px 28px;
+  width: 340px;
+  height: fit-content;
+  min-height: 450px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+  background-color: variables.$color-palette-black;
+}
+
+.title {
+  margin-bottom: 45px;
+  text-align: center;
+  color: variables.$color-palette-yellow;
+  font-family: 'Press Start 2P', sans-serif;
+
+  @include mixins.typography-l;
+}
+
+.section {
+  @include mixins.typography-xs;
+
+  > p {
+    margin-top: 7px;
+    text-align: center;
+  }
+}
+
+.link {
+  color: variables.$color-palette-yellow;
+  font-weight: 700;
+}
