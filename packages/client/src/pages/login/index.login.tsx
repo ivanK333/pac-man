@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { ValidationEntry } from '../../commonTypes'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import Input from '../../components/InputWithLabel'
-import SubmitButton from '../../components/Button'
-import Link from '../../components/Link'
+import React, { useState } from 'react';
 
-import { LoginAPI } from '../../api/AuthAPI'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+
+import { ValidationEntry } from '../../commonTypes';
+import Input from '../../components/InputWithLabel';
+import SubmitButton from '../../components/Button';
+import Link from '../../components/Link';
+import { LoginAPI } from '../../api/AuthAPI';
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -28,45 +29,45 @@ const validation: Record<string, ValidationEntry> = {
       message: 'At least one uppercase letter and one digit are required',
     },
   },
-}
+};
 
 type FormValues = {
-  login: string
-  password: string
-}
+  login: string;
+  password: string;
+};
 
 export const LoginForm: React.FC = () => {
-  const formMethods = useForm<FormValues>()
-  const [error, setError] = useState<string | null>(null)
+  const formMethods = useForm<FormValues>();
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<FormValues> = async loginData => {
-    setError(null)
+  const onSubmit: SubmitHandler<FormValues> = async (loginData) => {
+    setError(null);
 
     try {
-      const response = await LoginAPI(loginData)
-      console.log('====response==>', response)
-      const { status } = response
+      const response = await LoginAPI(loginData);
+      console.log('====response==>', response);
+      const { status } = response;
       switch (status) {
         case 200:
-          setError('Login successful')
-          formMethods.reset()
-          break
+          setError('Login successful');
+          formMethods.reset();
+          break;
         case 400:
-          setError('User already in the system')
-          break
+          setError('User already in the system');
+          break;
         case 401:
-          setError('Login failed. Please check your credentials')
-          break
+          setError('Login failed. Please check your credentials');
+          break;
         case 500:
-          setError('An error occurred while logging in')
-          break
+          setError('An error occurred while logging in');
+          break;
         default:
-          setError(`${status}`)
+          setError(`${status}`);
       }
     } catch (error) {
-      setError(`An error occurred while logging in. ${error}`)
+      setError(`An error occurred while logging in. ${error}`);
     }
-  }
+  };
 
   return (
     <Router>
@@ -92,12 +93,12 @@ export const LoginForm: React.FC = () => {
             />
             <SubmitButton label="Login" />
             <p>
-              <span>Don't have an account yet? </span>
+              <span>Don&apos;t have an account yet? </span>
               <Link to="/register"> Register</Link>
             </p>
           </form>
         </FormProvider>
       </div>
     </Router>
-  )
-}
+  );
+};
