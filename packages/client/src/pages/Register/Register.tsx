@@ -29,14 +29,14 @@ const Register = () => {
         <Input
           label="Name"
           type="text"
-          name="name"
+          name="first_name"
           placeholder="Ivan"
           autoFocus={true}
         />
         <Input
           label="Surname"
           type="text"
-          name="surname"
+          name="second_name"
           placeholder="Ivanov"
           autoFocus={true}
         />
