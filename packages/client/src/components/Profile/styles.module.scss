@@ -30,6 +30,7 @@
 .username {
   color: $color-palette-red;
   font-family: $font-Press-start-2p;
+
   @include typography-s;
 }
 
