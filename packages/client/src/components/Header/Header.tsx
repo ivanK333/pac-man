@@ -23,7 +23,7 @@ const Header = () => {
               isActive ? styles.linkActive : styles.link
             }
           >
-            Leaderboard
+            leaderboard
           </NavLink>
         </li>
         <li className={styles.listItemActive}>

@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+import defaultImage from '../../../../static/images/default-avatar.svg';
 import styles from './styles.module.scss';
 
 type TLeaderboardItemProps = {
@@ -19,7 +20,14 @@ const LeaderboardItem: FC<TLeaderboardItemProps> = ({
     <li className={styles.container}>
       <h2 className={styles.index}>{index}</h2>
       <p className={styles.score}>{score}</p>
-      <img className={styles.image} src={image} alt="avatar" />
+      <div className={styles.imageContainer}>
+        {image === defaultImage ? (
+          <img className={styles.imageDefault} src={image} alt="avatar" />
+        ) : (
+          <img className={styles.image} src={image} alt="avatar" />
+        )}
+      </div>
+
       <p className={styles.name}>{name}</p>
     </li>
   );
