@@ -1,26 +1,34 @@
-import { useEffect } from 'react'
-import { LoginForm } from './pages/login/index.login'
-import './App.css'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useEffect } from 'react';
 
-const SERVER_PORT = __SERVER_PORT__ || 3001
-console.log('__SERVER_PORT__', __SERVER_PORT__)
+//import './App.css';
+import { Routes, Route } from 'react-router';
 
-function App() {
+import Header from './components/Header/Header';
+import Profile from './components/Profile/Profile';
+
+const App = () => {
   useEffect(() => {
     const fetchServerData = async () => {
-      const url = `http://localhost:${SERVER_PORT}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
+      const url = `http://localhost:${__SERVER_PORT__}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    };
 
-    fetchServerData()
-  }, [])
+    fetchServerData();
+  }, []);
   return (
     <div className="App">
-      <LoginForm />
+      <Header />
+      <Routes>
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/" element={<div>Game</div>} />
+        <Route path="/forum" element={<div>Forum</div>} />
+        <Route path="/lead" element={<div>Leaderboard</div>} />
+      </Routes>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
