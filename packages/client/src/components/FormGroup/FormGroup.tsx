@@ -1,10 +1,12 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 
+import spriteSvg from '../../assets/images/blueSprite.png';
 import Input from '../InputWithLabel/InputWithLabel';
 import SubmitButton from '../Button/Button';
 import { ValidationEntry } from '../../commonTypes';
 import styles from './styles.module.scss';
+import Sprite from '../FormSprite/FormSprite';
 
 type FormValues = {
   login: string;
@@ -59,6 +61,7 @@ const FormGroup = () => {
         </form>
       </FormProvider>
       <section className={styles.section}>
+        <Sprite spriteImg={spriteSvg} />
         <SubmitButton label="Login" />
         <p>
           Don`t have an account yet?
