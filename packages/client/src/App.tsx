@@ -1,5 +1,7 @@
-import { useEffect } from 'react';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import React, { useEffect } from 'react';
 
+//import './App.css';
 import { Routes, Route } from 'react-router';
 
 import Header from './components/Header/Header';
