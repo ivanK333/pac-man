@@ -1,10 +1,12 @@
-import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
-import { ValidationEntry } from '../../commonTypes'
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form'
-import Input from '../../components/InputWithLabel'
-import SubmitButton from '../../components/Button'
-import Link from '../../components/Link'
+import React from 'react';
+
+import { BrowserRouter as Router } from 'react-router-dom';
+import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+
+import { ValidationEntry } from '../../commonTypes';
+import Input from '../../components/InputWithLabel';
+import SubmitButton from '../../components/Button';
+import Link from '../../components/Link';
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -26,16 +28,16 @@ const validation: Record<string, ValidationEntry> = {
       message: 'At least one uppercase letter and one digit are required',
     },
   },
-}
+};
 
 type FormValues = {
-  login: string
-  password: string
-}
+  login: string;
+  password: string;
+};
 
 export const LoginForm: React.FC = () => {
-  const methods = useForm<FormValues>()
-  const onSubmit: SubmitHandler<FormValues> = data => console.log(data)
+  const methods = useForm<FormValues>();
+  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
 
   return (
     <Router>
@@ -60,12 +62,12 @@ export const LoginForm: React.FC = () => {
             />
             <SubmitButton label="Login" />
             <p>
-              <span>Don't have an account yet? </span>
+              <span>Don`t have an account yet? </span>
               <Link to="/register"> Register</Link>
             </p>
           </form>
         </FormProvider>
       </div>
     </Router>
-  )
-}
+  );
+};

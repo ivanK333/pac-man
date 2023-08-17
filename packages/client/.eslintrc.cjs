@@ -12,10 +12,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
-    'import/no-extraneous-dependencies': 'off',
     '@typescript-eslint/dot-notation': 'off',
-    'import/prefer-default-export': 'off',
-    'import/no-cycle': 'off',
     'react/prop-types': 'off',
     '@typescript-eslint/no-shadow': 'off',
     'no-underscore-dangle': 'off',
@@ -24,20 +21,17 @@ module.exports = {
     '@typescript-eslint/no-implied-eval': 0,
     '@typescript-eslint/no-throw-literal': 0,
     '@typescript-eslint/return-await': 0,
-    'max-len': ['error', { code: 125 }],
+    'max-len': ['error', { code: 200 }],
     'class-methods-use-this': 0,
-    'no-restricted-syntax': 'off',
-    'no-constructor-return': 'off',
-    'no-param-reassign': 'off',
-    'no-continue': 'off',
-    'no-prototype-builtins': 'off',
     '@typescript-eslint/no-unused-expressions': 0,
-    'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     'react/function-component-definition': [
       2,
       { namedComponents: 'arrow-function' },
     ],
+
+    'import/no-unresolved': 'error',
+    'import/prefer-default-export': 'off',
     'import/order': [
       'error',
       {
@@ -53,9 +47,22 @@ module.exports = {
         'newlines-between': 'always',
       },
     ],
+
     'react/jsx-uses-react': 0,
     'react/react-in-jsx-scope': 0,
+
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-explicit-any': 0,
     'react/display-name': 1,
+    '@typescript-eslint/no-empty-function': 1,
+    '@typescript-eslint/ban-types': 1,
+    '@typescript-eslint/no-unused-vars': [
+      1,
+      {
+        ignoreRestSiblings: true,
+      },
+    ],
+    'no-unsafe-optional-chaining': 1,
   },
   settings: {
     react: {

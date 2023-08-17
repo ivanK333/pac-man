@@ -1,6 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React from 'react';
-
 import styles from './styles.module.css';
 import defaultAvatar from '../../../static/images/default-avatar.svg';
 
