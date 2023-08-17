@@ -1,0 +1,25 @@
+@use '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+
+.inputWithLabel {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 10;
+  margin-top: 10px;
+  label {
+    @include mixins.typography-m;
+  }
+
+  input {
+    background-color: variables.$color-palette-black;
+    border: none;
+    border-bottom: 2px solid variables.$color-palette-yellow;
+    color:variables.$color-palette-white; 
+    padding: 5px;
+    margin: 5px 0;
+  }
+  p {
+    color: variables.$color-palette-red;
+  }
+}

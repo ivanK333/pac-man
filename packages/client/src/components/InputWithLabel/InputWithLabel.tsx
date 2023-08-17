@@ -2,7 +2,9 @@ import React from 'react';
 
 import { useFormContext } from 'react-hook-form';
 
-import { ValidationEntry } from '../commonTypes';
+import { ValidationEntry } from '../../commonTypes';
+import styles from './styles.module.scss';
+
 export interface InputProps {
   label: string;
   name: string;
@@ -34,7 +36,7 @@ const InputWithLabel: React.FC<InputProps> = ({
   } = useFormContext();
 
   return (
-    <>
+    <div className={styles.inputWithLabel}>
       <label htmlFor={name}>{label}:</label>
       <input
         id={id}
@@ -47,7 +49,7 @@ const InputWithLabel: React.FC<InputProps> = ({
         {...rest}
       />
       {errors[name] && <p>{errors[name]?.message as string}</p>}
-    </>
+    </div>
   );
 };
 

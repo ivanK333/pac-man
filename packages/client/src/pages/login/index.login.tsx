@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 
-import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
+import { useForm, SubmitHandler, UseFormReturn } from 'react-hook-form';
 
 import { ValidationEntry } from '../../commonTypes';
-import Input from '../../components/InputWithLabel';
+import { LoginAPI } from '../../api/AuthAPI';
+import Form from '../../components/Form/Form';
+import Input from '../../components/InputWithLabel/InputWithLabel';
+import Sprite from '../../components/FormSprite/FormSprite';
+import spriteSvg from '../../assets/images/blueSprite.svg';
 import SubmitButton from '../../components/Button';
 import Link from '../../components/Link';
-import { LoginAPI } from '../../api/AuthAPI';
-import '../../assets/styles/index.scss';
 import styles from './styles.module.scss';
 
 const validation: Record<string, ValidationEntry> = {
@@ -38,10 +40,10 @@ type FormValues = {
 };
 
 const LoginForm = () => {
-  const formMethods = useForm<FormValues>();
+  const formMethods = useForm();
   const [error, setError] = useState<string | null>(null);
 
-  const onSubmit: SubmitHandler<FormValues> = async (loginData) => {
+  const submit: SubmitHandler<FormValues> = async (loginData) => {
     setError(null);
 
     try {
@@ -73,34 +75,31 @@ const LoginForm = () => {
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
-        <div className={styles.formContainer}>
+        <Form onSubmit={submit} formMethods={formMethods}>
           <h2>Login</h2>
           {error && <p>{error}</p>}
-          <FormProvider {...formMethods}>
-            <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-              <Input
-                label="Login"
-                type="text"
-                name="login"
-                placeholder="Enter your login"
-                autoFocus={true}
-                validation={validation.login}
-              />
-              <Input
-                label="Password"
-                type="password"
-                name="password"
-                placeholder="Enter your password"
-                validation={validation.password}
-              />
-              <SubmitButton label="Login" />
-              <p>
-                <span>Don&apos;t have an account yet? </span>
-                <Link to="/register"> Register</Link>
-              </p>
-            </form>
-          </FormProvider>
-        </div>
+          <Input
+            label="Login"
+            type="text"
+            name="login"
+            placeholder="Enter your login"
+            autoFocus={true}
+            validation={validation.login}
+          />
+          <Input
+            label="Password"
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            validation={validation.password}
+          />
+          <Sprite spriteImg={spriteSvg} />
+          <SubmitButton label="Login" />
+          <p>
+            <span>Don&apos;t have an account yet? </span>
+            <Link to="/register"> Register</Link>
+          </p>
+        </Form>
       </div>
     </div>
   );

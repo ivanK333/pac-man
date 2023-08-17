@@ -46,3 +46,32 @@
   font-size: 72px;
   line-height: 76px;
 }
+
+/**
+  Form sprite animation
+ */
+ @mixin slideAnimation($duration: 5s) {
+  animation: slideAnimation $duration linear forwards;
+}
+
+@keyframes slideAnimation {
+
+    0% {
+      transform: translateX(-100%) translateY(0);
+    }
+    20% {
+      transform: translateX(-80%) translateY(-10px);
+    }
+    40% {
+      transform: translateX(-60%) translateY(10px);
+    }
+    60% {
+      transform: translateX(-40%) translateY(0);
+    }
+    80% {
+      transform: translateX(-20%) translateY(-10px);
+    }
+    100% {
+      transform: translateX(0) translateY(0);
+    }
+}
