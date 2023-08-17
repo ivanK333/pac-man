@@ -1,0 +1,38 @@
+@import '../../../assets/styles/mixins';
+@import '../../../assets/styles/variables';
+
+.container{
+  display: flex;
+  align-items: center;
+  max-width: 440px;
+  width: 100%;
+}
+
+.index {
+  @include typography-xxl;
+  font-family: $font-Press-start-2p;
+  margin: 0 45px 0 0;
+}
+
+.score {
+  @include typography-xl;
+  font-family: $font-Press-start-2p;
+  color: $color-palette-yellow;
+  margin: 0 28px 0 0;
+  max-width: 100px;
+  width: 100%;
+}
+
+.image {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: 0 40px 0 0;
+  object-fit: cover;
+}
+
+.name {
+  @include typography-xl;
+  color: $color-palette-red;
+  font-family: $font-Quicksand;
+}
