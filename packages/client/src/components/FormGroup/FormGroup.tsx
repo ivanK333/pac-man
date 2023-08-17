@@ -61,7 +61,7 @@ const FormGroup = () => {
       <section className={styles.section}>
         <SubmitButton label="Login" />
         <p>
-          Don`t have an account yet?{' '}
+          Don`t have an account yet?
           <Link className={styles.link} to="/register">
             Register
           </Link>
