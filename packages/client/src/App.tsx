@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router';
 import styles from './styles.module.scss';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
+import Leaderboard from './components/Leaderboard/Leaderboard';
 
 const App = () => {
   useEffect(() => {
@@ -24,7 +25,7 @@ const App = () => {
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<div>Game</div>} />
         <Route path="/forum" element={<div>Forum</div>} />
-        <Route path="/lead" element={<div>Leaderboard</div>} />
+        <Route path="/lead" element={<Leaderboard />} />
       </Routes>
     </div>
   );
