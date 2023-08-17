@@ -40,7 +40,6 @@ type FormValues = {
 };
 
 const LoginForm = () => {
-  const formMethods = useForm();
   const [error, setError] = useState<string | null>(null);
 
   const submit: SubmitHandler<FormValues> = async (loginData) => {
@@ -75,7 +74,7 @@ const LoginForm = () => {
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
-        <Form onSubmit={submit} formMethods={formMethods}>
+        <Form onSubmit={submit}>
           <h2>Login</h2>
           {error && <p>{error}</p>}
           <Input

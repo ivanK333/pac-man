@@ -4,17 +4,13 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
 
-type LoginFormContainerProps = {
-  formMethods: ReturnType<typeof useForm>;
+type FormProps = {
   onSubmit: SubmitHandler<any>;
   children: ReactNode;
 };
 
-const LoginFormContainer: React.FC<LoginFormContainerProps> = ({
-  formMethods,
-  onSubmit,
-  children,
-}) => {
+const LoginFormContainer: React.FC<FormProps> = ({ onSubmit, children }) => {
+  const formMethods = useForm();
   return (
     <div className={styles.formContainer}>
       <FormProvider {...formMethods}>
