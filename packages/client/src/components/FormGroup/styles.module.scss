@@ -4,7 +4,6 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   margin: auto;
   padding: 50px 30px 28px;
   width: 340px;
@@ -24,7 +23,13 @@
   @include mixins.typography-l;
 }
 
+.form {
+  flex: 1 0 auto;
+}
+
 .section {
+  flex: 0 0 auto;
+
   @include mixins.typography-xs;
 
   > p {
