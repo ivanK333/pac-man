@@ -62,6 +62,7 @@ const FormGroup = () => {
         <SubmitButton label="Login" />
         <p>
           Don`t have an account yet?
+          <span>&nbsp;</span>
           <Link className={styles.link} to="/register">
             Register
           </Link>
