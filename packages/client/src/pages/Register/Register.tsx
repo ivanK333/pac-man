@@ -10,7 +10,8 @@ const Register = () => {
         title="Register"
         spriteImg={spriteSvg}
         bottomText="Already have an account?"
-        link="Login"
+        linkName="Login"
+        link="/login"
       >
         <Input
           label="Email"

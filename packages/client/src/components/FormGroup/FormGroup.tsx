@@ -15,6 +15,7 @@ interface FormGroupProps {
   spriteImg: string;
   bottomText: string;
   link: string;
+  linkName: string;
   children: React.ReactNode | React.ReactNode[];
 }
 
@@ -35,8 +36,8 @@ const FormGroup = (props: FormGroupProps) => {
         <p>
           {props.bottomText}
           <span>&nbsp;</span>
-          <Link className={styles.link} to="/register">
-            {props.link}
+          <Link className={styles.link} to={props.link}>
+            {props.linkName}
           </Link>
         </p>
       </section>
