@@ -18,7 +18,7 @@ const Sprite: React.FC<SpriteProps> = (props) => {
   return (
     <div className={spriteContainerClass}>
       <div className={styles.spriteMover}>
-        <img src={props.spriteImg} alt="Blue Sprite" />
+        <img src={props.spriteImg} alt="Sprite" />
       </div>
     </div>
   );
