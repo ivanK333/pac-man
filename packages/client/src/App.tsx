@@ -4,7 +4,7 @@ import { useRoutes } from 'react-router';
 
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
-import LoginForm from './pages/login/Login';
+import Login from './pages/login/Login';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 import Register from './pages/Register/Register';
 
@@ -21,7 +21,7 @@ const App = () => {
   }, []);
 
   const routes = [
-    { path: '/login', element: <LoginForm />, showHeader: false },
+    { path: '/login', element: <Login />, showHeader: false },
     { path: '/register', element: <Register />, showHeader: false },
     { path: '/profile', element: <Profile />, showHeader: true },
     { path: '/', element: <div>Game</div>, showHeader: true },
