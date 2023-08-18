@@ -58,7 +58,7 @@ module.exports = {
     'react/display-name': 1,
     /** adding this line as getting error:
      * Casing of ./styles.module.scss does not match the underlying filesystem  import/no-unresolved */
-    'import/no-unresolved': [2, { caseSensitive: false }],
+    // 'import/no-unresolved': [2, { caseSensitive: false }],
   },
   settings: {
     react: {
