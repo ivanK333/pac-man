@@ -1,25 +1,87 @@
-@use '../../assets/styles/variables';
 @use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
-.inputWithLabel {
+.group {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  padding: 0 10;
-  margin-top: 10px;
-  label {
-    @include mixins.typography-m;
+  margin-bottom: 20px;
+  height: 64px;
+
+  @include mixins.typography-xs;
+}
+
+.label {
+  margin-bottom: 15px;
+  font-weight: 700;
+  line-height: 9px;
+}
+
+.input {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: variables.$color-palette-white;
+    box-shadow: 0 2px 4px 0 variables.$color-palette-yellow;
   }
 
-  input {
-    background-color: variables.$color-palette-black;
+  > input {
+    padding-left: 10px;
+    padding-bottom: 5px;
+    width: 100%;
     border: none;
-    border-bottom: 2px solid variables.$color-palette-yellow;
-    color:variables.$color-palette-white; 
-    padding: 5px;
-    margin: 5px 0;
+    font-weight: 300;
+    background: none;
+    color: variables.$color-palette-white;
+    font-family: 'Press Start 2P', sans-serif;
+
+    @include mixins.typography-xs;
+
+    &::placeholder {
+      background: none;
+      font-family: Quicksand, sans-serif;
+      font-weight: 300;
+    }
   }
-  p {
+
+  input:-webkit-autofill {
+    -webkit-text-fill-color: variables.$color-palette-white;
+    box-shadow: 0 0 0 40px black inset;
+    font-family: 'Press Start 2P', sans-serif !important;
+  }
+}
+
+.error {
+  display: flex;
+  justify-content: end;
+  margin-top: 3px;
+
+  > p {
+    position: relative;
+
+    @include mixins.typography-xxs;
+
+    line-height: 20px;
     color: variables.$color-palette-red;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -29px;
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/images/red_ghost.png');
+      background-repeat: no-repeat;
+    }
   }
+}
+
+.errorInput {
+  color: variables.$color-palette-red !important;
 }

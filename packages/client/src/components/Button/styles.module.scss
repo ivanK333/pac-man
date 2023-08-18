@@ -1,0 +1,12 @@
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
+
+.bigBTN{
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 50px;
+  background: variables.$color-palette-yellow;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 18px;
+}
