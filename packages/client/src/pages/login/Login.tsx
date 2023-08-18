@@ -96,7 +96,7 @@ const LoginForm = () => {
             <Sprite spriteImg={spriteSvg} flavor={flavor} />
             <SubmitButton label="Login" flavor={flavor} />
             <FormLink
-              text="Don't have an account yet?"
+              text="Don&rsquo;t have an account yet?"
               linkText=" Register"
               to="/register"
               flavor={flavor}
