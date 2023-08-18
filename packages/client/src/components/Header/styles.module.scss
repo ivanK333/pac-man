@@ -4,12 +4,12 @@
 .header {
   width: 100%;
   box-sizing: border-box;
-  background:  $color-palette-black;
+  background: $color-palette-black;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 20px 40px;
-  
+
   @include typography-xl;
 }
 

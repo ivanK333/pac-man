@@ -1,0 +1,34 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.container {
+  display: flex;
+
+  background: url('../../../static/images/pacman-background.svg') no-repeat;
+  background-size: contain;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+
+.avatarContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.username {
+  color: $color-palette-red;
+  font-family: $font-Press-start-2p;
+
+  @include typography-s;
+}
+
+.formContainer {
+  min-width: 280px;
+  min-height: 364px;
+  margin: 0 220px 0 105px;
+}
