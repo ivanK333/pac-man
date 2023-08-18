@@ -4,7 +4,7 @@ import { useRoutes } from 'react-router';
 
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
-import Login from './pages/login/Login';
+import Login from './pages/Login/Login';
 import Leaderboard from './components/Leaderboard/Leaderboard';
 import Register from './pages/Register/Register';
 
