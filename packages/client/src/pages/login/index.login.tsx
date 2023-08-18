@@ -76,7 +76,7 @@ const LoginForm = () => {
       <div className={styles.contentContainer}>
         <Form onSubmit={submit}>
           <h2>Login</h2>
-          {error && <p>{error}</p>}
+          {error && <p className={styles.submitError}>{error}</p>}
           <Input
             label="Login"
             type="text"

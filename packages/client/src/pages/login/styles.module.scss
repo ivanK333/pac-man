@@ -14,3 +14,11 @@
   align-items: center;
   background-color: variables.$color-palette-yellow;
 }
+
+.submitError {
+  // font-family: 'Press Start 2P', sans-serif;
+  margin-bottom: 30px;
+  color: variables.$color-palette-red;
+
+  @include mixins.typography-s;
+}

@@ -56,6 +56,9 @@ module.exports = {
     'react/jsx-uses-react': 0,
     'react/react-in-jsx-scope': 0,
     'react/display-name': 1,
+    /** adding this line as getting error:
+     * Casing of ./styles.module.scss does not match the underlying filesystem  import/no-unresolved */
+    'import/no-unresolved': [2, { caseSensitive: false }],
   },
   settings: {
     react: {
