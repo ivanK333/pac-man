@@ -1,46 +1,28 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
 
-import SubmitButton from '../Button/Button';
 import styles from './styles.module.scss';
-import Sprite from '../FormSprite/FormSprite';
 
-type FormValues = {
-  login: string;
-  password: string;
-};
-
-interface FormGroupProps {
-  title: string;
-  spriteImg: string;
-  bottomText: string;
-  link: string;
-  linkName: string;
-  children: React.ReactNode | React.ReactNode[];
+export interface FormGroupProps {
+  formMethods: ReturnType<typeof useForm>;
+  onSubmit: SubmitHandler<any>;
+  children: React.ReactNode;
 }
 
-const FormGroup = (props: FormGroupProps) => {
-  const methods = useForm<FormValues>();
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(data);
+const FormGroup: React.FC<FormGroupProps> = ({
+  formMethods,
+  onSubmit,
+  children,
+}) => {
   return (
     <article className={styles.formContainer}>
-      <h2 className={styles.title}>{props.title}</h2>
-      <FormProvider {...methods}>
-        <form className={styles.form} onSubmit={methods.handleSubmit(onSubmit)}>
-          {props.children}
+      <FormProvider {...formMethods}>
+        <form
+          className={styles.form}
+          onSubmit={formMethods.handleSubmit(onSubmit)}
+        >
+          {children}
         </form>
       </FormProvider>
-      <section className={styles.section}>
-        <Sprite spriteImg={props.spriteImg} />
-        <SubmitButton label={props.title} />
-        <p>
-          {props.bottomText}
-          <span>&nbsp;</span>
-          <Link className={styles.link} to={props.link}>
-            {props.linkName}
-          </Link>
-        </p>
-      </section>
     </article>
   );
 };

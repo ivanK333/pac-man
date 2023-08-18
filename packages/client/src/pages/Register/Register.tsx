@@ -1,8 +1,11 @@
+import { useForm } from 'react-hook-form';
+
 import styles from './styles.module.scss';
 import FormGroup from '../../components/FormGroup/FormGroup';
 import spriteSvg from '../../assets/images/purple_ghost.png';
 import Input from '../../components/InputWithLabel/InputWithLabel';
 import { ValidationEntry } from '../../commonTypes';
+import FormButton from '../../components/FormButton/FormButton';
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -27,15 +30,16 @@ const validation: Record<string, ValidationEntry> = {
 };
 
 const Register = () => {
+  const formMethods = useForm();
+
+  const submit = () => {
+    console.log('заглушка для формы');
+  };
+
   return (
     <div className={styles.registerPage}>
-      <FormGroup
-        title="Register"
-        spriteImg={spriteSvg}
-        bottomText="Already have an account?"
-        linkName="Login"
-        link="/login"
-      >
+      <FormGroup onSubmit={submit} formMethods={formMethods}>
+        <h2 className={styles.title}>Register</h2>
         <Input
           label="Email"
           type="email"
@@ -84,6 +88,13 @@ const Register = () => {
           type="password"
           name="password"
           placeholder="Repeat password"
+        />
+        <FormButton
+          title="Register"
+          spriteImg={spriteSvg}
+          bottomText="Already have an account?"
+          linkName="Login"
+          link="/login"
         />
       </FormGroup>
     </div>

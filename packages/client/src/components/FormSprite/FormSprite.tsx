@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 
 interface SpriteProps {
-  spriteImg: string;
+  spriteImg?: string;
 }
 
 const Sprite: React.FC<SpriteProps> = (props) => {
