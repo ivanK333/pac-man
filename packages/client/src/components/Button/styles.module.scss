@@ -1,7 +1,8 @@
 @use '../../assets/styles/mixins';
 @use '../../assets/styles/variables';
 
-.bigBTN{
+/** common styles */
+.bigBTN {
   width: 100%;
   height: 50px;
   border: none;
@@ -10,3 +11,13 @@
   font-family: 'Press Start 2P', sans-serif;
   font-size: 18px;
 }
+/** flavor specific styles */
+/** style login link */
+// .login {
+//   border: red;
+// }
+
+/**  style register link */
+// .register {
+//   border: green;
+// }

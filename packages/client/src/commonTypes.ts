@@ -7,3 +7,5 @@ export type ValidationEntry = {
     message: string;
   };
 };
+
+export type FormFlavor = 'login' | 'register';

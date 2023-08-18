@@ -1,22 +1,30 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  FieldValues,
+} from 'react-hook-form';
 
 import styles from './styles.module.scss';
 
-type FormProps = {
-  onSubmit: SubmitHandler<any>;
+type FormProps<T extends FieldValues> = {
+  onSubmit: SubmitHandler<T>;
   children: ReactNode;
 };
 
-const LoginFormContainer: React.FC<FormProps> = ({ onSubmit, children }) => {
-  const formMethods = useForm();
+const LoginFormContainer = <T extends Record<string, string>>({
+  onSubmit,
+  children,
+}: FormProps<T>) => {
+  const formMethods = useForm<T>();
   return (
-    <div className={styles.formContainer}>
+    <article className={styles.formContainer}>
       <FormProvider {...formMethods}>
         <form onSubmit={formMethods.handleSubmit(onSubmit)}>{children}</form>
       </FormProvider>
-    </div>
+    </article>
   );
 };
 

@@ -1,4 +1,7 @@
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
+import { FormFlavor } from '../../commonTypes';
 
 interface ButtonProps {
   label: string;
@@ -6,13 +9,19 @@ interface ButtonProps {
   id?: string;
   disabled?: boolean;
   onClick?: () => void;
+  flavor?: FormFlavor;
 }
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button = (props: ButtonProps) => {
   const { label, type, id, disabled, onClick, ...rest } = props;
+  const buttonClass = classNames(
+    styles.bigBTN,
+    { [styles.login]: props.flavor === 'login' },
+    { [styles.register]: props.flavor === 'register' },
+  );
   return (
     <button
-      className={styles.bigBTN}
+      className={buttonClass}
       type={type}
       disabled={disabled ? disabled : false}
       id={id}
