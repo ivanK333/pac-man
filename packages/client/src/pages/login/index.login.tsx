@@ -7,10 +7,10 @@ import { LoginAPI } from '../../api/AuthAPI';
 import Form from '../../components/Form/Form';
 import Input from '../../components/InputWithLabel/InputWithLabel';
 import Sprite from '../../components/FormSprite/FormSprite';
-import spriteSvg from '../../assets/images/blueSprite.svg';
 import SubmitButton from '../../components/Button/Button';
-// import Link from '../../components/Link';
-// import styles from './styles.module.scss';
+import FormLink from '../../components/FormLink/FormLink';
+import spriteSvg from '../../assets/images/blueSprite.svg';
+import styles from './styles.module.scss';
 
 const validation: Record<string, ValidationEntry> = {
   login: {
@@ -72,10 +72,8 @@ const LoginForm = () => {
   const flavor = 'login';
 
   return (
-    // <div className={styles.container}>
-    //   <div className={styles.contentContainer}>
-    <div>
-      <div>
+    <div className={styles.container}>
+      <div className={styles.contentContainer}>
         <Form onSubmit={submit}>
           <h2>Login</h2>
           {error && <p>{error}</p>}
@@ -94,16 +92,15 @@ const LoginForm = () => {
             placeholder="Enter your password"
             validation={validation.password}
           />
-          {/* <section className={styles.section}> */}
-          <section>
+          <section className={styles.section}>
             <Sprite spriteImg={spriteSvg} flavor={flavor} />
             <SubmitButton label="Login" flavor={flavor} />
-            {/* <FormLink
+            <FormLink
               text="Don't have an account yet?"
               linkText=" Register"
               to="/register"
               flavor={flavor}
-            /> */}
+            />
           </section>
         </Form>
       </div>
