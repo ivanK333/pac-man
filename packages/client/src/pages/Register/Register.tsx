@@ -52,29 +52,20 @@ const Register = () => {
           type="login"
           name="login"
           placeholder="ivanivanov"
-          autoFocus={true}
           validation={validation.login}
         />
-        <Input
-          label="Name"
-          type="text"
-          name="first_name"
-          placeholder="Ivan"
-          autoFocus={true}
-        />
+        <Input label="Name" type="text" name="first_name" placeholder="Ivan" />
         <Input
           label="Surname"
           type="text"
           name="second_name"
           placeholder="Ivanov"
-          autoFocus={true}
         />
         <Input
           label="Phone"
           type="phone"
           name="phone"
           placeholder="+79098087766"
-          autoFocus={true}
         />
         <Input
           label="Password"
