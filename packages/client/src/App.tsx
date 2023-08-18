@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router';
 import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import Register from './pages/Register/Register';
+import Leaderboard from './components/Leaderboard/Leaderboard';
 
 const App = () => {
   useEffect(() => {
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/lead" element={<div>Leaderboard</div>} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<div>Login</div>} />
+
       </Routes>
     </div>
   );
