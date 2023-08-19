@@ -1,4 +1,3 @@
-@use '../../assets/styles/mixins';
 @use '../../assets/styles/variables';
 
 .formContainer {
@@ -14,31 +13,6 @@
   background-color: variables.$color-palette-black;
 }
 
-.title {
-  margin-bottom: 45px;
-  text-align: center;
-  color: variables.$color-palette-yellow;
-  font-family: 'Press Start 2P', sans-serif;
-
-  @include mixins.typography-l;
-}
-
 .form {
   flex: 1 0 auto;
-}
-
-.section {
-  flex: 0 0 auto;
-
-  @include mixins.typography-xs;
-
-  > p {
-    margin-top: 7px;
-    text-align: center;
-  }
-}
-
-.link {
-  color: variables.$color-palette-yellow;
-  font-weight: 700;
 }
