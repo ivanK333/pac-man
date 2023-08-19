@@ -13,7 +13,7 @@
   Text mixins
  */
 @mixin typography-xxs {
-  font-size: 8px;
+  font-size: 9px;
   line-height: 10px;
 }
 
@@ -45,4 +45,37 @@
 @mixin typography-xxl {
   font-size: 72px;
   line-height: 76px;
+}
+
+/**
+  Form sprite animation
+ */
+@mixin slide-animation($duration: 5s) {
+  animation: slide-animation $duration linear forwards;
+}
+
+@keyframes slide-animation {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+
+  20% {
+    transform: translateX(-80%) translateY(-10px);
+  }
+
+  40% {
+    transform: translateX(-60%) translateY(10px);
+  }
+
+  60% {
+    transform: translateX(-40%) translateY(0);
+  }
+
+  80% {
+    transform: translateX(-20%) translateY(-10px);
+  }
+
+  100% {
+    transform: translateX(0) translateY(0);
+  }
 }
