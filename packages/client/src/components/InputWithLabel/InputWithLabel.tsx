@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
-import { ValidationEntry } from '../../commonTypes';
+import { ValidationEntry } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
 
 export interface InputProps {

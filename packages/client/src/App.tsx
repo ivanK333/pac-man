@@ -20,6 +20,7 @@ const App = () => {
 
     fetchServerData();
   }, []);
+
   return (
     <div className="app">
       <Routes>

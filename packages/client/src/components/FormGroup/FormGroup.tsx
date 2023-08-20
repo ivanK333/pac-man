@@ -1,18 +1,24 @@
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { ReactNode } from 'react';
+
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  FieldValues,
+} from 'react-hook-form';
 
 import styles from './styles.module.scss';
 
-export interface FormGroupProps {
-  formMethods: ReturnType<typeof useForm>;
-  onSubmit: SubmitHandler<any>;
-  children: React.ReactNode;
-}
+export type FormGroupProps<T extends FieldValues> = {
+  onSubmit: SubmitHandler<T>;
+  children: ReactNode;
+};
 
-const FormGroup: React.FC<FormGroupProps> = ({
-  formMethods,
+const FormGroup = <T extends Record<string, string>>({
   onSubmit,
   children,
-}) => {
+}: FormGroupProps<T>) => {
+  const formMethods = useForm<T>();
   return (
     <article className={styles.formContainer}>
       <FormProvider {...formMethods}>
