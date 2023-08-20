@@ -4,7 +4,7 @@ export type AuthResponse = {
   success: boolean;
   user?: User | null;
   users?: User[] | null;
-  error: unknown | null | string;
+  error?: unknown | null | string;
   reason?: string;
 };
 export interface SigninData {

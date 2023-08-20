@@ -10,6 +10,7 @@ import { ROUTES } from './constants/routes';
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // временно выключил неиспользуемый запрос к серверу, у меня на него ошибка в консоли
   // useEffect(() => {
   //   const fetchServerData = async () => {
   //     const url = `http://localhost:${__SERVER_PORT__}`;

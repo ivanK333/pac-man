@@ -2,7 +2,6 @@ import { AuthAPI, SigninData, AuthResponse } from '../api/AuthAPI';
 
 const userError = (error: unknown) => ({
   success: false,
-  user: null,
   error,
 });
 
@@ -22,11 +21,7 @@ class AuthController {
       localStorage.setItem('isAuthenticated', 'false');
       return await this.fetchUser();
     } catch (error: unknown) {
-      return {
-        success: false,
-        user: null,
-        error,
-      };
+      return userError(error);
     }
   }
 
@@ -38,7 +33,6 @@ class AuthController {
       return {
         success: true,
         user,
-        error: null,
       };
     } catch (error: unknown) {
       return userError(error);
@@ -53,11 +47,7 @@ class AuthController {
       localStorage.setItem('isAuthenticated', 'false');
       return await this.fetchUser();
     } catch (error: unknown) {
-      return {
-        success: false,
-        user: null,
-        error,
-      };
+      return userError(error);
     }
   }
 
@@ -68,14 +58,9 @@ class AuthController {
   //     return {
   //       success: true,
   //       user: user.user,
-  //       error: null,
   //     };
   //   } catch (error: unknown) {
-  //     return {
-  //       success: false,
-  //       user: null,
-  //       error,
-  //     };
+  //     return userError(error);
   //   }
   // }
 }
