@@ -67,6 +67,7 @@ export const validation: Record<string, ValidationEntry> = {
     },
   },
   display_name: {
+    required: 'Display name is required',
     minLength: minVal(3),
     maxLength: maxVal(20),
     pattern: {

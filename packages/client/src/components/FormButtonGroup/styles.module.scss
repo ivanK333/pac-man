@@ -2,9 +2,9 @@
 @use '../../assets/styles/variables';
 
 .section {
-  flex: 0 0 auto;
-
   @include mixins.typography-xs;
+
+  flex: 0 0 auto;
 
   > p {
     margin-top: 7px;

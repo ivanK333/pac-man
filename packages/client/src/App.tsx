@@ -22,7 +22,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="app">
+    <div className="App">
       <Routes>
         <Route
           path="/*"

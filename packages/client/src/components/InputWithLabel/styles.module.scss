@@ -2,45 +2,47 @@
 @use '../../assets/styles/variables';
 
 .group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+
   // height: 64px;
 
   @include mixins.typography-xs;
+
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
 }
 
 .label {
   margin-bottom: 15px;
-  font-weight: 700;
   line-height: 9px;
+  font-weight: 700;
 }
 
 .input {
   position: relative;
 
   &::after {
-    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 1px;
-    width: 100%;
-    background: variables.$color-palette-white;
     box-shadow: 0 2px 4px 0 variables.$color-palette-yellow;
+    background: variables.$color-palette-white;
+    width: 100%;
+    height: 1px;
+    content: '';
   }
 
   > input {
-    padding-left: 10px;
-    padding-bottom: 5px;
-    width: 100%;
+    @include mixins.typography-xs;
+
     border: none;
-    font-weight: 300;
     background: none;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    width: 100%;
     color: variables.$color-palette-white;
     font-family: 'Press Start 2P', sans-serif;
-
-    @include mixins.typography-xs;
+    font-weight: 300;
 
     &::placeholder {
       background: none;
@@ -64,22 +66,21 @@
   text-align: justify;
 
   > p {
-    position: relative;
-
     @include mixins.typography-xs;
 
+    position: relative;
     line-height: 15px;
     color: variables.$color-palette-red;
 
     &::after {
-      content: '';
       position: absolute;
       bottom: 0;
       left: -29px;
-      width: 100%;
-      height: 100%;
       background-image: url('../../assets/images/red_ghost.png');
       background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      content: '';
     }
   }
 }
