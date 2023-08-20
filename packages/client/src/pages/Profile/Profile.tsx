@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import Avatar from '../Avatar/Avatar';
+import Avatar from '../../components/Avatar/Avatar';
 
 const Profile = () => {
   return (

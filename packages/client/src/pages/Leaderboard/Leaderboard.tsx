@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import LeaderboardItem from './LeaderboardItem/LeaderboardItem';
+import LeaderboardItem from '../../components/LeaderboardItem/LeaderboardItem';
 import defaultImage from '../../../static/images/default-avatar.svg';
 import avatar from '../../../static/images/сорри.jpg';
 const Leaderboard = () => {

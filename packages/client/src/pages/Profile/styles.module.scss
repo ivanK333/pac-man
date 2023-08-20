@@ -1,10 +1,10 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@import 'mixins';
+@import 'variables';
 
 .container {
   display: flex;
 
-  background: url('../../../static/images/pacman-background.svg') no-repeat;
+  background: url('pacman-background.svg') no-repeat;
   background-size: contain;
   justify-content: flex-end;
   align-items: center;
