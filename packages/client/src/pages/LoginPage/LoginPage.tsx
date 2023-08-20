@@ -18,7 +18,6 @@ type FormValues = {
   login: string;
   password: string;
 };
-
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
 
