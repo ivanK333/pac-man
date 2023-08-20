@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import Avatar from '../Avatar/Avatar';
+import ProfileForm from '../ProfileForm/ProfileForm';
 
 const Profile = () => {
   return (
@@ -8,7 +9,9 @@ const Profile = () => {
         <Avatar />
         <p className={styles.username}>Username</p>
       </div>
-      <div className={styles.formContainer}></div>
+      <div className={styles.formContainer}>
+        <ProfileForm />
+      </div>
     </div>
   );
 };

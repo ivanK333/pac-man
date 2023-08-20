@@ -14,6 +14,7 @@ export interface InputProps {
   autoFocus?: boolean;
   validation?: ValidationEntry;
   onBlur?: () => void;
+  disabled?: boolean;
 }
 
 const InputWithLabel: React.FC<InputProps> = ({
@@ -25,6 +26,7 @@ const InputWithLabel: React.FC<InputProps> = ({
   autoFocus,
   placeholder,
   validation,
+  disabled = false,
   ...rest
 }) => {
   const {
@@ -48,6 +50,7 @@ const InputWithLabel: React.FC<InputProps> = ({
           autoFocus={autoFocus}
           {...register(name, validation)}
           onBlur={() => trigger(name)}
+          disabled={disabled}
           {...rest}
         />
       </div>
