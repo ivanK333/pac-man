@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { useNavigate } from 'react-router';
 import { SubmitHandler } from 'react-hook-form';
 
 import AuthController from '../../controllers/AuthController';
@@ -8,6 +9,7 @@ import Input from '../../components/InputWithLabel/InputWithLabel';
 import FormButtonGroup from '../../components/FormButtonGroup/FormButton';
 import spriteSvg from '../../assets/images/blueSprite.svg';
 import { validation } from '../../assets/constants/formValidation';
+// import { ROUTES } from '../../constants/routes';
 import styles from './styles.module.scss';
 
 export const redirect = (url: string) => {
@@ -19,6 +21,8 @@ type FormValues = {
   password: string;
 };
 const LoginForm = () => {
+  // const navigate = useNavigate();
+
   const [error, setError] = useState<string | null>(null);
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
@@ -29,6 +33,8 @@ const LoginForm = () => {
       setError(`${response.error}`);
       return;
     }
+    console.log(response);
+    // navigate(`/${ROUTES.main.root}`);
     redirect('/');
   };
 
