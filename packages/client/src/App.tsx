@@ -7,7 +7,7 @@ import { Main } from './routes/Main/Main';
 import { ROUTES } from './constants/routes';
 
 const App = () => {
-  // Флаг для проверки авторизации, можно хронить в localStorage
+  // Флаг для проверки авторизации, можно хранить в localStorage
   const isAuthenticated = true;
 
   useEffect(() => {
