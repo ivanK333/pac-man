@@ -5,7 +5,7 @@ export type AuthResponse = {
   user?: User | null;
   users?: User[] | null;
   error?: unknown | null | string;
-  reason?: string;
+  reason?: string; // swagger error response is {reason: string}
 };
 export interface SigninData {
   login: string;
@@ -31,7 +31,7 @@ export interface User {
   password: string;
   phone: string;
   avatar: string;
-  reason?: string;
+  reason?: string; // swagger error response is {reason: string}
 }
 
 export class AuthAPI {
