@@ -5,9 +5,8 @@ export const ROUTES = {
     login: 'login',
   },
   main: {
-    root: '/',
+    root: '/game',
     profile: 'profile',
-    game: 'game',
     forum: 'forum',
     lead: 'lead',
   },
