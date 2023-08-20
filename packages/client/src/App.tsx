@@ -1,14 +1,14 @@
-// import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Routes, Route, Navigate } from 'react-router';
 
+import AuthController from '../src/controllers/AuthController';
 import { Auth } from './routes/Auth/Auth';
 import { Main } from './routes/Main/Main';
 import { ROUTES } from './constants/routes';
 
 const App = () => {
-  // Флаг для проверки авторизации, можно хронить в localStorage
-  const isAuthenticated = true;
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // useEffect(() => {
   //   const fetchServerData = async () => {
@@ -21,8 +21,17 @@ const App = () => {
   //   fetchServerData();
   // }, []);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await AuthController.fetchUser();
+      if (response.success) setIsAuthenticated(true);
+    };
+
+    fetchUserData();
+  }, []);
+
   return (
-    <div className="app">
+    <div className="App">
       <Routes>
         <Route
           path="/*"
@@ -30,7 +39,10 @@ const App = () => {
             isAuthenticated ? (
               <Main />
             ) : (
-              <Navigate replace to={ROUTES.auth.login} />
+              <Navigate
+                replace
+                to={`${ROUTES.auth.root}/${ROUTES.auth.login}`}
+              />
             )
           }
         />

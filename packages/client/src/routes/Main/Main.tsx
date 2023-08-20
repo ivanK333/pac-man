@@ -15,7 +15,6 @@ export const Main = () => {
         <Route path={ROUTES.main.game} element={<div>Game</div>} />
         <Route path={ROUTES.main.forum} element={<div>Forum</div>} />
         <Route path={ROUTES.main.lead} element={<Leaderboard />} />
-        <Route path={ROUTES.main.lead} element={<Leaderboard />} />
         <Route
           path="/*"
           element={<Navigate replace to={ROUTES.error.notFound} />}
