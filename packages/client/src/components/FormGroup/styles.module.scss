@@ -4,13 +4,13 @@
   display: flex;
   flex-direction: column;
   margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+  background-color: variables.$color-palette-black;
   padding: 50px 30px 28px;
   width: 340px;
   height: fit-content;
   min-height: 450px;
-  border-radius: 12px;
-  box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
-  background-color: variables.$color-palette-black;
 }
 
 .form {

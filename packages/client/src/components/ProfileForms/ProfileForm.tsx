@@ -6,6 +6,10 @@ import Input from '../InputWithLabel/InputWithLabel';
 import { validation } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
 
+type TProfileFormProps = {
+  handleSwitch: () => void;
+};
+
 type TProfileForm = {
   first_name: string;
   second_name: string;
@@ -15,8 +19,8 @@ type TProfileForm = {
   phone: string;
 };
 
-const ProfileForm = () => {
-  const defaultValues = {
+const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch }) => {
+  const defaultValues: TProfileForm = {
     first_name: 'Ilya',
     second_name: 'Makhin',
     display_name: 'IlyaZubastu',
@@ -102,28 +106,56 @@ const ProfileForm = () => {
         />
         <div className={styles.buttonContainer}>
           {isEdit ? (
-            <button
-              className={
-                formMethods.formState.isDirty
-                  ? styles.submitButton
-                  : styles.editButton
-              }
-              type="submit"
-              disabled={!formMethods.formState.isDirty}
-            >
-              save
-            </button>
+            <>
+              <button
+                className={
+                  formMethods.formState.isDirty
+                    ? styles.submitButton
+                    : styles.editButton
+                }
+                type="submit"
+                disabled={!formMethods.formState.isDirty}
+              >
+                save
+              </button>
+              <button
+                className={
+                  formMethods.formState.isDirty
+                    ? styles.submitButton
+                    : styles.editButton
+                }
+                type="button"
+                onClick={(e: SyntheticEvent) => {
+                  e.preventDefault();
+                  setIsEdit(false);
+                  formMethods.reset(defaultValues);
+                }}
+              >
+                cancel
+              </button>
+            </>
           ) : (
-            <button
-              className={styles.editButton}
-              type="button"
-              onClick={(e: SyntheticEvent) => {
-                e.preventDefault();
-                setIsEdit(true);
-              }}
-            >
-              edit
-            </button>
+            <>
+              <button
+                className={styles.editButton}
+                type="button"
+                onClick={(e: SyntheticEvent) => {
+                  e.preventDefault();
+                  setIsEdit(true);
+                }}
+              >
+                edit
+              </button>
+              <button
+                className={styles.editButton}
+                onClick={(e: SyntheticEvent) => {
+                  e.preventDefault();
+                  handleSwitch();
+                }}
+              >
+                edit password
+              </button>
+            </>
           )}
         </div>
       </form>
