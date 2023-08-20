@@ -1,11 +1,4 @@
-import { AuthAPI, SigninData, User } from '../api/AuthAPI';
-
-type UserResponse = {
-  success: boolean;
-  user?: User | null;
-  users?: User[] | null;
-  error: unknown | null | string;
-};
+import { AuthAPI, SigninData, AuthResponse } from '../api/AuthAPI';
 
 const userError = (error: unknown) => ({
   success: false,
@@ -20,10 +13,41 @@ class AuthController {
     this.api = new AuthAPI();
   }
 
-  async signin(data: SigninData): Promise<UserResponse> {
+  async signin(data: SigninData): Promise<AuthResponse> {
     try {
       const res = await this.api.signin(data);
       // console.log(res);
+      // check if errors, they come as {reason: error}
+      if (res.reason) return userError(res.reason);
+      localStorage.setItem('isAuthenticated', 'false');
+      return await this.fetchUser();
+    } catch (error: unknown) {
+      return {
+        success: false,
+        user: null,
+        error,
+      };
+    }
+  }
+
+  async fetchUser(): Promise<AuthResponse> {
+    try {
+      const user = await this.api.read();
+      // check if errors, they come as {reason: error}
+      if (user.reason) return userError(user.reason);
+      return {
+        success: true,
+        user,
+        error: null,
+      };
+    } catch (error: unknown) {
+      return userError(error);
+    }
+  }
+
+  async signout() {
+    try {
+      const res = await this.api.signout();
       // check if errors, they come as {reason: error}
       if (res.reason) return userError(res.reason);
       localStorage.setItem('isAuthenticated', 'false');
@@ -52,30 +76,6 @@ class AuthController {
   //       user: null,
   //       error,
   //     };
-  //   }
-  // }
-
-  async fetchUser(): Promise<UserResponse> {
-    try {
-      const user = await this.api.read();
-      if (user.reason) return userError(user.reason);
-      return {
-        success: true,
-        user,
-        error: null,
-      };
-    } catch (error: unknown) {
-      return userError(error);
-    }
-  }
-
-  // async logout() {
-  //   try {
-  //     MessagesController.closeAll();
-  //     await this.api.logout();
-  //     router.go('/');
-  //   } catch (e: unknown) {
-  //     console.error(e);
   //   }
   // }
 }
