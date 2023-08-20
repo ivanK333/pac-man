@@ -11,7 +11,7 @@ const GameOver = () => {
 
   useEffect(() => {
     const handlerButtonRestart = (event: KeyboardEvent) => {
-      if (event.key) {
+      if (event.key === 'Enter') {
         navigate(`/${ROUTES.main.game}`);
       }
     };
