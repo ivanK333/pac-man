@@ -1,7 +1,7 @@
-import React from 'react';
+import styles from './styles.module.scss';
 
-export interface ButtonProps {
-  label: string;
+interface ButtonProps {
+  label?: string;
   type?: 'button' | 'submit' | 'reset';
   id?: string;
   disabled?: boolean;
@@ -12,6 +12,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   const { label, type, id, disabled, onClick, ...rest } = props;
   return (
     <button
+      className={styles.bigBTN}
       type={type}
       disabled={disabled ? disabled : false}
       id={id}
