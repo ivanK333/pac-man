@@ -8,6 +8,7 @@ export const ROUTES = {
     root: '/',
     profile: 'profile',
     game: 'game',
+    gameOver: 'game-over',
     forum: 'forum',
     lead: 'lead',
   },

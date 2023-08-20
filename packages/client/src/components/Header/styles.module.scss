@@ -2,24 +2,25 @@
 @import '../../assets/styles/variables';
 
 .header {
-  width: 100%;
+  @include typography-xl;
+
   box-sizing: border-box;
-  background: $color-palette-black;
   display: flex;
+  position: fixed;
   align-items: center;
   justify-content: flex-end;
+  background: $color-palette-black;
   padding: 20px 40px;
-
-  @include typography-xl;
+  width: 100%;
 }
 
 .list {
-  max-width: 669px;
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
   display: flex;
   gap: 100px;
+  margin: 0;
+  padding: 0;
+  max-width: 669px;
+  list-style-type: none;
 }
 
 .link {
