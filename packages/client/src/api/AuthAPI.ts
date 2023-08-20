@@ -1,4 +1,4 @@
-import { API_URL } from '../constants/APIconfig';
+import { API_URL } from './config';
 
 export type AuthResponse = {
   success: boolean;
