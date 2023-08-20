@@ -1,7 +1,7 @@
 import styles from './styles.module.scss';
 import LeaderboardItem from './LeaderboardItem/LeaderboardItem';
-import defaultImage from '../../../static/images/default-avatar.svg';
-import avatar from '../../../static/images/сорри.jpg';
+import defaultImage from '../../assets/images/default-avatar.svg';
+import avatar from '../../assets/images/сорри.jpg';
 const Leaderboard = () => {
   const testLeaderboardData = [
     { image: defaultImage, index: 1, name: 'Test1', score: 9999, id: 1 },

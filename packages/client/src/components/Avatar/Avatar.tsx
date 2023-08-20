@@ -1,5 +1,5 @@
 import styles from './styles.module.scss';
-import defaultAvatar from '../../../static/images/default-avatar.svg';
+import defaultAvatar from '../../assets/images/default-avatar.svg';
 
 const Avatar = () => {
   return (

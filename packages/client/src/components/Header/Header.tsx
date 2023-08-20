@@ -9,7 +9,7 @@ const Header = () => {
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
-            to={ROUTES.main.game}
+            to={ROUTES.main.root}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link
             }
