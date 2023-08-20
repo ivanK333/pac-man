@@ -1,16 +1,18 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
-//import './App.css';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, Navigate } from 'react-router';
 
-import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
+import { Auth } from './routes/Auth/Auth';
+import { Main } from './routes/Main/Main';
+import { ROUTES } from './constants/routes';
 
 const SERVER_PORT = __SERVER_PORT__ || 3001;
 console.log('__SERVER_PORT__', __SERVER_PORT__);
 
 const App = () => {
+  // Флаг для проверки авторизации, можно хронить в localStorage
+  const isAuthenticated = true;
+
   useEffect(() => {
     const fetchServerData = async () => {
       const url = `http://localhost:${SERVER_PORT}`;
@@ -22,13 +24,31 @@ const App = () => {
     fetchServerData();
   }, []);
   return (
-    <div className="App">
-      <Header />
+    <div className="app">
       <Routes>
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<div>Game</div>} />
-        <Route path="/forum" element={<div>Forum</div>} />
-        <Route path="/lead" element={<div>Leaderboard</div>} />
+        <Route
+          path="/*"
+          element={
+            isAuthenticated ? (
+              <Main />
+            ) : (
+              <Navigate replace to={ROUTES.auth.login} />
+            )
+          }
+        />
+        <Route
+          path={`${ROUTES.auth.root}/*`}
+          element={
+            !isAuthenticated ? (
+              <Auth />
+            ) : (
+              <Navigate replace to={ROUTES.main.root} />
+            )
+          }
+        />
+
+        <Route path={ROUTES.error.internalError} element={<div>505</div>} />
+        <Route path={ROUTES.error.notFound} element={<div>404</div>} />
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
+import { ROUTES } from '../../constants/routes';
 
 const Header = () => {
   return (
@@ -8,7 +9,7 @@ const Header = () => {
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
-            to="/"
+            to={ROUTES.main.game}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link
             }
@@ -18,17 +19,17 @@ const Header = () => {
         </li>
         <li className={styles.listItem}>
           <NavLink
-            to="/lead"
+            to={ROUTES.main.lead}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link
             }
           >
-            Leaderboard
+            leaderboard
           </NavLink>
         </li>
         <li className={styles.listItemActive}>
           <NavLink
-            to="/profile"
+            to={ROUTES.main.profile}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link
             }
@@ -38,7 +39,7 @@ const Header = () => {
         </li>
         <li className={styles.listItem}>
           <NavLink
-            to="/forum"
+            to={ROUTES.main.forum}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link
             }
