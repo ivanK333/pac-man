@@ -34,6 +34,11 @@ export interface User {
   reason?: string; // swagger error response is {reason: string}
 }
 
+export const userError = (error: unknown) => ({
+  success: false,
+  error,
+});
+
 export class AuthAPI {
   private baseUrl: string;
 
@@ -85,10 +90,7 @@ export class AuthAPI {
         error: null,
       };
 
-    return {
-      success: false,
-      error: 'Unexpected error',
-    };
+    return userError('Unexpected error');
   }
 
   async read(): Promise<User> {

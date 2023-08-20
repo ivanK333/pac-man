@@ -1,9 +1,9 @@
-import { AuthAPI, SigninData, AuthResponse } from '../api/AuthAPI';
+import { AuthAPI, SigninData, AuthResponse, userError } from '../api/AuthAPI';
 
-const userError = (error: unknown) => ({
-  success: false,
-  error,
-});
+// const userError = (error: unknown) => ({
+//   success: false,
+//   error,
+// });
 
 class AuthController {
   private readonly api: AuthAPI;
@@ -42,10 +42,11 @@ class AuthController {
   async signout() {
     try {
       const res = await this.api.signout();
-      // check if errors, they come as {reason: error}
-      if (res.reason) return userError(res.reason);
-      localStorage.setItem('isAuthenticated', 'false');
-      return await this.fetchUser();
+      // check if errors, they come as {error: error}
+      if (res.success) {
+        localStorage.setItem('isAuthenticated', 'false');
+      }
+      return res;
     } catch (error: unknown) {
       return userError(error);
     }
