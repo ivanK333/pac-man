@@ -2,10 +2,10 @@ import { Routes, Route, Navigate } from 'react-router';
 
 import styles from './styles.module.scss';
 import Header from '../../components/Header/Header';
-import Profile from '../../components/Profile/Profile';
-import Leaderboard from '../../components/Leaderboard/Leaderboard';
 import GameOver from '../../pages/GameOver/GameOver';
 import { ROUTES } from '../../constants/routes';
+import Profile from '../../pages/Profile/Profile';
+import Leaderboard from '../../pages/Leaderboard/Leaderboard';
 
 export const Main = () => {
   return (
