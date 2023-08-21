@@ -10,14 +10,14 @@
 html,
 body,
 div[id='root'] {
+  display: flex;
+  flex-direction: column;
   border: 0;
   font-family: Quicksand, sans-serif;
   font-size: 16px;
   font-weight: 400;
   font-style: normal;
   scroll-behavior: smooth;
-  display: flex;
-  flex-direction: column;
 }
 
 body {
