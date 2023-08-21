@@ -1,9 +1,18 @@
 import ErrorPageConstructor from '../../components/ErrorPageConstructor/ErrorPageConstructor';
+import eternalErrorImage from '../../assets/images/500-image.svg';
+import { ROUTES } from '../../constants/routes';
 
 const EternalErrorPage = () => {
+  const linkText = 'back to the game';
+  const linkColor = 'blue';
   return (
     <>
-      <ErrorPageConstructor title={} linkText={} linkPath={} image={} />
+      <ErrorPageConstructor
+        linkText={linkText}
+        linkPath={ROUTES.error.internalError}
+        image={eternalErrorImage}
+        linkColor={linkColor}
+      />
     </>
   );
 };
