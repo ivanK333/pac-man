@@ -16,14 +16,8 @@ div[id='root'] {
   font-weight: 400;
   font-style: normal;
   scroll-behavior: smooth;
-}
-
-.App {
   display: flex;
-  position: relative;
   flex-direction: column;
-  background: variables.$color-palette-black;
-  height: 100%;
 }
 
 body {
