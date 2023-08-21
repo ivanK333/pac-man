@@ -12,12 +12,9 @@ export const Main = () => {
       <Header />
       <Routes>
         <Route path={ROUTES.main.profile} element={<Profile />} />
-        <Route path={ROUTES.main.root} element={<div>Main</div>} />
-        <Route path={ROUTES.main.game} element={<div>Game</div>} />
+        <Route path={ROUTES.main.root} element={<div>Game</div>} />
         <Route path={ROUTES.main.gameOver} element={<GameOver />} />
         <Route path={ROUTES.main.forum} element={<div>Forum</div>} />
-        <Route path={ROUTES.main.lead} element={<Leaderboard />} />
-        <Route path={ROUTES.main.lead} element={<Leaderboard />} />
         <Route path={ROUTES.main.lead} element={<Leaderboard />} />
         <Route
           path="/*"

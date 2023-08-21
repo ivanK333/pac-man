@@ -1,0 +1,31 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+  margin: 45px 0 0;
+  width: 100%;
+}
+
+.submitButton {
+  @include typography-m;
+
+  border: none;
+  background: none;
+  padding: 0;
+  color: $color-palette-yellow;
+  font-family: $font-Press-start-2p;
+}
+
+.editButton {
+  @include typography-m;
+
+  border: none;
+  background: none;
+  padding: 0;
+  color: $color-palette-red;
+  font-family: $font-Press-start-2p;
+}
