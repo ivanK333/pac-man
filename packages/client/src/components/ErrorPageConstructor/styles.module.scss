@@ -1,17 +1,18 @@
 @import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
-.default-container {
-  width: 100%;
-  height: 100%;
+%default-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 }
-.default-link-text {
-  font-size: 20px;
+
+%default-link-text {
   line-height: 11px;
+  font-size: 20px;
 }
 
 .imageContainer {
@@ -23,50 +24,56 @@
 }
 
 .containerYellow {
-  @extend .default-container;
+  @extend %default-container;
+
   background-color: $color-palette-yellow;
 }
 
 .containerBlue {
-  @extend .default-container;
+  @extend %default-container;
+
   background-color: $color-palette-blue;
 }
 
 .containerBlack {
-  @extend .default-container;
+  @extend %default-container;
+
   background-color: $color-palette-black;
 }
 
 .linkTextYellow {
-  @extend .default-link-text;
+  @extend %default-link-text;
+
   color: $color-palette-yellow;
 }
 
 .linkTextBlue {
-  @extend .default-link-text;
+  @extend %default-link-text;
+
   color: $color-palette-blue;
 }
 
 .linkTextBlack {
-  @extend .default-link-text;
+  @extend %default-link-text;
+
   color: $color-palette-black;
 }
 
 .image {
-  max-height: 522px;
   max-width: 512px;
+  max-height: 522px;
 }
 
 .title {
-  font-size: 20px;
-  font-family: $font-Press-start-2p;
+  margin: 46px 0 0;
   line-height: 11px;
-  margin: 46px 0 0 0
+  font-family: $font-Press-start-2p;
+  font-size: 20px
 }
 
 .link {
-  width: 100%;
   display: flex;
-  justify-content: center;
   align-items: flex-end;
+  justify-content: center;
+  width: 100%;
 }
