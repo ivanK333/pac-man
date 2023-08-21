@@ -10,11 +10,6 @@
   height: 100%;
 }
 
-%default-link-text {
-  line-height: 11px;
-  font-size: 20px;
-}
-
 .imageContainer {
   display: flex;
   flex-direction: column;
@@ -41,23 +36,7 @@
   background-color: $color-palette-black;
 }
 
-.linkTextYellow {
-  @extend %default-link-text;
 
-  color: $color-palette-yellow;
-}
-
-.linkTextBlue {
-  @extend %default-link-text;
-
-  color: $color-palette-blue;
-}
-
-.linkTextBlack {
-  @extend %default-link-text;
-
-  color: $color-palette-black;
-}
 
 .image {
   max-width: 512px;

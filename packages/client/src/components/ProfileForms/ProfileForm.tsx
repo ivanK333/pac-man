@@ -5,6 +5,9 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import Input from '../InputWithLabel/InputWithLabel';
 import { validation } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
+import CustomLink from '../CustomLink/CustomLink';
+import { ROUTES } from '../../constants/routes';
+import { Colors } from '../../assets/constants/colors';
 
 type TProfileFormProps = {
   handleSwitch: () => void;
@@ -42,6 +45,10 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch }) => {
     console.log(data);
     setIsEdit(false);
   };
+
+  const linkPath = ROUTES.main.root;
+  const linkText = 'back to the game';
+  const linkColor = Colors.yellow;
 
   return (
     <FormProvider {...formMethods}>
@@ -155,6 +162,11 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch }) => {
               >
                 edit password
               </button>
+              <CustomLink
+                linkPath={linkPath}
+                linkText={linkText}
+                linkColor={linkColor}
+              />
             </>
           )}
         </div>
