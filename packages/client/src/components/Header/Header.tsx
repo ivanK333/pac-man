@@ -4,8 +4,14 @@ import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 
 const Header = () => {
+  const handleLogout = () => {
+    console.log('logout logic');
+  };
   return (
     <header className={styles.header}>
+      <button className={styles.exitButton} onClick={handleLogout}>
+        Logout
+      </button>
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
