@@ -13,32 +13,46 @@ type TErrorPageConstructor = {
   linkText: string;
   linkPath: string;
   linkColor: Colors.blue | Colors.black | Colors.yellow;
-  backgroundColor?: Colors.black | Colors.yellow;
+  backgroundColor?: Colors.black | Colors.yellow | Colors.blue;
 };
 
 const ErrorPageConstructor: React.FC<TErrorPageConstructor> = ({
   image,
   title = '',
   linkText,
-  linkPath,
-  /*  linkColor,
-  backgroundColor = Colors.black,*/
+  linkPath = '/',
+  linkColor,
+  backgroundColor = Colors.black,
 }) => {
-  /*  const isYellowBackground = linkColor === Colors.yellow;
-  const isBlueBackground = linkColor === Colors.blue;
-  const isBlackBackground = linkColor === Colors.black;
+  const sectionClassname = () => {
+    switch (backgroundColor) {
+      case Colors.yellow:
+        return styles.containerYellow;
+      case Colors.blue:
+        return styles.containerBlue;
+      default:
+        return styles.containerBlack;
+    }
+  };
 
-  const isYellowLink = linkColor === Colors.yellow;
-  const isBlueLink = linkColor === Colors.blue;
-  const isBlackLink = linkColor === Colors.black;
-
-  const sectionClassname = () => {};*/
+  const linkTextClassname = () => {
+    switch (linkColor) {
+      case Colors.yellow:
+        return styles.linkTextYellow;
+      case Colors.blue:
+        return styles.linkTextBlue;
+      default:
+        return styles.linkTextBlack;
+    }
+  };
   return (
-    <section className={styles.container}>
-      <img className={styles.image} src={image} alt="image" />
-      {title ? <h3>{title}</h3> : null}
+    <section className={sectionClassname()}>
+      <div className={styles.imageContainer}>
+        <img className={styles.image} src={image} alt="image" />
+        {title ? <h3 className={styles.title}>{title}</h3> : null}
+      </div>
       <Link to={linkPath}>
-        <p>{linkText}</p>
+        <p className={linkTextClassname()}>{linkText}</p>
       </Link>
     </section>
   );
