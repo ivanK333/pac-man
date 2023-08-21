@@ -80,6 +80,7 @@ export const validation: Record<string, ValidationEntry> = {
     },
   },
   first_name: {
+    required: 'First Name is required',
     pattern: {
       value: /^[A-ZА-ЯЁ][a-zA-Zа-яёА-ЯЁ-]*$/,
       message: `First Name requirements:
@@ -90,6 +91,7 @@ export const validation: Record<string, ValidationEntry> = {
     },
   },
   second_name: {
+    required: 'Last Name is required',
     pattern: {
       value: /^[A-ZА-ЯЁ][a-zA-Zа-яёА-ЯЁ-]*$/,
       message: `Last Name requirements:
@@ -100,6 +102,7 @@ export const validation: Record<string, ValidationEntry> = {
     },
   },
   email: {
+    required: 'Email is required',
     pattern: {
       value: /^[a-zA-Z0-9\-_]+@[a-zA-Z]+\.[a-zA-Z]+$/,
       message: `Email requirements:
@@ -110,6 +113,7 @@ export const validation: Record<string, ValidationEntry> = {
     },
   },
   phone: {
+    required: 'Phone is required',
     pattern: {
       value: /^\+?\d{10,15}$/,
       message: `Phone number requirements:
