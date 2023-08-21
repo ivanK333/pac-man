@@ -14,7 +14,7 @@ const EternalErrorPage = () => {
     <>
       <ErrorPageConstructor
         linkText={linkText}
-        linkPath={ROUTES.main.game}
+        linkPath={ROUTES.main.root}
         image={eternalErrorImage}
         linkColor={Colors.yellow}
         backgroundColor={Colors.black}

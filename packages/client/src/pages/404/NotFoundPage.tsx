@@ -15,7 +15,7 @@ const NotFoundPage = () => {
     <>
       <ErrorPageConstructor
         image={notFoundImage}
-        linkPath={ROUTES.main.game}
+        linkPath={ROUTES.main.root}
         linkText={linkText}
         title={title}
         linkColor={Colors.yellow}
