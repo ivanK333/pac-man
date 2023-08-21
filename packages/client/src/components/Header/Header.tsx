@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <button className={styles.exitButton} onClick={handleLogout}>
-        Logout
+        Log out
       </button>
       <ul className={styles.list}>
         <li className={styles.listItem}>
