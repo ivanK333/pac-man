@@ -29,3 +29,10 @@
   color: $color-palette-red;
   font-family: $font-Press-start-2p;
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 465px;
+}
