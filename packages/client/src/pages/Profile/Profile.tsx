@@ -4,18 +4,7 @@ import styles from './styles.module.scss';
 import Avatar from '../../components/Avatar/Avatar';
 import ProfileForm from '../../components/ProfileForms/ProfileForm';
 import ChangePasswordForm from '../../components/ProfileForms/ChangePasswordForm';
-import { ProfileAPI } from '../../api/ProfileAPI';
-
-type TUserResponse = {
-  avatar: string;
-  display_name: string;
-  email: string;
-  first_name: string;
-  id: string;
-  login: string;
-  phone: string;
-  second_name: string;
-};
+import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
 
 const initialState = {
   avatar: '',

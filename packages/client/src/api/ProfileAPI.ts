@@ -19,12 +19,23 @@ export type TProfileForm = {
   phone: string;
 };
 
+export type TUserResponse = {
+  avatar: string;
+  display_name: string;
+  email: string;
+  first_name: string;
+  id: string;
+  login: string;
+  phone: string;
+  second_name: string;
+};
+
 export enum emptyResponse {
   ok = 'OK',
 }
 
 export const ProfileAPI = () => {
-  const checkPromise = (promise: Promise<Response>) => {
+  const checkPromise = (promise: Promise<Response>): Promise<TUserResponse> => {
     return promise.then((res) => (res.ok ? res.json() : Promise.reject(res)));
   };
 
