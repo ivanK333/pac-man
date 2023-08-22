@@ -5,4 +5,76 @@
   background: url("../../assets/images/forum-background.svg") no-repeat right bottom;
   width: 100%;
   height: 100%;
+  padding: 55px 145px 0 135px;
+  display: grid;
+  grid-auto-flow: column;
+}
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: baseline;
+}
+
+.heading {
+  font-size: 28px;
+  line-height: 35px;
+  letter-spacing: 2.8px;
+  color: $color-palette-green;
+  width: 100%;
+}
+
+.heading:nth-last-of-type(3){
+  text-align: center;
+}
+.text {
+  @include typography-l;
+  font-family: $font-Press-start-2p;
+  width: 100%;
+  min-height: 30px;
+  display: flex;
+  align-items: flex-end;
+  min-width: 520px;
+}
+
+.topicContainer {
+  max-width: 241px;
+  width: 100%;
+  min-height: 30px;
+  background-color: $color-palette-green;
+  border-radius: 20px;
+  padding: 0 20.071px 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topicText {
+  font-family:$font-Press-start-2p;
+  @include typography-xl;
+  color: $color-palette-blue;
+}
+
+.topicButton {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: $color-palette-blue;
+  color: $color-palette-black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+}
+
+.counter {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 30px;
+  color: $color-palette-blue;
+  font-size: 36px;
+  line-height: normal;
+  max-width: 240px;
 }
