@@ -9,7 +9,12 @@ export const ROUTES = {
     profile: 'profile',
     game: 'game',
     gameOver: 'game-over',
-    forum: 'forum',
+    forum: {
+      root: 'forum',
+      games: 'games',
+      designers: 'designers',
+      tech: 'tech',
+    },
     lead: 'lead',
   },
   error: {

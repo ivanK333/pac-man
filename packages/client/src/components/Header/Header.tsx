@@ -45,7 +45,7 @@ const Header = () => {
         </li>
         <li className={styles.listItem}>
           <NavLink
-            to={ROUTES.main.forum}
+            to={ROUTES.main.forum.root}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link
             }
