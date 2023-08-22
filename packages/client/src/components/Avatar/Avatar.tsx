@@ -1,14 +1,23 @@
 import styles from './styles.module.scss';
 import defaultAvatar from '../../assets/images/default-avatar.svg';
+import { RESOURCES_URL } from '../../api/config';
 
-const Avatar = () => {
+type TAvatarProps = {
+  avatar: string;
+};
+
+const Avatar: React.FC<TAvatarProps> = ({ avatar }) => {
   return (
     <div className={styles.imageContainer}>
       <section className={styles.wrapper}>
         <div className={styles.hoverOverlay}>
           <p className={styles.hoverText}>Change avatar</p>
         </div>
-        <img className={styles.defaultImage} src={defaultAvatar} alt="Avatar" />
+        <img
+          className={styles.defaultImage}
+          src={avatar ? `${RESOURCES_URL}${avatar}` : defaultAvatar}
+          alt="Avatar"
+        />
       </section>
     </div>
   );
