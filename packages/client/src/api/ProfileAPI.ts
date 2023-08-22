@@ -19,9 +19,19 @@ export type TProfileForm = {
   phone: string;
 };
 
+export enum emptyResponse {
+  ok = 'OK',
+}
+
 export const ProfileAPI = () => {
   const checkPromise = (promise: Promise<Response>) => {
     return promise.then((res) => (res.ok ? res.json() : Promise.reject(res)));
+  };
+
+  const checkEmptyDataPromise = (promise: Promise<Response>) => {
+    return promise.then((res) =>
+      res.ok ? emptyResponse.ok : Promise.reject(res),
+    );
   };
 
   const headers: HeadersInit = {
@@ -45,7 +55,7 @@ export const ProfileAPI = () => {
       credentials: 'include',
       body: JSON.stringify(data),
     });
-    return checkPromise(promise);
+    return checkEmptyDataPromise(promise);
   };
   const changeAvatar = (data: FormData) => {
     const promise = fetch(USER_PROFILE_AVATAR_URL, {

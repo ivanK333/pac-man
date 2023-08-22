@@ -22,7 +22,7 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const { changeProfile } = ProfileAPI();
 
   const handleSubmit: SubmitHandler<TProfileForm> = (data: TProfileForm) => {
-    if (!formMethods.formState.isDirty) {
+    if (!formMethods.formState.isValid) {
       return;
     }
     changeProfile(data)
@@ -112,12 +112,12 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
             <>
               <button
                 className={
-                  formMethods.formState.isDirty
+                  formMethods.formState.isValid
                     ? styles.submitButton
                     : styles.editButton
                 }
                 type="submit"
-                disabled={!formMethods.formState.isDirty}
+                disabled={formMethods.formState.isValid}
               >
                 save
               </button>
