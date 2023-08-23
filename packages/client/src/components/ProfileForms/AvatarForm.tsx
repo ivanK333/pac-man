@@ -19,7 +19,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
 
   const [image, setImage] = useState<string>(defaultImage);
 
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   const { changeAvatar } = ProfileAPI();
 
@@ -37,15 +37,21 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
 
   const handleSubmit = () => {
     const form = formRef.current;
+
     if (form) {
       const data = new FormData(form);
-      changeAvatar(data).then((data) => console.log(data));
+      form.checkValidity() &&
+        changeAvatar(data).then((data) => console.log(data));
     }
   };
 
   const imageClassname = () => {
     return image === defaultImage ? styles.defaultImage : styles.previewImage;
   };
+
+  const isDisabled = Boolean(
+    formRef && formRef.current && formRef.current.checkValidity(),
+  );
 
   useEffect(() => {
     setImage(`${RESOURCES_URL}${avatar}`);
@@ -66,8 +72,8 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
           <input
             className={styles.hideInput}
             type="file"
-            required={true}
             {...formMethods.register('avatar')}
+            required={true}
             onChange={preview}
           />
           Upload image
@@ -87,7 +93,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
           exitParagraphText="don't change?"
           exitButtonText="exit"
           text="change"
-          disabled={!formMethods.formState.isValid}
+          disabled={!isDisabled}
           handleClose={handleClose}
         />
       </form>
