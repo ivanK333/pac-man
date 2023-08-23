@@ -5,6 +5,7 @@ type TModalSubmitButtonProps = {
   disabled: boolean;
   exitButtonText: string;
   exitParagraphText: string;
+  handleClose: () => void;
 };
 
 const ModalSubmitButton: React.FC<TModalSubmitButtonProps> = ({
@@ -12,6 +13,7 @@ const ModalSubmitButton: React.FC<TModalSubmitButtonProps> = ({
   disabled,
   exitButtonText,
   exitParagraphText,
+  handleClose,
 }) => {
   return (
     <div className={styles.container}>
@@ -20,7 +22,11 @@ const ModalSubmitButton: React.FC<TModalSubmitButtonProps> = ({
       </button>
       <p className={styles.paragraph}>
         {exitParagraphText}
-        <button type="button" className={styles.exitButton}>
+        <button
+          type="button"
+          className={styles.exitButton}
+          onClick={handleClose}
+        >
           {exitButtonText}
         </button>
       </p>

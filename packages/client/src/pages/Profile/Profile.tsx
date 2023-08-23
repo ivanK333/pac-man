@@ -72,7 +72,7 @@ const Profile = () => {
       </div>
       {isOpenModal ? (
         <Modal handleClose={handleCloseModal}>
-          <AvatarForm />
+          <AvatarForm handleClose={handleCloseModal} />
         </Modal>
       ) : null}
     </div>

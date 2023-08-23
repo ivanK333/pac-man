@@ -7,7 +7,11 @@ import defaultImage from '../../assets/images/default-avatar.svg';
 import ModalHeading from '../ModalHeading/ModalHeading';
 import ModalSubmitButton from '../ModalSubmitButton/ModalSubmitButton';
 
-const AvatarForm = () => {
+type TAvatarFormProps = {
+  handleClose: () => void;
+};
+
+const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose }) => {
   const formMethods = useForm();
 
   const [image, setImage] = useState<string>(defaultImage);
@@ -24,6 +28,10 @@ const AvatarForm = () => {
     }
   };
 
+  const handleSubmit = () => {
+    console.log('Submit');
+  };
+
   const imageClassname = () => {
     return image === defaultImage ? styles.defaultImage : styles.previewImage;
   };
@@ -32,7 +40,7 @@ const AvatarForm = () => {
       <form
         noValidate={true}
         className={styles.avatarForm}
-        onSubmit={formMethods.handleSubmit(() => console.log('submit'))}
+        onSubmit={formMethods.handleSubmit(() => handleSubmit())}
       >
         <ModalHeading text="Load avatar" />
         <div className={styles.previewContainer}>
@@ -64,6 +72,7 @@ const AvatarForm = () => {
           exitButtonText="exit"
           text="change"
           disabled={!formMethods.formState.isValid}
+          handleClose={handleClose}
         />
       </form>
     </FormProvider>
