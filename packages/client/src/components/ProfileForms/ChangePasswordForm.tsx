@@ -23,32 +23,35 @@ const ChangePasswordForm: React.FC<TChangePasswordFormProps> = ({
   return (
     <FormProvider {...formMethods}>
       <form
+        className={styles.form}
         onSubmit={formMethods.handleSubmit((data) =>
           console.log(data, formMethods.formState.isValid),
         )}
         noValidate={true}
       >
-        <Input
-          label="Old password"
-          type="password"
-          name="oldPassword"
-          placeholder="Enter old password"
-          validation={validation.password_old}
-        />
-        <Input
-          label="New password"
-          type="password"
-          name="password"
-          placeholder="Enter new password"
-          validation={validation.password_new}
-        />
-        <Input
-          label="Password confirmation"
-          type="password"
-          name="password"
-          placeholder="Repeat new password"
-          validation={validation.password}
-        />
+        <div className={styles.inputContainer}>
+          <Input
+            label="Old password"
+            type="password"
+            name="oldPassword"
+            placeholder="Enter old password"
+            validation={validation.password_old}
+          />
+          <Input
+            label="New password"
+            type="password"
+            name="password"
+            placeholder="Enter new password"
+            validation={validation.password_new}
+          />
+          <Input
+            label="Password confirmation"
+            type="password"
+            name="password"
+            placeholder="Repeat new password"
+            validation={validation.password}
+          />
+        </div>
         <div className={styles.buttonContainer}>
           <button
             className={

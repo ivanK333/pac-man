@@ -1,0 +1,8 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.main {
+  position: relative;
+  background: $color-palette-black;
+  height: 100%;
+}

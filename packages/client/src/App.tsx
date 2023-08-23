@@ -6,6 +6,8 @@ import AuthController from '../src/controllers/AuthController';
 import { Auth } from './routes/Auth/Auth';
 import { Main } from './routes/Main/Main';
 import { ROUTES } from './constants/routes';
+import NotFoundPage from './pages/404/NotFoundPage';
+import EternalErrorPage from './pages/500/EternalErrorPage';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -32,36 +34,31 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route
-          path="/*"
-          element={
-            isAuthenticated ? (
-              <Main />
-            ) : (
-              <Navigate
-                replace
-                to={`${ROUTES.auth.root}/${ROUTES.auth.login}`}
-              />
-            )
-          }
-        />
-        <Route
-          path={`${ROUTES.auth.root}/*`}
-          element={
-            !isAuthenticated ? (
-              <Auth />
-            ) : (
-              <Navigate replace to={ROUTES.main.root} />
-            )
-          }
-        />
+    <Routes>
+      <Route
+        path="/*"
+        element={
+          isAuthenticated ? (
+            <Main />
+          ) : (
+            <Navigate replace to={ROUTES.auth.login} />
+          )
+        }
+      />
+      <Route
+        path={`${ROUTES.auth.root}/*`}
+        element={
+          !isAuthenticated ? (
+            <Auth />
+          ) : (
+            <Navigate replace to={ROUTES.main.root} />
+          )
+        }
+      />
 
-        <Route path={ROUTES.error.internalError} element={<div>505</div>} />
-        <Route path={ROUTES.error.notFound} element={<div>404</div>} />
-      </Routes>
-    </div>
+      <Route path={ROUTES.error.internalError} element={<EternalErrorPage />} />
+      <Route path={ROUTES.error.notFound} element={<NotFoundPage />} />
+    </Routes>
   );
 };
 

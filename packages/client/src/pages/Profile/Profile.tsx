@@ -1,9 +1,9 @@
 import { useState } from 'react';
 
 import styles from './styles.module.scss';
-import Avatar from '../Avatar/Avatar';
-import ProfileForm from '../ProfileForms/ProfileForm';
-import ChangePasswordForm from '../ProfileForms/ChangePasswordForm';
+import Avatar from '../../components/Avatar/Avatar';
+import ProfileForm from '../../components/ProfileForms/ProfileForm';
+import ChangePasswordForm from '../../components/ProfileForms/ChangePasswordForm';
 
 const Profile = () => {
   const [isPasswordEdit, setIsPasswordEdit] = useState<boolean>(true);
