@@ -15,7 +15,9 @@ const Avatar: React.FC<TAvatarProps> = ({ avatar, handleOpenModal }) => {
           <p className={styles.hoverText}>Change avatar</p>
         </div>
         <img
-          className={styles.defaultImage}
+          className={
+            avatar === defaultAvatar ? styles.defaultImage : styles.image
+          }
           src={avatar ? `${RESOURCES_URL}${avatar}` : defaultAvatar}
           alt="Avatar"
         />

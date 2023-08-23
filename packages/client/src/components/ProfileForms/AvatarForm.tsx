@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -6,15 +6,22 @@ import styles from './styles.module.scss';
 import defaultImage from '../../assets/images/default-avatar.svg';
 import ModalHeading from '../ModalHeading/ModalHeading';
 import ModalSubmitButton from '../ModalSubmitButton/ModalSubmitButton';
+import { ProfileAPI } from '../../api/ProfileAPI';
+import { RESOURCES_URL } from '../../api/config';
 
 type TAvatarFormProps = {
   handleClose: () => void;
+  avatar: string;
 };
 
-const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose }) => {
+const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
   const formMethods = useForm();
 
   const [image, setImage] = useState<string>(defaultImage);
+
+  const formRef = useRef(null);
+
+  const { changeAvatar } = ProfileAPI();
 
   const preview = (e: SyntheticEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -29,15 +36,24 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose }) => {
   };
 
   const handleSubmit = () => {
-    console.log('Submit');
+    const form = formRef.current;
+    if (form) {
+      const data = new FormData(form);
+      changeAvatar(data).then((data) => console.log(data));
+    }
   };
 
   const imageClassname = () => {
     return image === defaultImage ? styles.defaultImage : styles.previewImage;
   };
+
+  useEffect(() => {
+    setImage(`${RESOURCES_URL}${avatar}`);
+  }, [avatar]);
   return (
     <FormProvider {...formMethods}>
       <form
+        ref={formRef}
         noValidate={true}
         className={styles.avatarForm}
         onSubmit={formMethods.handleSubmit(() => handleSubmit())}
