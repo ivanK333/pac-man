@@ -1,0 +1,9 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.heading {
+  line-height: 20px;
+  color: $color-palette-yellow;
+  font-family: $font-Press-start-2p;
+  font-size: 20px;
+}

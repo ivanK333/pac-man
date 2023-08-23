@@ -4,11 +4,12 @@ import { RESOURCES_URL } from '../../api/config';
 
 type TAvatarProps = {
   avatar: string;
+  handleOpenModal: () => void;
 };
 
-const Avatar: React.FC<TAvatarProps> = ({ avatar }) => {
+const Avatar: React.FC<TAvatarProps> = ({ avatar, handleOpenModal }) => {
   return (
-    <div className={styles.imageContainer}>
+    <div className={styles.imageContainer} onClick={handleOpenModal}>
       <section className={styles.wrapper}>
         <div className={styles.hoverOverlay}>
           <p className={styles.hoverText}>Change avatar</p>

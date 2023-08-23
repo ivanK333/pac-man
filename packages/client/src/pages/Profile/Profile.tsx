@@ -5,6 +5,8 @@ import Avatar from '../../components/Avatar/Avatar';
 import ProfileForm from '../../components/ProfileForms/ProfileForm';
 import ChangePasswordForm from '../../components/ProfileForms/ChangePasswordForm';
 import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
+import Modal from '../../components/Modal/Modal';
+import AvatarForm from '../../components/ProfileForms/AvatarForm';
 
 const initialState = {
   avatar: '',
@@ -19,6 +21,7 @@ const initialState = {
 
 const Profile = () => {
   const [isPasswordEdit, setIsPasswordEdit] = useState<boolean>(true);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(true);
   const [user, setUser] = useState<TUserResponse>(initialState);
 
   const { getUser } = ProfileAPI();
@@ -27,6 +30,14 @@ const Profile = () => {
   };
   const handleShowPasswordEdit = () => {
     setIsPasswordEdit(false);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
   };
 
   const { first_name, display_name, second_name, email, phone, login } = user;
@@ -39,7 +50,7 @@ const Profile = () => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
-        <Avatar avatar={user.avatar} />
+        <Avatar avatar={user.avatar} handleOpenModal={handleOpenModal} />
         <p className={styles.username}>Username</p>
       </div>
       <div className={styles.formContainer}>
@@ -59,6 +70,11 @@ const Profile = () => {
           <ChangePasswordForm handleSwitch={handleShowProfile} />
         )}
       </div>
+      {isOpenModal ? (
+        <Modal handleClose={handleCloseModal}>
+          <AvatarForm />
+        </Modal>
+      ) : null}
     </div>
   );
 };
