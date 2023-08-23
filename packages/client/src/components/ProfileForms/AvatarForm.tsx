@@ -46,10 +46,12 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
     if (form) {
       const data = new FormData(form);
       form.checkValidity() &&
-        changeAvatar(data).then((data) => {
-          refreshUserData(data);
-          handleClose();
-        });
+        changeAvatar(data)
+          .then((data) => {
+            refreshUserData(data);
+            handleClose();
+          })
+          .catch((e) => console.error(e));
     }
   };
 
