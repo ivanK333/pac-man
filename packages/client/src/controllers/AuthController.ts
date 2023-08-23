@@ -1,10 +1,5 @@
 import { AuthAPI, SigninData, AuthResponse, userError } from '../api/AuthAPI';
 
-// const userError = (error: unknown) => ({
-//   success: false,
-//   error,
-// });
-
 class AuthController {
   private readonly api: AuthAPI;
 
@@ -15,10 +10,9 @@ class AuthController {
   async signin(data: SigninData): Promise<AuthResponse> {
     try {
       const res = await this.api.signin(data);
-      // console.log(res);
       // check if errors, they come as {reason: error}
       if (res.reason) return userError(res.reason);
-      localStorage.setItem('isAuthenticated', 'false');
+      localStorage.setItem('isAuthenticated', 'true');
       return await this.fetchUser();
     } catch (error: unknown) {
       return userError(error);
@@ -51,19 +45,6 @@ class AuthController {
       return userError(error);
     }
   }
-
-  // async signup(data: SignupData) {
-  //   try {
-  //     await this.api.signup(data);
-  //     const user = await this.fetchUser();
-  //     return {
-  //       success: true,
-  //       user: user.user,
-  //     };
-  //   } catch (error: unknown) {
-  //     return userError(error);
-  //   }
-  // }
 }
 
 const controller = new AuthController();

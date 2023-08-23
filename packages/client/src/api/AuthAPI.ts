@@ -109,14 +109,6 @@ export class AuthAPI {
 
     return response.json();
   }
-
-  create = undefined;
-  // async createp(data: SignupData): Promise<{ id: number }> {
-  //   return this.http.post('/signup', data);
-  // }
-
-  // update = undefined;
-  // delete = undefined;
 }
 
 export default new AuthAPI();
