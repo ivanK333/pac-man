@@ -1,7 +1,7 @@
 // Draw walls and passages using the this.matrix
 // import { isEqual } from 'lodash';
 
-import { MapMatrix, Position } from '../types';
+import { MapMatrix } from '../types';
 
 export function drawWalls(
   ctx: CanvasRenderingContext2D,
@@ -15,14 +15,6 @@ export function drawWalls(
   wallDrawer.render();
 }
 
-// function getRandomColor() {
-//   const letters = '0123456789ABCDEF';
-//   let color = '#';
-//   for (let i = 0; i < 6; i++) {
-//     color += letters[Math.floor(Math.random() * 16)];
-//   }
-//   return color;
-// }
 type Pattern = (number | undefined)[][];
 type Drawer = (x: number, y: number) => void;
 
@@ -60,6 +52,7 @@ const rect = (
   ctx.fillStyle = color;
   ctx.fillRect(x, y, size, size);
 };
+
 const dot = (
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -95,6 +88,7 @@ class WallDrawer {
     this.strokeColor = strokeColor;
     this.patterns = this.getPatterns();
   }
+
   static readonly SEGMENTS = {
     vert: WallDrawer.prototype.drawVerticalLine,
     hor: WallDrawer.prototype.drawHorizontalLine,
@@ -161,6 +155,7 @@ class WallDrawer {
     ];
 
     const hors = verts.map((v) => rotateMatrix(v));
+
     const cornersRT = [
       [
         [0, 0, 0],
@@ -177,7 +172,6 @@ class WallDrawer {
         [1, 1, 0],
         [1, 1, 1],
       ],
-
       [
         [1, 0, 0],
         [1, 1, 0],
@@ -224,6 +218,7 @@ class WallDrawer {
   getDrawer(row: number, col: number) {
     const matrix = this.matrix;
 
+    /** get 3x3 matrix of neighbours */
     const inQuestion = [row - 1, row, row + 1].map((r) =>
       [col - 1, col, col + 1].map((c) => getCellValue(matrix, r, c)),
     );
