@@ -6,15 +6,20 @@ import styles from './styles.module.scss';
 import defaultImage from '../../assets/images/default-avatar.svg';
 import ModalHeading from '../ModalHeading/ModalHeading';
 import ModalSubmitButton from '../ModalSubmitButton/ModalSubmitButton';
-import { ProfileAPI } from '../../api/ProfileAPI';
+import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
 import { RESOURCES_URL } from '../../api/config';
 
 type TAvatarFormProps = {
   handleClose: () => void;
   avatar: string;
+  refreshUserData: (data: TUserResponse) => void;
 };
 
-const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
+const AvatarForm: React.FC<TAvatarFormProps> = ({
+  handleClose,
+  avatar,
+  refreshUserData,
+}) => {
   const formMethods = useForm();
 
   const [image, setImage] = useState<string>(defaultImage);
@@ -41,7 +46,10 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({ handleClose, avatar }) => {
     if (form) {
       const data = new FormData(form);
       form.checkValidity() &&
-        changeAvatar(data).then((data) => console.log(data));
+        changeAvatar(data).then((data) => {
+          refreshUserData(data);
+          handleClose();
+        });
     }
   };
 
