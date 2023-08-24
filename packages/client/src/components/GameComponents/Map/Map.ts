@@ -7,6 +7,6 @@ export const drawMap = (
   matrix: MapMatrix,
   cellSize: number,
 ) => {
-  drawWalls(ctx, matrix, cellSize, 'blue');
+  drawWalls(ctx, matrix, cellSize, 'blue', 2);
   // draw pellets and cherries here
 };

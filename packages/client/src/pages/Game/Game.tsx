@@ -1,19 +1,6 @@
-import {
-  Component,
-  useEffect,
-  useRef,
-  useState,
-  createRef,
-  ChangeEvent,
-} from 'react';
+import { useEffect, useRef, useState, ChangeEvent } from 'react';
 
 import { drawPacMan } from '../../components/GameComponents/PacMan/PacMan';
-// import { drawPellet } from '../../components/GameComponents/Pellet/Pettet';
-// import { drawWalls } from '../../components/GameComponents/Walls/Walls';
-import { MapMatrix_001 } from '../../components/GameComponents/Layers/Layer_001';
-// import { MapMatrix_test } from '../../components/GameComponents/Layers/Layer_test';
-// import { performRandomWalk } from '../../components/GameComponents/Layers/Generator/generator';
-// import { readCSVFile } from '../../components/GameComponents/Layers/Generator/generateFromCsv';
 import { drawMap } from '../../components/GameComponents/Map/Map';
 import { getGameLevel } from './getGameLevel';
 import styles from './styles.module.scss';
@@ -23,21 +10,22 @@ const GameField: React.FC = () => {
   const cellSize = 20;
   const [level, setLevel] = useState<number>(1);
   const [mapMatrix, setMapMatrix] = useState<number[][]>([]);
-  const [width, setWidth] = useState<number>(31 * cellSize);
-  const [height, setHeight] = useState<number>(31 * cellSize);
+  const [matrixSize, setMatrixSize] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     getGameFieldMatrix(level);
   }, [level]);
 
   const getGameFieldMatrix = async (gameLevel: number) => {
-    const fetchedMapMatrix = await getGameLevel(gameLevel);
-    setMapMatrix(fetchedMapMatrix.matrix);
+    const res = await getGameLevel(gameLevel);
+    const { matrix } = res;
+    setMatrixSize([matrix[0].length, matrix.length]);
+    setMapMatrix(matrix);
   };
 
   useEffect(() => {
     drawGame();
-  }, [mapMatrix, level]);
+  }, [mapMatrix]);
 
   const drawGame = () => {
     const canvas = canvasRef.current;
@@ -47,7 +35,8 @@ const GameField: React.FC = () => {
     if (!ctx) return;
 
     // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, matrixSize[0] * cellSize, matrixSize[1] * cellSize);
+    console.log('render rectangle');
 
     // // Draw border
     // ctx.strokeStyle = 'red';
@@ -57,7 +46,11 @@ const GameField: React.FC = () => {
     drawMap(ctx, mapMatrix, cellSize);
 
     // Draw Pac-Man
-    drawPacMan(ctx, { x: 5 * cellSize, y: 5 * cellSize }, cellSize * 0.6);
+    drawPacMan(
+      ctx,
+      { x: cellSize, y: (matrixSize[1] / 2) * cellSize },
+      cellSize,
+    );
   };
 
   return (
@@ -66,8 +59,8 @@ const GameField: React.FC = () => {
         <LevelSelector setLevel={setLevel} />
         <canvas
           ref={canvasRef}
-          width={width}
-          height={height}
+          width={matrixSize[0] * cellSize}
+          height={matrixSize[1] * cellSize}
           style={{ border: '1px solid black' }}
         />
       </div>

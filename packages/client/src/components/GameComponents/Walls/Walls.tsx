@@ -8,8 +8,8 @@ export function drawWalls(
   matrix: MapMatrix,
   cellSize: number,
   color: string,
+  strokeSize = 5,
 ) {
-  const strokeSize = 5;
   const wallDrawer = new WallDrawer(ctx, matrix, strokeSize, cellSize, color);
 
   wallDrawer.render();
@@ -71,10 +71,32 @@ const replaceNonFourWithZero = (matrix: number[][]): number[][] => {
   return matrix.map((row) => row.map((val) => (val === 4 ? val : 0)));
 };
 
+const rotateMatrix90 = (matrix: Pattern): Pattern => {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+
+  const rotated: Pattern = [];
+
+  for (let col = 0; col < cols; col++) {
+    const newRow: (number | undefined)[] = [];
+    for (let row = rows - 1; row >= 0; row--) {
+      newRow.push(matrix[row][col]);
+    }
+    rotated.push(newRow);
+  }
+  // const rotated = matrix.map((row) => row.map((col) => ))
+
+  return rotated;
+};
+
+const rotatematrix180 = (matrix: Pattern): Pattern => {
+  return rotateMatrix90(rotateMatrix90(matrix));
+};
+
 class WallDrawer {
   ctx: CanvasRenderingContext2D;
   matrix: MapMatrix;
-  lineWidth: number;
+  strokeSize: number;
   cellSize: number;
   strokeColor: string;
   patterns: { patterns: Pattern[]; func: Drawer }[];
@@ -82,13 +104,13 @@ class WallDrawer {
   constructor(
     ctx: CanvasRenderingContext2D,
     matrix: MapMatrix,
-    lineWidth: number,
+    strokeSize: number,
     cellSize: number,
     strokeColor: string,
   ) {
     this.ctx = ctx;
     this.matrix = matrix;
-    this.lineWidth = lineWidth;
+    this.strokeSize = strokeSize;
     this.cellSize = cellSize;
     this.strokeColor = strokeColor;
     this.patterns = this.getPatterns();
@@ -104,23 +126,6 @@ class WallDrawer {
   };
 
   getPatterns(): { patterns: Pattern[]; func: Drawer }[] {
-    const rotateMatrix = (matrix: Pattern): Pattern => {
-      const rows = matrix.length;
-      const cols = matrix[0].length;
-
-      const rotated: Pattern = [];
-
-      for (let col = 0; col < cols; col++) {
-        const newRow: (number | undefined)[] = [];
-        for (let row = rows - 1; row >= 0; row--) {
-          newRow.push(matrix[row][col]);
-        }
-        rotated.push(newRow);
-      }
-
-      return rotated;
-    };
-
     const verts = [
       [
         [undefined, 1, undefined],
@@ -157,9 +162,19 @@ class WallDrawer {
         [0, 1, 1],
         [0, 1, 1],
       ],
+      [
+        [1, 1, 1],
+        [0, 1, 1],
+        [1, 1, 1],
+      ],
+      [
+        [1, 1, 1],
+        [1, 1, 0],
+        [1, 1, 1],
+      ],
     ];
 
-    const hors = verts.map((v) => rotateMatrix(v));
+    const hors = verts.map((v) => rotateMatrix90(v));
 
     const cornersRT = [
       [
@@ -189,9 +204,9 @@ class WallDrawer {
       ],
     ];
 
-    const cornersRB = cornersRT.map((v) => rotateMatrix(v));
-    const cornersLB = cornersRB.map((v) => rotateMatrix(v));
-    const cornersLT = cornersLB.map((v) => rotateMatrix(v));
+    const cornersRB = cornersRT.map((v) => rotateMatrix90(v));
+    const cornersLB = cornersRB.map((v) => rotateMatrix90(v));
+    const cornersLT = cornersLB.map((v) => rotateMatrix90(v));
 
     return [
       { patterns: verts, func: WallDrawer.SEGMENTS.vert },
@@ -205,6 +220,8 @@ class WallDrawer {
 
   render() {
     const matrix = replaceNonFourWithZero(this.matrix);
+    this.ctx.lineWidth = this.strokeSize;
+
     for (let row = 0; row < matrix.length; row++) {
       for (let col = 0; col < matrix[row].length; col++) {
         if (matrix[row][col] === 4) {
