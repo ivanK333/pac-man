@@ -40,7 +40,7 @@ const App = () => {
           isAuthenticated ? (
             <Main />
           ) : (
-            <Navigate replace to={ROUTES.auth.login} />
+            <Navigate replace to={`${ROUTES.auth.root}/${ROUTES.auth.login}`} />
           )
         }
       />
