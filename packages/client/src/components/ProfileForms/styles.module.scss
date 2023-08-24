@@ -37,23 +37,24 @@
   min-height: 465px;
 }
 
-.avatarForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 12px;
-  box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
-  background: $color-palette-black;
-  padding: 50px 30px 28px;
-  max-width: 340px;
-  min-height: 450px;
-}
+// .avatarForm {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: space-between;
+//   border-radius: 12px;
+//   box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
+//   background: $color-palette-black;
+//   padding: 50px 30px 28px;
+//   max-width: 340px;
+//   min-height: 450px;
+// }
 
 .previewContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
   border-radius: 50%;
   background-color: $color-palette-white;
   width: 130px;
@@ -87,11 +88,11 @@
 }
 
 .uploadLabel {
-  border-radius: 10px;
-  background-color: $color-palette-yellow;
+  @include typography-l;
+
+  margin-top: 15px;
   cursor: pointer;
-  padding: 5px 10px;
-  color:$color-palette-black;
-  font-family: $font-Press-start-2p;
-  font-size: 11px;
+  text-align: center;
+  color: $color-palette-yellow;
+  font-family: $font-Quicksand;
 }

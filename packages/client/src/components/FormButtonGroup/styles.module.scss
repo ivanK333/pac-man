@@ -3,8 +3,8 @@
 
 .section {
   @include mixins.typography-xs;
-
-  flex: 0 0 auto;
+  
+  margin-top: auto;
 
   > p {
     margin-top: 7px;
@@ -15,4 +15,9 @@
 .link {
   color: variables.$color-palette-yellow;
   font-weight: 700;
+}
+
+.btn {
+  border: none;
+  background: none;
 }

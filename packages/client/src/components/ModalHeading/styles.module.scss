@@ -1,9 +1,11 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .heading {
-  line-height: 20px;
-  color: $color-palette-yellow;
-  font-family: $font-Press-start-2p;
-  font-size: 20px;
+  @include mixins.typography-l;
+
+  margin-bottom: 45px;
+  text-align: center;
+  color: variables.$color-palette-yellow;
+  font-family: variables.$font-Press-start-2p;
 }
