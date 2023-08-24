@@ -52,7 +52,6 @@ const Profile = () => {
       .catch((e) => console.error(e));
   }, []);
 
-  console.log(user.avatar);
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
