@@ -17,6 +17,7 @@
 
 .submitError {
   @include mixins.typography-s;
+
   // font-family: 'Press Start 2P', sans-serif;
   margin-bottom: 30px;
   color: variables.$color-palette-red;
