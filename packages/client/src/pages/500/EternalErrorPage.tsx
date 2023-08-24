@@ -1,13 +1,7 @@
 import ErrorPageConstructor from '../../components/ErrorPageConstructor/ErrorPageConstructor';
 import eternalErrorImage from '../../assets/images/500-image.svg';
 import { ROUTES } from '../../constants/routes';
-
-enum Colors {
-  yellow = 'yellow',
-  blue = 'blue',
-  black = 'black',
-}
-
+import { Colors } from '../../assets/constants/colors';
 const EternalErrorPage = () => {
   const linkText = 'back to the game';
   return (
