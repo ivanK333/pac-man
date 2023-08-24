@@ -42,6 +42,10 @@ const Profile = () => {
 
   const { first_name, display_name, second_name, email, phone, login } = user;
 
+  const refreshUserData = (data: TUserResponse) => {
+    setUser(data);
+  };
+
   useLayoutEffect(() => {
     getUser()
       .then((data) => setUser(data))
@@ -72,7 +76,11 @@ const Profile = () => {
       </div>
       {isOpenModal ? (
         <Modal handleClose={handleCloseModal}>
-          <AvatarForm handleClose={handleCloseModal} />
+          <AvatarForm
+            handleClose={handleCloseModal}
+            avatar={user.avatar}
+            refreshUserData={refreshUserData}
+          />
         </Modal>
       ) : null}
     </div>
