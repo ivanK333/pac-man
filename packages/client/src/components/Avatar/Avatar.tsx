@@ -12,20 +12,18 @@ const Avatar: React.FC<TAvatarProps> = ({ avatar, handleOpenModal }) => {
     avatar === 'null' || !avatar ? defaultAvatar : `${RESOURCES_URL}${avatar}`;
 
   return (
-    <div className={styles.imageContainer} onClick={handleOpenModal}>
-      <section className={styles.wrapper}>
-        <div className={styles.hoverOverlay}>
-          <p className={styles.hoverText}>Change avatar</p>
-        </div>
-        <img
-          className={
-            avatarImage === defaultAvatar ? styles.defaultImage : styles.image
-          }
-          src={avatarImage}
-          alt="Avatar"
-        />
-      </section>
-    </div>
+    <section className={styles.wrapper} onClick={handleOpenModal}>
+      <div className={styles.hoverOverlay}>
+        <p className={styles.hoverText}>Change avatar</p>
+      </div>
+      <img
+        className={
+          avatarImage === defaultAvatar ? styles.defaultImage : styles.image
+        }
+        src={avatarImage}
+        alt="Avatar"
+      />
+    </section>
   );
 };
 
