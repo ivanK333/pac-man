@@ -21,7 +21,7 @@ const initialState = {
 
 const Profile = () => {
   const [isPasswordEdit, setIsPasswordEdit] = useState<boolean>(true);
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(true);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [user, setUser] = useState<TUserResponse>(initialState);
 
   const { getUser } = ProfileAPI();
@@ -51,10 +51,12 @@ const Profile = () => {
       .then((data) => setUser(data))
       .catch((e) => console.error(e));
   }, []);
+
+  console.log(user.avatar);
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
-        <Avatar avatar={user.avatar} handleOpenModal={handleOpenModal} />
+        <Avatar avatar={'null'} handleOpenModal={handleOpenModal} />
         <p className={styles.username}>{user.login}</p>
       </div>
       <div className={styles.formContainer}>

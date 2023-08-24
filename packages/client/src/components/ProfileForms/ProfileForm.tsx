@@ -112,12 +112,15 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
             <>
               <button
                 className={
-                  formMethods.formState.isValid
+                  formMethods.formState.isValid && formMethods.formState.isDirty
                     ? styles.submitButton
                     : styles.editButton
                 }
                 type="submit"
-                disabled={formMethods.formState.isValid}
+                disabled={
+                  !formMethods.formState.isValid &&
+                  !formMethods.formState.isDirty
+                }
               >
                 save
               </button>

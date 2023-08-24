@@ -8,6 +8,9 @@ type TAvatarProps = {
 };
 
 const Avatar: React.FC<TAvatarProps> = ({ avatar, handleOpenModal }) => {
+  const avatarImage =
+    avatar === 'null' || !avatar ? defaultAvatar : `${RESOURCES_URL}${avatar}`;
+
   return (
     <div className={styles.imageContainer} onClick={handleOpenModal}>
       <section className={styles.wrapper}>
@@ -16,9 +19,9 @@ const Avatar: React.FC<TAvatarProps> = ({ avatar, handleOpenModal }) => {
         </div>
         <img
           className={
-            avatar === defaultAvatar ? styles.defaultImage : styles.image
+            avatarImage === defaultAvatar ? styles.defaultImage : styles.image
           }
-          src={avatar ? `${RESOURCES_URL}${avatar}` : defaultAvatar}
+          src={avatarImage}
           alt="Avatar"
         />
       </section>
