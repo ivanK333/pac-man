@@ -6,6 +6,9 @@ import Input from '../InputWithLabel/InputWithLabel';
 import { validation } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
 import { ProfileAPI, TProfileForm } from '../../api/ProfileAPI';
+import { ROUTES } from '../../constants/routes';
+import { Colors } from '../../assets/constants/colors';
+import CustomLink from '../CustomLink/CustomLink';
 
 type TProfileFormProps = {
   handleSwitch: () => void;
@@ -45,6 +48,10 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   useEffect(() => {
     formMethods.reset(user);
   }, [user]);
+
+  const linkPath = ROUTES.main.root;
+  const linkText = 'back to the game';
+  const linkColor = Colors.yellow;
 
   return (
     <FormProvider {...formMethods}>
@@ -161,6 +168,11 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
               >
                 edit password
               </button>
+              <CustomLink
+                linkPath={linkPath}
+                linkText={linkText}
+                linkColor={linkColor}
+              />
             </>
           )}
         </div>
