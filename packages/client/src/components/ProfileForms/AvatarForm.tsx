@@ -65,9 +65,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
 
   useEffect(() => {
     const avatarImage =
-      avatar === 'null' || !avatar
-        ? defaultAvatar
-        : `${RESOURCES_URL}${avatar}`;
+      avatar === 'null' || !avatar ? defaultImage : `${RESOURCES_URL}${avatar}`;
     setImage(avatarImage);
   }, [avatar]);
 
