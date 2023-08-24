@@ -56,7 +56,7 @@ const Profile = () => {
   return (
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
-        <Avatar avatar={'null'} handleOpenModal={handleOpenModal} />
+        <Avatar avatar={user.avatar} handleOpenModal={handleOpenModal} />
         <p className={styles.username}>{user.login}</p>
       </div>
       <div className={styles.formContainer}>
