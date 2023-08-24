@@ -64,8 +64,13 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
   );
 
   useEffect(() => {
-    setImage(`${RESOURCES_URL}${avatar}`);
+    const avatarImage =
+      avatar === 'null' || !avatar
+        ? defaultAvatar
+        : `${RESOURCES_URL}${avatar}`;
+    setImage(avatarImage);
   }, [avatar]);
+
   return (
     <FormProvider {...formMethods}>
       <form
