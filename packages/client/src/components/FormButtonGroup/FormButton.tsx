@@ -11,6 +11,7 @@ export interface FormButtonProps {
   link?: string;
   onClick?: () => void;
   linkName: string;
+  disabled?: boolean;
 }
 
 const FormButton: React.FC<FormButtonProps> = ({
@@ -20,11 +21,12 @@ const FormButton: React.FC<FormButtonProps> = ({
   link,
   linkName,
   onClick,
+  ...rest
 }) => {
   return (
     <article className={styles.section}>
       {spriteImg && <Sprite spriteImg={spriteImg} />}
-      <Button label={title} />
+      <Button label={title} {...rest} />
       <p>
         {bottomText}
         <span>&nbsp;</span>
