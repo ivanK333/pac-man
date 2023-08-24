@@ -66,6 +66,11 @@ const dot = (
   ctx.fill();
 };
 
+const replaceNonFourWithZero = (matrix: number[][]): number[][] => {
+  // console.log('=====>', matrix);
+  return matrix.map((row) => row.map((val) => (val === 4 ? val : 0)));
+};
+
 class WallDrawer {
   ctx: CanvasRenderingContext2D;
   matrix: MapMatrix;
@@ -199,9 +204,10 @@ class WallDrawer {
   }
 
   render() {
-    for (let row = 0; row < this.matrix.length; row++) {
-      for (let col = 0; col < this.matrix[row].length; col++) {
-        if (this.matrix[row][col] === 4) {
+    const matrix = replaceNonFourWithZero(this.matrix);
+    for (let row = 0; row < matrix.length; row++) {
+      for (let col = 0; col < matrix[row].length; col++) {
+        if (matrix[row][col] === 4) {
           /** get cell top left corner */
           const x = col * this.cellSize;
           const y = row * this.cellSize;
@@ -216,7 +222,7 @@ class WallDrawer {
   }
 
   getDrawer(row: number, col: number) {
-    const matrix = this.matrix;
+    const matrix = replaceNonFourWithZero(this.matrix);
 
     /** get 3x3 matrix of neighbours */
     const inQuestion = [row - 1, row, row + 1].map((r) =>

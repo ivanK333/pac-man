@@ -8,4 +8,5 @@ export const drawMap = (
   cellSize: number,
 ) => {
   drawWalls(ctx, matrix, cellSize, 'blue');
+  // draw pellets and cherries here
 };

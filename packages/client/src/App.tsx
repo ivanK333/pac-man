@@ -12,16 +12,16 @@ import EternalErrorPage from './pages/500/EternalErrorPage';
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${__SERVER_PORT__}`;
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-  //     console.log(data);
-  //   };
+  useEffect(() => {
+    const fetchServerData = async () => {
+      const url = `http://localhost:${3001}`;
+      const response = await fetch(url);
+      const data = await response.json();
+      console.log(data);
+    };
 
-  //   fetchServerData();
-  // }, []);
+    fetchServerData();
+  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {

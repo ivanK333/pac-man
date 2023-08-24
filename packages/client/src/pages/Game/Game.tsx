@@ -1,4 +1,11 @@
-import { Component, createRef } from 'react';
+import {
+  Component,
+  useEffect,
+  useRef,
+  useState,
+  createRef,
+  ChangeEvent,
+} from 'react';
 
 import { drawPacMan } from '../../components/GameComponents/PacMan/PacMan';
 // import { drawPellet } from '../../components/GameComponents/Pellet/Pettet';
@@ -8,54 +15,103 @@ import { MapMatrix_001 } from '../../components/GameComponents/Layers/Layer_001'
 // import { performRandomWalk } from '../../components/GameComponents/Layers/Generator/generator';
 // import { readCSVFile } from '../../components/GameComponents/Layers/Generator/generateFromCsv';
 import { drawMap } from '../../components/GameComponents/Map/Map';
+import { getGameLevel } from './getGameLevel';
 import styles from './styles.module.scss';
 
-class GameField extends Component {
-  private canvasRef = createRef<HTMLCanvasElement>();
-  private mapMatrix = MapMatrix_001;
-  private cellSize = 20;
-  private width = this.mapMatrix[0].length * this.cellSize;
-  private height = this.mapMatrix.length * this.cellSize;
+const GameField: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const cellSize = 20;
+  const [level, setLevel] = useState<number>(1);
+  const [mapMatrix, setMapMatrix] = useState<number[][]>([]);
+  const [width, setWidth] = useState<number>(31 * cellSize);
+  const [height, setHeight] = useState<number>(31 * cellSize);
 
-  componentDidMount() {
-    this.drawGame();
-  }
+  useEffect(() => {
+    getGameFieldMatrix(level);
+  }, [level]);
 
-  drawGame = () => {
-    const canvas = this.canvasRef.current;
+  const getGameFieldMatrix = async (gameLevel: number) => {
+    const fetchedMapMatrix = await getGameLevel(gameLevel);
+    setMapMatrix(fetchedMapMatrix.matrix);
+  };
+
+  useEffect(() => {
+    drawGame();
+  }, [mapMatrix, level]);
+
+  const drawGame = () => {
+    const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    if (ctx) {
-      // Create the canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      drawMap(ctx, this.mapMatrix, this.cellSize);
+    // // Draw border
+    // ctx.strokeStyle = 'red';
+    // ctx.lineWidth = 2;
+    // ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-      // Draw Pac-Man
-      drawPacMan(
-        ctx,
-        { x: 5 * this.cellSize, y: 5 * this.cellSize },
-        this.cellSize * 0.6,
-      );
-    }
+    drawMap(ctx, mapMatrix, cellSize);
+
+    // Draw Pac-Man
+    drawPacMan(ctx, { x: 5 * cellSize, y: 5 * cellSize }, cellSize * 0.6);
   };
 
-  render() {
-    return (
-      <div className={styles.container}>
-        <div className={styles.contentContainer}>
-          <canvas
-            ref={this.canvasRef}
-            width={this.width}
-            height={this.height}
-            style={{ border: '1px solid black' }}
-          />
-        </div>
+  return (
+    <div className={styles.container}>
+      <div className={styles.contentContainer}>
+        <LevelSelector setLevel={setLevel} />
+        <canvas
+          ref={canvasRef}
+          width={width}
+          height={height}
+          style={{ border: '1px solid black' }}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default GameField;
+
+interface LevelSelectorProps {
+  setLevel: (level: number) => void;
+}
+
+const LevelSelector: React.FC<LevelSelectorProps> = ({ setLevel }) => {
+  const [selectedLevel, setSelectedLevel] = useState<number>(1);
+
+  const handleLevelChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const newSelectedLevel = parseInt(event.target.value, 10);
+    setSelectedLevel(newSelectedLevel);
+    setLevel(newSelectedLevel);
+  };
+
+  return (
+    <div>
+      <h2>Select a Level</h2>
+      <label>
+        <input
+          type="radio"
+          value={1}
+          checked={selectedLevel === 1}
+          onChange={handleLevelChange}
+        />
+        Level 1
+      </label>
+      <label>
+        <input
+          type="radio"
+          value={2}
+          checked={selectedLevel === 2}
+          onChange={handleLevelChange}
+        />
+        Level 2
+      </label>
+      <p>Selected Level: {selectedLevel}</p>
+    </div>
+  );
+};

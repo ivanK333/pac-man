@@ -8,24 +8,8 @@
 
 .contentContainer {
   display: flex;
+  flex-direction: column;
   padding-top: 100px;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
 }
-
-// .container {
-//   display: flex;
-//   justify-content: center; /* Center horizontally */
-//   align-items: center; /* Center vertically */
-//   height: 100vh; /* Adjust this as needed */
-// }
-
-// .contentContainer {
-//   /* Add any styling for the content container here */
-// }
-
-// .canvasWrapper {
-//   display: flex;
-//   justify-content: center; /* Center horizontally */
-//   align-items: center; /* Center vertically */
-// }
