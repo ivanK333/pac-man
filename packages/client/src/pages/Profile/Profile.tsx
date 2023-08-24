@@ -55,7 +55,7 @@ const Profile = () => {
     <div className={styles.container}>
       <div className={styles.avatarContainer}>
         <Avatar avatar={user.avatar} handleOpenModal={handleOpenModal} />
-        <p className={styles.username}>Username</p>
+        <p className={styles.username}>{user.login}</p>
       </div>
       <div className={styles.formContainer}>
         {isPasswordEdit ? (
