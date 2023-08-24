@@ -1,5 +1,7 @@
+const SERVER_PORT = 3002;
+
 export const getGameLevel = async (level: number): Promise<any> => {
-  const baseUrl = `http://localhost:${3002}`;
+  const baseUrl = `http://localhost:${SERVER_PORT}`;
   const queryParams = new URLSearchParams({
     level: level.toString(),
   });
