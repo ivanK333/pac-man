@@ -75,15 +75,15 @@ const Profile = () => {
           <ChangePasswordForm handleSwitch={handleShowProfile} />
         )}
       </div>
-      {isOpenModal ? (
-        <Modal handleClose={handleCloseModal}>
+      {isOpenModal && (
+        <Modal>
           <AvatarForm
             handleClose={handleCloseModal}
             avatar={user.avatar}
             refreshUserData={refreshUserData}
           />
         </Modal>
-      ) : null}
+      )}
     </div>
   );
 };
