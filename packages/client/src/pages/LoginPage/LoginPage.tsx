@@ -9,8 +9,8 @@ import Input from '../../components/InputWithLabel/InputWithLabel';
 import FormButtonGroup from '../../components/FormButtonGroup/FormButton';
 import spriteSvg from '../../assets/images/blueSprite.svg';
 import { validation } from '../../assets/constants/formValidation';
-// import { ROUTES } from '../../constants/routes';
 import styles from './styles.module.scss';
+import FormHeading from '../../components/FormHeading/FormHeading';
 
 export const redirect = (url: string) => {
   window.location.href = url;
@@ -21,8 +21,6 @@ type FormValues = {
   password: string;
 };
 const LoginForm = () => {
-  // const navigate = useNavigate();
-
   const [error, setError] = useState<string | null>(null);
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
@@ -34,7 +32,6 @@ const LoginForm = () => {
       return;
     }
     console.log(response);
-    // navigate(`/${ROUTES.main.root}`);
     redirect('/');
   };
 
@@ -42,7 +39,7 @@ const LoginForm = () => {
     <div className={styles.container}>
       <div className={styles.contentContainer}>
         <FormGroup onSubmit={submit}>
-          <h2>Login</h2>
+          <FormHeading text="Login" />
           {error && <p className={styles.submitError}>{error}</p>}
           <Input
             label="Login"

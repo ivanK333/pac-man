@@ -6,6 +6,7 @@ import spriteSvg from '../../assets/images/purple_ghost.png';
 import Input from '../../components/InputWithLabel/InputWithLabel';
 import { validation } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
+import FormHeading from '../../components/FormHeading/FormHeading';
 
 type FormValues = {
   login: string;
@@ -21,7 +22,7 @@ const Register = () => {
   return (
     <div className={styles.registerPage}>
       <FormGroup onSubmit={submit}>
-        <h2 className={styles.title}>Register</h2>
+        <FormHeading text="Register" />
         <Input
           label="Email"
           type="email"
