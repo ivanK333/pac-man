@@ -5,9 +5,9 @@
   @include mixins.typography-xs;
 
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-bottom: 20px;
-  position: relative;
 }
 
 .label {
@@ -57,19 +57,18 @@
 }
 
 .error {
-  max-width: 190px;
   position: absolute;
   top: 47px;
   right: 0;
+  max-width: 190px;
   text-align: end;
 
   > p {
-    padding-top: 3px;
-    position: relative;
-    min-height: 20px;
-
     @include mixins.typography-xs;
 
+    position: relative;
+    padding-top: 3px;
+    min-height: 20px;
     color: variables.$color-palette-red;
 
     &::after {

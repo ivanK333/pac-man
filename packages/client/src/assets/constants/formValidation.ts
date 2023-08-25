@@ -92,6 +92,7 @@ export const validation: Record<string, RegisterOptions> = {
   },
 
   first_name: {
+    required: 'Name is required',
     validate: {
       latinLetters: (value) =>
         /^[a-zA-Zа-яёА-ЯЁ0-9_-\s]+$/.test(value)
@@ -106,6 +107,7 @@ export const validation: Record<string, RegisterOptions> = {
   },
 
   second_name: {
+    required: 'Surname is required',
     validate: {
       Letters: (value) =>
         /^[a-zA-Zа-яёА-ЯЁ0-9_-\s]+$/.test(value)
@@ -120,6 +122,7 @@ export const validation: Record<string, RegisterOptions> = {
   },
 
   email: {
+    required: 'Email is required',
     validate: {
       latinLetters: (value) =>
         /^[a-zA-Z0-9@._-\s]+$/.test(value)
@@ -134,6 +137,7 @@ export const validation: Record<string, RegisterOptions> = {
   },
 
   phone: {
+    required: 'Phone is required',
     minLength: minVal(10),
     maxLength: maxVal(15),
     validate: {

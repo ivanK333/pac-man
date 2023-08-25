@@ -9,8 +9,9 @@
 }
 
 .submitError {
-  position: absolute;
   @include mixins.typography-s;
 
+  position: absolute;
+  top: 40px;
   color: variables.$color-palette-red;
 }
