@@ -67,7 +67,7 @@ const Register = () => {
           spriteImg={spriteSvg}
           bottomText="Already have an account?"
           linkName="Login"
-          link="/login"
+          link="/auth/login"
         />
       </FormGroup>
     </div>

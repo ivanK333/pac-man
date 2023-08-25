@@ -1,50 +1,53 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Input from '../InputWithLabel/InputWithLabel';
 import { validation } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
-import CustomLink from '../CustomLink/CustomLink';
+import { ProfileAPI, TProfileForm } from '../../api/ProfileAPI';
 import { ROUTES } from '../../constants/routes';
 import { Colors } from '../../assets/constants/colors';
+import CustomLink from '../CustomLink/CustomLink';
 
 type TProfileFormProps = {
   handleSwitch: () => void;
+  user: TProfileForm;
 };
 
-type TProfileForm = {
-  first_name: string;
-  second_name: string;
-  display_name: string;
-  login: string;
-  email: string;
-  phone: string;
-};
-
-const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch }) => {
-  const defaultValues: TProfileForm = {
-    first_name: 'Ilya',
-    second_name: 'Makhin',
-    display_name: 'IlyaZubastu',
-    login: 'zubastu',
-    email: 'zubastu@gmail.com',
-    phone: '+79999220615',
-  };
-
+const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const formMethods = useForm<TProfileForm>({
-    defaultValues: defaultValues,
+    defaultValues: user,
   });
 
+  const { changeProfile } = ProfileAPI();
+
   const handleSubmit: SubmitHandler<TProfileForm> = (data: TProfileForm) => {
-    if (!formMethods.formState.isDirty) {
+    if (!formMethods.formState.isValid) {
       return;
     }
-    console.log(data);
+    changeProfile(data)
+      .then(
+        ({ first_name, second_name, display_name, login, email, phone }) => {
+          formMethods.reset({
+            first_name,
+            second_name,
+            display_name,
+            login,
+            email,
+            phone,
+          });
+        },
+      )
+      .catch((e) => console.error(e));
     setIsEdit(false);
   };
+
+  useEffect(() => {
+    formMethods.reset(user);
+  }, [user]);
 
   const linkPath = ROUTES.main.root;
   const linkText = 'back to the game';
@@ -116,12 +119,15 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch }) => {
             <>
               <button
                 className={
-                  formMethods.formState.isDirty
+                  formMethods.formState.isValid && formMethods.formState.isDirty
                     ? styles.submitButton
                     : styles.editButton
                 }
                 type="submit"
-                disabled={!formMethods.formState.isDirty}
+                disabled={
+                  !formMethods.formState.isValid &&
+                  !formMethods.formState.isDirty
+                }
               >
                 save
               </button>
@@ -135,7 +141,7 @@ const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch }) => {
                 onClick={(e: SyntheticEvent) => {
                   e.preventDefault();
                   setIsEdit(false);
-                  formMethods.reset(defaultValues);
+                  formMethods.reset(user);
                 }}
               >
                 cancel

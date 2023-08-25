@@ -1,26 +1,29 @@
 import styles from './styles.module.scss';
 import defaultAvatar from '../../assets/images/default-avatar.svg';
-import testImage from '../../assets/images/сорри.jpg';
+import { RESOURCES_URL } from '../../api/config';
 
-const Avatar = () => {
-  const avatar = testImage;
+type TAvatarProps = {
+  avatar: string;
+  handleOpenModal: () => void;
+};
+
+const Avatar: React.FC<TAvatarProps> = ({ avatar, handleOpenModal }) => {
+  const avatarImage =
+    avatar === 'null' || !avatar ? defaultAvatar : `${RESOURCES_URL}${avatar}`;
+
   return (
-    <div className={styles.imageContainer}>
-      <section className={styles.wrapper}>
-        <div className={styles.hoverOverlay}>
-          <p className={styles.hoverText}>Change avatar</p>
-        </div>
-        {avatar ? (
-          <img className={styles.image} src={avatar} alt="Avatar" />
-        ) : (
-          <img
-            className={styles.defaultImage}
-            src={defaultAvatar}
-            alt="Avatar"
-          />
-        )}
-      </section>
-    </div>
+    <section className={styles.wrapper} onClick={handleOpenModal}>
+      <div className={styles.hoverOverlay}>
+        <p className={styles.hoverText}>Change avatar</p>
+      </div>
+      <img
+        className={
+          avatarImage === defaultAvatar ? styles.defaultImage : styles.image
+        }
+        src={avatarImage}
+        alt="Avatar"
+      />
+    </section>
   );
 };
 

@@ -1,43 +1,118 @@
 import { API_URL } from './config';
 
-type TLoginData = {
+export type AuthResponse = {
+  success: boolean;
+  user?: User | null;
+  users?: User[] | null;
+  error?: unknown | null | string;
+  reason?: string; // swagger error response is {reason: string}
+};
+export interface SigninData {
   login: string;
   password: string;
-};
-export const LoginAPI = async (data: TLoginData) => {
-  const url = `${API_URL}/auth/signin`;
+}
 
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json: charset=utf-8',
-  };
+export interface SignupData {
+  first_name: string;
+  second_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+}
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    credentials: 'include',
-    body: JSON.stringify(data),
-  });
+export interface User {
+  id: number;
+  first_name: string;
+  second_name: string;
+  display_name: string;
+  login: string;
+  email: string;
+  password: string;
+  phone: string;
+  avatar: string;
+  reason?: string; // swagger error response is {reason: string}
+}
 
-  return response;
-};
+export const userError = (error: unknown) => ({
+  success: false,
+  error,
+});
 
-export const LogoutAPI = async () => {
-  const url = `${API_URL}/auth/signout`;
+export class AuthAPI {
+  private baseUrl: string;
 
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json: charset=utf-8',
-  };
+  constructor() {
+    this.baseUrl = `${API_URL}/auth`;
+  }
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers,
-    credentials: 'include',
-  });
+  async signin(data: SigninData): Promise<AuthResponse> {
+    const url = `${this.baseUrl}/signin`;
 
-  return response;
-};
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json: charset=utf-8',
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      credentials: 'include',
+      body: JSON.stringify(data),
+    });
+
+    if (response.status === 200)
+      return {
+        success: true,
+        error: null,
+      };
+
+    return response.json();
+  }
+
+  async signout(): Promise<AuthResponse> {
+    const url = `${this.baseUrl}/logout`;
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json: charset=utf-8',
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      credentials: 'include',
+    });
+
+    if (response.status === 200)
+      return {
+        success: true,
+        error: null,
+      };
+
+    return userError('Unexpected error');
+  }
+
+  async read(): Promise<User> {
+    const url = `${this.baseUrl}/user`;
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json: charset=utf-8',
+    };
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers,
+      credentials: 'include',
+    });
+
+    return response.json();
+  }
+}
+
+export default new AuthAPI();
+
 // test login
 //   RandomHero
 //   !QAZ2wsx

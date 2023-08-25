@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
 
-import SubmitButton from '../ButtonSubmit/Button';
+import Button from '../ButtonSubmit/Button';
 import styles from './styles.module.scss';
 import Sprite from '../FormSprite/FormSprite';
 
 export interface FormButtonProps {
   title: string;
-  spriteImg: string;
+  spriteImg?: string;
   bottomText: string;
-  link: string;
+  link?: string;
+  onClick?: () => void;
   linkName: string;
+  disabled?: boolean;
 }
 
 const FormButton: React.FC<FormButtonProps> = ({
@@ -18,17 +20,29 @@ const FormButton: React.FC<FormButtonProps> = ({
   bottomText,
   link,
   linkName,
+  onClick,
+  ...rest
 }) => {
   return (
     <article className={styles.section}>
-      <Sprite spriteImg={spriteImg} />
-      <SubmitButton label={title} />
+      {spriteImg && <Sprite spriteImg={spriteImg} />}
+      <Button label={title} {...rest} />
       <p>
         {bottomText}
         <span>&nbsp;</span>
-        <Link className={styles.link} to={link}>
-          {linkName}
-        </Link>
+        {link ? (
+          <Link className={styles.link} to={link}>
+            {linkName}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            className={styles.link + ' ' + styles.btn}
+            onClick={onClick}
+          >
+            {linkName}
+          </button>
+        )}
       </p>
     </article>
   );
