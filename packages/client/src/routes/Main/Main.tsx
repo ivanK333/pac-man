@@ -22,7 +22,7 @@ export const Main = () => {
           <Route path={ROUTES.main.gameOver} element={<GameOver />} />
           <Route path={ROUTES.main.forum.root}>
             <Route path={`/${ROUTES.main.forum.root}`} element={<Forum />} />
-            <Route path={ROUTES.main.forum.root + '/*'} />
+            <Route path={`${ROUTES.main.forum.root}/*`} />
             <Route
               path={ROUTES.main.forum.games}
               element={<NewGamesComponent />}
