@@ -28,7 +28,7 @@ const Register = () => {
           type="email"
           name="email"
           placeholder="pochta@yandex.ru"
-          autoFocus={true}
+          validation={validation.email}
         />
         <Input
           label="Login"
@@ -37,18 +37,26 @@ const Register = () => {
           placeholder="ivanivanov"
           validation={validation.login}
         />
-        <Input label="Name" type="text" name="first_name" placeholder="Ivan" />
+        <Input
+          label="Name"
+          type="text"
+          name="first_name"
+          placeholder="Ivan"
+          validation={validation.first_name}
+        />
         <Input
           label="Surname"
           type="text"
           name="second_name"
           placeholder="Ivanov"
+          validation={validation.second_name}
         />
         <Input
           label="Phone"
           type="phone"
           name="phone"
           placeholder="+79098087766"
+          validation={validation.phone}
         />
         <Input
           label="Password"
@@ -60,8 +68,9 @@ const Register = () => {
         <Input
           label="Password"
           type="password"
-          name="password"
+          name="confirm_password"
           placeholder="Repeat password"
+          validation={validation.confirm_password}
         />
         <FormButtonGroup
           title="Register"
