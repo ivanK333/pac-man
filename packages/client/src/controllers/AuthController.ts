@@ -1,4 +1,10 @@
-import { AuthAPI, SigninData, AuthResponse, userError } from '../api/AuthAPI';
+import {
+  AuthAPI,
+  SigninData,
+  AuthResponse,
+  userError,
+  SignupData,
+} from '../api/AuthAPI';
 
 class AuthController {
   private readonly api: AuthAPI;
@@ -15,6 +21,20 @@ class AuthController {
       localStorage.setItem('isAuthenticated', 'true');
       return await this.fetchUser();
     } catch (error: unknown) {
+      return userError(error);
+    }
+  }
+
+  async signup(data: SignupData): Promise<AuthResponse> {
+    try {
+      const res = await this.api.signup(data);
+      // check if errors, they come as {reason: error}
+      if (res.reason) return userError(res.reason);
+      localStorage.setItem('isAuthenticated', 'true');
+      alert('Регистрация прошла');
+      return res;
+    } catch (error: unknown) {
+      alert((error as Record<string, string>).reason);
       return userError(error);
     }
   }

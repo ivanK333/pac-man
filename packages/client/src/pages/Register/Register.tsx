@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { SubmitHandler } from 'react-hook-form';
 
 import FormGroup from '../../components/FormGroup/FormGroup';
@@ -7,22 +9,40 @@ import Input from '../../components/InputWithLabel/InputWithLabel';
 import { validation } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormHeading/FormHeading';
+import { redirect } from '../LoginPage/LoginPage';
+import AuthController from '../../controllers/AuthController';
+import { ROUTES } from '../../constants/routes';
 
 type FormValues = {
+  first_name: string;
+  second_name: string;
   login: string;
+  email: string;
   password: string;
-  // TODO: add input fields
+  phone: string;
 };
 
 const Register = () => {
+  const [error, setError] = useState<string | null>(null);
+
   const submit: SubmitHandler<FormValues> = async (submitData) => {
-    console.log(submitData);
+    setError(null);
+
+    const response = await AuthController.signup(submitData);
+
+    if (!response.success) {
+      setError(`${response.error}`);
+      return;
+    }
+    console.log(response);
+    redirect(ROUTES.main.root);
   };
 
   return (
     <div className={styles.registerPage}>
       <FormGroup onSubmit={submit}>
         <FormHeading text="Register" />
+        {error && <p className={styles.submitError}>{error}</p>}
         <Input
           label="Email"
           type="email"
