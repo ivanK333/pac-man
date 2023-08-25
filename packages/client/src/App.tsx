@@ -34,39 +34,31 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      <Routes>
-        <Route
-          path="/*"
-          element={
-            isAuthenticated ? (
-              <Main />
-            ) : (
-              <Navigate
-                replace
-                to={`${ROUTES.auth.root}/${ROUTES.auth.login}`}
-              />
-            )
-          }
-        />
-        <Route
-          path={`${ROUTES.auth.root}/*`}
-          element={
-            !isAuthenticated ? (
-              <Auth />
-            ) : (
-              <Navigate replace to={ROUTES.main.root} />
-            )
-          }
-        />
+    <Routes>
+      <Route
+        path="/*"
+        element={
+          isAuthenticated ? (
+            <Main />
+          ) : (
+            <Navigate replace to={`${ROUTES.auth.root}/${ROUTES.auth.login}`} />
+          )
+        }
+      />
+      <Route
+        path={`${ROUTES.auth.root}/*`}
+        element={
+          !isAuthenticated ? (
+            <Auth />
+          ) : (
+            <Navigate replace to={ROUTES.main.root} />
+          )
+        }
+      />
 
-        <Route
-          path={ROUTES.error.internalError}
-          element={<EternalErrorPage />}
-        />
-        <Route path={ROUTES.error.notFound} element={<NotFoundPage />} />
-      </Routes>
-    </div>
+      <Route path={ROUTES.error.internalError} element={<EternalErrorPage />} />
+      <Route path={ROUTES.error.notFound} element={<NotFoundPage />} />
+    </Routes>
   );
 };
 
