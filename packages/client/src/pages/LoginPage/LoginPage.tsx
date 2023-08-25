@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { useNavigate } from 'react-router';
 import { SubmitHandler } from 'react-hook-form';
 
 import AuthController from '../../controllers/AuthController';
@@ -20,6 +19,7 @@ type FormValues = {
   login: string;
   password: string;
 };
+
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
 

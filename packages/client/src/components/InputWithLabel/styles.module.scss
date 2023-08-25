@@ -2,13 +2,12 @@
 @use '../../assets/styles/variables';
 
 .group {
-  // height: 64px;
-
   @include mixins.typography-xs;
 
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
+  position: relative;
 }
 
 .label {
@@ -58,27 +57,29 @@
 }
 
 .error {
-  display: flex;
-  justify-content: end;
-  margin-top: 10px;
-  margin-left: 30px;
-  text-align: justify;
+  max-width: 190px;
+  position: absolute;
+  top: 47px;
+  right: 0;
+  text-align: end;
 
   > p {
+    padding-top: 3px;
+    position: relative;
+    min-height: 20px;
+
     @include mixins.typography-xs;
 
-    position: relative;
-    line-height: 15px;
     color: variables.$color-palette-red;
 
     &::after {
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: -29px;
       background-image: url('../../assets/images/red_ghost.png');
       background-repeat: no-repeat;
-      width: 100%;
-      height: 100%;
+      width: 20px;
+      height: 20px;
       content: '';
     }
   }
