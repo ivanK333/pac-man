@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import express from 'express';
 
+import { csvCounter } from './GameLayers/csvCounter';
 import { readCsvAsmatrix } from './GameLayers/csvReader';
 dotenv.config();
 import { createClientAndConnect } from './db';
@@ -16,6 +17,11 @@ app.get('/level', async (req, res) => {
   const { level } = req.query;
   const matrix = await readCsvAsmatrix(level as string);
   res.json({ matrix });
+});
+
+app.get('/levels', async (_, res) => {
+  const levels = await csvCounter();
+  res.json({ levels });
 });
 
 app.get('/', (_, res) => {

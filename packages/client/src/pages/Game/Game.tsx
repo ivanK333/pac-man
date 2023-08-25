@@ -2,7 +2,10 @@ import { useEffect, useRef, useState, ChangeEvent } from 'react';
 
 import { drawPacMan } from '../../components/GameComponents/PacMan/PacMan';
 import { drawMap } from '../../components/GameComponents/Map/Map';
-import { getGameLevel } from './getGameLevel';
+import {
+  fetchGameLevel,
+  fetchLevelsNumber,
+} from '../../controllers/MapController';
 import styles from './styles.module.scss';
 
 const GameField: React.FC = () => {
@@ -17,8 +20,7 @@ const GameField: React.FC = () => {
   }, [level]);
 
   const getGameFieldMatrix = async (gameLevel: number) => {
-    const res = await getGameLevel(gameLevel);
-    const { matrix } = res;
+    const matrix = await fetchGameLevel(gameLevel);
     setMatrixSize([matrix[0].length, matrix.length]);
     setMapMatrix(matrix);
   };
@@ -76,6 +78,21 @@ interface LevelSelectorProps {
 
 const LevelSelector: React.FC<LevelSelectorProps> = ({ setLevel }) => {
   const [selectedLevel, setSelectedLevel] = useState<number>(1);
+  const [levelsNumber, setLevelsNumber] = useState<number>(0);
+
+  const getArray = (num: number) =>
+    Array.from({ length: num }, (_, index) => index + 1);
+
+  useEffect(() => {
+    getLevelsNumber();
+  }, []);
+
+  const getLevelsNumber = async () => {
+    const num = await fetchLevelsNumber();
+    setLevelsNumber(num);
+  };
+
+  ///
 
   const handleLevelChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newSelectedLevel = parseInt(event.target.value, 10);
@@ -86,24 +103,18 @@ const LevelSelector: React.FC<LevelSelectorProps> = ({ setLevel }) => {
   return (
     <div>
       <h2>Select a Level</h2>
-      <label>
-        <input
-          type="radio"
-          value={1}
-          checked={selectedLevel === 1}
-          onChange={handleLevelChange}
-        />
-        Level 1
-      </label>
-      <label>
-        <input
-          type="radio"
-          value={2}
-          checked={selectedLevel === 2}
-          onChange={handleLevelChange}
-        />
-        Level 2
-      </label>
+      {getArray(levelsNumber).map((level) => (
+        <label key={level}>
+          <input
+            type="radio"
+            value={level}
+            checked={level === selectedLevel}
+            onChange={handleLevelChange}
+          />
+          Level {level}
+        </label>
+      ))}
+
       <p>Selected Level: {selectedLevel}</p>
     </div>
   );
