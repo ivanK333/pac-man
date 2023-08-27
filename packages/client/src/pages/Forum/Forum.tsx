@@ -1,12 +1,18 @@
 import { Outlet } from 'react-router';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useMatch } from 'react-router-dom';
 
 import styles from './styles.module.scss';
+import { ROUTES } from '../../constants/routes';
+import Topics from '../Topics/Topics';
 
 const Forum = () => {
+  const match = useMatch({ path: ROUTES.main.forum.root, end: true });
+  const isForumRoot = Boolean(match);
   return (
     <>
-      <div className={styles.container}>
+      <div
+        className={isForumRoot ? styles.container : styles.containerWithImage}
+      >
         <ul className={styles.forumNavigation}>
           <li>
             <NavLink
@@ -41,7 +47,7 @@ const Forum = () => {
           </li>
         </ul>
         <div className={styles.outlet}>
-          <Outlet />
+          <>{isForumRoot ? <Topics /> : <Outlet />}</>
         </div>
       </div>
     </>

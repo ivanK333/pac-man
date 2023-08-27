@@ -1,33 +1,41 @@
 @import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
-.container {
-  background: url("../../assets/images/forum-background.svg") no-repeat right bottom;
+
+%container {
   width: 100%;
   height: 100%;
-  padding: 55px 145px 0 135px;
+  padding: 55px 145px 42px 135px;
   display: flex;
   flex-direction: column;
 }
 
-.link {
-  min-width: 205px;
+.container {
+  @extend %container;
+}
+
+.containerWithImage {
+  @extend %container;
+  background: url("../../assets/images/forum-background.svg") no-repeat right bottom;
+}
+
+
+%default-link {
   text-align: center;
   padding: 5px;
   font-size: 28px;
   line-height: 35px;
   letter-spacing: 2.8px;
+}
+
+.link {
+  @extend %default-link;
   color: $color-palette-green;
 }
 
-.text {
-  @include typography-l;
-  font-family: $font-Press-start-2p;
-  width: 100%;
-  min-height: 30px;
-  display: flex;
-  align-items: center;
-  min-width: 520px;
+.linkActive {
+  @extend %default-link;
+  color: $color-palette-yellow;
 }
 
 .forumNavigation {
