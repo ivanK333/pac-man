@@ -87,6 +87,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
             type="file"
             required={true}
             {...formMethods.register('avatar')}
+            accept="image/*"
             onChange={preview}
           />
           Upload image
