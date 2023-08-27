@@ -10,10 +10,9 @@ export const ROUTES = {
     game: 'game',
     gameOver: 'game-over',
     forum: {
-      root: 'forum',
-      games: 'games',
-      designers: 'designers',
+      root: '/forum/',
       tech: 'tech',
+      about: 'about',
     },
     lead: 'lead',
   },
