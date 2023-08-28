@@ -1,0 +1,141 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+//** Variables
+$size: 50px;
+$dot-size: $size / 6;
+$time: 175;
+
+.container {
+  @include flexbox();
+  width: 100%;
+  height: 100%;
+  background: $color-palette-yellow;
+}
+
+.loaderContainer {
+  position: relative;
+  max-width: 560px;
+  border-radius: 50px;
+  border: solid 5px $color-palette-blue;
+  height: 66px;
+  width: 100%;
+  overflow: hidden;
+  background: $color-palette-black;
+}
+
+//** Animations
+@keyframes chomp {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes travel {
+  0% {
+    right: -#{$dot-size};
+  }
+  100% {
+    right: 100%;
+  }
+}
+
+
+//** Pac Man
+.pacman {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  z-index: 2;
+  transform: translateX(-50%) translateY(-50%);
+  margin: 0;
+  width: $size;
+  height: $size;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-size: 100% 100%;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    content: '';
+  }
+
+  &::before {
+    background-image: linear-gradient(-45deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
+    animation: chomp #{$time}ms ease-in alternate infinite;
+  }
+
+  &::after {
+    background-image: linear-gradient(-180deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
+    transform: rotate(45deg);
+    animation: chomp #{$time}ms ease-out alternate-reverse infinite;
+  }
+}
+
+
+//** Dots
+.dots {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  z-index: 1;
+  transform: translateX(#{$dot-size * -1.5}) translateY(-50%);
+  width: calc(100% + #{$dot-size});
+  height: $dot-size * 3;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  right: -#{$dot-size};
+  transform: translateY(-50%);
+  background-color: $color-palette-green;
+  border-radius: 37.5%;
+  width: $dot-size;
+  height: $dot-size;
+  box-shadow:0 0 10px $color-palette-green;
+
+  &:nth-child(1) {
+    animation: travel #{$time * 8}ms linear infinite,
+  }
+
+  &:nth-child(2) {
+    animation: travel #{$time * 8}ms linear #{$time * 2}ms infinite;
+  }
+
+  &:nth-child(3) {
+    animation: travel #{$time * 8}ms linear #{$time * 2 * 2}ms infinite;
+  }
+
+  &:nth-child(4) {
+    animation: travel #{$time * 8}ms linear #{$time * 3 * 2}ms infinite;
+  }
+
+  &:nth-child(5) {
+    animation: travel #{$time * 8}ms linear #{$time * 4 * 2}ms infinite;
+  }
+
+  &:nth-child(6) {
+    animation: travel #{$time * 8}ms linear #{$time * 5 * 2}ms infinite;
+  }
+
+  &:nth-child(7) {
+    animation: travel #{$time * 8}ms linear #{$time * 6 * 2}ms infinite;
+  }
+
+  &:nth-child(8) {
+    animation: travel #{$time * 8}ms linear #{$time * 7 * 2}ms infinite;
+  }
+}
