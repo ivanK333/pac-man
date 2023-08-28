@@ -15,9 +15,11 @@ class AuthController {
 
   async signin(data: SigninData): Promise<AuthResponse> {
     try {
-      const res = await this.api.signin(data);
+      const response = await this.api.signin(data);
       // check if errors, they come as {reason: error}
-      if (res.reason) return userError(res.reason);
+      if (response.reason) {
+        return userError(response.reason);
+      }
       localStorage.setItem('isAuthenticated', 'true');
       return await this.fetchUser();
     } catch (error: unknown) {
@@ -27,12 +29,16 @@ class AuthController {
 
   async signup(data: SignupData): Promise<AuthResponse> {
     try {
-      const res = await this.api.signup(data);
+      const response = await this.api.signup(data);
       // check if errors, they come as {reason: error}
-      if (res.reason) return userError(res.reason);
+      if (response.reason) {
+        return userError(response.reason);
+      }
       localStorage.setItem('isAuthenticated', 'true');
+
       alert('Регистрация прошла');
-      return res;
+
+      return response;
     } catch (error: unknown) {
       alert((error as Record<string, string>).reason);
       return userError(error);
@@ -43,7 +49,9 @@ class AuthController {
     try {
       const user = await this.api.read();
       // check if errors, they come as {reason: error}
-      if (user.reason) return userError(user.reason);
+      if (user.reason) {
+        return userError(user.reason);
+      }
       return {
         success: true,
         user,
@@ -55,12 +63,12 @@ class AuthController {
 
   async signout() {
     try {
-      const res = await this.api.signout();
+      const response = await this.api.signout();
       // check if errors, they come as {error: error}
-      if (res.success) {
+      if (response.success) {
         localStorage.setItem('isAuthenticated', 'false');
       }
-      return res;
+      return response;
     } catch (error: unknown) {
       return userError(error);
     }

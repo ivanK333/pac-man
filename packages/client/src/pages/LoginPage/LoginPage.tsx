@@ -31,7 +31,7 @@ const LoginForm = () => {
       setError(`${response.error}`);
       return;
     }
-    console.log(response);
+
     redirect('/');
   };
 

@@ -40,7 +40,6 @@ const Register = () => {
       return;
     }
 
-    console.log(response);
     redirect(ROUTES.main.root);
   };
 

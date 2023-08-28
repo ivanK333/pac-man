@@ -2,6 +2,7 @@ const minVal = (n: number) => ({
   value: n,
   message: `at least ${n} characters`,
 });
+
 const maxVal = (n: number) => ({
   value: n,
   message: `no more than ${n} characters`,
