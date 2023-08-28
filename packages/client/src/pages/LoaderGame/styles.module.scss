@@ -7,21 +7,22 @@ $dot-size: $size / 6;
 $time: 175;
 
 .container {
-  @include flexbox();
+  @include flexbox;
+
+  background: $color-palette-yellow;
   width: 100%;
   height: 100%;
-  background: $color-palette-yellow;
 }
 
 .loaderContainer {
   position: relative;
-  max-width: 560px;
-  border-radius: 50px;
   border: solid 5px $color-palette-blue;
-  height: 66px;
-  width: 100%;
-  overflow: hidden;
+  border-radius: 50px;
   background: $color-palette-black;
+  width: 100%;
+  max-width: 560px;
+  height: 66px;
+  overflow: hidden;
 }
 
 //** Animations
@@ -29,6 +30,7 @@ $time: 175;
   0% {
     transform: rotate(0);
   }
+
   100% {
     transform: rotate(45deg);
   }
@@ -38,6 +40,7 @@ $time: 175;
   0% {
     right: -#{$dot-size};
   }
+
   100% {
     right: 100%;
   }
@@ -50,8 +53,8 @@ $time: 175;
   position: absolute;
   top: 50%;
   left: 30px;
-  z-index: 2;
   transform: translateX(-50%) translateY(-50%);
+  z-index: 2;
   margin: 0;
   width: $size;
   height: $size;
@@ -61,8 +64,8 @@ $time: 175;
     position: absolute;
     top: 0;
     left: 0;
-    background-size: 100% 100%;
     border-radius: 50%;
+    background-size: 100% 100%;
     width: 100%;
     height: 100%;
     content: '';
@@ -74,8 +77,8 @@ $time: 175;
   }
 
   &::after {
-    background-image: linear-gradient(-180deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
     transform: rotate(45deg);
+    background-image: linear-gradient(-180deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
     animation: chomp #{$time}ms ease-out alternate-reverse infinite;
   }
 }
@@ -86,14 +89,14 @@ $time: 175;
   position: absolute;
   top: 50%;
   left: 25px;
-  z-index: 1;
   transform: translateX(#{$dot-size * -1.5}) translateY(-50%);
-  width: calc(100% + #{$dot-size});
-  height: $dot-size * 3;
+  z-index: 1;
   margin: 0;
   padding: 0;
-  list-style: none;
+  width: calc(100% + #{$dot-size});
+  height: $dot-size * 3;
   overflow: hidden;
+  list-style: none;
 }
 
 .dot {
@@ -101,11 +104,11 @@ $time: 175;
   top: 50%;
   right: -#{$dot-size};
   transform: translateY(-50%);
-  background-color: $color-palette-green;
   border-radius: 37.5%;
+  box-shadow:0 0 10px $color-palette-green;
+  background-color: $color-palette-green;
   width: $dot-size;
   height: $dot-size;
-  box-shadow:0 0 10px $color-palette-green;
 
   &:nth-child(1) {
     animation: travel #{$time * 8}ms linear infinite,
