@@ -1,0 +1,41 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+
+.container {
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  border: none;
+  background: none;
+  color: $color-palette-green;
+  letter-spacing: 2.4px;
+  @include typography-xl;
+  padding: 5px;
+}
+
+.topics {
+  width: 100%;
+  display: flex;
+  overflow-y: auto;
+  @include scrollbars;
+  height: calc(100% - 100px);
+}
+
+.topicList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}

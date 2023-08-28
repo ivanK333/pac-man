@@ -79,3 +79,21 @@
     transform: translateX(0) translateY(0);
   }
 }
+
+@mixin scrollbars {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width:  20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: variables.$color-palette-blue;
+    border-radius: 20px;
+    height: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: variables.$color-palette-white;
+    border-radius: 20px;
+  }
+}

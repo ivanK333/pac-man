@@ -13,6 +13,7 @@ export const ROUTES = {
       root: '/forum/',
       tech: 'tech',
       about: 'about',
+      topic: 'topic/:id',
     },
     lead: 'lead',
   },

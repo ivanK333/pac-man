@@ -6,48 +6,52 @@ import { ROUTES } from '../../constants/routes';
 import Topics from '../Topics/Topics';
 
 const Forum = () => {
-  const match = useMatch({ path: ROUTES.main.forum.root, end: true });
-  const isForumRoot = Boolean(match);
+  const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
+  const matchTopic = useMatch({ path: 'forum/topic', end: false });
+  const isForumRoot = Boolean(matchForumRoot);
+  const isTopic = Boolean(matchTopic);
   return (
     <>
       <div
         className={isForumRoot ? styles.container : styles.containerWithImage}
       >
-        <ul className={styles.forumNavigation}>
-          <li>
-            <NavLink
-              to="/forum/"
-              className={({ isActive }) =>
-                isActive ? styles.linkActive : styles.link
-              }
-            >
-              Forum
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="about"
-              className={({ isActive }) =>
-                isActive ? styles.linkActive : styles.link
-              }
-            >
-              About us
-            </NavLink>
-          </li>
+        {!isTopic && (
+          <ul className={styles.forumNavigation}>
+            <li>
+              <NavLink
+                to="/forum/"
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                Forum
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="about"
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                About us
+              </NavLink>
+            </li>
 
-          <li>
-            <NavLink
-              to="tech"
-              className={({ isActive }) =>
-                isActive ? styles.linkActive : styles.link
-              }
-            >
-              Technologies
-            </NavLink>
-          </li>
-        </ul>
+            <li>
+              <NavLink
+                to="tech"
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                Technologies
+              </NavLink>
+            </li>
+          </ul>
+        )}
         <div className={styles.outlet}>
-          <>{isForumRoot ? <Topics /> : <Outlet />}</>
+          {isForumRoot ? <Topics /> : <Outlet />}
         </div>
       </div>
     </>

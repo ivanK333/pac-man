@@ -1,9 +1,0 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
-
-
-.heading {
-  @include typography-xl;
-  color: $color-palette-green;
-  font-family: $font-Press-start-2p;
-}
