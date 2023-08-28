@@ -7,7 +7,7 @@ import FormGroup from '../../components/FormGroup/FormGroup';
 import Input from '../../components/InputWithLabel/InputWithLabel';
 import FormButtonGroup from '../../components/FormButtonGroup/FormButton';
 import spriteSvg from '../../assets/images/blueSprite.svg';
-import { validation } from '../../assets/constants/formValidation';
+import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormHeading/FormHeading';
 

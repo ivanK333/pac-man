@@ -6,7 +6,7 @@ import FormGroup from '../../components/FormGroup/FormGroup';
 import FormButtonGroup from '../../components/FormButtonGroup/FormButton';
 import spriteSvg from '../../assets/images/purple_ghost.png';
 import Input from '../../components/InputWithLabel/InputWithLabel';
-import { validation } from '../../assets/constants/formValidation';
+import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormHeading/FormHeading';
 import { redirect } from '../LoginPage/LoginPage';
