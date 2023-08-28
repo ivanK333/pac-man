@@ -1,0 +1,62 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+.textContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 42px 0;
+}
+
+.headingContainer {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.heading {
+  font-family: $font-Press-start-2p;
+  @include typography-xl;
+  color: $color-palette-blue;
+}
+
+.image {
+  width: 35px;
+  height: 37px;
+}
+
+.backButton {
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: none;
+  border: none;
+  color: $color-palette-green;
+}
+
+.messages {
+  border-radius: 20px 10px 10px 20px;
+  background: $color-palette-green;
+  display: flex;
+  width: 100%;
+  @include scrollbars;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 72vh;
+}
+
+.messageList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 19px 66px 29px 19px;
+}

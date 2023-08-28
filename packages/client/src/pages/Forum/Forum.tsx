@@ -13,7 +13,9 @@ const Forum = () => {
   return (
     <>
       <div
-        className={isForumRoot ? styles.container : styles.containerWithImage}
+        className={
+          isForumRoot || isTopic ? styles.container : styles.containerWithImage
+        }
       >
         {!isTopic && (
           <ul className={styles.forumNavigation}>
@@ -50,9 +52,8 @@ const Forum = () => {
             </li>
           </ul>
         )}
-        <div className={styles.outlet}>
-          {isForumRoot ? <Topics /> : <Outlet />}
-        </div>
+
+        {isForumRoot ? <Topics /> : <Outlet />}
       </div>
     </>
   );
