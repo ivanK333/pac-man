@@ -5,7 +5,7 @@ export const ROUTES = {
     login: 'login',
   },
   main: {
-    root: '/game',
+    root: '/',
     profile: 'profile',
     game: 'game',
     gameOver: 'game-over',

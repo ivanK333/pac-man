@@ -1,0 +1,27 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.container {
+  @include flexbox();
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.logo {
+  margin-bottom: 68px;
+}
+
+.button {
+  background: $color-palette-yellow;
+  padding: 20px 42px;
+  border-radius: 500px;
+  border: none;
+  transition: transform 0.2s;
+
+  @include typography-xxl;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
