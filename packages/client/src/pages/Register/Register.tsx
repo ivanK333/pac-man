@@ -19,6 +19,7 @@ type FormValues = {
   login: string;
   email: string;
   password: string;
+  confirm_password?: string;
   phone: string;
 };
 
@@ -26,14 +27,19 @@ const Register = () => {
   const [error, setError] = useState<string | null>(null);
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
-    setError(null);
+    if (submitData.confirm_password !== submitData.password) {
+      setError(`Passwords don't match`);
+      return;
+    }
 
+    delete submitData.confirm_password;
     const response = await AuthController.signup(submitData);
 
     if (!response.success) {
       setError(`${response.error}`);
       return;
     }
+
     console.log(response);
     redirect(ROUTES.main.root);
   };
