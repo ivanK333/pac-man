@@ -7,8 +7,6 @@ export const ROUTES = {
   main: {
     root: '/',
     profile: 'profile',
-    game: 'game',
-    gameOver: 'game-over',
     forum: 'forum',
     lead: 'lead',
   },
