@@ -10,7 +10,7 @@ import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   // временно выключил неиспользуемый запрос к серверу, у меня на него ошибка в консоли
   // useEffect(() => {

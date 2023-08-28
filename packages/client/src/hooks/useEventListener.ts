@@ -1,14 +1,19 @@
 import { useEffect, useRef } from 'react';
 
-type Handler = (e: Event) => void;
+type Options = {
+  eventName: string;
+  handler: (e: Event) => void;
+  useCapture?: false;
+  container: EventTarget;
+};
 
-export function useEventListener(
-  eventName: string,
-  handler: Handler,
+export function useEventListener({
+  eventName,
+  handler,
   useCapture = false,
-  container: EventTarget,
-) {
-  const savedHandler = useRef<Handler | null>(null);
+  container,
+}: Options) {
+  const savedHandler = useRef<Options['handler'] | null>(null);
 
   useEffect(() => {
     savedHandler.current = handler;
