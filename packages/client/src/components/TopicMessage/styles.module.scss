@@ -1,8 +1,6 @@
 @import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
-
-
 .container {
   display: flex;
   width: 100%;
@@ -50,5 +48,21 @@
 }
 
 .comments {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.buttonContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commentsLength {
+  color: $color-palette-blue;
+  @include typography-s;
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
 }

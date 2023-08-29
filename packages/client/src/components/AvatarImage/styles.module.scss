@@ -14,9 +14,27 @@
   height: 70px;
 }
 
+.imageContainerSmall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: $color-palette-white;
+  min-width: 30px;
+  min-height: 30px;
+  width: 30px;
+  height: 30px;
+}
+
 .imageDefault {
   width: 36.615px;
   height: 42px;
+  object-fit: cover;
+}
+
+.imageDefaultSmall {
+  width: 16.615px;
+  height: 22px;
   object-fit: cover;
 }
 

@@ -18,6 +18,7 @@ const TopicForm: React.FC<TTopicFormProps> = ({
   autoFocus,
 }) => {
   const formMethods = useForm<TTopicForm>();
+
   const handleSubmit = (data: TTopicForm) => {
     formMethods.formState.isValid && onSubmit(data);
     console.log(formMethods.formState.isValid);

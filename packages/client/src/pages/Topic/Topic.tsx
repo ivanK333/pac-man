@@ -56,17 +56,6 @@ const Topic = () => {
             username="test"
           />
           <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
-          <TopicMessage message="test" image="" time="12:33" username="test" />
         </div>
       </div>
     </div>

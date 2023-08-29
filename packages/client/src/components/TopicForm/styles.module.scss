@@ -12,10 +12,16 @@
   width: 100%;
   background: inherit;
   border: none;
-  color: $color-palette-black;
+  color: $color-palette-blue;
   font-size: 18px;
   font-style: normal;
   font-weight: 300;
+}
+
+.input::placeholder{
+  color: $color-palette-blue;
+  font-size: 18px;
+  font-style: normal;
 }
 
 .submit {

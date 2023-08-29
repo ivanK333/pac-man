@@ -1,13 +1,19 @@
 import styles from './styles.module.scss';
 import TopicItem from '../../components/TopicItem/TopicItem';
 
-const Topics = () => {
+type TTopicsProps = {
+  handleOpenModal: () => void;
+};
+
+const Topics: React.FC<TTopicsProps> = ({ handleOpenModal }) => {
   return (
     <div className={styles.container}>
       <div className={styles.topics}>
         <div className={styles.topicList}>
           <div className={styles.buttonContainer}>
-            <button className={styles.button}>Create a topic &gt;</button>
+            <button onClick={handleOpenModal} className={styles.button}>
+              Create a topic &gt;
+            </button>
           </div>
 
           <TopicItem name="Pacman" />
