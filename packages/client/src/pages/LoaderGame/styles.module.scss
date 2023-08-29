@@ -1,0 +1,118 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+//** Variables
+$size: 50px;
+$dot-size: $size / 6;
+$time: 175;
+
+.container {
+  @include flexbox;
+
+  background: $color-palette-yellow;
+  width: 100%;
+  height: 100%;
+}
+
+.loaderContainer {
+  position: relative;
+  border: solid 5px $color-palette-blue;
+  border-radius: 50px;
+  background: $color-palette-black;
+  width: 100%;
+  max-width: 560px;
+  height: 66px;
+  overflow: hidden;
+}
+
+//** Animations
+@keyframes chomp {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes travel {
+  0% {
+    right: -#{$dot-size};
+  }
+
+  100% {
+    right: 100%;
+  }
+}
+
+
+//** Pac Man
+.pacman {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 2;
+  margin: 0;
+  width: $size;
+  height: $size;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+    content: '';
+  }
+
+  &::before {
+    background-image: linear-gradient(-45deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
+    animation: chomp #{$time}ms ease-in alternate infinite;
+  }
+
+  &::after {
+    transform: rotate(45deg);
+    background-image: linear-gradient(-180deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
+    animation: chomp #{$time}ms ease-out alternate-reverse infinite;
+  }
+}
+
+
+//** Dots
+.dots {
+  position: absolute;
+  top: 50%;
+  left: 25px;
+  transform: translateX(#{$dot-size * -1.5}) translateY(-50%);
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  width: calc(100% + #{$dot-size});
+  height: $dot-size * 3;
+  overflow: hidden;
+  list-style: none;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  right: -#{$dot-size};
+  transform: translateY(-50%);
+  border-radius: 37.5%;
+  box-shadow:0 0 10px $color-palette-green;
+  background-color: $color-palette-green;
+  width: $dot-size;
+  height: $dot-size;
+
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) {
+      animation: travel #{$time * 8}ms linear #{$time * ($i - 1) * 2}ms infinite;
+    }
+  }
+}
