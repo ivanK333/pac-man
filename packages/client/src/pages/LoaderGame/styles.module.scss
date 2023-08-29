@@ -46,14 +46,13 @@ $time: 175;
 }
 
 @keyframes hide-element {
-  from {
+  0% {
     opacity: 1;
-    visibility: visible;
   }
-  to {
+  100% {
     opacity: 0;
-    visibility: hidden;
   }
+
 }
 
 //** Pac Man
@@ -67,7 +66,7 @@ $time: 175;
   margin: 0;
   width: $size;
   height: $size;
-  animation: travel #{$time * 15}ms linear forwards;
+  animation: travel #{$time * 15}ms linear infinite;
 
   &::before,
   &::after {
@@ -124,8 +123,7 @@ $time: 175;
 
   @for $i from 1 through 8 {
     &:nth-child(#{$i}) {
-      animation: #{$time/8}ms linear #{500 + ($i - 1) * 270}ms
-        forwards hide-element;
+      animation: 1ms linear #{500 + ($i - 1) * 270}ms forwards hide-element;
     }
   }
 }
