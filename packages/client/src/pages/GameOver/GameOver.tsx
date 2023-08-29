@@ -1,10 +1,11 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { useNavigate } from 'react-router';
 
 import Button from '../../components/ButtonSubmit/Button';
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
+import { useEventListener } from '../../hooks/useEventListener';
 
 type Props = {
   restartGame: () => void;
@@ -21,18 +22,19 @@ const GameOver = ({ restartGame: reset }: Props) => {
     navigate(`/${ROUTES.main.lead}`);
   }, []);
 
-  useEffect(() => {
-    const handlerButtonRestart = (event: KeyboardEvent) => {
+  const handlerButtonRestart = useCallback((event: Event) => {
+    if (event instanceof KeyboardEvent) {
       if (event.key === 'Enter') {
         restartGame();
       }
-    };
-
-    document.addEventListener('keydown', handlerButtonRestart);
-    return () => {
-      document.removeEventListener('keydown', handlerButtonRestart);
-    };
+    }
   }, []);
+
+  useEventListener({
+    eventName: 'keydown',
+    handler: handlerButtonRestart,
+    container: window,
+  });
 
   return (
     <div className={styles.container}>
@@ -40,6 +42,7 @@ const GameOver = ({ restartGame: reset }: Props) => {
 
       <div className={styles.buttonWrapper}>
         <Button onClick={restartGame} label="Restart" />
+
         <Button onClick={goToLeaderboard} label="Leaderboard" />
       </div>
     </div>
