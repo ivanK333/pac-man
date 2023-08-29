@@ -4,7 +4,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
 import { TTopicForm } from '../../pages/Topic/Topic';
-import { validation } from '../../assets/constants/formValidation';
 
 type TTopicFormProps = {
   onSubmit: (data: TTopicForm) => void;
@@ -37,7 +36,7 @@ const TopicForm: React.FC<TTopicFormProps> = ({
           className={styles.input}
           type="text"
           placeholder={placeholder}
-          {...formMethods.register('message', validation.message)}
+          {...formMethods.register('message')}
           required={true}
         />
 

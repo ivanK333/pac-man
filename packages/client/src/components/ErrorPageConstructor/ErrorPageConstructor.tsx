@@ -1,6 +1,6 @@
 import styles from './styles.module.scss';
-import { Colors, TColorsType } from '../../assets/constants/colors';
 import CustomLink from '../CustomLink/CustomLink';
+import { Colors, TColorsType } from '../../constants/colors';
 
 type TErrorPageConstructor = {
   image: string;

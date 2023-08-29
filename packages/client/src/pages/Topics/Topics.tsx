@@ -1,5 +1,6 @@
 import styles from './styles.module.scss';
 import TopicItem from '../../components/TopicItem/TopicItem';
+import { fakeTopics } from '../../constants/fakeTopics';
 
 type TTopicsProps = {
   handleOpenModal: () => void;
@@ -15,13 +16,14 @@ const Topics: React.FC<TTopicsProps> = ({ handleOpenModal }) => {
               Create a topic &gt;
             </button>
           </div>
-
-          <TopicItem name="Pacman" />
-          <TopicItem />
-          <TopicItem />
-          <TopicItem />
-          <TopicItem />
-          <TopicItem />
+          {fakeTopics.map((topic) => (
+            <TopicItem
+              name={topic.topicName}
+              count={topic.messages.length}
+              id={topic.id}
+              key={topic.id}
+            />
+          ))}
         </div>
       </div>
     </div>

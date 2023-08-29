@@ -5,12 +5,14 @@ import AvatarImage from '../AvatarImage/AvatarImage';
 import TopicForm from '../TopicForm/TopicForm';
 import { TTopicForm } from '../../pages/Topic/Topic';
 import CommentItem from '../CommentItem/CommentItem';
+import { TComment } from '../../constants/fakeTopics';
 
 type TTopicMessageProps = {
   image: string;
   username: string;
   message: string;
   time: string;
+  comments: TComment[];
 };
 
 const TopicMessage: React.FC<TTopicMessageProps> = ({
@@ -18,13 +20,13 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
   username,
   message,
   time,
+  comments,
 }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const handleSubmit = (data: TTopicForm) => {
     console.log(data);
   };
-  const commentsLength = 2;
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
@@ -43,9 +45,9 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
                 setIsFocus(!isFocus);
               }}
             >
-              {commentsLength && commentsLength > 0
-                ? `${commentsLength} comment(s)`
-                : 'leave a comment'}
+              {comments && comments.length > 0
+                ? `${comments.length} comment(s).`
+                : 'leave a comment.'}
               <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
             </p>
           </div>
@@ -53,9 +55,18 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
           {isShow && (
             <div className={styles.comments}>
               <div className={styles.connetsContainer}>
-                <CommentItem />
-                <CommentItem />
-                <CommentItem />
+                {comments && comments.length
+                  ? comments.map((comment) => (
+                      <CommentItem
+                        comment={comment.comment}
+                        avatar={comment.user.avatar}
+                        userName={comment.user.name}
+                        time={comment.time}
+                        id={comment.id}
+                        key={comment.id}
+                      />
+                    ))
+                  : null}
               </div>
 
               <TopicForm

@@ -1,17 +1,32 @@
 import styles from './styles.module.scss';
 import AvatarImage, { Size } from '../AvatarImage/AvatarImage';
 
-const CommentItem = () => {
+type TCommentItemProps = {
+  userName: string;
+  time: string;
+  avatar: string;
+  comment: string;
+  id: string;
+};
+
+const CommentItem: React.FC<TCommentItemProps> = ({
+  userName,
+  time,
+  avatar,
+  comment,
+  id,
+}) => {
+  console.log(id);
   return (
     <div className={styles.container}>
       <div className={styles.headingContainer}>
-        <h5 className={styles.username}>Username</h5>
-        <p className={styles.time}>12:55</p>
+        <h5 className={styles.username}>{userName}</h5>
+        <p className={styles.time}>{time}</p>
       </div>
       <div className={styles.contentContainer}>
-        <AvatarImage image="" size={Size.small} />
+        <AvatarImage image={avatar} size={Size.small} />
         <div className={styles.textContainer}>
-          <p className={styles.text}>Super comment from superuser</p>
+          <p className={styles.text}>{comment}</p>
         </div>
       </div>
     </div>
