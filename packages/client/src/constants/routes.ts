@@ -11,8 +11,6 @@ export const ROUTES = {
     gameOver: 'game-over',
     forum: {
       root: '/forum/',
-      tech: 'tech',
-      about: 'about',
       topic: 'topic/:id',
     },
     lead: 'lead',

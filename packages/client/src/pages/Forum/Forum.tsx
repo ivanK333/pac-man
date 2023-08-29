@@ -10,9 +10,7 @@ const Forum = () => {
   const isForumRoot = Boolean(matchForumRoot);
   return (
     <>
-      <div
-        className={isForumRoot ? styles.container : styles.containerWithImage}
-      >
+      <div className={styles.container}>
         {isForumRoot ? <Topics /> : <Outlet />}
       </div>
     </>

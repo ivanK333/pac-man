@@ -1,4 +1,4 @@
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 import styles from './styles.module.scss';
 import blueGhost from '../../assets/images/blueSprite.svg';
@@ -7,6 +7,7 @@ import TopicItem from '../../components/TopicItem/TopicItem';
 
 const Topic = () => {
   const { id } = useParams();
+  const history = useNavigate();
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
@@ -15,7 +16,9 @@ const Topic = () => {
           <img className={styles.image} src={blueGhost} alt="ghost" />
         </div>
 
-        <button className={styles.backButton}>Back &gt;</button>
+        <button onClick={() => history(-1)} className={styles.backButton}>
+          Back &gt;
+        </button>
       </div>
 
       <div className={styles.messages}>
