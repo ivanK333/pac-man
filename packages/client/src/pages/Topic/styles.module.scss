@@ -8,6 +8,7 @@
   height: 100%;
   overflow: hidden;
 }
+
 .textContainer {
   width: 100%;
   display: flex;
@@ -33,29 +34,45 @@
 }
 
 .backButton {
-  font-size: 36px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   background: none;
   border: none;
   color: $color-palette-green;
+  display: flex;
+  align-items: flex-end;
+  padding: 0;
 }
 
 .messages {
   border-radius: 20px 10px 10px 20px;
   background: $color-palette-green;
   display: flex;
+  flex-direction: column;
   width: 100%;
-  @include scrollbars;
-  overflow-y: scroll;
-  overflow-x: hidden;
   height: 72vh;
+  padding: 0 0 29px 0;
 }
 
 .messageList {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 19px 66px 29px 19px;
+  padding: 19px 66px 25px 19px;
+  position: relative;
+  @include scrollbars;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  gap: 25px;
+}
+
+.formContainer {
+  display: flex;
+  min-height: 70px;
+  align-items: flex-end;
+  width: 100%;
+  padding: 19px 19px 0 19px;
+  margin: 0 0 31px 0;
 }
