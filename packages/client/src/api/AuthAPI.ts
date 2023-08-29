@@ -70,6 +70,30 @@ export class AuthAPI {
     return response.json();
   }
 
+  async signup(data: SignupData): Promise<AuthResponse> {
+    const url = `${this.baseUrl}/signup`;
+
+    const headers: HeadersInit = {
+      'Content-Type': 'application/json',
+      Accept: 'application/json: charset=utf-8',
+    };
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers,
+      credentials: 'include',
+      body: JSON.stringify(data),
+    });
+
+    if (response.status === 200)
+      return {
+        success: true,
+        error: null,
+      };
+
+    return response.json();
+  }
+
   async signout(): Promise<AuthResponse> {
     const url = `${this.baseUrl}/logout`;
 

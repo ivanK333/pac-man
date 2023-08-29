@@ -3,11 +3,11 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Input from '../InputWithLabel/InputWithLabel';
-import { validation } from '../../assets/constants/formValidation';
+import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import { ProfileAPI, TProfileForm } from '../../api/ProfileAPI';
 import { ROUTES } from '../../constants/routes';
-import { Colors } from '../../assets/constants/colors';
+import { Colors } from '../../constants/colors';
 import CustomLink from '../CustomLink/CustomLink';
 
 type TProfileFormProps = {

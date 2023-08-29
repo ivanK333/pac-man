@@ -1,6 +1,5 @@
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, RegisterOptions } from 'react-hook-form';
 
-import { ValidationEntry } from '../../assets/constants/formValidation';
 import styles from './styles.module.scss';
 
 export interface InputProps {
@@ -12,7 +11,7 @@ export interface InputProps {
   placeholder?: string;
   required?: boolean;
   autoFocus?: boolean;
-  validation?: ValidationEntry;
+  validation?: RegisterOptions;
   onBlur?: () => void;
   disabled?: boolean;
 }
