@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
 import defaultImage from '../../assets/images/default-avatar.svg';
-import ModalHeading from '../ModalHeading/ModalHeading';
+import FormHeading from '../FormHeading/FormHeading';
 import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
 import { RESOURCES_URL } from '../../api/config';
 import FormButton from '../FormButtonGroup/FormButton';
@@ -77,7 +77,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
         className={styles.avatarForm}
         onSubmit={formMethods.handleSubmit(() => handleSubmit())}
       >
-        <ModalHeading text="Load avatar" />
+        <FormHeading text="Load avatar" />
         <div className={styles.previewContainer}>
           <img className={imageClassname()} src={image} alt="Avatar image" />
         </div>

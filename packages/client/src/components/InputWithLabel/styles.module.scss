@@ -2,11 +2,10 @@
 @use '../../assets/styles/variables';
 
 .group {
-  // height: 64px;
-
   @include mixins.typography-xs;
 
   display: flex;
+  position: relative;
   flex-direction: column;
   margin-bottom: 20px;
 }
@@ -58,27 +57,28 @@
 }
 
 .error {
-  display: flex;
-  justify-content: end;
-  margin-top: 10px;
-  margin-left: 30px;
-  text-align: justify;
+  position: absolute;
+  top: 47px;
+  right: 0;
+  max-width: 190px;
+  text-align: end;
 
   > p {
     @include mixins.typography-xs;
 
     position: relative;
-    line-height: 15px;
+    padding-top: 3px;
+    min-height: 20px;
     color: variables.$color-palette-red;
 
     &::after {
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: -29px;
       background-image: url('../../assets/images/red_ghost.png');
       background-repeat: no-repeat;
-      width: 100%;
-      height: 100%;
+      width: 20px;
+      height: 20px;
       content: '';
     }
   }

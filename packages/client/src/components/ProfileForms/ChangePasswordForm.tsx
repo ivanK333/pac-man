@@ -3,7 +3,7 @@ import { SyntheticEvent } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Input from '../InputWithLabel/InputWithLabel';
-import { validation } from '../../assets/constants/formValidation';
+import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import { emptyResponse, ProfileAPI } from '../../api/ProfileAPI';
 

@@ -1,6 +1,6 @@
 import Link from '../Link';
 import styles from './styles.module.scss';
-import { Colors, TColorsType } from '../../assets/constants/colors';
+import { Colors, TColorsType } from '../../constants/colors';
 
 type TCustomLink = {
   linkPath: string;

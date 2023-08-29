@@ -8,11 +8,10 @@
   height: 100%;
 }
 
-.title {
-  @include mixins.typography-l;
+.submitError {
+  @include mixins.typography-s;
 
-  margin-bottom: 45px;
-  text-align: center;
-  color: variables.$color-palette-yellow;
-  font-family: 'Press Start 2P', sans-serif;
+  position: absolute;
+  top: 40px;
+  color: variables.$color-palette-red;
 }
