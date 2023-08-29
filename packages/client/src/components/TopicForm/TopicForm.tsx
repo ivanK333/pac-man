@@ -4,6 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
 import { TTopicForm } from '../../pages/Topic/Topic';
+import { validation } from '../../assets/constants/formValidation';
 
 type TTopicFormProps = {
   onSubmit: (data: TTopicForm) => void;
@@ -19,6 +20,7 @@ const TopicForm: React.FC<TTopicFormProps> = ({
   const formMethods = useForm<TTopicForm>();
   const handleSubmit = (data: TTopicForm) => {
     formMethods.formState.isValid && onSubmit(data);
+    console.log(formMethods.formState.isValid);
   };
   useEffect(() => {
     autoFocus && formMethods.setFocus('message');
@@ -34,7 +36,7 @@ const TopicForm: React.FC<TTopicFormProps> = ({
           className={styles.input}
           type="text"
           placeholder={placeholder}
-          {...formMethods.register('message')}
+          {...formMethods.register('message', validation.message)}
           required={true}
         />
 
