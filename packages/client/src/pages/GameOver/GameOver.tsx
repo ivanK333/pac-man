@@ -23,10 +23,8 @@ const GameOver = ({ restartGame: reset }: Props) => {
   }, []);
 
   const handlerButtonRestart = useCallback((event: Event) => {
-    if (event instanceof KeyboardEvent) {
-      if (event.key === 'Enter') {
-        restartGame();
-      }
+    if (event instanceof KeyboardEvent && event.key === 'Enter') {
+      restartGame();
     }
   }, []);
 

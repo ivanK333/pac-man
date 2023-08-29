@@ -1,4 +1,6 @@
 import styles from './styles.module.scss';
+
+const DOTS_NUMBER = 8;
 const LoaderGame = () => {
   return (
     <div className={styles.container}>
@@ -6,14 +8,9 @@ const LoaderGame = () => {
         <div className={styles.pacman} />
 
         <ul className={styles.dots}>
-          <li className={styles.dot} />
-          <li className={styles.dot} />
-          <li className={styles.dot} />
-          <li className={styles.dot} />
-          <li className={styles.dot} />
-          <li className={styles.dot} />
-          <li className={styles.dot} />
-          <li className={styles.dot} />
+          {new Array(DOTS_NUMBER).fill(null).map((_, index) => (
+            <li key={`dot-${index}`} className={styles.dot} />
+          ))}
         </ul>
       </div>
     </div>

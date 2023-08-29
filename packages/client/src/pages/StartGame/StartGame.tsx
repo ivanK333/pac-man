@@ -8,10 +8,8 @@ type Props = {
 };
 const StartGame = ({ startGame }: Props) => {
   const handlerButtonRestart = (event: Event) => {
-    if (event instanceof KeyboardEvent) {
-      if (event.key === 'Enter') {
-        startGame();
-      }
+    if (event instanceof KeyboardEvent && event.key === 'Enter') {
+      startGame();
     }
   };
 

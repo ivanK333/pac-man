@@ -110,35 +110,9 @@ $time: 175;
   width: $dot-size;
   height: $dot-size;
 
-  &:nth-child(1) {
-    animation: travel #{$time * 8}ms linear infinite,
-  }
-
-  &:nth-child(2) {
-    animation: travel #{$time * 8}ms linear #{$time * 2}ms infinite;
-  }
-
-  &:nth-child(3) {
-    animation: travel #{$time * 8}ms linear #{$time * 2 * 2}ms infinite;
-  }
-
-  &:nth-child(4) {
-    animation: travel #{$time * 8}ms linear #{$time * 3 * 2}ms infinite;
-  }
-
-  &:nth-child(5) {
-    animation: travel #{$time * 8}ms linear #{$time * 4 * 2}ms infinite;
-  }
-
-  &:nth-child(6) {
-    animation: travel #{$time * 8}ms linear #{$time * 5 * 2}ms infinite;
-  }
-
-  &:nth-child(7) {
-    animation: travel #{$time * 8}ms linear #{$time * 6 * 2}ms infinite;
-  }
-
-  &:nth-child(8) {
-    animation: travel #{$time * 8}ms linear #{$time * 7 * 2}ms infinite;
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) {
+      animation: travel #{$time * 8}ms linear #{$time * ($i - 1) * 2}ms infinite;
+    }
   }
 }
