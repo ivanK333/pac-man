@@ -3,11 +3,16 @@ import { useNavigate, useParams } from 'react-router';
 import styles from './styles.module.scss';
 import blueGhost from '../../assets/images/blueSprite.svg';
 import TopicForm from '../../components/TopicForm/TopicForm';
-import TopicItem from '../../components/TopicItem/TopicItem';
+
+export type TTopicForm = { message: string };
 
 const Topic = () => {
   const { id } = useParams();
   const history = useNavigate();
+
+  const handleSubmit = (data: TTopicForm) => {
+    console.log(data, id);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
@@ -22,7 +27,13 @@ const Topic = () => {
       </div>
 
       <div className={styles.messages}>
-        <div className={styles.messageList}></div>
+        <div className={styles.messageList}>
+          <TopicForm
+            onSubmit={handleSubmit}
+            placeholder="Enter your message"
+            autoFocus={true}
+          />
+        </div>
       </div>
     </div>
   );

@@ -1,0 +1,25 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.form {
+  width: 100%;
+  display: flex;
+  border-bottom: 2px solid $color-palette-blue;
+  padding: 0 0 5px 16px;
+}
+
+.input {
+  width: 100%;
+  background: inherit;
+  border: none;
+}
+
+.submit {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: $color-palette-blue;
+  color: $color-palette-black;
+  @include typography-xl;
+}
