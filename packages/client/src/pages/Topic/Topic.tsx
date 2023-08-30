@@ -32,11 +32,7 @@ const Topic = () => {
 
       <div className={styles.messages}>
         <div className={styles.formContainer}>
-          <TopicForm
-            onSubmit={handleSubmit}
-            placeholder="Enter your message"
-            autoFocus={true}
-          />
+          <TopicForm onSubmit={handleSubmit} placeholder="Enter your message" />
         </div>
         <div className={styles.messageList}>
           {topic &&
