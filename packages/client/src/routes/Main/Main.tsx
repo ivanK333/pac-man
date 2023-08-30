@@ -17,7 +17,10 @@ export const Main = () => {
         <Routes>
           <Route path={ROUTES.main.profile} element={<Profile />} />
           <Route path={ROUTES.main.root} element={<div>Game</div>} />
-          <Route path={ROUTES.main.gameOver} element={<GameOver />} />
+          <Route
+            path={ROUTES.main.gameOver}
+            element={<GameOver restartGame={() => console.log('restart')} />}
+          />
           <Route path={ROUTES.main.forum.root} element={<Forum />}>
             <Route path={ROUTES.main.forum.topic} element={<Topic />} />
           </Route>

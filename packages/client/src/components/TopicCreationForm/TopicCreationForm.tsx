@@ -29,7 +29,9 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
       />
       <FormButtonGroup
         title="Create"
-        bottomText="Don&rsquo;t have an account yet?"
+        linkName="Close"
+        bottomText="don't want to create?"
+        onClick={handleCloseModal}
       />
     </FormGroup>
   );

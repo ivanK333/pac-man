@@ -49,7 +49,45 @@ export const fakeTopics: TFakeTopics[] = [
         },
         time: '12:33',
         id: '1',
-        comments: [],
+        comments: [
+          {
+            user: {
+              name: '20LETTERSLOGINLENGTH',
+              avatar: image2,
+              id: '234254',
+            },
+            comment: `Nunc et eros a ex semper venenatis sed nec dolor. 
+            Vestibulum dapibus consectetur quam, a ultrices libero pellentesque et. 
+            Nullam lobortis faucibus auctor. Sed cursus, nibh a gravida porttitor, 
+            lorem lacus maximus elit, ut dictum odio nisi et neque. 
+            Aenean pulvinar vulputate nisi tincidunt sollicitudin. 
+            Donec feugiat rhoncus lacus, vehicula rhoncus erat varius vitae. 
+            Pellentesque faucibus vestibulum molestie.`,
+            time: '12:48',
+            likes: [],
+            emojis: [],
+            id: '1',
+          },
+          {
+            user: {
+              name: '20LETTERSLOGINLENGTH',
+              avatar: image2,
+              id: '234254',
+            },
+            comment: `Nullam at turpis id libero tincidunt tincidunt. 
+            Maecenas gravida commodo sem sed bibendum. Vestibulum in feugiat nibh. 
+            Interdum et malesuada fames ac ante ipsum primis in faucibus. 
+            Duis mollis mi sed velit pretium dictum. Donec ac pellentesque urna. 
+            Fusce hendrerit, felis et rutrum feugiat, 
+            dolor tellus eleifend nunc, et placerat turpis neque in nulla. 
+            Suspendisse hendrerit nisl et enim molestie molestie. 
+            Nunc et molestie purus. Nullam condimentum laoreet maximus.`,
+            time: '12:48',
+            likes: [],
+            emojis: [],
+            id: '2',
+          },
+        ],
         likes: [],
         emojis: [],
       },
