@@ -10,20 +10,32 @@ import {
   foodCollor,
   size,
 } from './map';
+import { PackmanProps, drawPacMan2 } from './AnimatedCharacters/pacman';
 
 const GameCanvas = () => {
   const [time, setTime] = useState<number | null>(null);
+  const [context, setContext] = useState<
+    CanvasRenderingContext2D | null | undefined
+  >(null);
   const [direction, setDirection] = useState<string>('stop');
   const [nextDirection, setNextDirection] = useState<string>('stop');
-  const [pacman, setPacman] = useState<Record<string, number>>({
+  const [pacman, setPacman] = useState<Omit<PackmanProps, 'ctx' | 'time'>>({
     x: 1 * blockSize,
     y: 1 * blockSize,
-    width: 20,
-    height: 20,
+    radius: blockSize / 2,
+    width: blockSize / 2,
+    height: blockSize / 2,
     speed: 2,
+    direction: 'right',
   });
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const context = canvasRef.current?.getContext('2d');
+    if (!context) return;
+    setContext(context);
+  }, []);
 
   // SERVICE
   // loop start
@@ -71,9 +83,8 @@ const GameCanvas = () => {
 
   // DRAW
   useEffect(() => {
-    const context = canvasRef.current!.getContext('2d');
-
-    redraw(context!);
+    if (!context) return;
+    redraw(context);
   }, [time]);
 
   const createRect = (
@@ -184,7 +195,8 @@ const GameCanvas = () => {
     drawBackground(ctx);
     drawMap(ctx);
     drawFood(ctx);
-    drawPacman(ctx);
+    // drawPacman(ctx);
+    drawPacMan2({ ctx, time, ...pacman });
   };
 
   // PACMAN
@@ -202,16 +214,32 @@ const GameCanvas = () => {
   const moveForward = () => {
     switch (direction) {
       case 'right':
-        setPacman((pacman) => ({ ...pacman, x: pacman.x + pacman.speed }));
+        setPacman((pacman) => ({
+          ...pacman,
+          x: pacman.x + pacman.speed,
+          direction,
+        }));
         break;
       case 'left':
-        setPacman((pacman) => ({ ...pacman, x: pacman.x - pacman.speed }));
+        setPacman((pacman) => ({
+          ...pacman,
+          x: pacman.x - pacman.speed,
+          direction,
+        }));
         break;
       case 'up':
-        setPacman((pacman) => ({ ...pacman, y: pacman.y - pacman.speed }));
+        setPacman((pacman) => ({
+          ...pacman,
+          y: pacman.y - pacman.speed,
+          direction,
+        }));
         break;
       case 'down':
-        setPacman((pacman) => ({ ...pacman, y: pacman.y + pacman.speed }));
+        setPacman((pacman) => ({
+          ...pacman,
+          y: pacman.y + pacman.speed,
+          direction,
+        }));
         break;
       default:
         break;
