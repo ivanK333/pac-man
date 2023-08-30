@@ -23,7 +23,9 @@ const noSpaces = (value: string) =>
   /^[^\s]*$/.test(value) ? true : CommonErrorMessages.noSpaces;
 
 const latinLetters = (value: string) =>
-  /^[a-zA-Z0-9_-\s]+$/.test(value) ? true : CommonErrorMessages.latinLetters;
+  /^[A-Za-z\d\s!@#$%^&*()-_=+[\]{}|;:'",.<>/?]*$/.test(value)
+    ? true
+    : CommonErrorMessages.latinLetters;
 
 const atLeastOneLetter = (value: string) =>
   /^.*[a-zA-Z]+.*$/.test(value) ? true : CommonErrorMessages.atLeastOneLetter;
