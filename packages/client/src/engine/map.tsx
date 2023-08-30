@@ -1,4 +1,4 @@
-const blockSize = 20;
+const blockSize = 30;
 const wallSpaceWidth = blockSize / 1.3;
 const wallOffset = (blockSize - wallSpaceWidth) / 2;
 const wallCollor = '#342dca';
@@ -30,6 +30,7 @@ const map: number[][] = [
   [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
+const size = [map[0].length, map.length];
 
 export {
   map,
@@ -39,4 +40,5 @@ export {
   wallOffset,
   wallInnerColor,
   foodCollor,
+  size,
 };

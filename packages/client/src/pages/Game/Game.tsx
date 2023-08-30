@@ -3,6 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 import LoaderGame from '../LoaderGame/LoaderGame';
 import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
+import GameCanvas from '../../engine/GameCanvas';
+
 const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
   const [start, setStart] = useState<boolean>(false);
@@ -30,15 +32,16 @@ const Game = () => {
   }, []);
 
   return (
-    <>
-      {!start ? <StartGame startGame={startGame} /> : null}
+    <GameCanvas />
+    // <>
+    //   {!start ? <StartGame startGame={startGame} /> : null}
 
-      {loader && start ? (
-        <LoaderGame />
-      ) : (
-        <GameOver restartGame={restartGame} />
-      )}
-    </>
+    //   {loader && start ? (
+    //     <LoaderGame />
+    //   ) : (
+    //     <GameOver restartGame={restartGame} />
+    //   )}
+    // </>
   );
 };
 export default Game;

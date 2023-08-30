@@ -8,6 +8,7 @@ import {
   wallOffset,
   wallInnerColor,
   foodCollor,
+  size,
 } from './map';
 
 const GameCanvas = () => {
@@ -326,7 +327,12 @@ const GameCanvas = () => {
 
   return (
     <>
-      <canvas ref={canvasRef} id="canvas" width="420" height="460"></canvas>
+      <canvas
+        ref={canvasRef}
+        id="canvas"
+        width={`${size[0] * blockSize}`}
+        height={`${size[1] * blockSize}`}
+      ></canvas>
     </>
   );
 };
