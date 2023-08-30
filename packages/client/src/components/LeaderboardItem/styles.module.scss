@@ -32,7 +32,7 @@
 .name {
   @include typography-xl;
 
+  margin: 0 0 0 40px;
   color: $color-palette-red;
   font-family: $font-Quicksand;
-  margin: 0 0 0 40px;
 }

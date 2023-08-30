@@ -2,8 +2,8 @@
 @import '../../assets/styles/variables';
 
 .main {
+  display: flex;
   position: relative;
   background: $color-palette-black;
   height: 100%;
-  display: flex;
 }

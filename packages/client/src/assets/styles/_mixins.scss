@@ -87,13 +87,13 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: variables.$color-palette-blue;
     border-radius: 20px;
+    background: variables.$color-palette-blue;
     height: 50px;
   }
 
   &::-webkit-scrollbar-track {
-    background: variables.$color-palette-white;
     border-radius: 20px;
+    background: variables.$color-palette-white;
   }
 }

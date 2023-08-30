@@ -18,7 +18,7 @@ const CommentItem: React.FC<TCommentItemProps> = ({
 }) => {
   console.log(id);
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <div className={styles.headingContainer}>
         <h5 className={styles.username}>{userName}</h5>
         <p className={styles.time}>{time}</p>
@@ -29,7 +29,7 @@ const CommentItem: React.FC<TCommentItemProps> = ({
           <p className={styles.text}>{comment}</p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

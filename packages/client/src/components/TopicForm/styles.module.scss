@@ -2,34 +2,32 @@
 @import '../../assets/styles/variables';
 
 .form {
-  width: 100%;
   display: flex;
   border-bottom: 2px solid $color-palette-blue;
   padding: 0 0 5px 16px;
+  width: 100%;
 }
 
 .input {
-  width: 100%;
-  background: inherit;
   border: none;
+  background: inherit;
+  width: 100%;
   color: $color-palette-blue;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 300;
+  @include typography-m;
 }
 
 .input::placeholder{
   color: $color-palette-blue;
-  font-size: 18px;
-  font-style: normal;
+  @include typography-m;
 }
 
 .submit {
+  @include typography-xl;
+
+  border: none;
+  border-radius: 50%;
+  background: $color-palette-blue;
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  border: none;
-  background: $color-palette-blue;
   color: $color-palette-black;
-  @include typography-xl;
 }

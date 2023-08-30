@@ -1,47 +1,10 @@
 @import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
-
-%container {
-  width: 100%;
-  height: 100%;
-  padding: 55px 145px 42px 135px;
+.container {
   display: flex;
   flex-direction: column;
-
-}
-
-.container {
-  @extend %container;
-}
-
-.containerWithImage {
-  @extend %container;
-  background: url("../../assets/images/forum-background.svg") no-repeat right bottom;
-}
-
-
-%default-link {
-  text-align: center;
-  padding: 5px;
-  font-size: 28px;
-  line-height: 35px;
-  letter-spacing: 2.8px;
-}
-
-.link {
-  @extend %default-link;
-  color: $color-palette-green;
-}
-
-.linkActive {
-  @extend %default-link;
-  color: $color-palette-yellow;
-}
-
-.forumNavigation {
+  padding: 55px 145px 42px 135px;
   width: 100%;
-  display: flex;
-  gap: 40px;
+  height: 100%;
 }
-

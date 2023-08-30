@@ -1,6 +1,10 @@
+import { useForm } from 'react-hook-form';
+
+import styles from './styles.module.scss';
 import Input from '../InputWithLabel/InputWithLabel';
 import FormButtonGroup from '../FormButtonGroup/FormButton';
 import FormGroup from '../FormGroup/FormGroup';
+import FormHeading from '../FormHeading/FormHeading';
 
 type TTopicCreationFormProps = {
   handleCloseModal: () => void;
@@ -9,11 +13,13 @@ type TTopicCreationFormProps = {
 const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
   handleCloseModal,
 }) => {
+  const formMethods = useForm();
   const handleSubmit = () => {
     console.log('submit');
   };
   return (
     <FormGroup onSubmit={handleSubmit}>
+      <FormHeading text="Create a topic" />
       <Input
         label="Topic"
         type="text"
@@ -21,16 +27,28 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
         placeholder="Enter topic name"
         autoFocus={true}
       />
-      <Input
-        label="Message"
-        type="text"
-        name="message"
-        placeholder="Enter message text"
-      />
+      <article className={styles.group}>
+        <label className={styles.label} htmlFor="message">
+          Message:
+        </label>
+        <textarea
+          className={styles.textArea}
+          {...formMethods.register('messageArea')}
+          required={true}
+          placeholder="Enter message text"
+          name="message"
+        />
+        {formMethods.formState.errors['message'] && (
+          <div className={styles.error}>
+            <p>{formMethods.formState.errors['message']?.message as string}</p>
+          </div>
+        )}
+      </article>
+
       <FormButtonGroup
         title="Create"
         linkName="Close"
-        bottomText="don't want to create?"
+        bottomText="Don't want to create?"
         onClick={handleCloseModal}
       />
     </FormGroup>

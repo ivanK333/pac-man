@@ -32,7 +32,8 @@
 
 .exitButton {
   @include typography-xl;
-  color: $color-palette-red;
-  background: none;
+
   border: none;
+  background: none;
+  color: $color-palette-red;
 }

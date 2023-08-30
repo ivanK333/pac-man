@@ -5,7 +5,7 @@ import { useMatch } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
-import Topics from '../Topics/Topics';
+import TopicsList from '../TopicsList/TopicsList';
 import Modal from '../../components/Modal/Modal';
 import TopicCreationForm from '../../components/TopicCreationForm/TopicCreationForm';
 
@@ -26,7 +26,7 @@ const Forum = () => {
     <>
       <div className={styles.container}>
         {isForumRoot ? (
-          <Topics handleOpenModal={handleOpenModal} />
+          <TopicsList handleOpenModal={handleOpenModal} />
         ) : (
           <Outlet />
         )}

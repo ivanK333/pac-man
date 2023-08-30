@@ -54,20 +54,18 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
 
           {isShow && (
             <div className={styles.comments}>
-              <div className={styles.connetsContainer}>
-                {comments && comments.length
-                  ? comments.map((comment) => (
-                      <CommentItem
-                        comment={comment.comment}
-                        avatar={comment.user.avatar}
-                        userName={comment.user.name}
-                        time={comment.time}
-                        id={comment.id}
-                        key={comment.id}
-                      />
-                    ))
-                  : null}
-              </div>
+              {comments && comments.length
+                ? comments.map((comment) => (
+                    <CommentItem
+                      comment={comment.comment}
+                      avatar={comment.user.avatar}
+                      userName={comment.user.name}
+                      time={comment.time}
+                      id={comment.id}
+                      key={comment.id}
+                    />
+                  ))
+                : null}
 
               <TopicForm
                 placeholder="Enter a comment"
