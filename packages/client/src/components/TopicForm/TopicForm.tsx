@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 import { FormProvider, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
@@ -8,23 +6,15 @@ import { TTopicForm } from '../../pages/Topic/Topic';
 type TTopicFormProps = {
   onSubmit: (data: TTopicForm) => void;
   placeholder: string;
-  autoFocus: boolean;
 };
 
-const TopicForm: React.FC<TTopicFormProps> = ({
-  onSubmit,
-  placeholder,
-  autoFocus,
-}) => {
+const TopicForm: React.FC<TTopicFormProps> = ({ onSubmit, placeholder }) => {
   const formMethods = useForm<TTopicForm>();
 
   const handleSubmit = (data: TTopicForm) => {
     formMethods.formState.isValid && onSubmit(data);
     console.log(formMethods.formState.isValid);
   };
-  useEffect(() => {
-    autoFocus && formMethods.setFocus('message');
-  }, [formMethods.setFocus]);
   return (
     <FormProvider {...formMethods}>
       <form
@@ -38,6 +28,7 @@ const TopicForm: React.FC<TTopicFormProps> = ({
           placeholder={placeholder}
           {...formMethods.register('message')}
           required={true}
+          autoFocus={true}
         />
 
         <button

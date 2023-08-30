@@ -23,7 +23,6 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
   comments,
 }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
-  const [isFocus, setIsFocus] = useState<boolean>(false);
   const handleSubmit = (data: TTopicForm) => {
     console.log(data);
   };
@@ -42,7 +41,6 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
               className={styles.commentsLength}
               onClick={() => {
                 setIsShow(!isShow);
-                setIsFocus(!isFocus);
               }}
             >
               {comments && comments.length > 0
@@ -69,7 +67,6 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
 
               <TopicForm
                 placeholder="Enter a comment"
-                autoFocus={isFocus}
                 onSubmit={handleSubmit}
               />
             </div>

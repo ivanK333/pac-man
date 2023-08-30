@@ -15,7 +15,7 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
 }) => {
   const formMethods = useForm();
   const handleSubmit = () => {
-    console.log('submit');
+    console.log(formMethods.formState.isValid);
   };
   return (
     <FormGroup onSubmit={handleSubmit}>
@@ -26,6 +26,7 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
         name="topic"
         placeholder="Enter topic name"
         autoFocus={true}
+        required={true}
       />
       <article className={styles.group}>
         <label className={styles.label} htmlFor="message">
@@ -50,6 +51,7 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
         linkName="Close"
         bottomText="Don't want to create?"
         onClick={handleCloseModal}
+        disabled={!formMethods.formState.isValid}
       />
     </FormGroup>
   );

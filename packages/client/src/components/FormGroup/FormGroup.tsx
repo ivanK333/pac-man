@@ -23,6 +23,7 @@ const FormGroup = <T extends Record<string, string>>({
     <article className={styles.formContainer}>
       <FormProvider {...formMethods}>
         <form
+          noValidate={true}
           className={styles.form}
           onSubmit={formMethods.handleSubmit(onSubmit)}
         >
