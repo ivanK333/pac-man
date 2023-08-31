@@ -1,8 +1,7 @@
 @import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
-//** Variables
-$size: 50px;
+$size: 50px; //** Variables
 $dot-size: $size / 6;
 $time: 175;
 
@@ -24,8 +23,7 @@ $time: 175;
   overflow: hidden;
 }
 
-//** Animations
-@keyframes chomp {
+@keyframes chomp { //** Animations
   0% {
     transform: rotate(0);
   }
@@ -79,8 +77,7 @@ $time: 175;
   animation: travel-2 #{$time * 30}ms 500ms linear infinite;
 }
 
-//** Pac Man
-.pacman {
+.pacman { //** Pac Man
   display: block;
   position: absolute;
   top: 50%;
@@ -126,8 +123,7 @@ $time: 175;
   }
 }
 
-//** Dots
-.dots {
+.dots { //** Dots
   display: flex;
   flex-direction: row;
   align-items: center;
