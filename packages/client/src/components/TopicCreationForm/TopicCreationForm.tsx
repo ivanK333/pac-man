@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
-import Input from '../InputWithLabel/InputWithLabel';
-import FormButtonGroup from '../FormButtonGroup/FormButton';
-import FormGroup from '../FormGroup/FormGroup';
-import FormHeading from '../FormHeading/FormHeading';
+import FormHeading from '../FormComponent/FormHeading/FormHeading';
+import FormGroup from '../FormComponent/FormGroup/FormGroup';
+import InputWithLabel from '../FormComponent/InputWithLabel/InputWithLabel';
+import FormButton from '../FormComponent/FormButtonGroup/FormButton';
 
 type TTopicCreationFormProps = {
   handleCloseModal: () => void;
@@ -21,7 +21,7 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
   return (
     <FormGroup onSubmit={handleSubmit}>
       <FormHeading text="Create a topic" />
-      <Input
+      <InputWithLabel
         label="Topic"
         type="text"
         name="topic"
@@ -47,7 +47,7 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
         )}
       </article>
 
-      <FormButtonGroup
+      <FormButton
         title="Create"
         linkName="Close"
         bottomText="Don't want to create?"
