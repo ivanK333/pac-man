@@ -33,6 +33,7 @@ const ChangePasswordForm: React.FC<TChangePasswordFormProps> = ({
       })
       .catch((e) => console.error(e));
   };
+
   return (
     <FormProvider {...formMethods}>
       <form

@@ -17,6 +17,7 @@ const Header = () => {
   const handleLogout = () => {
     console.log('logout logic');
   };
+
   return (
     <header className={styles.header}>
       <button className={styles.exitButton} onClick={handleLogout}>

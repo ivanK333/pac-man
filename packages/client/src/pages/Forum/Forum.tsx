@@ -22,6 +22,7 @@ const Forum = () => {
   const handleCloseModal = () => {
     setIsOpenModal(false);
   };
+
   return (
     <>
       <div className={styles.container}>

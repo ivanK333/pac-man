@@ -15,6 +15,7 @@ const TopicForm: React.FC<TTopicFormProps> = ({ onSubmit, placeholder }) => {
     formMethods.formState.isValid && onSubmit(data);
     console.log(formMethods.formState.isValid);
   };
+
   return (
     <FormProvider {...formMethods}>
       <form

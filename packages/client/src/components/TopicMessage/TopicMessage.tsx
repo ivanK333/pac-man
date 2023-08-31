@@ -26,6 +26,7 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
   const handleSubmit = (data: TTopicForm) => {
     console.log(data);
   };
+
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>

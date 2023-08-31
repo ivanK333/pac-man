@@ -23,6 +23,7 @@ const CustomLink: React.FC<TCustomLink> = ({
         return styles.linkTextBlack;
     }
   };
+
   return (
     <>
       <Link to={linkPath} {...rest}>

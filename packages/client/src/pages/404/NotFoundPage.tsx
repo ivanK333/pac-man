@@ -5,6 +5,7 @@ import { Colors } from '../../constants/colors';
 const NotFoundPage = () => {
   const title = 'Not found';
   const linkText = 'back to the game';
+
   return (
     <>
       <ErrorPageConstructor

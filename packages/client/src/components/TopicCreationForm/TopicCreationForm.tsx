@@ -17,6 +17,7 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
   const handleSubmit = () => {
     console.log(formMethods.formState.isValid);
   };
+
   return (
     <FormGroup onSubmit={handleSubmit}>
       <FormHeading text="Create a topic" />

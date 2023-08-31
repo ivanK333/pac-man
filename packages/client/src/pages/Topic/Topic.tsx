@@ -17,6 +17,7 @@ const Topic = () => {
   };
 
   const topic = fakeTopics.find((topic) => topic.id === id);
+
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
@@ -35,18 +36,16 @@ const Topic = () => {
           <TopicForm onSubmit={handleSubmit} placeholder="Enter your message" />
         </div>
         <div className={styles.messageList}>
-          {topic &&
-            topic.messages &&
-            topic.messages.map((message) => (
-              <TopicMessage
-                message={message.message}
-                image={message.user.avatar}
-                time="12:33"
-                username={message.user.name}
-                comments={message.comments}
-                key={message.id}
-              />
-            ))}
+          {topic?.messages?.map((message) => (
+            <TopicMessage
+              message={message.message}
+              image={message.user.avatar}
+              time="12:33"
+              username={message.user.name}
+              comments={message.comments}
+              key={message.id}
+            />
+          ))}
         </div>
       </div>
     </div>
