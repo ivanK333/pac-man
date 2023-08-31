@@ -129,9 +129,9 @@ export const fakeTopics: TFakeTopics[] = [
         comments: [
           {
             user: {
-              name: '20LETTERSLOGINLENGTH',
-              avatar: image2,
-              id: '234254',
+              name: 'username',
+              avatar: defaultImage,
+              id: '111111',
             },
             comment: `Nunc et eros a ex semper venenatis sed nec dolor. 
             Vestibulum dapibus consectetur quam, a ultrices libero pellentesque et. 

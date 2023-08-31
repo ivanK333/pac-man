@@ -1,3 +1,5 @@
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
 import defaultImage from '../../assets/images/default-avatar.svg';
 
@@ -12,24 +14,21 @@ type TAvatarImage = {
 };
 
 const AvatarImage: React.FC<TAvatarImage> = ({ image, size = Size.normal }) => {
+  const isSmallContainer = classNames({
+    [styles.imageContainer]: size === Size.normal,
+    [styles.imageContainerSmall]: size === Size.small,
+  });
+  const isDefault = image === 'null' || !image || image === defaultImage;
+
+  const isSmallDefaultImage = classNames({
+    [styles.imageDefaultSmall]: size === Size.small,
+    [styles.imageDefault]: size === Size.normal,
+  });
+
   return (
-    <div
-      className={
-        size === Size.normal
-          ? styles.imageContainer
-          : styles.imageContainerSmall
-      }
-    >
-      {image === 'null' || !image || image === defaultImage ? (
-        <img
-          className={
-            size === Size.normal
-              ? styles.imageDefault
-              : styles.imageDefaultSmall
-          }
-          src={defaultImage}
-          alt="avatar"
-        />
+    <div className={isSmallContainer}>
+      {isDefault ? (
+        <img className={isSmallDefaultImage} src={defaultImage} alt="avatar" />
       ) : (
         <img className={styles.image} src={image} alt="avatar" />
       )}
