@@ -35,6 +35,9 @@ const GameCanvas = () => {
     const context = canvasRef.current?.getContext('2d');
     if (!context) return;
     setContext(context);
+    drawMap(context);
+    drawFood(context);
+    console.log(context);
   }, []);
 
   // SERVICE
@@ -95,6 +98,7 @@ const GameCanvas = () => {
     height: number,
     color: string,
   ) => {
+    console.log(ctx);
     ctx.fillStyle = color;
     ctx.fillRect(x, y, width, height);
   };
@@ -103,18 +107,18 @@ const GameCanvas = () => {
     createRect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, '#000');
   };
 
-  const drawPacman = (ctx: CanvasRenderingContext2D) => {
-    // do not go beyond the screen (right)
-    if (pacman.x > canvasRef.current!.width) {
-      setPacman((pacman) => ({ ...pacman, x: -20 }));
-    }
-    // do not go beyond the screen (left)
-    if (pacman.x < -21) {
-      setPacman((pacman) => ({ ...pacman, x: canvasRef.current!.width }));
-    }
+  // const drawPacman = (ctx: CanvasRenderingContext2D) => {
+  //   // do not go beyond the screen (right)
+  //   if (pacman.x > canvasRef.current!.width) {
+  //     setPacman((pacman) => ({ ...pacman, x: -20 }));
+  //   }
+  //   // do not go beyond the screen (left)
+  //   if (pacman.x < -21) {
+  //     setPacman((pacman) => ({ ...pacman, x: canvasRef.current!.width }));
+  //   }
 
-    createRect(ctx, pacman.x, pacman.y, blockSize, blockSize, 'yellow');
-  };
+  //   createRect(ctx, pacman.x, pacman.y, blockSize, blockSize, 'yellow');
+  // };
 
   const drawMap = (ctx: CanvasRenderingContext2D) => {
     for (let i = 0; i < map.length; i++) {
@@ -193,8 +197,8 @@ const GameCanvas = () => {
   // redraw
   const redraw = (ctx: CanvasRenderingContext2D) => {
     drawBackground(ctx);
-    drawMap(ctx);
-    drawFood(ctx);
+    // drawMap(ctx);
+    // drawFood(ctx);
     // drawPacman(ctx);
     drawPacMan2({ ctx, time, ...pacman });
   };
