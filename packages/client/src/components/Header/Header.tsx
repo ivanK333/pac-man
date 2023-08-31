@@ -1,4 +1,5 @@
 import { NavLink, useMatch } from 'react-router-dom';
+import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
@@ -9,6 +10,10 @@ const Header = () => {
     path: ROUTES.main.forum.root,
     end: false,
   });
+  const classname = classNames(styles.link, {
+    [styles.linkActive]: match,
+  });
+
   const handleLogout = () => {
     console.log('logout logic');
   };
@@ -49,10 +54,7 @@ const Header = () => {
           </NavLink>
         </li>
         <li className={styles.listItem}>
-          <Link
-            to={ROUTES.main.forum.root}
-            className={match ? styles.linkActive : styles.link}
-          >
+          <Link to={ROUTES.main.forum.root} className={classname}>
             Forum
           </Link>
         </li>
