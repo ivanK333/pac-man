@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Button from '../ButtonSubmit/Button';
+import Button from '../../ButtonSubmit/Button';
 import styles from './styles.module.scss';
 import Sprite from '../FormSprite/FormSprite';
 

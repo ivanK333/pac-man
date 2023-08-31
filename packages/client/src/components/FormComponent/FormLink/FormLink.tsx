@@ -2,7 +2,7 @@ import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
-import { FormFlavor } from '../../commonTypes';
+import { FormFlavor } from '../../../commonTypes';
 
 interface FormLinkProps extends LinkProps {
   text: string;

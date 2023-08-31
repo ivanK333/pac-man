@@ -2,10 +2,10 @@ import { SyntheticEvent } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
-import Input from '../InputWithLabel/InputWithLabel';
-import { validation } from '../../constants/formValidation/formValidation';
+import Input from '../../../../components/FormComponent/InputWithLabel/InputWithLabel';
+import { validation } from '../../../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import { emptyResponse, ProfileAPI } from '../../api/ProfileAPI';
+import { emptyResponse, ProfileAPI } from '../../../../api/ProfileAPI';
 
 type TChangePasswordFormProps = {
   handleSwitch: () => void;

@@ -19,8 +19,7 @@ $time: 175;
   border: solid 5px $color-palette-blue;
   border-radius: 50px;
   background: $color-palette-black;
-  width: 100%;
-  max-width: 560px;
+  width: 570px;
   height: 66px;
   overflow: hidden;
 }
@@ -38,14 +37,47 @@ $time: 175;
 
 @keyframes travel {
   0% {
-    right: -#{$dot-size};
+    left: 0;
   }
 
   100% {
-    right: 100%;
+    left: 105%;
   }
 }
 
+@keyframes travel-2 {
+  0% {
+    left: -2%;
+  }
+
+  50% {
+    left: 92%;
+  }
+
+  100% {
+    left: -2%;
+  }
+}
+
+@keyframes hide-element {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.sprite{
+  position: absolute;
+  top: -6%;
+  left: -50px;
+  background-image: url("../../assets/images/blueSpriteForLoader.svg");
+  width: 60px;
+  height: 65px;
+  animation: travel-2 #{$time * 30}ms 500ms linear infinite;
+}
 
 //** Pac Man
 .pacman {
@@ -58,6 +90,7 @@ $time: 175;
   margin: 0;
   width: $size;
   height: $size;
+  animation: travel #{$time * 15}ms linear forwards;
 
   &::before,
   &::after {
@@ -72,47 +105,49 @@ $time: 175;
   }
 
   &::before {
-    background-image: linear-gradient(-45deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
+    background-image: linear-gradient(
+      -45deg,
+      transparent 50%,
+      $color-palette-yellow 50%,
+      $color-palette-yellow
+    );
     animation: chomp #{$time}ms ease-in alternate infinite;
   }
 
   &::after {
     transform: rotate(45deg);
-    background-image: linear-gradient(-180deg, transparent 50%, $color-palette-yellow 50%, $color-palette-yellow);
+    background-image: linear-gradient(
+      -180deg,
+      transparent 50%,
+      $color-palette-yellow 50%,
+      $color-palette-yellow
+    );
     animation: chomp #{$time}ms ease-out alternate-reverse infinite;
   }
 }
 
-
 //** Dots
 .dots {
-  position: absolute;
-  top: 50%;
-  left: 25px;
-  transform: translateX(#{$dot-size * -1.5}) translateY(-50%);
-  z-index: 1;
-  margin: 0;
-  padding: 0;
-  width: calc(100% + #{$dot-size});
-  height: $dot-size * 3;
-  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: auto;
+  width: 80%;
+  height: 100%;
   list-style: none;
 }
 
 .dot {
-  position: absolute;
-  top: 50%;
-  right: -#{$dot-size};
-  transform: translateY(-50%);
-  border-radius: 37.5%;
-  box-shadow:0 0 10px $color-palette-green;
+  border-radius: 50%;
+  box-shadow: 0 0 10px $color-palette-green;
   background-color: $color-palette-green;
   width: $dot-size;
   height: $dot-size;
 
   @for $i from 1 through 8 {
     &:nth-child(#{$i}) {
-      animation: travel #{$time * 8}ms linear #{$time * ($i - 1) * 2}ms infinite;
+      animation: 1ms linear #{500 + ($i - 1) * 270}ms forwards hide-element;
     }
   }
 }

@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { SubmitHandler } from 'react-hook-form';
 
 import AuthController from '../../controllers/AuthController';
-import FormGroup from '../../components/FormGroup/FormGroup';
-import Input from '../../components/InputWithLabel/InputWithLabel';
-import FormButtonGroup from '../../components/FormButtonGroup/FormButton';
+import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
+import Input from '../../components/FormComponent/InputWithLabel/InputWithLabel';
+import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
 import spriteSvg from '../../assets/images/blueSprite.svg';
 import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import FormHeading from '../../components/FormHeading/FormHeading';
+import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 
 export const redirect = (url: string) => {
   window.location.href = url;

@@ -1,5 +1,5 @@
-@use '../../assets/styles/mixins';
-@use '../../assets/styles/variables';
+@use '../../../assets/styles/mixins';
+@use '../../../assets/styles/variables';
 
 .group {
   @include mixins.typography-xs;
@@ -75,7 +75,7 @@
       position: absolute;
       top: 0;
       left: -29px;
-      background-image: url('../../assets/images/red_ghost.png');
+      background-image: url('../../../assets/images/red_ghost.png');
       background-repeat: no-repeat;
       width: 20px;
       height: 20px;

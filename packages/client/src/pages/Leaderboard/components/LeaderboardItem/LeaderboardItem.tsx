@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import styles from './styles.module.scss';
-import AvatarImage from '../AvatarImage/AvatarImage';
+import AvatarImage from '../../../../components/AvatarImage/AvatarImage';
 
 type TLeaderboardItemProps = {
   index: number;
