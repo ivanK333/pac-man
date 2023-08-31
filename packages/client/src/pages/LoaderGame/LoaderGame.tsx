@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import styles from './styles.module.scss';
 
 const DOTS_NUMBER = 8;

@@ -5,9 +5,14 @@ export const ROUTES = {
     login: 'login',
   },
   main: {
-    root: '/',
+    root: '/game',
     profile: 'profile',
-    forum: 'forum',
+    game: 'game',
+    gameOver: 'game-over',
+    forum: {
+      root: '/forum/',
+      topic: 'topic/:id',
+    },
     lead: 'lead',
   },
   error: {

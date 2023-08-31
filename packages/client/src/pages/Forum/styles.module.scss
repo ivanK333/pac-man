@@ -1,9 +1,10 @@
 @import '../../assets/styles/mixins';
 @import '../../assets/styles/variables';
 
-.main {
+.container {
   display: flex;
-  position: relative;
-  background: $color-palette-black;
+  flex-direction: column;
+  padding: 55px 145px 42px 135px;
+  width: 100%;
   height: 100%;
 }

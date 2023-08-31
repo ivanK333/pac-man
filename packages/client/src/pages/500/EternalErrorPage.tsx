@@ -4,6 +4,7 @@ import { ROUTES } from '../../constants/routes';
 import { Colors } from '../../constants/colors';
 const EternalErrorPage = () => {
   const linkText = 'back to the game';
+
   return (
     <>
       <ErrorPageConstructor

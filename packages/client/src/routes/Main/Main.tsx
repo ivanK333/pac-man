@@ -5,6 +5,8 @@ import Header from '../../components/Header/Header';
 import { ROUTES } from '../../constants/routes';
 import Profile from '../../pages/Profile/Profile';
 import Leaderboard from '../../pages/Leaderboard/Leaderboard';
+import Forum from '../../pages/Forum/Forum';
+import Topic from '../../pages/Topic/Topic';
 import Game from '../../pages/Game/Game';
 
 export const Main = () => {
@@ -15,7 +17,9 @@ export const Main = () => {
         <Routes>
           <Route path={ROUTES.main.profile} element={<Profile />} />
           <Route path={ROUTES.main.root} element={<Game />} />
-          <Route path={ROUTES.main.forum} element={<div>Forum</div>} />
+          <Route path={ROUTES.main.forum.root} element={<Forum />}>
+            <Route path={ROUTES.main.forum.topic} element={<Topic />} />
+          </Route>
           <Route path={ROUTES.main.lead} element={<Leaderboard />} />
 
           <Route

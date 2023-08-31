@@ -13,6 +13,7 @@ div[id='root'] {
   display: flex;
   flex-direction: column;
   border: 0;
+  overflow: hidden;
   font-family: Quicksand, sans-serif;
   font-size: 16px;
   font-weight: 400;
