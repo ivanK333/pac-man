@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import defaultImage from '../../assets/images/default-avatar.svg';
+import defaultImage from '../../../../assets/images/default-avatar.svg';
 import styles from './styles.module.scss';
 
 type TLeaderboardItemProps = {

@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../../../assets/styles/mixins';
+@use '../../../../assets/styles/variables';
 
 .container {
   display: flex;
@@ -9,24 +9,24 @@
 }
 
 .index {
-  @include typography-xxl;
+  @include mixins.typography-xxl;
 
   margin: 0 45px 0 0;
   min-width: 144px;
   text-align: center;
   line-height: normal;
-  font-family: $font-Press-start-2p;
+  font-family: variables.$font-press-start-2p;
 }
 
 .score {
-  @include typography-xl;
+  @include mixins.typography-xl;
 
   margin: 0 28px 0 0;
   width: 100%;
   min-width: 100px;
   max-width: 100px;
-  color: $color-palette-yellow;
-  font-family: $font-Press-start-2p;
+  color: variables.$color-palette-yellow;
+  font-family: variables.$font-press-start-2p;
 }
 
 .imageContainer {
@@ -35,7 +35,7 @@
   justify-content: center;
   margin: 0 40px 0 0;
   border-radius: 50%;
-  background: $color-palette-white;
+  background: variables.$color-palette-white;
   width: 70px;
   height: 70px;
 }
@@ -54,8 +54,8 @@
 }
 
 .name {
-  @include typography-xl;
+  @include mixins.typography-xl;
 
-  color: $color-palette-red;
-  font-family: $font-Quicksand;
+  color: variables.$color-palette-red;
+  font-family: variables.$font-quicksand;
 }

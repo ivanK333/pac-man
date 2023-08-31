@@ -2,13 +2,13 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import Input from '../InputWithLabel/InputWithLabel';
-import { validation } from '../../constants/formValidation/formValidation';
+import Input from '../../../../components/FormComponent/InputWithLabel/InputWithLabel';
+import { validation } from '../../../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import { ProfileAPI, TProfileForm } from '../../api/ProfileAPI';
-import { ROUTES } from '../../constants/routes';
-import { Colors } from '../../constants/colors';
-import CustomLink from '../CustomLink/CustomLink';
+import { ProfileAPI, TProfileForm } from '../../../../api/ProfileAPI';
+import { ROUTES } from '../../../../constants/routes';
+import { Colors } from '../../../../constants/colors';
+import CustomLink from '../../../../components/CustomLink/CustomLink';
 
 type TProfileFormProps = {
   handleSwitch: () => void;

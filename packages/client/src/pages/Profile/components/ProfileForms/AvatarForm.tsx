@@ -3,11 +3,11 @@ import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
-import defaultImage from '../../assets/images/default-avatar.svg';
-import FormHeading from '../FormHeading/FormHeading';
-import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
-import { RESOURCES_URL } from '../../api/config';
-import FormButton from '../FormButtonGroup/FormButton';
+import defaultImage from '../../../../assets/images/default-avatar.svg';
+import FormHeading from '../../../../components/FormComponent/FormHeading/FormHeading';
+import { ProfileAPI, TUserResponse } from '../../../../api/ProfileAPI';
+import { RESOURCES_URL } from '../../../../api/config';
+import FormButton from '../../../../components/FormComponent/FormButtonGroup/FormButton';
 
 type TAvatarFormProps = {
   handleClose: () => void;

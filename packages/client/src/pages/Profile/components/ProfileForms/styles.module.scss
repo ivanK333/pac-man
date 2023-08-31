@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../../../assets/styles/mixins';
+@use '../../../../assets/styles/variables';
 
 .buttonContainer {
   display: flex;
@@ -13,23 +13,23 @@
 }
 
 .submitButton {
-  @include typography-m;
+  @include mixins.typography-m;
 
   border: none;
   background: none;
   padding: 0;
-  color: $color-palette-yellow;
-  font-family: $font-Press-start-2p;
+  color: variables.$color-palette-yellow;
+  font-family: variables.$font-press-start-2p;
 }
 
 .editButton {
-  @include typography-m;
+  @include mixins.typography-m;
 
   border: none;
   background: none;
   padding: 0;
-  color: $color-palette-red;
-  font-family: $font-Press-start-2p;
+  color: variables.$color-palette-red;
+  font-family: variables.$font-press-start-2p;
 }
 
 .form {
@@ -46,7 +46,7 @@
   justify-content: space-between;
   border-radius: 12px;
   box-shadow: 0 0 6px 0 rgb(0 0 0 / 14%);
-  background: $color-palette-black;
+  background: variables.$color-palette-black;
   padding: 50px 30px 28px;
   max-width: 340px;
   min-height: 450px;
@@ -58,7 +58,7 @@
   justify-content: center;
   margin: 0 auto;
   border-radius: 50%;
-  background-color: $color-palette-white;
+  background-color: variables.$color-palette-white;
   width: 130px;
   height: 130px;
 }
@@ -80,11 +80,11 @@
 }
 
 .uploadLabel {
-  @include typography-l;
+  @include mixins.typography-l;
 
   margin-top: 15px;
   cursor: pointer;
   text-align: center;
-  color: $color-palette-yellow;
-  font-family: $font-Quicksand;
+  color: variables.$color-palette-yellow;
+  font-family: variables.$font-quicksand;
 }

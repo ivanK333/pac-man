@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
-import { FormFlavor } from '../../constants/commonTypes';
+import { FormFlavor } from '../../../constants/commonTypes';
 
 interface SpriteProps {
   spriteImg: string;
