@@ -1,4 +1,5 @@
-import Link from '../Link';
+import { Link } from 'react-router-dom';
+
 import styles from './styles.module.scss';
 import { Colors, TColorsType } from '../../constants/colors';
 

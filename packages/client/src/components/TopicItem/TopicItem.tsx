@@ -1,7 +1,8 @@
+import { Link } from 'react-router-dom';
+
 import styles from './styles.module.scss';
 import blueGhostImage from '../../assets/images/blueSprite.svg';
 import addCommentImage from '../../assets/images/addCommentImage.png';
-import Link from '../Link';
 
 type TTopicItemProps = {
   id?: string;

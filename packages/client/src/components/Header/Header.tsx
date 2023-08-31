@@ -1,9 +1,8 @@
-import { NavLink, useMatch } from 'react-router-dom';
+import { Link, NavLink, useMatch } from 'react-router-dom';
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
-import Link from '../Link';
 
 const Header = () => {
   const match = useMatch({
