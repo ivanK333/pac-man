@@ -21,7 +21,7 @@ const Game = () => {
   const fakeLoader = useCallback(() => {
     setTimeout(() => {
       setLoader(false);
-    }, 5000);
+    }, 10000);
   }, []);
 
   // заглушка для отображения loader
