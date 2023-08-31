@@ -1,16 +1,24 @@
 import { useState, useEffect, useRef } from 'react';
 
-import {
-  map,
-  blockSize,
-  wallCollor,
-  wallSpaceWidth,
-  wallOffset,
-  wallInnerColor,
-  foodCollor,
-  size,
-} from './map';
-import { PackmanProps, drawPacMan2 } from './AnimatedCharacters/pacman';
+import { blockSize, backGroundColor } from './config';
+import { map } from './Layers/layer_001';
+import { PacmanProps, drawPacman } from './AnimatedCharacters/pacman';
+import { drawRectangle } from './Primitives/drawRectangle';
+import { drawFood } from './Map/Food';
+import { drawWalls } from './Map/Walls';
+
+const drawBackground = (ctx: CanvasRenderingContext2D) => {
+  drawRectangle({
+    ctx,
+    x: 0,
+    y: 0,
+    width: ctx.canvas.width,
+    height: ctx.canvas.height,
+    fillColor: backGroundColor,
+  });
+};
+
+export const size = [map[0].length, map.length];
 
 const GameCanvas = () => {
   const [time, setTime] = useState<number | null>(null);
@@ -19,7 +27,7 @@ const GameCanvas = () => {
   >(null);
   const [direction, setDirection] = useState<string>('stop');
   const [nextDirection, setNextDirection] = useState<string>('stop');
-  const [pacman, setPacman] = useState<Omit<PackmanProps, 'ctx' | 'time'>>({
+  const [pacman, setPacman] = useState<Omit<PacmanProps, 'ctx' | 'time'>>({
     x: 1 * blockSize,
     y: 1 * blockSize,
     radius: blockSize / 2,
@@ -31,13 +39,15 @@ const GameCanvas = () => {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  /** create canvas and draw map */
   useEffect(() => {
     const context = canvasRef.current?.getContext('2d');
     if (!context) return;
     setContext(context);
-    drawMap(context);
-    drawFood(context);
-    console.log(context);
+
+    drawBackground(context);
+    drawWalls(context, map);
+    drawFood(context, map);
   }, []);
 
   // SERVICE
@@ -82,125 +92,15 @@ const GameCanvas = () => {
   // pacman direction cahnger
   useEffect(() => {
     moveProcess();
-  }, [time]);
 
-  // DRAW
-  useEffect(() => {
     if (!context) return;
     redraw(context);
   }, [time]);
 
-  const createRect = (
-    ctx: CanvasRenderingContext2D,
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    color: string,
-  ) => {
-    console.log(ctx);
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, width, height);
-  };
-
-  const drawBackground = (ctx: CanvasRenderingContext2D) => {
-    createRect(ctx, 0, 0, ctx.canvas.width, ctx.canvas.height, '#000');
-  };
-
-  // const drawPacman = (ctx: CanvasRenderingContext2D) => {
-  //   // do not go beyond the screen (right)
-  //   if (pacman.x > canvasRef.current!.width) {
-  //     setPacman((pacman) => ({ ...pacman, x: -20 }));
-  //   }
-  //   // do not go beyond the screen (left)
-  //   if (pacman.x < -21) {
-  //     setPacman((pacman) => ({ ...pacman, x: canvasRef.current!.width }));
-  //   }
-
-  //   createRect(ctx, pacman.x, pacman.y, blockSize, blockSize, 'yellow');
-  // };
-
-  const drawMap = (ctx: CanvasRenderingContext2D) => {
-    for (let i = 0; i < map.length; i++) {
-      for (let j = 0; j < map[0].length; j++) {
-        if (map[i][j] === 1) {
-          createRect(
-            ctx,
-            j * blockSize,
-            i * blockSize,
-            blockSize,
-            blockSize,
-            wallCollor,
-          );
-        }
-        if (j > 0 && map[i][j - 1] === 1) {
-          createRect(
-            ctx,
-            j * blockSize,
-            i * blockSize + wallOffset,
-            wallSpaceWidth + wallOffset,
-            wallSpaceWidth,
-            wallInnerColor,
-          );
-        }
-        if (j < map[0].length - 1 && map[i][j + 1] === 1) {
-          createRect(
-            ctx,
-            j * blockSize + wallOffset,
-            i * blockSize + wallOffset,
-            wallSpaceWidth + wallOffset,
-            wallSpaceWidth,
-            wallInnerColor,
-          );
-        }
-        if (i < map.length - 1 && map[i + 1][j] === 1) {
-          createRect(
-            ctx,
-            j * blockSize + wallOffset,
-            i * blockSize + wallOffset,
-            wallSpaceWidth,
-            wallSpaceWidth + wallOffset,
-            wallInnerColor,
-          );
-        }
-        if (i > 0 && map[i - 1][j] === 1) {
-          createRect(
-            ctx,
-            j * blockSize + wallOffset,
-            i * blockSize,
-            wallSpaceWidth,
-            wallSpaceWidth + wallOffset,
-            wallInnerColor,
-          );
-        }
-      }
-    }
-  };
-
-  const drawFood = (ctx: CanvasRenderingContext2D) => {
-    for (let i = 0; i < map.length; i++) {
-      for (let j = 0; j < map[0].length; j++) {
-        if (map[i][j] === 2) {
-          createRect(
-            ctx,
-            j * blockSize + 8,
-            i * blockSize + 8,
-            blockSize / 5,
-            blockSize / 5,
-            foodCollor,
-          );
-        }
-      }
-    }
-  };
-
   // redraw
   const redraw = (ctx: CanvasRenderingContext2D) => {
-    drawBackground(ctx);
-    // drawMap(ctx);
-    // drawFood(ctx);
-    // drawPacman(ctx);
-    drawPacMan2({ ctx, time, ...pacman });
+    drawPacman({ ctx, time, ...pacman });
+    // redraw sprites
   };
 
   // PACMAN
@@ -368,5 +268,7 @@ const GameCanvas = () => {
     </>
   );
 };
+
+export { map };
 
 export default GameCanvas;
