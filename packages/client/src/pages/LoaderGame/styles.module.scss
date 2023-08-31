@@ -49,6 +49,7 @@ $time: 175;
   0% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }
@@ -106,8 +107,8 @@ $time: 175;
 .dots {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-around;
   margin-left: auto;
   width: 80%;
   height: 100%;
