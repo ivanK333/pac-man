@@ -29,7 +29,6 @@ $time: 175;
   0% {
     transform: rotate(0);
   }
-
   100% {
     transform: rotate(45deg);
   }
@@ -39,9 +38,20 @@ $time: 175;
   0% {
     left: 0;
   }
-
   100% {
     left: 105%;
+  }
+}
+
+@keyframes travel-2 {
+  0% {
+    left: -2%;
+  }
+  50% {
+    left: 92%;
+  }
+  100% {
+    left: -2%;
   }
 }
 
@@ -49,10 +59,19 @@ $time: 175;
   0% {
     opacity: 1;
   }
-
   100% {
     opacity: 0;
   }
+}
+
+.sprite{
+  position: absolute;
+  top: -6%;
+  left: -50px;
+  width: 60px;
+  height: 65px;
+  background-image: url(../../assets/images/blueSpriteForLoader.svg);
+  animation: travel-2 #{$time * 30}ms 500ms linear infinite;
 }
 
 //** Pac Man
@@ -66,7 +85,7 @@ $time: 175;
   margin: 0;
   width: $size;
   height: $size;
-  animation: travel #{$time * 15}ms linear infinite;
+  animation: travel #{$time * 15}ms linear forwards;
 
   &::before,
   &::after {
