@@ -9,16 +9,18 @@
 }
 
 .input {
+  @include typography-m;
+
   border: none;
   background: inherit;
   width: 100%;
   color: $color-palette-blue;
-  @include typography-m;
 }
 
 .input::placeholder{
-  color: $color-palette-blue;
   @include typography-m;
+
+  color: $color-palette-blue;
 }
 
 .submit {
