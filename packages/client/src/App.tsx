@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { withErrorBoundary } from 'react-error-boundary';
 import { Routes, Route, Navigate } from 'react-router';
 
 import AuthController from '../src/controllers/AuthController';
@@ -8,6 +9,7 @@ import { Main } from './routes/Main/Main';
 import { ROUTES } from './constants/routes';
 import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
+import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -62,4 +64,6 @@ const App = () => {
   );
 };
 
-export default App;
+export default withErrorBoundary(App, {
+  FallbackComponent: () => <ErrorBoundaryPage />,
+});
