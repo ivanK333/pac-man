@@ -4,10 +4,12 @@ import LoaderGame from '../LoaderGame/LoaderGame';
 import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
+import styles from './styles.module.scss';
 
 const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
   const [start, setStart] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
 
   const restartGame = useCallback(() => {
     setLoader(true);
@@ -31,8 +33,19 @@ const Game = () => {
     fakeLoader();
   }, []);
 
+  const updateScore = (score: number) => {
+    setScore(score);
+  };
+
   return (
-    <GameCanvas />
+    <div className={styles.container}>
+      <div className={styles.contentContainer}>
+        <p className={styles.score}>{score}</p>
+        <div className={styles.canvasContainer}>
+          <GameCanvas updateScore={updateScore} />
+        </div>
+      </div>
+    </div>
     // <>
     //   {!start ? <StartGame startGame={startGame} /> : null}
 
