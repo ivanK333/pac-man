@@ -14,7 +14,7 @@ interface PacmanState {
   direction: Direction;
   nextDirection: Direction /** направление на след блоке */;
   mouthOpen: boolean;
-  obstacles: {
+  restricted: {
     up: boolean;
     right: boolean;
     down: boolean;
@@ -40,7 +40,7 @@ export class Pacman {
       radius: props.size / 2,
       direction: Direction.Right,
       nextDirection: Direction.Right,
-      obstacles: {
+      restricted: {
         up: true,
         right: true,
         down: true,
@@ -58,13 +58,13 @@ export class Pacman {
     };
   }
 
-  setRestrictions(obstacles: {
+  setRestrictions(restricted: {
     up: boolean;
     right: boolean;
     down: boolean;
     left: boolean;
   }) {
-    this.setState({ obstacles });
+    this.setState({ restricted });
   }
 
   setContext(ctx: CanvasRenderingContext2D) {
@@ -87,10 +87,6 @@ export class Pacman {
     this.setState({ speed });
   }
 
-  get position(): [number, number] {
-    return [this.state.x / this.state.size, this.state.y / this.state.size];
-  }
-
   get direction(): Direction {
     return this.state.direction;
   }
@@ -109,13 +105,6 @@ export class Pacman {
     );
   }
 
-  get atNextBlock(): boolean {
-    return (
-      this.state.x === this.state.nextTurnBlock[1] * this.state.size &&
-      this.state.y === this.state.nextTurnBlock[0] * this.state.size
-    );
-  }
-
   get switchDirection(): boolean {
     return (
       (this.state.direction === Direction.Right &&
@@ -129,8 +118,9 @@ export class Pacman {
     );
   }
 
+  /** флаг для определения можно ли повернуть или продолжить движение */
   get canTurn(): boolean {
-    return this.state.obstacles[this.state.nextDirection];
+    return this.state.restricted[this.state.nextDirection];
   }
 
   moveRight() {
@@ -169,6 +159,7 @@ export class Pacman {
     });
   }
 
+  /** основной метод для контроля поведения пакмана */
   controlDirection() {
     /** развороты и рестарты после стопа */
     if (this.switchDirection || this.state.speed === 0) {
@@ -202,18 +193,6 @@ export class Pacman {
   }
 
   move() {
-    // this.setState({ moving: true });
-    // console.log(' ====> move()');
-    // console.log('dir ', this.state.direction);
-    // console.log('nextDir ', this.state.nextDirection);
-
-    // console.log('at center ', this.atBlockCenter);
-    // console.log('can turn ', this.canTurn);
-    // if (this.atBlockCenter) {
-    //   console.log('block: ', this.blockPosition);
-    //   console.log(this.state.obstacles);
-    // }
-
     this.controlDirection();
 
     switch (this.state.direction) {
@@ -235,6 +214,7 @@ export class Pacman {
     }
   }
 
+  /** RENDERING */
   private drawPatch() {
     if (!this.ctx) return;
     /** делаю черный круг, который прячет изменения пакмана, на пиксель меньше, что бы не стирать стены */

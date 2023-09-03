@@ -117,7 +117,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     updateMap(i, j, MapElements.NONE);
     const score = foodAmount - countOccurrences(map, MapElements.FOOD);
     updateScore(score);
-    /** passing obstacles for pacmans block */
+    /** находит все стены на карте для ячейки */
     pacman.setRestrictions({
       up: map[i - 1][j] !== MapElements.WALL,
       right: map[i][j + 1] !== MapElements.WALL,
