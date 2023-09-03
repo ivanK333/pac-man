@@ -39,11 +39,9 @@ const Game = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentContainer}>
-        <p className={styles.score}>{score}</p>
-        <div className={styles.canvasContainer}>
-          <GameCanvas updateScore={updateScore} />
-        </div>
+      <p className={styles.score}>{score}</p>
+      <div className={styles.canvasContainer}>
+        <GameCanvas updateScore={updateScore} />
       </div>
     </div>
     // <>
