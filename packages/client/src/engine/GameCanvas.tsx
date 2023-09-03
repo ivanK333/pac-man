@@ -8,6 +8,18 @@ import { drawFood } from './Map/Food';
 import { drawWalls } from './Map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
 
+export enum Direction {
+  Right = 'right',
+  Left = 'left',
+  Up = 'up',
+  Down = 'down',
+}
+
+export const size = [layer[0].length, layer.length];
+const foodAmount = countOccurrences(layer, MapElements.FOOD);
+const pacman = new Pacman({ size: blockSize, speed, startPosition: [10, 0] });
+const map = layer;
+
 const drawBackground = (ctx: CanvasRenderingContext2D) => {
   drawRectangle({
     ctx,
@@ -19,19 +31,9 @@ const drawBackground = (ctx: CanvasRenderingContext2D) => {
   });
 };
 
-export const size = [layer[0].length, layer.length];
-const foodAmount = countOccurrences(layer, MapElements.FOOD);
-
-export enum Direction {
-  Right = 'right',
-  Left = 'left',
-  Up = 'up',
-  Down = 'down',
-}
-
-const pacman = new Pacman({ size: blockSize, speed, startPosition: [10, 0] });
-const map = layer;
-
+const updateMap = (i: number, j: number, value: MapElements) => {
+  map[i][j] = value;
+};
 interface CanvasProps {
   updateScore: (value: number) => void;
 }
@@ -95,7 +97,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     return () => window.removeEventListener('keydown', keyboardHandler);
   }, []);
 
-  /** pacman direction cahnger */
+  /** game runner */
   useEffect(() => {
     animatePacman();
 
@@ -108,15 +110,14 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     // sprites here
   };
 
-  const updateMap = (i: number, j: number, value: MapElements) => {
-    map[i][j] = value;
-  };
-
   const animatePacman = () => {
     const [i, j] = pacman.thisBlock;
+
+    /** update score state */
     updateMap(i, j, MapElements.NONE);
     const score = foodAmount - countOccurrences(map, MapElements.FOOD);
     updateScore(score);
+
     /** находит все стены на карте для ячейки */
     pacman.setRestrictions({
       up: map[i - 1][j] !== MapElements.WALL,
