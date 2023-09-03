@@ -112,6 +112,24 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
   const animatePacman = () => {
     const [i, j] = pacman.thisBlock;
+    console.log(size);
+    console.log(i, j);
+    if (j < 0) {
+      alert('STOP PACMAN BEFOR HE RAN AWAY!!!!');
+      pacman.setDirection(Direction.Right);
+      pacman.setNextDirection(Direction.Right);
+    }
+    if (j >= size[1] - 3) {
+      pacman.stop();
+      pacman.setRestrictions({
+        up: true,
+        right: true,
+        down: true,
+        left: true,
+      });
+      console.log('LEVEL DONE');
+      return;
+    }
 
     /** update score state */
     updateMap(i, j, MapElements.NONE);
