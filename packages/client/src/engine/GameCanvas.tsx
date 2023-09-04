@@ -3,11 +3,11 @@ import { FC, useState, useEffect, useRef } from 'react';
 import { blockSize, backGroundColor, MapElements, speed } from './config';
 import { map as layer } from './Layers/layer_001';
 import { countOccurrences } from './utils';
-import { drawRectangle } from './Primitives/drawRectangle';
 import { drawFood } from './Map/Food';
 import { drawWalls } from './Map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
 import { Sprite, SpriteColors } from './AnimatedCharacters/sprite';
+import { drawBackground } from './Primitives/drawBackground';
 
 export enum Direction {
   Right = 'right',
@@ -16,9 +16,13 @@ export enum Direction {
   Down = 'down',
 }
 
+const map = layer;
 export const dimentions = [layer[0].length, layer.length];
+
 const foodAmount = countOccurrences(layer, MapElements.FOOD);
+
 const pacman = new Pacman({ size: blockSize, speed, startPosition: [10, 0] });
+
 const sprites = {
   blue: new Sprite(
     {
@@ -58,27 +62,6 @@ const sprites = {
   ),
 };
 
-// const sprite = new Sprite(
-//   {
-//     size: blockSize,
-//     speed,
-//     startPosition: [10, 9],
-//   },
-//   SpriteColors.blue,
-// );
-const map = layer;
-
-const drawBackground = (ctx: CanvasRenderingContext2D) => {
-  drawRectangle({
-    ctx,
-    x: 0,
-    y: 0,
-    width: ctx.canvas.width,
-    height: ctx.canvas.height,
-    fillColor: backGroundColor,
-  });
-};
-
 const updateMap = (i: number, j: number, value: MapElements) => {
   map[i][j] = value;
 };
@@ -92,6 +75,19 @@ const getObstacles = (i: number, j: number) => ({
   down: map[i + 1][j] !== MapElements.WALL,
   left: map[i][j - 1] !== MapElements.WALL,
 });
+
+const limitToTheMap = (j: number, char: Pacman | Sprite) => {
+  if (j < 0) {
+    alert('STOP BEFORE HE RAN AWAY!!!!');
+    char.setDirection(Direction.Right);
+    char.setNextDirection(Direction.Right);
+  }
+  if (j >= dimentions[1] - 3) {
+    alert('STOP BEFORE HE RAN AWAY!!!!');
+    char.setDirection(Direction.Left);
+    char.setNextDirection(Direction.Left);
+  }
+};
 
 const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
   const { updateScore } = props;
@@ -186,19 +182,6 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     });
   };
 
-  const limitToTheMap = (j: number, char: Pacman | Sprite) => {
-    if (j < 0) {
-      alert('STOP BEFORE HE RAN AWAY!!!!');
-      char.setDirection(Direction.Right);
-      char.setNextDirection(Direction.Right);
-    }
-    if (j >= dimentions[1] - 3) {
-      alert('STOP BEFORE HE RAN AWAY!!!!');
-      char.setDirection(Direction.Left);
-      char.setNextDirection(Direction.Left);
-    }
-  };
-
   const animatePacman = () => {
     const [i, j] = pacman.currentBlock;
     limitToTheMap(j, pacman);
@@ -208,7 +191,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     const score = foodAmount - countOccurrences(map, MapElements.FOOD);
     updateScore(score);
 
-    /** находит все стены на карте для ячейки */
+    /** находит все стены вокруг ячейки */
     pacman.setRestrictions(getObstacles(i, j));
     pacman.move();
   };
