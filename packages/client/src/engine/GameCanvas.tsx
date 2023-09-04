@@ -19,14 +19,53 @@ export enum Direction {
 export const dimentions = [layer[0].length, layer.length];
 const foodAmount = countOccurrences(layer, MapElements.FOOD);
 const pacman = new Pacman({ size: blockSize, speed, startPosition: [10, 0] });
-const sprite = new Sprite(
-  {
-    size: blockSize,
-    speed,
-    startPosition: [10, 9],
-  },
-  SpriteColors.blue,
-);
+const sprites = {
+  blue: new Sprite(
+    {
+      size: blockSize,
+      speed,
+      startPosition: [10, 9],
+    },
+    SpriteColors.blue,
+    Direction.Left,
+  ),
+  red: new Sprite(
+    {
+      size: blockSize,
+      speed,
+      startPosition: [10, 11],
+    },
+    SpriteColors.red,
+    Direction.Right,
+  ),
+  pink: new Sprite(
+    {
+      size: blockSize,
+      speed,
+      startPosition: [11, 9],
+    },
+    SpriteColors.pink,
+    Direction.Left,
+  ),
+  yellow: new Sprite(
+    {
+      size: blockSize,
+      speed,
+      startPosition: [11, 11],
+    },
+    SpriteColors.yellow,
+    Direction.Right,
+  ),
+};
+
+// const sprite = new Sprite(
+//   {
+//     size: blockSize,
+//     speed,
+//     startPosition: [10, 9],
+//   },
+//   SpriteColors.blue,
+// );
 const map = layer;
 
 const drawBackground = (ctx: CanvasRenderingContext2D) => {
@@ -71,8 +110,9 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
     // make pacman contextaware
     pacman.setContext(context);
-
-    sprite.setContext(context);
+    Object.values(sprites).forEach((sprite) => {
+      sprite.setContext(context);
+    });
 
     drawBackground(context);
     drawWalls(context, map);
@@ -108,16 +148,16 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           break;
 
         case 'KeyS':
-          sprite.setNextDirection(Direction.Right);
+          sprites.blue.setNextDirection(Direction.Right);
           break;
         case 'KeyA':
-          sprite.setNextDirection(Direction.Left);
+          sprites.blue.setNextDirection(Direction.Left);
           break;
         case 'KeyW':
-          sprite.setNextDirection(Direction.Up);
+          sprites.blue.setNextDirection(Direction.Up);
           break;
         case 'KeyZ':
-          sprite.setNextDirection(Direction.Down);
+          sprites.blue.setNextDirection(Direction.Down);
           break;
 
         default:
@@ -141,7 +181,9 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
   const redraw = () => {
     pacman.render(time);
-    sprite.render(time);
+    Object.values(sprites).forEach((sprite) => {
+      sprite.render(time);
+    });
   };
 
   const limitToTheMap = (j: number, char: Pacman | Sprite) => {
@@ -172,12 +214,14 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
   };
 
   const animateSprite = () => {
-    const [i, j] = sprite.currentBlock;
-    limitToTheMap(j, sprite);
+    Object.values(sprites).forEach((sprite) => {
+      const [i, j] = sprite.currentBlock;
+      limitToTheMap(j, sprite);
 
-    sprite.setRestrictions(getObstacles(i, j));
-    sprite.setPatchRedraw(map[i][j]);
-    sprite.move();
+      sprite.setRestrictions(getObstacles(i, j));
+      sprite.setPatchRedraw(map[i][j]);
+      sprite.move();
+    });
   };
 
   return (

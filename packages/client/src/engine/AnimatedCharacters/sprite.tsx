@@ -44,7 +44,11 @@ export class Sprite extends Character {
 
   state: SpriteState;
 
-  constructor(props: CharacterProps, color: SpriteColors) {
+  constructor(
+    props: CharacterProps,
+    color: SpriteColors,
+    startDirection: Direction,
+  ) {
     super(props);
 
     this.image = spritePng;
@@ -59,8 +63,8 @@ export class Sprite extends Character {
       x: props.startPosition[1] * props.size,
       y: props.startPosition[0] * props.size,
 
-      direction: Direction.Right,
-      nextDirection: Direction.Right,
+      direction: startDirection,
+      nextDirection: startDirection,
       restricted: {
         up: true,
         right: true,
