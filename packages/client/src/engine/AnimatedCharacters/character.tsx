@@ -55,8 +55,8 @@ export class Character {
   }
 
   get currentBlock() {
-    const y = this.state.y;
-    const x = this.state.x;
+    const y = this.state.y + this.size / 2;
+    const x = this.state.x + this.size / 2;
     const size = this.size;
     return [Math.floor(y / size), Math.floor(x / size)];
   }
