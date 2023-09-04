@@ -7,6 +7,7 @@ import { drawRectangle } from './Primitives/drawRectangle';
 import { drawFood } from './Map/Food';
 import { drawWalls } from './Map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
+import { Sprite, SpriteColors } from './AnimatedCharacters/sprite';
 
 export enum Direction {
   Right = 'right',
@@ -15,9 +16,17 @@ export enum Direction {
   Down = 'down',
 }
 
-export const size = [layer[0].length, layer.length];
+export const dimentions = [layer[0].length, layer.length];
 const foodAmount = countOccurrences(layer, MapElements.FOOD);
 const pacman = new Pacman({ size: blockSize, speed, startPosition: [10, 0] });
+const sprite = new Sprite(
+  {
+    size: blockSize,
+    speed,
+    startPosition: [10, 9],
+  },
+  SpriteColors.blue,
+);
 const map = layer;
 
 const drawBackground = (ctx: CanvasRenderingContext2D) => {
@@ -38,6 +47,13 @@ interface CanvasProps {
   updateScore: (value: number) => void;
 }
 
+const getObstacles = (i: number, j: number) => ({
+  up: map[i - 1][j] !== MapElements.WALL,
+  right: map[i][j + 1] !== MapElements.WALL,
+  down: map[i + 1][j] !== MapElements.WALL,
+  left: map[i][j - 1] !== MapElements.WALL,
+});
+
 const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
   const { updateScore } = props;
   const [time, setTime] = useState<number | null>(null);
@@ -55,6 +71,8 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
     // make pacman contextaware
     pacman.setContext(context);
+
+    sprite.setContext(context);
 
     drawBackground(context);
     drawWalls(context, map);
@@ -88,8 +106,23 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
         case 'ArrowDown':
           pacman.setNextDirection(Direction.Down);
           break;
+
+        case 'KeyS':
+          sprite.setNextDirection(Direction.Right);
+          break;
+        case 'KeyA':
+          sprite.setNextDirection(Direction.Left);
+          break;
+        case 'KeyW':
+          sprite.setNextDirection(Direction.Up);
+          break;
+        case 'KeyZ':
+          sprite.setNextDirection(Direction.Down);
+          break;
+
         default:
-          // animatePacman();
+          // animateSprite();
+          // console.log(sprite.currentBlock);
           break;
       }
     };
@@ -100,6 +133,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
   /** game runner */
   useEffect(() => {
     animatePacman();
+    animateSprite();
 
     if (!context) return;
     redraw();
@@ -107,29 +141,25 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
   const redraw = () => {
     pacman.render(time);
-    // sprites here
+    sprite.render(time);
+  };
+
+  const limitToTheMap = (j: number, char: Pacman | Sprite) => {
+    if (j < 0) {
+      alert('STOP BEFORE HE RAN AWAY!!!!');
+      char.setDirection(Direction.Right);
+      char.setNextDirection(Direction.Right);
+    }
+    if (j >= dimentions[1] - 3) {
+      alert('STOP BEFORE HE RAN AWAY!!!!');
+      char.setDirection(Direction.Left);
+      char.setNextDirection(Direction.Left);
+    }
   };
 
   const animatePacman = () => {
-    const [i, j] = pacman.thisBlock;
-    console.log(size);
-    console.log(i, j);
-    if (j < 0) {
-      alert('STOP PACMAN BEFOR HE RAN AWAY!!!!');
-      pacman.setDirection(Direction.Right);
-      pacman.setNextDirection(Direction.Right);
-    }
-    if (j >= size[1] - 3) {
-      pacman.stop();
-      pacman.setRestrictions({
-        up: true,
-        right: true,
-        down: true,
-        left: true,
-      });
-      console.log('LEVEL DONE');
-      return;
-    }
+    const [i, j] = pacman.currentBlock;
+    limitToTheMap(j, pacman);
 
     /** update score state */
     updateMap(i, j, MapElements.NONE);
@@ -137,21 +167,25 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     updateScore(score);
 
     /** находит все стены на карте для ячейки */
-    pacman.setRestrictions({
-      up: map[i - 1][j] !== MapElements.WALL,
-      right: map[i][j + 1] !== MapElements.WALL,
-      down: map[i + 1][j] !== MapElements.WALL,
-      left: map[i][j - 1] !== MapElements.WALL,
-    });
+    pacman.setRestrictions(getObstacles(i, j));
     pacman.move();
+  };
+
+  const animateSprite = () => {
+    const [i, j] = sprite.currentBlock;
+    limitToTheMap(j, sprite);
+
+    sprite.setRestrictions(getObstacles(i, j));
+    sprite.setPatchRedraw(map[i][j]);
+    sprite.move();
   };
 
   return (
     <canvas
       ref={canvasRef}
       id="canvas"
-      width={`${size[0] * blockSize}`}
-      height={`${size[1] * blockSize}`}
+      width={`${dimentions[0] * blockSize}`}
+      height={`${dimentions[1] * blockSize}`}
     ></canvas>
   );
 };

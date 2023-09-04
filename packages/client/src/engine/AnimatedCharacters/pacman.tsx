@@ -1,43 +1,30 @@
 import { Direction } from '../GameCanvas';
+import { backGroundColor } from '../config';
+import { Character, CharacterProps, CharacterState } from './character';
 
-type PacmanProps = {
-  size: number;
-  speed: number;
-  startPosition: [number, number];
-};
-interface PacmanState {
-  x: number;
-  y: number;
-  radius: number;
-  size: number;
-  speed: number;
-  direction: Direction;
-  nextDirection: Direction /** направление на след блоке */;
+interface PacmanState extends CharacterState {
+  lives: number;
   mouthOpen: boolean;
-  restricted: {
-    up: boolean;
-    right: boolean;
-    down: boolean;
-    left: boolean;
-  };
 }
 
-export class Pacman {
-  private ctx: CanvasRenderingContext2D | null;
-  speed: number;
+export class Pacman extends Character {
+  lives: number;
+  radius: number;
+  mouthOpen: boolean;
   state: PacmanState;
 
-  constructor(props: PacmanProps) {
-    this.ctx = null;
-    this.speed = props.speed;
+  constructor(props: CharacterProps) {
+    super(props);
 
-    /** начальное состояние */
+    this.lives = 3;
+    this.radius = props.size / 2;
+    this.mouthOpen = true;
+
     this.state = {
-      size: props.size,
       speed: props.speed,
       x: props.startPosition[1] * props.size,
       y: props.startPosition[0] * props.size,
-      radius: props.size / 2,
+
       direction: Direction.Right,
       nextDirection: Direction.Right,
       restricted: {
@@ -46,191 +33,28 @@ export class Pacman {
         down: true,
         left: true,
       },
-      mouthOpen: true,
+      lives: this.lives,
+      mouthOpen: this.mouthOpen,
     };
-  }
-
-  private setState(newState: Partial<PacmanState>) {
-    const oldState = { ...this.state };
-    this.state = {
-      ...oldState,
-      ...newState,
-    };
-  }
-
-  setRestrictions(restricted: {
-    up: boolean;
-    right: boolean;
-    down: boolean;
-    left: boolean;
-  }) {
-    this.setState({ restricted });
-  }
-
-  setContext(ctx: CanvasRenderingContext2D) {
-    this.ctx = ctx;
-  }
-
-  getState(): PacmanState {
-    return this.state;
-  }
-
-  setDirection(direction: Direction) {
-    this.setState({ direction });
-  }
-
-  setNextDirection(direction: Direction) {
-    this.setState({ nextDirection: direction });
-  }
-
-  setSpeed(speed: number) {
-    this.setState({ speed });
-  }
-
-  get direction(): Direction {
-    return this.state.direction;
-  }
-
-  get thisBlock() {
-    const y = this.state.y;
-    const x = this.state.x;
-    const size = this.state.size;
-    return [Math.floor(y / size), Math.floor(x / size)];
-  }
-
-  get atBlockCenter(): boolean {
-    return (
-      Number.isInteger(this.state.x / this.state.size) &&
-      Number.isInteger(this.state.y / this.state.size)
-    );
-  }
-
-  get switchDirection(): boolean {
-    return (
-      (this.state.direction === Direction.Right &&
-        this.state.nextDirection === Direction.Left) ||
-      (this.state.direction === Direction.Left &&
-        this.state.nextDirection === Direction.Right) ||
-      (this.state.direction === Direction.Up &&
-        this.state.nextDirection === Direction.Down) ||
-      (this.state.direction === Direction.Down &&
-        this.state.nextDirection === Direction.Up)
-    );
-  }
-
-  /** флаг для определения можно ли повернуть или продолжить движение */
-  get canTurn(): boolean {
-    return this.state.restricted[this.state.nextDirection];
-  }
-
-  moveRight() {
-    this.setState({
-      x: this.state.x + this.state.speed,
-    });
-  }
-
-  moveLeft() {
-    this.setState({
-      x: this.state.x - this.state.speed,
-    });
-  }
-
-  moveUp() {
-    this.setState({
-      y: this.state.y - this.state.speed,
-    });
-  }
-
-  moveDown() {
-    this.setState({
-      y: this.state.y + this.state.speed,
-    });
-  }
-
-  stop() {
-    this.setState({
-      speed: 0,
-    });
-  }
-
-  start() {
-    this.setState({
-      speed: this.speed,
-    });
-  }
-
-  /** основной метод для контроля поведения пакмана */
-  controlDirection() {
-    /** развороты и рестарты после стопа */
-    if (this.switchDirection || this.state.speed === 0) {
-      this.setDirection(this.state.nextDirection);
-      this.setNextDirection(this.state.direction);
-      this.start();
-    }
-
-    /** не разрешать повороты не из центра блока */
-    if (!this.atBlockCenter) return;
-
-    /** если проходит центр блока но не может повернуть или идти дальше */
-    if (!this.canTurn) {
-      /** возвращает свое направление нужно что бы кнопки поворота
-       * не могли поменять направление сильно заранее */
-      if (this.state.direction !== this.state.nextDirection) {
-        this.setNextDirection(this.state.direction);
-        this.start();
-      } else {
-        /** остановить  */
-        this.stop();
-      }
-    }
-
-    /** повороты  */
-    if (this.canTurn) {
-      this.setDirection(this.state.nextDirection);
-      this.setNextDirection(this.state.direction);
-      this.start();
-    }
-  }
-
-  move() {
-    this.controlDirection();
-
-    switch (this.state.direction) {
-      case Direction.Right:
-        this.moveRight();
-        break;
-      case Direction.Left:
-        this.moveLeft();
-        break;
-      case Direction.Up:
-        this.moveUp();
-        break;
-      case Direction.Down:
-        this.moveDown();
-        break;
-      default:
-        this.stop();
-        break;
-    }
   }
 
   /** RENDERING */
   private drawPatch() {
     if (!this.ctx) return;
     /** делаю черный круг, который прячет изменения пакмана, на пиксель меньше, что бы не стирать стены */
-    const patchR = this.state.radius;
+    const patchR = this.radius;
 
     this.ctx.globalCompositeOperation = 'destination-out';
     this.ctx.beginPath();
     this.ctx.arc(
-      this.state.x + this.state.radius,
-      this.state.y + this.state.radius,
+      this.state.x + this.radius,
+      this.state.y + this.radius,
       patchR,
       0,
       Math.PI * 2,
     );
     this.ctx.closePath();
-    this.ctx.fillStyle = 'black';
+    this.ctx.fillStyle = backGroundColor;
     this.ctx.fill();
     this.ctx.globalCompositeOperation = 'source-over';
   }
@@ -262,9 +86,9 @@ export class Pacman {
       return [orientation + angle, orientation - angle];
     };
     /** а пакамана еще меньше, что бы следов не оставалось */
-    const pacmanR = this.state.radius - 4;
-    const centerX = this.state.x + this.state.radius;
-    const centerY = this.state.y + this.state.radius;
+    const pacmanR = this.radius - 4;
+    const centerX = this.state.x + this.radius;
+    const centerY = this.state.y + this.radius;
     const [startAngle, endAngle] = angles(
       this.state.direction,
       this.state.mouthOpen,
@@ -272,8 +96,8 @@ export class Pacman {
 
     this.ctx.beginPath();
     this.ctx.arc(
-      this.state.x + this.state.radius,
-      this.state.y + this.state.radius,
+      this.state.x + this.radius,
+      this.state.y + this.radius,
       pacmanR,
       startAngle * Math.PI,
       endAngle * Math.PI,
@@ -294,6 +118,7 @@ export class Pacman {
     const mouthOpen = Math.floor(time / 100) % 2 === 0;
 
     this.setState({ mouthOpen });
+    this.setState({ lives: 2 });
 
     this.drawPatch();
 

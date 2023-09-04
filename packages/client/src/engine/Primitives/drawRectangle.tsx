@@ -5,15 +5,17 @@ export const drawRectangle = (props: {
   width: number;
   height: number;
   strokeColor?: string;
+  lineWidth?: number;
   fillColor?: string;
 }) => {
-  const { ctx, x, y, width, height, strokeColor, fillColor } = props;
+  const { ctx, x, y, width, height, strokeColor, lineWidth, fillColor } = props;
   if (fillColor) {
     ctx.fillStyle = fillColor;
     ctx.fillRect(x, y, width, height);
   }
-  if (strokeColor) {
-    ctx.strokeStyle = strokeColor;
+  if (strokeColor || lineWidth) {
+    if (strokeColor) ctx.strokeStyle = strokeColor;
+    if (lineWidth) ctx.lineWidth = lineWidth;
     ctx.strokeRect(x, y, width, height);
   }
 };
