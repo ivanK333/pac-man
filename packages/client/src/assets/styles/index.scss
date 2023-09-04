@@ -1,0 +1,76 @@
+@use 'variables';
+@use 'fonts';
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div[id='root'] {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  overflow: hidden;
+  font-family: Quicksand, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  color: variables.$color-palette-white;
+}
+
+#root {
+  box-sizing: border-box;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  border: none;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  box-shadow: none;
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+}

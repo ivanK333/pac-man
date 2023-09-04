@@ -1,0 +1,25 @@
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
+
+/** common styles */
+.bigBTN {
+  border: none;
+  border-radius: 50px;
+  background: variables.$color-palette-yellow;
+  width: 100%;
+  height: 50px;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 18px;
+}
+
+/** flavor specific styles */
+
+/** style login link */
+// .login {
+//   border: 2px solid red;
+// }
+
+/**  style register link */
+// .register {
+//   border: 2px solid green;
+// }

@@ -1,0 +1,58 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+%default-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 530px;
+}
+
+.containerYellow {
+  @extend %default-container;
+
+  background-color: $color-palette-yellow;
+}
+
+.containerBlue {
+  @extend %default-container;
+
+  background-color: $color-palette-blue;
+}
+
+.containerBlack {
+  @extend %default-container;
+
+  background-color: $color-palette-black;
+}
+
+
+
+.image {
+  max-width: 512px;
+  max-height: 522px;
+}
+
+.title {
+  margin: 46px 0 0;
+  line-height: 11px;
+  font-family: $font-press-start-2p;
+  font-size: 20px
+}
+
+.link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+}

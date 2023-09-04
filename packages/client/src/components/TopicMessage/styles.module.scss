@@ -1,0 +1,71 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.userContainer {
+  display: flex;
+  gap: 21px;
+  width: 100%;
+}
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username{
+  @include typography-l;
+
+  display: flex;
+  padding: 10px;
+  color: $color-palette-blue;
+}
+
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-left: 2px solid #FFF;
+  padding: 0 0 0 15px;
+  width: 100%;
+  height: 100%;
+}
+
+.message {
+  @include typography-m;
+
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 70px;
+  color: $color-palette-blue;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttonContainer{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commentsLength {
+  @include typography-s;
+
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  color: $color-palette-blue;
+}

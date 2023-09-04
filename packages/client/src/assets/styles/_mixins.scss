@@ -1,0 +1,99 @@
+@use 'variables';
+
+@mixin flexbox(
+  $align: variables.$default-flexbox-align,
+  $justify: variables.$default-flexbox-justify
+) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+/**
+  Text mixins
+ */
+@mixin typography-xxs {
+  line-height: 10px;
+  font-size: 9px;
+}
+
+@mixin typography-xs {
+  line-height: 14px;
+  font-size: 12px;
+}
+
+@mixin typography-s {
+  line-height: 16px;
+  font-size: 14px;
+}
+
+@mixin typography-m {
+  line-height: 18px;
+  font-size: 16px;
+}
+
+@mixin typography-l {
+  line-height: 22px;
+  font-size: 20px;
+}
+
+@mixin typography-xl {
+  line-height: 26px;
+  font-size: 24px;
+}
+
+@mixin typography-xxl {
+  line-height: 76px;
+  font-size: 72px;
+}
+
+/**
+  Form sprite animation
+ */
+@mixin slide-animation($duration: 5s) {
+  animation: slide-animation $duration linear forwards;
+}
+
+@keyframes slide-animation {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+
+  20% {
+    transform: translateX(-80%) translateY(-10px);
+  }
+
+  40% {
+    transform: translateX(-60%) translateY(10px);
+  }
+
+  60% {
+    transform: translateX(-40%) translateY(0);
+  }
+
+  80% {
+    transform: translateX(-20%) translateY(-10px);
+  }
+
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+
+@mixin scrollbars {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width:  20px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: variables.$color-palette-blue;
+    height: 50px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 20px;
+    background: variables.$color-palette-white;
+  }
+}

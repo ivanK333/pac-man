@@ -1,0 +1,39 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.header {
+  @include typography-xl;
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: $color-palette-black;
+  padding: 20px 40px 4px;
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  gap: 100px;
+  margin: 0;
+  padding: 0;
+  max-width: 669px;
+  list-style-type: none;
+}
+
+.link {
+  color: $color-palette-white;
+}
+
+.linkActive {
+  color: $color-palette-yellow;
+}
+
+.exitButton {
+  @include typography-xl;
+
+  border: none;
+  background: none;
+  color: $color-palette-red;
+}

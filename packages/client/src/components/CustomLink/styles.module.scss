@@ -1,0 +1,26 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+%default-link-text {
+  line-height: 11px;
+  font-size: 20px;
+}
+
+
+.linkTextYellow {
+  @extend %default-link-text;
+
+  color: $color-palette-yellow;
+}
+
+.linkTextBlue {
+  @extend %default-link-text;
+
+  color: $color-palette-blue;
+}
+
+.linkTextBlack {
+  @extend %default-link-text;
+
+  color: $color-palette-black;
+}
