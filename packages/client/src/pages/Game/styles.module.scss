@@ -14,6 +14,15 @@
 .canvasContainer {
   background-color: variables.$color-palette-black;
 }
+.info {
+  width: 480px;
+  margin: auto;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .score {
   color: white;
   font-size: larger;

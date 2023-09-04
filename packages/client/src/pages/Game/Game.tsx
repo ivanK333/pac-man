@@ -10,6 +10,7 @@ const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
   const [start, setStart] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
+  const [lives, setLives] = useState<number>(3);
 
   const restartGame = useCallback(() => {
     setLoader(true);
@@ -37,11 +38,29 @@ const Game = () => {
     setScore(score);
   };
 
+  const updateLives = (lives: number) => {
+    setLives(lives);
+  };
+
   return (
     <div className={styles.container}>
-      <p className={styles.score}>{score}</p>
+      <div className={styles.info}>
+        <div className={styles.score}>
+          <span>LEVEL: </span>
+          <span>1</span>
+        </div>
+        <div className={styles.score}>
+          <span>SCORE: </span>
+          <span>{score}</span>
+        </div>
+        <div className={styles.score}>
+          <span>LIVES: </span>
+          <span>{lives}</span>
+        </div>
+      </div>
+
       <div className={styles.canvasContainer}>
-        <GameCanvas updateScore={updateScore} />
+        <GameCanvas updateScore={updateScore} updateLives={updateLives} />
       </div>
     </div>
     // <>

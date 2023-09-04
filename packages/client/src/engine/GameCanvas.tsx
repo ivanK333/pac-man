@@ -67,6 +67,7 @@ const updateMap = (i: number, j: number, value: MapElements) => {
 };
 interface CanvasProps {
   updateScore: (value: number) => void;
+  updateLives: (value: number) => void;
 }
 
 const getObstacles = (i: number, j: number) => ({
