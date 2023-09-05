@@ -6,18 +6,19 @@ export type CharacterProps = {
   startPosition: [number, number];
 };
 
+type Restrictions = {
+  up: boolean;
+  right: boolean;
+  down: boolean;
+  left: boolean;
+};
 export interface CharacterState {
   x: number;
   y: number;
   speed: number;
   direction: Direction;
   nextDirection: Direction /** направление на след блоке */;
-  restricted: {
-    up: boolean;
-    right: boolean;
-    down: boolean;
-    left: boolean;
-  };
+  restricted: Restrictions;
 }
 
 export class Character {
@@ -86,7 +87,7 @@ export class Character {
     return this.state.restricted[this.state.nextDirection];
   }
 
-  setState(newState: Record<string, any>) {
+  setState(newState: Partial<CharacterState>) {
     const oldState = { ...this.state };
     this.state = {
       ...oldState,
@@ -160,7 +161,6 @@ export class Character {
     /** развороты и рестарты после стопа */
     if (this.switchDirection || this.state.speed === 0) {
       this.setDirection(this.state.nextDirection);
-      this.setNextDirection(this.state.direction);
       this.start();
     }
 
@@ -173,7 +173,6 @@ export class Character {
        * не могли поменять направление сильно заранее */
       if (this.state.direction !== this.state.nextDirection) {
         this.setNextDirection(this.state.direction);
-        this.start();
       } else {
         /** остановить  */
         this.stop();
