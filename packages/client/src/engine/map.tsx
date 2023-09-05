@@ -1,10 +1,3 @@
-const blockSize = 20;
-const wallSpaceWidth = blockSize / 1.3;
-const wallOffset = (blockSize - wallSpaceWidth) / 2;
-const wallCollor = '#342dca';
-const wallInnerColor = '#000000';
-const foodCollor = '#dea185';
-
 const map: number[][] = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
   [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -31,12 +24,4 @@ const map: number[][] = [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
-export {
-  map,
-  blockSize,
-  wallCollor,
-  wallSpaceWidth,
-  wallOffset,
-  wallInnerColor,
-  foodCollor,
-};
+export { map };
