@@ -21,7 +21,8 @@
     "react-hook-form": "^7.45.4",
     "react-router": "^6.15.0",
     "react-router-dom": "^6.15.0",
-    "sass": "1.65.1"
+    "sass": "1.65.1",
+    "vite-plugin-pwa": "^0.16.4"
   },
   "devDependencies": {
     "@testing-library/react": "^13.3.0",
