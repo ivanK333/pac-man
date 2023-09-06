@@ -12,12 +12,10 @@ const URLS = [
 ];
 
 self.addEventListener('install', (event) => {
-  console.log('SW install');
   event.waitUntil(
     caches
       .open(CACHE_NAME)
       .then((cache) => {
-        console.log('Opened cache');
         return cache.addAll(URLS);
       })
       .catch((err) => {
@@ -33,7 +31,6 @@ self.addEventListener('fetch', (event) => {
     caches.match(event.request).then((response) => {
       // Если кешированный ресурс найден, выдаём его
       if (response) {
-        console.log('кешированный ресурс найден');
         return response;
       }
 
@@ -65,8 +62,6 @@ self.addEventListener('fetch', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  console.log('SW activate');
-
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(cacheNames.map((name) => caches.delete(name)));
