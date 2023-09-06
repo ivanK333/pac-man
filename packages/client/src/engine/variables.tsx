@@ -12,7 +12,7 @@ enum KeyCode {
   up = 'ArrowUp',
 }
 
-enum MapPropertys {
+enum MapProperties {
   blockSize = 20,
   wallSpaceWidth = blockSize / 1.3,
   wallOffset = (blockSize - wallSpaceWidth) / 2,
@@ -21,4 +21,4 @@ enum MapPropertys {
   foodCollor = '#dea185',
 }
 
-export { Direction, KeyCode, MapPropertys };
+export { Direction, KeyCode, MapProperties };

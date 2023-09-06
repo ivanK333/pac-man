@@ -1,55 +1,54 @@
 import { map } from './map';
-import { Direction, MapPropertys } from './variables';
+import { Direction, MapProperties } from './variables';
 
 class Pacman {
-  moveProcess = (
-    direction: string,
-    nextDirection: string,
-    pacman: Record<string, number>,
-    setPacman: React.Dispatch<React.SetStateAction<Record<string, number>>>,
-    setDirection: React.Dispatch<React.SetStateAction<string>>,
-  ): void => {
-    this.changeDirectionIfPossible(
-      direction,
-      nextDirection,
-      pacman,
-      setPacman,
-      setDirection,
-    );
+  pacmanState: any;
+  setPacmanState: any;
+  direction: any;
+  setDirection: any;
+  nextDirection: any;
 
-    this.moveForward(direction, setPacman);
+  constructor(props: any) {
+    this.pacmanState = props.pacmanState;
+    this.setPacmanState = props.setPacmanState;
+    this.direction = props.direction;
+    this.setDirection = props.setDirection;
+    this.nextDirection = props.nextDirection;
+  }
 
-    if (this.checkCollision(direction, pacman)) {
-      this.moveBackward(direction, setPacman);
+  moveProcess = (): void => {
+    this.changeDirectionIfPossible();
+
+    this.moveForward();
+
+    if (this.checkCollision(this.direction)) {
+      this.moveBackward(this.direction);
       return;
     }
   };
 
-  moveForward = (
-    direction: string,
-    setPacman: React.Dispatch<React.SetStateAction<Record<string, number>>>,
-  ) => {
-    switch (direction) {
+  moveForward = () => {
+    switch (this.direction) {
       case Direction.right:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x + pacman.speed,
         }));
         break;
       case Direction.left:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x - pacman.speed,
         }));
         break;
       case Direction.up:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y - pacman.speed,
         }));
         break;
       case Direction.down:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y + pacman.speed,
         }));
@@ -59,31 +58,28 @@ class Pacman {
     }
   };
 
-  moveBackward = (
-    moveDirection: string,
-    setPacman: React.Dispatch<React.SetStateAction<Record<string, number>>>,
-  ) => {
+  moveBackward = (moveDirection: string) => {
     switch (moveDirection) {
       case Direction.right:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x - pacman.speed,
         }));
         break;
       case Direction.left:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x + pacman.speed,
         }));
         break;
       case Direction.up:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y + pacman.speed,
         }));
         break;
       case Direction.down:
-        setPacman((pacman: Record<string, number>) => ({
+        this.setPacmanState((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y - pacman.speed,
         }));
@@ -93,19 +89,19 @@ class Pacman {
     }
   };
 
-  getPacmansSideCoords = (pacman: Record<string, number>) => {
+  getPacmansSideCoords = () => {
     const pacmanCoords = {
-      leftCoord: pacman.x / MapPropertys.blockSize,
-      rightCoord: pacman.x / MapPropertys.blockSize + 1,
-      upCoord: pacman.y / MapPropertys.blockSize,
-      downCoord: pacman.y / MapPropertys.blockSize + 1,
+      leftCoord: this.pacmanState.x / MapProperties.blockSize,
+      rightCoord: this.pacmanState.x / MapProperties.blockSize + 1,
+      upCoord: this.pacmanState.y / MapProperties.blockSize,
+      downCoord: this.pacmanState.y / MapProperties.blockSize + 1,
     };
     return pacmanCoords;
   };
 
-  checkCollision = (moveDirection: string, pacman: Record<string, number>) => {
+  checkCollision = (moveDirection: string) => {
     const { leftCoord, rightCoord, upCoord, downCoord } =
-      this.getPacmansSideCoords(pacman);
+      this.getPacmansSideCoords();
 
     if (
       !Number.isInteger(rightCoord) ||
@@ -137,17 +133,11 @@ class Pacman {
     }
   };
 
-  changeDirectionIfPossible = (
-    direction: string,
-    nextDirection: string,
-    pacman: Record<string, number>,
-    setPacman: React.Dispatch<React.SetStateAction<Record<string, number>>>,
-    setDirection: React.Dispatch<React.SetStateAction<string>>,
-  ) => {
+  changeDirectionIfPossible = () => {
     const { rightCoord, downCoord, leftCoord, upCoord } =
-      this.getPacmansSideCoords(pacman);
+      this.getPacmansSideCoords();
 
-    if (direction === nextDirection) return;
+    if (this.direction === this.nextDirection) return;
 
     if (
       !Number.isInteger(rightCoord) ||
@@ -159,19 +149,17 @@ class Pacman {
     }
 
     if (
-      !this.checkCollision(direction, pacman) &&
-      direction !== nextDirection &&
-      !this.checkCollision(nextDirection, pacman)
+      !this.checkCollision(this.direction) &&
+      this.direction !== this.nextDirection &&
+      !this.checkCollision(this.nextDirection)
     ) {
-      this.moveBackward(direction, setPacman);
+      this.moveBackward(this.direction);
     }
 
-    if (!this.checkCollision(nextDirection, pacman)) {
-      setDirection(() => nextDirection);
+    if (!this.checkCollision(this.nextDirection)) {
+      this.setDirection(() => this.nextDirection);
     }
   };
 }
 
-const pacman = new Pacman();
-
-export default pacman;
+export default Pacman;
