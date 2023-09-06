@@ -1,3 +1,7 @@
+/// <reference lib="webworker" />
+
+const serviceWorker = self as unknown as ServiceWorkerGlobalScope;
+
 const CACHE_NAME = 'my-site-cache-v1';
 
 const URLS = [
@@ -11,26 +15,27 @@ const URLS = [
   '/lead',
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches
-      .open(CACHE_NAME)
-      .then((cache) => {
-        return cache.addAll(URLS);
-      })
-      .catch((err) => {
-        console.log(err);
-        throw err;
-      }),
-  );
+const addToCache = async (urls: string[]) => {
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    await cache.addAll(urls);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+serviceWorker.addEventListener('install', (event) => {
+  console.log('SW install');
+  event.waitUntil(addToCache(URLS));
 });
 
-self.addEventListener('fetch', (event) => {
+serviceWorker.addEventListener('fetch', (event) => {
   event.respondWith(
     // Пытаемся найти ответ на такой запрос в кеше
     caches.match(event.request).then((response) => {
       // Если кешированный ресурс найден, выдаём его
       if (response) {
+        console.log('кешированный ресурс найден');
         return response;
       }
 
@@ -61,10 +66,12 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(cacheNames.map((name) => caches.delete(name)));
-    }),
-  );
+serviceWorker.addEventListener('activate', async () => {
+  try {
+    const cacheNames = await caches.keys();
+
+    await Promise.all(cacheNames.map((name) => caches.delete(name)));
+  } catch (error) {
+    console.log(error);
+  }
 });
