@@ -1,5 +1,3 @@
-import { drawRectangle } from './Primitives/drawRectangle';
-
 const blockSize = 30;
 const wallSpaceWidth = blockSize / 1.3;
 const wallOffset = (blockSize - wallSpaceWidth) / 2;

@@ -26,7 +26,7 @@ const Game = () => {
   const fakeLoader = useCallback(() => {
     setTimeout(() => {
       setLoader(false);
-    }, 5000);
+    }, 3000);
   }, []);
 
   // заглушка для отображения loader
@@ -43,40 +43,39 @@ const Game = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.info}>
-        <div className={styles.score}>
-          <span>LEVEL: </span>
-          <span>1</span>
-        </div>
-        <div className={styles.score}>
-          <span>SCORE: </span>
-          <span>{score}</span>
-        </div>
-        <div className={styles.score}>
-          <span>LIVES: </span>
-          <span>{lives}</span>
-        </div>
-      </div>
+    <>
+      {!start ? <StartGame startGame={startGame} /> : null}
 
-      <div className={styles.canvasContainer}>
-        <GameCanvas updateScore={updateScore} updateLives={updateLives} />
-      </div>
-      <div>
-        <p>Use arrows to control packman</p>
-        <p>As a test can control Blinky with a w s z keys</p>
-      </div>
-    </div>
+      {loader && start ? (
+        <LoaderGame />
+      ) : (
+        <div className={styles.container}>
+          <div className={styles.info}>
+            <div className={styles.score}>
+              <span>LEVEL: </span>
+              <span>1</span>
+            </div>
+            <div className={styles.score}>
+              <span>SCORE: </span>
+              <span>{score}</span>
+            </div>
+            <div className={styles.score}>
+              <span>LIVES: </span>
+              <span>{lives}</span>
+            </div>
+          </div>
 
-    // <>
-    //   {!start ? <StartGame startGame={startGame} /> : null}
-
-    //   {loader && start ? (
-    //     <LoaderGame />
-    //   ) : (
-    //     <GameOver restartGame={restartGame} />
-    //   )}
-    // </>
+          <div className={styles.canvasContainer}>
+            <GameCanvas updateScore={updateScore} updateLives={updateLives} />
+          </div>
+          <div>
+            <p>Use arrows to control packman</p>
+            <p>As a test can control Blinky with a w s z keys</p>
+          </div>
+        </div>
+        // <GameOver restartGame={restartGame} />
+      )}
+    </>
   );
 };
 export default Game;

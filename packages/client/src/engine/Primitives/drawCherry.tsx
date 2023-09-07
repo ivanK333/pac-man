@@ -1,5 +1,4 @@
-import { blockSize, foodSize, foodCollor, cherrySize } from '../config';
-import { drawRectangle } from './drawRectangle';
+import { blockSize, cherrySize } from '../config';
 
 export const drawCherry = (
   ctx: CanvasRenderingContext2D,
