@@ -1,17 +1,11 @@
 import { Direction } from '../GameCanvas';
 import { backGroundColor } from '../config';
-import { Character, CharacterProps, CharacterState } from './character';
-
-interface PacmanState extends CharacterState {
-  lives: number;
-  mouthOpen: boolean;
-}
+import { Character, CharacterProps } from './character';
 
 export class Pacman extends Character {
   lives: number;
   radius: number;
   mouthOpen: boolean;
-  state: PacmanState;
 
   constructor(props: CharacterProps) {
     super(props);
@@ -19,23 +13,6 @@ export class Pacman extends Character {
     this.lives = 3;
     this.radius = props.size / 2;
     this.mouthOpen = true;
-
-    this.state = {
-      speed: props.speed,
-      x: props.startPosition[1] * props.size,
-      y: props.startPosition[0] * props.size,
-
-      direction: Direction.Right,
-      nextDirection: Direction.Right,
-      restricted: {
-        up: true,
-        right: true,
-        down: true,
-        left: true,
-      },
-      lives: this.lives,
-      mouthOpen: this.mouthOpen,
-    };
   }
 
   /** RENDERING */
@@ -47,8 +24,8 @@ export class Pacman extends Character {
     this.ctx.globalCompositeOperation = 'destination-out';
     this.ctx.beginPath();
     this.ctx.arc(
-      this.state.x + this.radius,
-      this.state.y + this.radius,
+      this.x + this.radius,
+      this.y + this.radius,
       patchR,
       0,
       Math.PI * 2,
@@ -87,17 +64,14 @@ export class Pacman extends Character {
     };
     /** а пакамана еще меньше, что бы следов не оставалось */
     const pacmanR = this.radius - 4;
-    const centerX = this.state.x + this.radius;
-    const centerY = this.state.y + this.radius;
-    const [startAngle, endAngle] = angles(
-      this.state.direction,
-      this.state.mouthOpen,
-    );
+    const centerX = this.x + this.radius;
+    const centerY = this.y + this.radius;
+    const [startAngle, endAngle] = angles(this.direction, this.mouthOpen);
 
     this.ctx.beginPath();
     this.ctx.arc(
-      this.state.x + this.radius,
-      this.state.y + this.radius,
+      this.x + this.radius,
+      this.y + this.radius,
       pacmanR,
       startAngle * Math.PI,
       endAngle * Math.PI,
@@ -117,8 +91,7 @@ export class Pacman extends Character {
 
     const mouthOpen = Math.floor(time / 100) % 2 === 0;
 
-    this.setState({ mouthOpen });
-    this.setState({ lives: 2 });
+    this.mouthOpen = mouthOpen;
 
     this.drawPatch();
 

@@ -1,12 +1,12 @@
 import { FC, useState, useEffect, useRef } from 'react';
 
-import { blockSize, backGroundColor, MapElements, speed } from './config';
+import { blockSize, MapElements, speed } from './config';
 import { map as layer } from './Layers/layer_001';
 import { countOccurrences } from './utils';
 import { drawFood } from './Map/Food';
 import { drawWalls } from './Map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
-import { Sprite, SpriteColors } from './AnimatedCharacters/sprite';
+import { Sprite, SpriteNames } from './AnimatedCharacters/sprite';
 import { drawBackground } from './Primitives/drawBackground';
 
 export enum Direction {
@@ -14,51 +14,66 @@ export enum Direction {
   Left = 'left',
   Up = 'up',
   Down = 'down',
+  Stop = 'stop',
 }
+
+export type Restrictions = {
+  up: boolean;
+  right: boolean;
+  down: boolean;
+  left: boolean;
+  stop: false;
+};
 
 const map = layer;
 export const dimentions = [layer[0].length, layer.length];
 
 const foodAmount = countOccurrences(layer, MapElements.FOOD);
+const cherriesAmount = countOccurrences(layer, MapElements.CHERRY);
 
-const pacman = new Pacman({ size: blockSize, speed, startPosition: [10, 0] });
+const pacman = new Pacman({
+  size: blockSize,
+  speed,
+  startPosition: [10, 0],
+  startDirection: Direction.Right,
+});
 
 const sprites = {
-  blue: new Sprite(
+  blinky: new Sprite(
     {
       size: blockSize,
       speed,
-      startPosition: [10, 9],
+      startPosition: [8, 10],
+      startDirection: Direction.Left,
     },
-    SpriteColors.blue,
-    Direction.Left,
+    SpriteNames.blinky,
   ),
-  red: new Sprite(
+  inky: new Sprite(
     {
       size: blockSize,
       speed,
       startPosition: [10, 11],
+      startDirection: Direction.Up,
     },
-    SpriteColors.red,
-    Direction.Right,
+    SpriteNames.inky,
   ),
-  pink: new Sprite(
+  pinky: new Sprite(
     {
       size: blockSize,
       speed,
       startPosition: [11, 9],
+      startDirection: Direction.Down,
     },
-    SpriteColors.pink,
-    Direction.Left,
+    SpriteNames.pinky,
   ),
-  yellow: new Sprite(
+  clyde: new Sprite(
     {
       size: blockSize,
       speed,
       startPosition: [11, 11],
+      startDirection: Direction.Right,
     },
-    SpriteColors.yellow,
-    Direction.Right,
+    SpriteNames.clyde,
   ),
 };
 
@@ -70,11 +85,15 @@ interface CanvasProps {
   updateLives: (value: number) => void;
 }
 
-const getObstacles = (i: number, j: number) => ({
-  up: map[i - 1][j] !== MapElements.WALL,
-  right: map[i][j + 1] !== MapElements.WALL,
-  down: map[i + 1][j] !== MapElements.WALL,
-  left: map[i][j - 1] !== MapElements.WALL,
+const getObstacles = (i: number, j: number): Restrictions => ({
+  up: map[i - 1][j] !== MapElements.WALL && map[i - 1][j] !== MapElements.SPAWN,
+  right:
+    map[i][j + 1] !== MapElements.WALL && map[i][j + 1] !== MapElements.SPAWN,
+  down:
+    map[i + 1][j] !== MapElements.WALL && map[i + 1][j] !== MapElements.SPAWN,
+  left:
+    map[i][j - 1] !== MapElements.WALL && map[i][j - 1] !== MapElements.SPAWN,
+  stop: false,
 });
 
 const limitToTheMap = (j: number, char: Pacman | Sprite) => {
@@ -145,21 +164,19 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           break;
 
         case 'KeyS':
-          sprites.blue.setNextDirection(Direction.Right);
+          sprites.blinky.setNextDirection(Direction.Right);
           break;
         case 'KeyA':
-          sprites.blue.setNextDirection(Direction.Left);
+          sprites.blinky.setNextDirection(Direction.Left);
           break;
         case 'KeyW':
-          sprites.blue.setNextDirection(Direction.Up);
+          sprites.blinky.setNextDirection(Direction.Up);
           break;
         case 'KeyZ':
-          sprites.blue.setNextDirection(Direction.Down);
+          sprites.blinky.setNextDirection(Direction.Down);
           break;
 
         default:
-          // animateSprite();
-          // console.log(sprite.currentBlock);
           break;
       }
     };
@@ -189,7 +206,10 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
     /** update score state */
     updateMap(i, j, MapElements.NONE);
-    const score = foodAmount - countOccurrences(map, MapElements.FOOD);
+    const score =
+      foodAmount -
+      countOccurrences(map, MapElements.FOOD) +
+      (cherriesAmount - countOccurrences(map, MapElements.CHERRY)) * 10;
     updateScore(score);
 
     /** находит все стены вокруг ячейки */
@@ -203,6 +223,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
       limitToTheMap(j, sprite);
 
       sprite.setRestrictions(getObstacles(i, j));
+      /** определяет какую ячейку переисовать после спрайта */
       sprite.setPatchRedraw(map[i][j]);
       sprite.move();
     });

@@ -9,10 +9,14 @@ const backGroundColor = '#000';
 const wallCollor = '#342dca';
 const wallInnerColor = '#000000';
 const foodCollor = '#dea185';
+const cherrySize = blockSize / 2;
+
 enum MapElements {
   NONE = 0,
   WALL = 1,
   FOOD = 2,
+  CHERRY = 3,
+  SPAWN = 5,
 }
 
 export {
@@ -25,5 +29,6 @@ export {
   wallCollor,
   wallInnerColor,
   foodCollor,
+  cherrySize,
   MapElements,
 };

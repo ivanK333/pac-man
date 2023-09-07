@@ -62,7 +62,12 @@ const Game = () => {
       <div className={styles.canvasContainer}>
         <GameCanvas updateScore={updateScore} updateLives={updateLives} />
       </div>
+      <div>
+        <p>Use arrows to control packman</p>
+        <p>As a test can control Blinky with a w s z keys</p>
+      </div>
     </div>
+
     // <>
     //   {!start ? <StartGame startGame={startGame} /> : null}
 
