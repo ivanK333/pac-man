@@ -33,7 +33,7 @@ export class Character {
       right: true,
       down: true,
       left: true,
-      stop: true,
+      stop: false,
     };
   }
 
