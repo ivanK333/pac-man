@@ -1,22 +1,32 @@
 import { map } from './map';
 import { Direction, MapProperties } from './variables';
 
-class Pacman {
-  pacmanState: any;
-  setPacmanState: any;
-  direction: any;
-  setDirection: any;
-  nextDirection: any;
+type TPacmanProps = {
+  pacmanState: Record<string, number>;
+  setPacmanState: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  direction: string;
+  setDirection: React.Dispatch<React.SetStateAction<string>>;
+  nextDirection: string;
+};
 
-  constructor(props: any) {
-    this.pacmanState = props.pacmanState;
-    this.setPacmanState = props.setPacmanState;
+class Pacman {
+  private pacman: Record<string, number>;
+  private setPacman: React.Dispatch<
+    React.SetStateAction<Record<string, number>>
+  >;
+  private direction: string;
+  private setDirection: React.Dispatch<React.SetStateAction<string>>;
+  private nextDirection: string;
+
+  constructor(props: TPacmanProps) {
+    this.pacman = props.pacmanState;
+    this.setPacman = props.setPacmanState;
     this.direction = props.direction;
     this.setDirection = props.setDirection;
     this.nextDirection = props.nextDirection;
   }
 
-  moveProcess = (): void => {
+  public moveProcess = (): void => {
     this.changeDirectionIfPossible();
 
     this.moveForward();
@@ -27,28 +37,28 @@ class Pacman {
     }
   };
 
-  moveForward = () => {
+  private moveForward = () => {
     switch (this.direction) {
       case Direction.right:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x + pacman.speed,
         }));
         break;
       case Direction.left:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x - pacman.speed,
         }));
         break;
       case Direction.up:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y - pacman.speed,
         }));
         break;
       case Direction.down:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y + pacman.speed,
         }));
@@ -58,28 +68,28 @@ class Pacman {
     }
   };
 
-  moveBackward = (moveDirection: string) => {
+  private moveBackward = (moveDirection: string) => {
     switch (moveDirection) {
       case Direction.right:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x - pacman.speed,
         }));
         break;
       case Direction.left:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           x: pacman.x + pacman.speed,
         }));
         break;
       case Direction.up:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y + pacman.speed,
         }));
         break;
       case Direction.down:
-        this.setPacmanState((pacman: Record<string, number>) => ({
+        this.setPacman((pacman: Record<string, number>) => ({
           ...pacman,
           y: pacman.y - pacman.speed,
         }));
@@ -89,17 +99,17 @@ class Pacman {
     }
   };
 
-  getPacmansSideCoords = () => {
+  private getPacmansSideCoords = () => {
     const pacmanCoords = {
-      leftCoord: this.pacmanState.x / MapProperties.blockSize,
-      rightCoord: this.pacmanState.x / MapProperties.blockSize + 1,
-      upCoord: this.pacmanState.y / MapProperties.blockSize,
-      downCoord: this.pacmanState.y / MapProperties.blockSize + 1,
+      leftCoord: this.pacman.x / MapProperties.blockSize,
+      rightCoord: this.pacman.x / MapProperties.blockSize + 1,
+      upCoord: this.pacman.y / MapProperties.blockSize,
+      downCoord: this.pacman.y / MapProperties.blockSize + 1,
     };
     return pacmanCoords;
   };
 
-  checkCollision = (moveDirection: string) => {
+  private checkCollision = (moveDirection: string) => {
     const { leftCoord, rightCoord, upCoord, downCoord } =
       this.getPacmansSideCoords();
 
@@ -133,7 +143,7 @@ class Pacman {
     }
   };
 
-  changeDirectionIfPossible = () => {
+  private changeDirectionIfPossible = () => {
     const { rightCoord, downCoord, leftCoord, upCoord } =
       this.getPacmansSideCoords();
 

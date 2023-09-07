@@ -19,14 +19,9 @@ const GameCanvas = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const game = new Game({
-    canvasRef,
-    time,
     setTime,
     pacmanState,
     setPacmanState,
-    direction,
-    setDirection,
-    nextDirection,
     setNextDirection,
   });
 
