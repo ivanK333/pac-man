@@ -1,15 +1,7 @@
 const CACHE_NAME = 'my-site-cache-v1';
 
 const URLS = [
-  '/',
-  '/auth/register',
-  '/auth/login',
-  '/forum-topic',
-  '/game',
-  '/profile',
-  '/game-over',
-  '/forum',
-  '/lead',
+  '/index.html',
   '/src/assets/images/404-image.svg',
   '/src/assets/images/500-image.svg',
   '/src/assets/images/addCommentImage.png',
