@@ -1,0 +1,25 @@
+{
+  "short_name": "Pacman",
+  "name": "16BitGame",
+  "lang": "ru",
+  "description": "Game pacman",
+  "start_url": "http://localhost:3000/",
+  "background_color": "#000",
+  "theme_color": "#000",
+  "dir": "ltr",
+  "display": "standalone",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/src/assets/images/manifest_icon.svg",
+      "sizes": "144x144",
+      "type": "image/svg",
+      "purpose": "maskable"
+    },
+    {
+    "src": "/src/assets/images/manifest_icon512.svg",
+    "type": "image/png",
+    "sizes": "512x512"
+    }
+  ]
+}
