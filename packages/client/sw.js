@@ -1,10 +1,7 @@
-/// <reference lib="webworker" />
-
-const serviceWorker = self as unknown as ServiceWorkerGlobalScope;
-
 const CACHE_NAME = 'my-site-cache-v1';
 
 const URLS = [
+  '/',
   '/auth/register',
   '/auth/login',
   '/forum-topic',
@@ -13,9 +10,22 @@ const URLS = [
   '/game-over',
   '/forum',
   '/lead',
+  './src/assets/images/404-image.svg',
+  './src/assets/images/500-image.svg',
+  './src/assets/images/addCommentImage.png',
+  './src/assets/images/default-avatar.svg',
+  './src/assets/images/pacman-background.svg',
+  './src/assets/images/blueSpriteForLoader.svg',
+  './src/assets/images/forum-background.svg',
+  './src/assets/images/logo.svg',
+  './src/assets/images/pacman-error.svg',
+  './src/assets/images/play.svg',
+  './src/assets/images/purple_ghost.png',
+  './src/assets/images/red_ghost.png',
+  './src/assets/images/blueSprite.svg',
 ];
 
-const addToCache = async (urls: string[]) => {
+const addToCache = async (urls) => {
   try {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(urls);
@@ -24,12 +34,13 @@ const addToCache = async (urls: string[]) => {
   }
 };
 
-serviceWorker.addEventListener('install', (event) => {
+self.addEventListener('install', (event) => {
   console.log('SW install');
   event.waitUntil(addToCache(URLS));
 });
 
-serviceWorker.addEventListener('fetch', (event) => {
+self.addEventListener('fetch', (event) => {
+  console.log('SW fetch');
   event.respondWith(
     // Пытаемся найти ответ на такой запрос в кеше
     caches.match(event.request).then((response) => {
@@ -66,7 +77,8 @@ serviceWorker.addEventListener('fetch', (event) => {
   );
 });
 
-serviceWorker.addEventListener('activate', async () => {
+self.addEventListener('activate', async () => {
+  console.log('SW activate');
   try {
     const cacheNames = await caches.keys();
 

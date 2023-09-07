@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client';
 
 import App from './App';
 import './assets/styles/index.scss';
-import startServiceWorker from './utils/startServiceWorker';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -14,5 +13,3 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </BrowserRouter>
   </React.StrictMode>,
 );
-
-startServiceWorker();
