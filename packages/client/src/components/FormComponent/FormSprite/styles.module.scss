@@ -1,0 +1,68 @@
+@use '../../../assets/styles/variables';
+@use '../../../assets/styles/mixins';
+
+/** common styles */
+.spriteContainer {
+  padding: 10px 0;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+
+  .spriteMover {
+    @include mixins.slide-animation;
+
+    position: relative;
+    width: 100%;
+    height: 20px;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: auto;
+  }
+}
+
+/** flavor specific styles */
+
+/** style login sprite */
+.login {
+  .spriteMover {
+    @include mixins.slide-animation;
+
+    position: relative;
+    width: 100%;
+    height: 20px;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: auto;
+  }
+}
+
+/**  style register sprite */
+.register {
+  margin-top: 0;
+
+  .spriteMover {
+    @include mixins.slide-animation;
+
+    position: relative;
+    width: 100%;
+    height: 20px;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20px;
+    height: auto;
+  }
+}

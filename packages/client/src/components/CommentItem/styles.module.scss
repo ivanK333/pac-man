@@ -1,0 +1,42 @@
+@import '../../assets/styles/mixins';
+@import '../../assets/styles/variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 80px;
+}
+
+.headingContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username {
+  @include typography-m;
+
+  color: $color-palette-blue;
+}
+
+.text {
+  @include typography-m;
+
+  color: $color-palette-blue;
+}
+
+.contentContainer {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.textContainer {
+  display: flex;
+  border-left: 2px solid $color-palette-white;
+  padding: 0 0 0 5px;
+  width: 100%;
+  min-height: 40px;
+}

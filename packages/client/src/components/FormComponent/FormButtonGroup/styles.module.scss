@@ -1,0 +1,24 @@
+@use '../../../assets/styles/mixins';
+@use '../../../assets/styles/variables';
+
+.section {
+  @include mixins.typography-xs;
+  
+  margin-top: auto;
+  width: 100%;
+
+  > p {
+    margin-top: 7px;
+    text-align: center;
+  }
+}
+
+.link {
+  color: variables.$color-palette-yellow;
+  font-weight: 700;
+}
+
+.btn {
+  border: none;
+  background: none;
+}

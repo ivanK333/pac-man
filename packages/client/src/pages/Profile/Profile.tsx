@@ -2,11 +2,11 @@ import { useLayoutEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 import Avatar from '../../components/Avatar/Avatar';
-import ProfileForm from '../../components/ProfileForms/ProfileForm';
-import ChangePasswordForm from '../../components/ProfileForms/ChangePasswordForm';
+import ProfileForm from './components/ProfileForms/ProfileForm';
+import ChangePasswordForm from './components/ProfileForms/ChangePasswordForm';
 import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
 import Modal from '../../components/Modal/Modal';
-import AvatarForm from '../../components/ProfileForms/AvatarForm';
+import AvatarForm from './components/ProfileForms/AvatarForm';
 
 const initialState = {
   avatar: '',

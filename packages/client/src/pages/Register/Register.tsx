@@ -2,13 +2,13 @@ import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
 
-import FormGroup from '../../components/FormGroup/FormGroup';
-import FormButtonGroup from '../../components/FormButtonGroup/FormButton';
+import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
+import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
 import spriteSvg from '../../assets/images/purple_ghost.png';
-import Input from '../../components/InputWithLabel/InputWithLabel';
+import Input from '../../components/FormComponent/InputWithLabel/InputWithLabel';
 import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import FormHeading from '../../components/FormHeading/FormHeading';
+import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { redirect } from '../LoginPage/LoginPage';
 import AuthController from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';

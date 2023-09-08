@@ -5,8 +5,8 @@ const LoaderGame = () => {
   return (
     <div className={styles.container}>
       <div className={styles.loaderContainer}>
+        <div className={styles.sprite} />
         <div className={styles.pacman} />
-
         <ul className={styles.dots}>
           {new Array(DOTS_NUMBER).fill(null).map((_, index) => (
             <li key={`dot-${index}`} className={styles.dot} />

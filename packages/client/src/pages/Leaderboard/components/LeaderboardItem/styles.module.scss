@@ -1,0 +1,37 @@
+@import '../../../../assets/styles/variables';
+@import '../../../../assets/styles/mixins';
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-height: 70px;
+}
+
+.index {
+  @include typography-xxl;
+
+  margin: 0 45px 0 0;
+  min-width: 144px;
+  text-align: center;
+  line-height: normal;
+  font-family: $font-press-start-2p;
+}
+
+.score {
+  @include typography-xl;
+
+  margin: 0 28px 0 0;
+  width: 100%;
+  min-width: 100px;
+  max-width: 100px;
+  color: $color-palette-yellow;
+  font-family: $font-press-start-2p;
+}
+
+.name {
+  @include typography-xl;
+
+  margin: 0 0 0 40px;
+  color: $color-palette-red;
+}

@@ -1,0 +1,11 @@
+@use '../../../assets/styles/mixins';
+@use '../../../assets/styles/variables';
+
+.heading {
+  @include mixins.typography-l;
+
+  margin-bottom: 45px;
+  text-align: center;
+  color: variables.$color-palette-yellow;
+  font-family: variables.$font-press-start-2p;
+}

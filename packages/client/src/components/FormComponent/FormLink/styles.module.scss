@@ -1,0 +1,47 @@
+@use '../../../assets/styles/variables';
+@use '../../../assets/styles/mixins';
+
+/** common styles */
+.link {
+  @include mixins.typography-xs;
+
+  span {
+    color: variables.$color-palette-white;
+  }
+
+  a {
+    margin: 10px;
+    color: variables.$color-palette-yellow;
+  }
+}
+
+/** flavor specific styles */
+
+/** style login link */
+.login {
+  @include mixins.typography-xs;
+
+  span {
+    color: variables.$color-palette-white;
+  }
+
+  a {
+    margin: 10px;
+  }
+}
+
+/**  style register link */
+.register {
+  @include mixins.typography-xs;
+
+  span {
+    color: variables.$color-palette-white;
+  }
+
+  a {
+    margin: 10px;
+
+    // color: variables.$color-palette-yellow;
+    color: variables.$color-palette-red;
+  }
+}
