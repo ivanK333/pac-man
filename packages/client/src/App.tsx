@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { withErrorBoundary } from 'react-error-boundary';
 import { Routes, Route, Navigate } from 'react-router';
 
-import AuthController from '../src/controllers/AuthController';
+import AuthController from './controllers/AuthController';
 import { Auth } from './routes/Auth/Auth';
 import { Main } from './routes/Main/Main';
 import { ROUTES } from './constants/routes';
