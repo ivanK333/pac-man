@@ -86,17 +86,24 @@ export class Sprite extends Character {
 
     const direction = this.direction;
     const legsPosition = this.legsPosition;
-    const crop: [number, number, number, number] = [
-      sx + spriteAnimationPositions[direction][legsPosition],
-      sy,
-      sw / 8,
-      sh,
-    ];
     const dx = this.x + wallThickness;
     const dy = this.y + wallThickness;
     const dw = this.size - 2 * wallThickness;
     const dh = this.size - 2 * wallThickness;
-    this.ctx.drawImage(...[image, ...crop, dx, dy, dw, dh]);
+
+    this.ctx.drawImage(
+      image,
+      /**выбираем какая картинка в зависимости от направления и положения ног */
+      sx + spriteAnimationPositions[direction][legsPosition],
+      sy,
+      /**  каждому спрайту соответствует 8 картинок одинаковой ширины */
+      sw / 8,
+      sh,
+      dx,
+      dy,
+      dw,
+      dh,
+    );
     spriteAnimationPositions[this.direction];
   }
 
