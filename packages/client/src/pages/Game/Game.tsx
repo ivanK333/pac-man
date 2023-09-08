@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import LoaderGame from '../LoaderGame/LoaderGame';
-import GameOver from '../GameOver/GameOver';
+// import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
@@ -12,11 +12,11 @@ const Game = () => {
   const [score, setScore] = useState<number>(0);
   const [lives, setLives] = useState<number>(3);
 
-  const restartGame = useCallback(() => {
-    setLoader(true);
-    // заглушка для отображения loader
-    fakeLoader();
-  }, []);
+  // const restartGame = useCallback(() => {
+  //   setLoader(true);
+  //   // заглушка для отображения loader
+  //   fakeLoader();
+  // }, []);
 
   const startGame = useCallback(() => {
     setStart(true);
