@@ -1,4 +1,5 @@
 const CACHE_NAME = 'my-site-cache-v1';
+const timeout = 400;
 
 const URLS = [
   '/index.html',
@@ -27,55 +28,47 @@ const addToCache = async (urls) => {
 };
 
 self.addEventListener('install', (event) => {
-  console.log('SW install');
   event.waitUntil(addToCache(URLS));
 });
 
-self.addEventListener('fetch', (event) => {
-  console.log('SW fetch');
-  event.respondWith(
-    // Пытаемся найти ответ на такой запрос в кеше
-    caches.match(event.request).then((response) => {
-      // Если кешированный ресурс найден, выдаём его
-      if (response) {
-        console.log('кешированный ресурс найден');
-        return response;
-      }
-
-      const fetchRequest = event.request.clone();
-
-      // Если ресурса нет в кэше, делаем запрос на сервер
-      return fetch(fetchRequest).then((response) => {
-        // Если что-то пошло не так, выдаём в основной поток результат, но не кладём его в кеш
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
-        }
-
-        // Клонируем ответ, так как response может быть использован только один раз
-        const responseToCache = response.clone();
-
-        // Получаем доступ к кешу по CACHE_NAME
-        caches
-          .open(CACHE_NAME) // Открываем кэш
-          .then((cache) => {
-            // Записываем в кеш ответ, используя в качестве ключа запрос
-            cache.put(event.request, responseToCache);
-          });
-
-        // Отдаём в основной поток ответ
-        return response;
-      });
-    }),
-  );
-});
-
 self.addEventListener('activate', async () => {
-  console.log('SW activate');
   try {
     const cacheNames = await caches.keys();
-
     await Promise.all(cacheNames.map((name) => caches.delete(name)));
   } catch (error) {
     console.log(error);
   }
+});
+
+const getFromNetwork = (request, timeout) => {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(reject, timeout);
+
+    fetch(request).then((response) => {
+      clearTimeout(timeoutId);
+
+      const responseClone = response.clone();
+
+      caches
+        .open(CACHE_NAME)
+        .then((cache) => cache.put(request, responseClone));
+
+      resolve(response);
+    }, reject);
+  });
+};
+
+const getFromCache = async (request) => {
+  const cache = await caches.open(CACHE_NAME);
+  const result = await cache.match(request);
+
+  return result || Promise.reject('no-match');
+};
+
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    getFromNetwork(event.request, timeout).catch(() =>
+      getFromCache(event.request),
+    ),
+  );
 });
