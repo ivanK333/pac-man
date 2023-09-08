@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import LoaderGame from '../LoaderGame/LoaderGame';
-// import GameOver from '../GameOver/GameOver';
+import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
@@ -46,9 +46,9 @@ const Game = () => {
     <>
       {!start ? <StartGame startGame={startGame} /> : null}
 
-      {loader && start ? (
-        <LoaderGame />
-      ) : (
+      {loader && start ? <LoaderGame /> : null}
+
+      {!loader && start && (
         <div className={styles.container}>
           <div className={styles.info}>
             <div className={styles.score}>
