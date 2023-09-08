@@ -3,6 +3,7 @@ import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
+import AuthController from '../../controllers/AuthController';
 
 const Header = () => {
   const match = useMatch({
@@ -14,7 +15,7 @@ const Header = () => {
   });
 
   const handleLogout = () => {
-    console.log('logout logic');
+    AuthController.signout();
   };
 
   return (
