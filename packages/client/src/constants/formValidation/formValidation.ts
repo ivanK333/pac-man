@@ -30,7 +30,7 @@ export const validation: Record<string, RegisterOptions> = {
     minLength: minVal(8),
     maxLength: maxVal(40),
     validate: {
-      latinLetters,
+      // latinLetters,
       atLeastOneUppercaseLetter,
       atLeastOneDigit,
       noSpaces,
