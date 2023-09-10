@@ -35,7 +35,7 @@ export class Sprite extends Character {
   patchRedraw: MapElements;
   legsPosition: 0 | 1;
   name: SpriteNames;
-  targetBlock?: [number, number];
+  targetBlock?: number[];
   constructor(props: CharacterProps, name: SpriteNames) {
     super(props);
 
@@ -133,7 +133,7 @@ export class Sprite extends Character {
 
     options.forEach((option) => {
       switch (option) {
-        case 'up':
+        case Direction.Up:
           // запрет ходить в блок из которого пришел
           if (this.previousBlock !== 'up' && this.targetBlock) {
             // расчет дистанции до целевой клетки
@@ -143,7 +143,7 @@ export class Sprite extends Character {
             );
           }
           break;
-        case 'right':
+        case Direction.Right:
           if (this.previousBlock !== 'right' && this.targetBlock) {
             distance.right = this.countDistance(
               [this.currentBlock[0], this.currentBlock[1] + 1],
@@ -151,7 +151,7 @@ export class Sprite extends Character {
             );
           }
           break;
-        case 'down':
+        case Direction.Down:
           if (this.previousBlock !== 'down' && this.targetBlock) {
             distance.down = this.countDistance(
               [this.currentBlock[0] + 1, this.currentBlock[1]],
@@ -159,7 +159,7 @@ export class Sprite extends Character {
             );
           }
           break;
-        case 'left':
+        case Direction.Left:
           if (this.previousBlock !== 'left' && this.targetBlock) {
             distance.left = this.countDistance(
               [this.currentBlock[0], this.currentBlock[1] - 1],
@@ -178,22 +178,7 @@ export class Sprite extends Character {
     )[0];
 
     // Изменяем направление движения на кратчайшее
-    switch (shortestWay) {
-      case 'up':
-        this.setDirection(Direction.Up);
-        break;
-      case 'right':
-        this.setDirection(Direction.Right);
-        break;
-      case 'down':
-        this.setDirection(Direction.Down);
-        break;
-      case 'left':
-        this.setDirection(Direction.Left);
-        break;
-      default:
-        break;
-    }
+    this.setDirection(shortestWay as Direction);
   }
 
   // расчет дистанции

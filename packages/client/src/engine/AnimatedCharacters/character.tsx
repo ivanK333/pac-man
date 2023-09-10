@@ -3,9 +3,9 @@ import { Direction, Restrictions } from '../GameCanvas';
 export type CharacterProps = {
   size: number;
   speed: number;
-  startPosition: [number, number];
+  startPosition: number[];
   startDirection: Direction;
-  targetBlock?: [number, number];
+  targetBlock?: number[];
   currentBlock?: [number, number];
   previousBlock?: string;
 };
@@ -102,22 +102,22 @@ export class Character {
   }
 
   moveRight() {
-    this.setPreviousBlock('left');
+    this.setPreviousBlock(Direction.Left);
     this.x = this.x + this.currentSpeed;
   }
 
   moveLeft() {
-    this.setPreviousBlock('right');
+    this.setPreviousBlock(Direction.Right);
     this.x = this.x - this.currentSpeed;
   }
 
   moveUp() {
-    this.setPreviousBlock('down');
+    this.setPreviousBlock(Direction.Down);
     this.y = this.y - this.currentSpeed;
   }
 
   moveDown() {
-    this.setPreviousBlock('up');
+    this.setPreviousBlock(Direction.Up);
     this.y = this.y + this.currentSpeed;
   }
 
