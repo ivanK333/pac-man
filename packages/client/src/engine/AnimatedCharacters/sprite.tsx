@@ -44,7 +44,6 @@ export class Sprite extends Character {
     this.name = name;
     this.direction = props.startDirection;
     this.crop = spriteAvatars[this.name];
-    console.log(name, props.startDirection, this.direction);
   }
 
   setPatchRedraw(patchRedraw: MapElements) {
