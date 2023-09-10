@@ -1,0 +1,29 @@
+@use '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 40px;
+  align-items: center;
+  background-color: variables.$color-palette-black;
+  overflow: hidden;
+}
+
+.canvasContainer {
+  background-color: variables.$color-palette-black;
+}
+.info {
+  width: 480px;
+  margin: auto;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.score {
+  color: white;
+  font-size: larger;
+}
