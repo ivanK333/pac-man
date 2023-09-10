@@ -17,6 +17,22 @@ export enum Direction {
   Stop = 'stop',
 }
 
+const PositionsOnTheMap = {
+  StartPositions: {
+    Pacman: [10, 0],
+    Blinky: [8, 10],
+    Inky: [8, 12],
+    Pinky: [8, 11],
+    Clyde: [8, 12],
+  },
+  TargetPositions: {
+    Blinky: [0, 19],
+    Inky: [0, 1],
+    Pinky: [22, 1],
+    Clyde: [22, 19],
+  },
+};
+
 export type Restrictions = {
   up: boolean;
   right: boolean;
@@ -34,8 +50,8 @@ const cherriesAmount = countOccurrences(layer, MapElements.CHERRY);
 const pacman = new Pacman({
   size: blockSize,
   speed,
-  startPosition: [10, 0],
-  startDirection: Direction.Right,
+  startPosition: PositionsOnTheMap.StartPositions.Pacman,
+  startDirection: Direction.Stop,
 });
 
 const sprites = {
@@ -43,8 +59,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [8, 10],
-      startDirection: Direction.Left,
+      startPosition: PositionsOnTheMap.StartPositions.Blinky,
+      startDirection: Direction.Right,
+      targetBlock: PositionsOnTheMap.TargetPositions.Blinky,
     },
     SpriteNames.blinky,
   ),
@@ -52,8 +69,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [10, 11],
+      startPosition: PositionsOnTheMap.StartPositions.Inky,
       startDirection: Direction.Up,
+      targetBlock: PositionsOnTheMap.TargetPositions.Inky,
     },
     SpriteNames.inky,
   ),
@@ -61,8 +79,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [11, 9],
+      startPosition: PositionsOnTheMap.StartPositions.Pinky,
       startDirection: Direction.Down,
+      targetBlock: PositionsOnTheMap.TargetPositions.Pinky,
     },
     SpriteNames.pinky,
   ),
@@ -70,8 +89,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [11, 11],
+      startPosition: PositionsOnTheMap.StartPositions.Clyde,
       startDirection: Direction.Right,
+      targetBlock: PositionsOnTheMap.TargetPositions.Clyde,
     },
     SpriteNames.clyde,
   ),
