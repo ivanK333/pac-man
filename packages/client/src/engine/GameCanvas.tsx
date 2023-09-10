@@ -35,7 +35,7 @@ const pacman = new Pacman({
   size: blockSize,
   speed,
   startPosition: [10, 0],
-  startDirection: Direction.Right,
+  startDirection: Direction.Stop,
 });
 
 const sprites = {
@@ -44,7 +44,8 @@ const sprites = {
       size: blockSize,
       speed,
       startPosition: [8, 10],
-      startDirection: Direction.Left,
+      startDirection: Direction.Right,
+      targetBlock: [0, 19],
     },
     SpriteNames.blinky,
   ),
@@ -52,8 +53,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [10, 11],
+      startPosition: [8, 12],
       startDirection: Direction.Up,
+      targetBlock: [0, 1],
     },
     SpriteNames.inky,
   ),
@@ -61,8 +63,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [11, 9],
+      startPosition: [8, 11],
       startDirection: Direction.Down,
+      targetBlock: [22, 1],
     },
     SpriteNames.pinky,
   ),
@@ -70,8 +73,9 @@ const sprites = {
     {
       size: blockSize,
       speed,
-      startPosition: [11, 11],
+      startPosition: [8, 12],
       startDirection: Direction.Right,
+      targetBlock: [22, 19],
     },
     SpriteNames.clyde,
   ),

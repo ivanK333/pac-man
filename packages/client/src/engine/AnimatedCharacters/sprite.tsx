@@ -4,6 +4,7 @@ import { drawSimpleFood } from '../Primitives/drawSimpleFood';
 import { drawRectangle } from '../Primitives/drawRectangle';
 import { Character, CharacterProps } from './character';
 import { drawCherry } from '../Primitives/drawCherry';
+import { Direction } from '../GameCanvas';
 
 export enum SpriteNames {
   blinky = 'blinky',
@@ -34,6 +35,7 @@ export class Sprite extends Character {
   patchRedraw: MapElements;
   legsPosition: 0 | 1;
   name: SpriteNames;
+  targetBlock?: [number, number];
   constructor(props: CharacterProps, name: SpriteNames) {
     super(props);
 
@@ -45,6 +47,8 @@ export class Sprite extends Character {
     this.direction = props.startDirection;
     this.crop = spriteAvatars[this.name];
     console.log(name, props.startDirection, this.direction);
+
+    this.targetBlock = props.targetBlock;
   }
 
   setPatchRedraw(patchRedraw: MapElements) {
@@ -105,6 +109,102 @@ export class Sprite extends Character {
       dh,
     );
     spriteAnimationPositions[this.direction];
+  }
+
+  scatter() {
+    if (this.atBlockCenter) {
+      this.calculateChoise();
+    }
+    this.step();
+  }
+
+  calculateChoise() {
+    const entries = Object.entries(this.restricted);
+    const options: string[] = [];
+
+    // Стороны в которые можно шагнуть записываем в options
+    entries.forEach((direction) => {
+      if (direction[1]) {
+        options.push(direction[0]);
+      }
+    });
+
+    const distance: Record<string, number> = {};
+
+    options.forEach((option) => {
+      switch (option) {
+        case 'up':
+          // запрет ходить в блок из которого пришел
+          if (this.previousBlock !== 'up' && this.targetBlock) {
+            // расчет дистанции до целевой клетки
+            distance.up = this.countDistance(
+              [this.currentBlock[0] - 1, this.currentBlock[1]],
+              this.targetBlock,
+            );
+          }
+          break;
+        case 'right':
+          if (this.previousBlock !== 'right' && this.targetBlock) {
+            distance.right = this.countDistance(
+              [this.currentBlock[0], this.currentBlock[1] + 1],
+              this.targetBlock,
+            );
+          }
+          break;
+        case 'down':
+          if (this.previousBlock !== 'down' && this.targetBlock) {
+            distance.down = this.countDistance(
+              [this.currentBlock[0] + 1, this.currentBlock[1]],
+              this.targetBlock,
+            );
+          }
+          break;
+        case 'left':
+          if (this.previousBlock !== 'left' && this.targetBlock) {
+            distance.left = this.countDistance(
+              [this.currentBlock[0], this.currentBlock[1] - 1],
+              this.targetBlock,
+            );
+          }
+          break;
+        default:
+          break;
+      }
+    });
+
+    // находим кратчайший путь до целевой клетки
+    const shortestWay = Object.entries(distance).reduce((acc, curr) =>
+      acc[1] < curr[1] ? acc : curr,
+    )[0];
+
+    // Изменяем направление движения на кратчайшее
+    switch (shortestWay) {
+      case 'up':
+        this.setDirection(Direction.Up);
+        break;
+      case 'right':
+        this.setDirection(Direction.Right);
+        break;
+      case 'down':
+        this.setDirection(Direction.Down);
+        break;
+      case 'left':
+        this.setDirection(Direction.Left);
+        break;
+      default:
+        break;
+    }
+  }
+
+  // расчет дистанции
+  countDistance(current: number[], target: number[]) {
+    return Math.sqrt(
+      Math.pow(current[0] - target[0], 2) + Math.pow(current[1] - target[1], 2),
+    );
+  }
+
+  move() {
+    this.scatter();
   }
 
   render(time: number | null) {

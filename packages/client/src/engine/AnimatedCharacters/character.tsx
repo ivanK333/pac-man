@@ -5,6 +5,9 @@ export type CharacterProps = {
   speed: number;
   startPosition: [number, number];
   startDirection: Direction;
+  targetBlock?: [number, number];
+  currentBlock?: [number, number];
+  previousBlock?: string;
 };
 export class Character {
   ctx: CanvasRenderingContext2D | null;
@@ -17,6 +20,7 @@ export class Character {
   direction: Direction;
   nextDirection: Direction;
   restricted: Restrictions;
+  previousBlock: string;
 
   constructor(props: CharacterProps) {
     this.ctx = null;
@@ -35,6 +39,7 @@ export class Character {
       left: true,
       stop: false,
     };
+    this.previousBlock = '';
   }
 
   get currentBlock() {
@@ -68,6 +73,10 @@ export class Character {
     return this.restricted[this.nextDirection];
   }
 
+  get canGoStrait(): boolean {
+    return this.restricted[this.direction];
+  }
+
   setRestrictions(restricted: Restrictions) {
     this.restricted = restricted;
   }
@@ -88,19 +97,27 @@ export class Character {
     this.currentSpeed = speed;
   }
 
+  setPreviousBlock(previousBlock: string) {
+    this.previousBlock = previousBlock;
+  }
+
   moveRight() {
+    this.setPreviousBlock('left');
     this.x = this.x + this.currentSpeed;
   }
 
   moveLeft() {
+    this.setPreviousBlock('right');
     this.x = this.x - this.currentSpeed;
   }
 
   moveUp() {
+    this.setPreviousBlock('down');
     this.y = this.y - this.currentSpeed;
   }
 
   moveDown() {
+    this.setPreviousBlock('up');
     this.y = this.y + this.currentSpeed;
   }
 
@@ -122,6 +139,10 @@ export class Character {
 
     /** не разрешать повороты не из центра блока */
     if (!this.atBlockCenter) return;
+
+    if (!this.canGoStrait) {
+      this.stop();
+    }
 
     /** если проходит центр блока но не может повернуть или идти дальше */
     if (!this.canTurn) {
@@ -145,7 +166,10 @@ export class Character {
 
   move() {
     this.controlDirection();
+    this.step();
+  }
 
+  step() {
     switch (this.direction) {
       case Direction.Right:
         this.moveRight();
