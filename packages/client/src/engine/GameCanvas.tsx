@@ -77,7 +77,12 @@ const sprites = {
   ),
 };
 
-export const updateMap = (i: number, j: number, value: MapElements) => {
+export const updateMap = (
+  i: number,
+  j: number,
+  value: MapElements,
+  map = layer,
+) => {
   map[i][j] = value;
 };
 interface CanvasProps {
