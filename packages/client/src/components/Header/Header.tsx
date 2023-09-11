@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
-import useFullScreen from '../../hooks/useFullSrceen';
+import useFullScreen from '../../hooks/useFullsrceen';
 
 const Header = () => {
   const match = useMatch({
