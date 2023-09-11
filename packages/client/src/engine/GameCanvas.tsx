@@ -90,7 +90,7 @@ interface CanvasProps {
   updateLives: (value: number) => void;
 }
 
-const getObstacles = (i: number, j: number): Restrictions => ({
+export const getObstacles = (i: number, j: number): Restrictions => ({
   up: map[i - 1][j] !== MapElements.WALL && map[i - 1][j] !== MapElements.SPAWN,
   right:
     map[i][j + 1] !== MapElements.WALL && map[i][j + 1] !== MapElements.SPAWN,
