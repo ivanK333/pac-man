@@ -7,6 +7,9 @@ import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import useFullScreen from '../../hooks/useFullSrceen';
 
+import AuthController from '../../controllers/AuthController';
+
+
 const Header = () => {
   const match = useMatch({
     path: ROUTES.main.forum.root,
@@ -17,7 +20,7 @@ const Header = () => {
   });
 
   const handleLogout = () => {
-    console.log('logout logic');
+    AuthController.signout();
   };
 
   const { fullScreen, open } = useFullScreen();

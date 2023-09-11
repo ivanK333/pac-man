@@ -10,9 +10,10 @@ import { ROUTES } from './constants/routes';
 import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
+import useAuth from './hooks/useAuth';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, login } = useAuth();
 
   // временно выключил неиспользуемый запрос к серверу, у меня на него ошибка в консоли
   // useEffect(() => {
@@ -29,7 +30,7 @@ const App = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       const response = await AuthController.fetchUser();
-      if (response.success) setIsAuthenticated(true);
+      if (response.success) login();
     };
 
     fetchUserData();
