@@ -32,6 +32,7 @@ module.exports = {
     'no-continue': 'off',
     'no-prototype-builtins': 'off',
     '@typescript-eslint/no-unused-expressions': 0,
+    "import/no-unresolved": "off",
     'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
     'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.jsx'] }],
     'react/function-component-definition': [
