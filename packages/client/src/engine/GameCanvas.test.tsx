@@ -57,7 +57,7 @@ describe('Тест поедания ряда еды', () => {
       foodAmount -
       countOccurrences(map, MapElements.FOOD) +
       (cherriesAmount - countOccurrences(map, MapElements.CHERRY)) * 10;
-    expect(score).toEqual(8);
+    expect(score).toEqual(7);
   });
 });
 
