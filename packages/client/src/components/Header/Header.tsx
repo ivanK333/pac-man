@@ -6,7 +6,7 @@ import { ROUTES } from '../../constants/routes';
 import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import AuthController from '../../controllers/AuthController';
-import useFullScreen from '../../hooks/useFullsrceen';
+import useFullScreen from '../../hooks/useFullSrceen';
 
 const Header = () => {
   const match = useMatch({
