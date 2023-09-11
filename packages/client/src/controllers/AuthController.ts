@@ -68,6 +68,7 @@ class AuthController {
       if (response.success) {
         localStorage.setItem('isAuthenticated', 'false');
       }
+      window.location.href = '/auth/login';
       return response;
     } catch (error: unknown) {
       return userError(error);
