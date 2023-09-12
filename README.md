@@ -1,5 +1,6 @@
 # Браузерная игра "Pac-man"
 Реализована в рамках курса ["Мидл фронтенд-разработчик"](https://practicum.yandex.ru/middle-frontend/) от Яндекс-практикум.
+[Макет](https://www.figma.com/file/nkYREB7Z1jGgTfgTREfjVg/pacman?type=design&node-id=0-1&mode=design&t=mbv4aOLVpyIENO5y-0)
 
 ![image](https://github.com/ivanK333/pac-man/assets/108727043/9162237a-0dc5-4f85-aaff-fdabfaf63049)
 
