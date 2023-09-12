@@ -96,7 +96,7 @@ const sprites = {
   ),
 };
 
-const updateMap = (
+export const updateMap = (
   map: number[][],
   i: number,
   j: number,
@@ -110,7 +110,11 @@ interface CanvasProps {
   restart: number;
 }
 
-const getObstacles = (map: number[][], i: number, j: number): Restrictions => ({
+export const getObstacles = (
+  map: number[][],
+  i: number,
+  j: number,
+): Restrictions => ({
   up: map[i - 1][j] !== MapElements.WALL && map[i - 1][j] !== MapElements.SPAWN,
   right:
     map[i][j + 1] !== MapElements.WALL && map[i][j + 1] !== MapElements.SPAWN,

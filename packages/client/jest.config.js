@@ -12,4 +12,5 @@ export default {
     '\\.(scss|css|sass)$': 'identity-obj-proxy',
     '\\.(jpg|jpeg|png|svg)$': 'identity-obj-proxy',
   },
+  extensionsToTreatAsEsm: ['.tsx'],
 };
