@@ -128,10 +128,8 @@ export class Pacman extends Character {
 
     setTimeout(() => {
       this.lives = this.lives - 1;
-      console.log(this.lives);
       callback(this.lives);
 
-      console.log('restart');
       this.dead = false;
       this.x = this.startX;
       this.y = this.startY;

@@ -1,40 +1,37 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import LoaderGame from '../LoaderGame/LoaderGame';
 import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
-const delay = 0;
+const delay = 2000;
 
 const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
   const [start, setStart] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
   const [lives, setLives] = useState<number>(3);
+  const [attempts, setAttempts] = useState<number>(0);
 
-  // const restartGame = useCallback(() => {
-  //   setLoader(true);
-  //   // заглушка для отображения loader
-  //   fakeLoader();
-  // }, []);
-
-  const startGame = useCallback(() => {
-    setLives(3);
+  const restartGame = useCallback(() => {
     setScore(0);
+    setLives(3);
+    setAttempts(attempts + 1);
+
     setStart(true);
   }, []);
 
-  // заглушка для отображения loader
+  const startGame = useCallback(() => {
+    setLoader(true);
+    fakeLoader();
+    setStart(true);
+  }, []);
+
   const fakeLoader = useCallback(() => {
     setTimeout(() => {
       setLoader(false);
     }, delay);
-  }, []);
-
-  // заглушка для отображения loader
-  useEffect(() => {
-    fakeLoader();
   }, []);
 
   const updateScore = (score: number) => {
@@ -47,13 +44,13 @@ const Game = () => {
 
   return (
     <>
-      {!start ? <StartGame startGame={startGame} /> : null}
+      {!start && <StartGame startGame={startGame} />}
 
-      {loader && start ? <LoaderGame /> : null}
+      {lives <= 0 && <GameOver restartGame={restartGame} />}
 
-      {lives === 0 ? <GameOver restartGame={startGame} /> : null}
+      {start && loader && <LoaderGame />}
 
-      {!loader && start && lives !== 0 && (
+      {start && !loader && lives > 0 && (
         <div className={styles.container}>
           <div className={styles.info}>
             <div className={styles.score}>
@@ -71,14 +68,17 @@ const Game = () => {
           </div>
 
           <div className={styles.canvasContainer}>
-            <GameCanvas updateScore={updateScore} updateLives={updateLives} />
+            <GameCanvas
+              updateScore={updateScore}
+              updateLives={updateLives}
+              restart={attempts}
+            />
           </div>
           <div>
-            <p>Use arrows to control packman, Space will kill pacman</p>
+            <p>Use arrows to control packman, space bar to kill pacman</p>
             <p>As a test can control Blinky with a w s z keys</p>
           </div>
         </div>
-        // <GameOver restartGame={restartGame} />
       )}
     </>
   );
