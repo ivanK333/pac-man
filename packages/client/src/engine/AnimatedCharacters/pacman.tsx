@@ -1,11 +1,15 @@
+import spritePng from '../../assets/images/sprites.png';
 import { Direction } from '../GameCanvas';
 import { backGroundColor } from '../config';
 import { Character, CharacterProps } from './character';
+
+const packmanDead: number[] = [456, 0, 256, 16];
 
 export class Pacman extends Character {
   lives: number;
   radius: number;
   mouthOpen: boolean;
+  dead: boolean;
 
   constructor(props: CharacterProps) {
     super(props);
@@ -13,6 +17,7 @@ export class Pacman extends Character {
     this.lives = 3;
     this.radius = props.size / 2;
     this.mouthOpen = true;
+    this.dead = false;
   }
 
   /** RENDERING */
@@ -86,8 +91,57 @@ export class Pacman extends Character {
     this.ctx.stroke();
   }
 
+  private drawDead(i: number) {
+    if (!this.ctx) return;
+    const wallThickness = 3;
+    const image = new Image();
+    image.src = spritePng;
+
+    const dx = this.x + wallThickness;
+    const dy = this.y + wallThickness;
+    const dw = this.size - 2 * wallThickness;
+    const dh = this.size - 2 * wallThickness;
+
+    const sx = packmanDead[0] + 16 * i;
+    const sy = packmanDead[1];
+    const sw = 16;
+    const sh = 16;
+
+    this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
+  }
+
+  die(callback: (n: number) => void) {
+    this.stop();
+    this.dead = true;
+
+    const runLoopWithDelay = (i: number, max: number, delay: number) => {
+      if (i <= max) {
+        setTimeout(() => {
+          this.drawPatch();
+          this.drawDead(i);
+          runLoopWithDelay(i + 1, max, delay);
+        }, delay);
+      }
+    };
+
+    runLoopWithDelay(0, 14, 100);
+
+    setTimeout(() => {
+      this.lives = this.lives - 1;
+      callback(this.lives);
+
+      this.dead = false;
+      this.x = this.startX;
+      this.y = this.startY;
+      this.direction = this.startDirection;
+      this.nextDirection = this.startDirection;
+    }, 2000);
+  }
+
   render(time: number | null) {
     if (!time) return;
+
+    if (this.dead) return;
 
     const mouthOpen = Math.floor(time / 100) % 2 === 0;
 

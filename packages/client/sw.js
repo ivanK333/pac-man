@@ -16,6 +16,8 @@ const URLS = [
   '/src/assets/images/purple_ghost.png',
   '/src/assets/images/red_ghost.png',
   '/src/assets/images/blueSprite.svg',
+  '/src/assets/images/fullscreen-on.svg',
+  '/src/assets/images/fullscreen_off.svg',
 ];
 
 const addToCache = async (urls) => {

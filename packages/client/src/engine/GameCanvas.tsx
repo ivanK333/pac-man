@@ -41,7 +41,6 @@ export type Restrictions = {
   stop: false;
 };
 
-const map = layer;
 export const dimentions = [layer[0].length, layer.length];
 
 const foodAmount = countOccurrences(layer, MapElements.FOOD);
@@ -97,20 +96,21 @@ const sprites = {
   ),
 };
 
-export const updateMap = (
+const updateMap = (
+  map: number[][],
   i: number,
   j: number,
   value: MapElements,
-  map = layer,
 ) => {
   map[i][j] = value;
 };
 interface CanvasProps {
   updateScore: (value: number) => void;
   updateLives: (value: number) => void;
+  restart: number;
 }
 
-export const getObstacles = (i: number, j: number): Restrictions => ({
+const getObstacles = (map: number[][], i: number, j: number): Restrictions => ({
   up: map[i - 1][j] !== MapElements.WALL && map[i - 1][j] !== MapElements.SPAWN,
   right:
     map[i][j + 1] !== MapElements.WALL && map[i][j + 1] !== MapElements.SPAWN,
@@ -135,16 +135,24 @@ const limitToTheMap = (j: number, char: Pacman | Sprite) => {
 };
 
 const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
-  const { updateScore } = props;
+  const { updateScore, updateLives, restart } = props;
   const [time, setTime] = useState<number | null>(null);
+  const [map, setMap] = useState<number[][]>(layer);
   const [context, setContext] = useState<
     CanvasRenderingContext2D | null | undefined
   >(null);
+
+  let spaceDisabled = false;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   /** create canvas and draw map */
   useEffect(() => {
+    /** make a deep copy. will need it for restart */
+    setMap(layer.map((innerArr) => [...innerArr]));
+    /** TODO: this is temporary, whole restart should be redone */
+    pacman.lives = 3;
+
     const context = canvasRef.current?.getContext('2d');
     if (!context) return;
     setContext(context);
@@ -156,12 +164,12 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     });
 
     drawBackground(context);
-    drawWalls(context, map);
-    drawFood(context, map);
+    drawWalls(context, layer);
+    drawFood(context, layer);
 
     /** start animation */
     loop();
-  }, []);
+  }, [restart]);
 
   const loop = () => {
     function animation(now: number) {
@@ -186,6 +194,18 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           break;
         case 'ArrowDown':
           pacman.setNextDirection(Direction.Down);
+          break;
+
+        case 'Space':
+          /** выключаю пробел пока пакман умирает */
+          if (!spaceDisabled) {
+            pacman.die(updateLives);
+            spaceDisabled = true;
+            setTimeout(() => {
+              spaceDisabled = false;
+            }, 2000);
+          }
+
           break;
 
         case 'KeyS':
@@ -230,7 +250,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     limitToTheMap(j, pacman);
 
     /** update score state */
-    updateMap(i, j, MapElements.NONE);
+    updateMap(map, i, j, MapElements.NONE);
     const score =
       foodAmount -
       countOccurrences(map, MapElements.FOOD) +
@@ -238,7 +258,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     updateScore(score);
 
     /** находит все стены вокруг ячейки */
-    pacman.setRestrictions(getObstacles(i, j));
+    pacman.setRestrictions(getObstacles(map, i, j));
     pacman.move();
   };
 
@@ -247,7 +267,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
       const [i, j] = sprite.currentBlock;
       limitToTheMap(j, sprite);
 
-      sprite.setRestrictions(getObstacles(i, j));
+      sprite.setRestrictions(getObstacles(map, i, j));
       /** определяет какую ячейку переисовать после спрайта */
       sprite.setPatchRedraw(map[i][j]);
       sprite.move();
