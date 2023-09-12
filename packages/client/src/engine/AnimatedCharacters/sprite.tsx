@@ -172,7 +172,6 @@ export class Sprite extends Character {
 
     if (Object.entries(distance).length === 0) {
       //Нет доступных направлений
-      alert('Error, entries is empty');
       throw new Error('Error, entries is empty');
     }
 
