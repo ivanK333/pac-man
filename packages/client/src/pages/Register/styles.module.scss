@@ -3,9 +3,8 @@
 
 .registerPage {
   display: flex;
+  flex: 1 0;
   background-color: variables.$color-palette-yellow;
-  width: 100%;
-  height: 100%;
 }
 
 .submitError {

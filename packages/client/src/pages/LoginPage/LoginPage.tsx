@@ -37,34 +37,32 @@ const LoginForm = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.contentContainer}>
-        <FormGroup onSubmit={submit}>
-          <FormHeading text="Login" />
-          {error && <p className={styles.submitError}>{error}</p>}
-          <Input
-            label="Login"
-            type="text"
-            name="login"
-            placeholder="Enter your login"
-            autoFocus={true}
-            validation={validation.login}
-          />
-          <Input
-            label="Password"
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-            validation={validation.password}
-          />
-          <FormButtonGroup
-            title="Login"
-            spriteImg={spriteSvg}
-            bottomText="Don&rsquo;t have an account yet?"
-            linkName="Register"
-            link="/auth/register"
-          />
-        </FormGroup>
-      </div>
+      <FormGroup onSubmit={submit}>
+        <FormHeading text="Login" />
+        {error && <p className={styles.submitError}>{error}</p>}
+        <Input
+          label="Login"
+          type="text"
+          name="login"
+          placeholder="Enter your login"
+          autoFocus={true}
+          validation={validation.login}
+        />
+        <Input
+          label="Password"
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          validation={validation.password}
+        />
+        <FormButtonGroup
+          title="Login"
+          spriteImg={spriteSvg}
+          bottomText="Don&rsquo;t have an account yet?"
+          linkName="Register"
+          link="/auth/register"
+        />
+      </FormGroup>
     </div>
   );
 };
