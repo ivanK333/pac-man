@@ -130,7 +130,7 @@ const limitToTheMap = (j: number, char: Pacman | Sprite) => {
 };
 
 const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
-  const { updateScore } = props;
+  const { updateScore, updateLives } = props;
   const [time, setTime] = useState<number | null>(null);
   const [context, setContext] = useState<
     CanvasRenderingContext2D | null | undefined
@@ -181,6 +181,10 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           break;
         case 'ArrowDown':
           pacman.setNextDirection(Direction.Down);
+          break;
+
+        case 'Space':
+          pacman.die(updateLives);
           break;
 
         case 'KeyS':

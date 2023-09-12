@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import LoaderGame from '../LoaderGame/LoaderGame';
-// import GameOver from '../GameOver/GameOver';
+import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
+const delay = 0;
 
 const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
@@ -19,6 +20,8 @@ const Game = () => {
   // }, []);
 
   const startGame = useCallback(() => {
+    setLives(3);
+    setScore(0);
     setStart(true);
   }, []);
 
@@ -26,7 +29,7 @@ const Game = () => {
   const fakeLoader = useCallback(() => {
     setTimeout(() => {
       setLoader(false);
-    }, 3000);
+    }, delay);
   }, []);
 
   // заглушка для отображения loader
@@ -48,7 +51,9 @@ const Game = () => {
 
       {loader && start ? <LoaderGame /> : null}
 
-      {!loader && start && (
+      {lives === 0 ? <GameOver restartGame={startGame} /> : null}
+
+      {!loader && start && lives !== 0 && (
         <div className={styles.container}>
           <div className={styles.info}>
             <div className={styles.score}>
@@ -69,7 +74,7 @@ const Game = () => {
             <GameCanvas updateScore={updateScore} updateLives={updateLives} />
           </div>
           <div>
-            <p>Use arrows to control packman</p>
+            <p>Use arrows to control packman, Space will kill pacman</p>
             <p>As a test can control Blinky with a w s z keys</p>
           </div>
         </div>

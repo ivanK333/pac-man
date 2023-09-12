@@ -16,6 +16,8 @@ export class Character {
   currentSpeed: number;
   x: number;
   y: number;
+  startX: number;
+  startY: number;
   startDirection: Direction = Direction.Stop;
   direction: Direction;
   nextDirection: Direction;
@@ -24,12 +26,15 @@ export class Character {
 
   constructor(props: CharacterProps) {
     this.ctx = null;
-    this.speed = props.speed;
     this.size = props.size;
+
     this.speed = props.speed;
     this.currentSpeed = props.speed;
+    this.startX = props.startPosition[1] * props.size;
+    this.startY = props.startPosition[0] * props.size;
     this.x = props.startPosition[1] * props.size;
     this.y = props.startPosition[0] * props.size;
+    this.startDirection = props.startDirection;
     this.direction = props.startDirection;
     this.nextDirection = props.startDirection;
     this.restricted = {
