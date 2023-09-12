@@ -15,7 +15,7 @@ describe('Тест поедания еды', () => {
 
   test('съедает еду', () => {
     const map = [...layer];
-    updateMap(10, 0, MapElements.NONE);
+    updateMap(map, 10, 1, MapElements.NONE);
     const score =
       foodAmount -
       countOccurrences(map, MapElements.FOOD) +
@@ -25,7 +25,7 @@ describe('Тест поедания еды', () => {
 
   test('съедает вишенку', () => {
     const map = [...layer];
-    updateMap(2, 1, MapElements.NONE);
+    updateMap(map, 2, 1, MapElements.NONE);
     const score =
       foodAmount -
       countOccurrences(map, MapElements.FOOD) +
@@ -46,11 +46,11 @@ describe('Тест поедания ряда еды', () => {
   test('съедает ряд еды и проходит обратно', () => {
     const map = [...layer];
     for (let i = 0; i < 8; i++) {
-      updateMap(10, i, MapElements.NONE);
+      updateMap(map, 10, i, MapElements.NONE);
     }
 
     for (let i = 7; i >= 0; i--) {
-      updateMap(10, i, MapElements.NONE);
+      updateMap(map, 10, i, MapElements.NONE);
     }
 
     const score =
@@ -211,7 +211,7 @@ describe('Тест создания класса Pacman', () => {
     for (let i = 0; i < 10 * 15 + 1; i++) {
       const [i, j] = pacman.currentBlock;
       /** находит все стены вокруг ячейки */
-      pacman.setRestrictions(getObstacles(i, j));
+      pacman.setRestrictions(getObstacles(layer, i, j));
       pacman.move();
     }
 
@@ -235,7 +235,7 @@ describe('Тест создания класса Pacman', () => {
     for (let i = 0; i < 10 * 15 + 1; i++) {
       const [i, j] = pacman.currentBlock;
       /** находит все стены вокруг ячейки */
-      pacman.setRestrictions(getObstacles(i, j));
+      pacman.setRestrictions(getObstacles(layer, i, j));
       pacman.move();
     }
 
@@ -246,7 +246,7 @@ describe('Тест создания класса Pacman', () => {
     for (let i = 0; i < 10 * 15 + 1; i++) {
       const [i, j] = pacman.currentBlock;
       /** находит все стены вокруг ячейки */
-      pacman.setRestrictions(getObstacles(i, j));
+      pacman.setRestrictions(getObstacles(layer, i, j));
       pacman.move();
     }
 
