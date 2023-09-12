@@ -1,0 +1,43 @@
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
+
+.container {
+  padding: 55px 135px;
+  width: 100%;
+  height: 100%;
+  background-color: variables.$color-palette-black;
+}
+
+.title {
+  margin-bottom: 25px;
+  font-size: 28px;
+  font-weight: 700;
+  color: variables.$color-palette-yellow;
+  font-weight: 400;
+}
+
+.subtitle {
+  display: flex;
+  margin-left: 45px;
+  @include mixins.typography-l;
+  font-weight: 400;
+
+  span {
+    @include mixins.typography-xl;
+    font-weight: 600;
+    color: variables.$color-palette-yellow;
+  }
+}
+
+.edition {
+  margin-top: 15px;
+  margin-left: 275px;
+  @include mixins.typography-l;
+  font-weight: 400;
+}
+
+.logo {
+  align-self: center;
+  min-width: 200px;
+  min-height: 14px;
+}

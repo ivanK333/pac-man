@@ -14,6 +14,7 @@ export const ROUTES = {
       topic: 'topic/:id',
     },
     lead: 'lead',
+    lending: '',
   },
   error: {
     notFound: '404',
