@@ -3,7 +3,10 @@ import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
+import fullScreenOn from '../../assets/images/fullscreen_on.svg';
+import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import AuthController from '../../controllers/AuthController';
+import useFullScreen from '../../hooks/useFullSrceen';
 
 const Header = () => {
   const match = useMatch({
@@ -17,6 +20,8 @@ const Header = () => {
   const handleLogout = () => {
     AuthController.signout();
   };
+
+  const { fullScreen, open } = useFullScreen();
 
   return (
     <header className={styles.header}>
@@ -60,6 +65,13 @@ const Header = () => {
           </Link>
         </li>
       </ul>
+      <img
+        onClick={open}
+        id="toggle_fullscreen"
+        className={styles.fullscreen}
+        src={fullScreen ? fullScreenOn : fullScreenOff}
+        alt="fullscreen"
+      />
     </header>
   );
 };
