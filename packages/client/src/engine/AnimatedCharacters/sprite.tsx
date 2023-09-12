@@ -46,6 +46,7 @@ export class Sprite extends Character {
     this.name = name;
     this.direction = props.startDirection;
     this.crop = spriteAvatars[this.name];
+    this.targetBlock = props.targetBlock;
   }
 
   setPatchRedraw(patchRedraw: MapElements) {
@@ -129,7 +130,7 @@ export class Sprite extends Character {
     const distance: Record<string, number> = {};
 
     options.forEach((option) => {
-      switch (option) {
+      switch (option as Direction) {
         case Direction.Up:
           // запрет ходить в блок из которого пришел
           if (this.previousBlock !== 'up' && this.targetBlock) {
@@ -168,6 +169,12 @@ export class Sprite extends Character {
           break;
       }
     });
+
+    if (Object.entries(distance).length === 0) {
+      //Нет доступных направлений
+      alert('Error, entries is empty');
+      throw new Error('Error, entries is empty');
+    }
 
     // находим кратчайший путь до целевой клетки
     const shortestWay = Object.entries(distance).reduce((acc, curr) =>

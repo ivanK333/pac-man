@@ -19,7 +19,8 @@ describe('Тест логики изменения карты', () => {
 
 describe('Тест функции getObstacles', () => {
   test('Проверка в начальной позиции', () => {
-    const result = getObstacles(layer, 10, 1);
+    const map = [...layer];
+    const result = getObstacles(map, 10, 1);
     expect(result.left).toEqual(true);
     expect(result.right).toEqual(true);
     expect(result.up).toEqual(false);
@@ -28,7 +29,8 @@ describe('Тест функции getObstacles', () => {
   });
 
   test('Проверка в [10, 7]', () => {
-    const result = getObstacles(layer, 10, 7);
+    const map = [...layer];
+    const result = getObstacles(map, 10, 7);
     expect(result.left).toEqual(true);
     expect(result.right).toEqual(false);
     expect(result.up).toEqual(true);
@@ -37,7 +39,8 @@ describe('Тест функции getObstacles', () => {
   });
 
   test('Проверка в [15, 7]', () => {
-    const result = getObstacles(layer, 15, 7);
+    const map = [...layer];
+    const result = getObstacles(map, 15, 7);
     expect(result.left).toEqual(true);
     expect(result.right).toEqual(true);
     expect(result.up).toEqual(true);
@@ -46,7 +49,8 @@ describe('Тест функции getObstacles', () => {
   });
 
   test('Проверка в [10, 10]', () => {
-    const result = getObstacles(layer, 10, 10);
+    const map = [...layer];
+    const result = getObstacles(map, 10, 10);
     expect(result.left).toEqual(false);
     expect(result.right).toEqual(false);
     expect(result.up).toEqual(false);
