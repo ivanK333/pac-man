@@ -1,4 +1,4 @@
-# Браузерная игра "Pac-man"
+# [Браузерная игра "Pac-man"](https://sprint-6--silver-beignet-543180.netlify.app/game)
 Реализована в рамках курса ["Мидл фронтенд-разработчик"](https://practicum.yandex.ru/middle-frontend/) от Яндекс-практикум.
 
 [Макет игры](https://www.figma.com/file/nkYREB7Z1jGgTfgTREfjVg/pacman?type=design&node-id=0-1&mode=design&t=mbv4aOLVpyIENO5y-0)
