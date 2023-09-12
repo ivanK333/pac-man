@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 
 import AuthController from '../../controllers/AuthController';
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
@@ -10,6 +11,7 @@ import spriteSvg from '../../assets/images/blueSprite.svg';
 import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
+import { addUser } from '../../store/slices/user/user';
 
 export const redirect = (url: string) => {
   window.location.href = url;
@@ -22,6 +24,7 @@ type FormValues = {
 
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     setError(null);
@@ -32,6 +35,10 @@ const LoginForm = () => {
       return;
     }
 
+    const user = response.user;
+    if (user) {
+      dispatch(addUser(user));
+    }
     redirect('/');
   };
 
