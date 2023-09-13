@@ -4,13 +4,11 @@
 .header {
   @include typography-xl;
 
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: $color-palette-black;
   padding: 20px 40px 4px;
-  width: 100%;
 }
 
 .list {
@@ -39,7 +37,7 @@
 }
 
 .fullscreen {
+  cursor: pointer;
   width: 45px;
   height: 45px;
-  cursor: pointer;
 }

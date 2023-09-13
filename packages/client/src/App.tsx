@@ -11,6 +11,7 @@ import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
 import useAuth from './hooks/useAuth';
+import Lending from './pages/Lending/Lending';
 
 const App = () => {
   const { isAuthenticated, login } = useAuth();
@@ -59,6 +60,7 @@ const App = () => {
         }
       />
 
+      <Route path={ROUTES.main.lending} element={<Lending />} />
       <Route path={ROUTES.error.internalError} element={<EternalErrorPage />} />
       <Route path={ROUTES.error.notFound} element={<NotFoundPage />} />
     </Routes>
