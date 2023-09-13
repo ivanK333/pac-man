@@ -67,7 +67,7 @@ const Lending = () => {
         <section className={styles.aboutUs}>
           <p className={styles.usDescription}>
             В рамках проекта мы воссоздали оригинальную игру, добавили рейтинг
-            игроков и формум для общения. Присоединяйтесь!
+            игроков и форум для общения. Присоединяйтесь!
           </p>
           <Link to={ROUTES.main.game} className={styles.btn}>
             <FormButtonGroup
