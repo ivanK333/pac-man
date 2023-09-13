@@ -1,5 +1,3 @@
-Content-Type: application/javascript;
-
 const CACHE_NAME = 'my-site-cache-v1';
 const timeout = 400;
 
