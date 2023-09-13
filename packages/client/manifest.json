@@ -3,7 +3,7 @@
   "name": "Pacman",
   "lang": "ru",
   "description": "Game pacman",
-  "start_url": "https://sprint-6--silver-beignet-543180.netlify.app/",
+  "start_url": "https://sprint-6--silver-beignet-543180.netlify.app",
   "background_color": "#000",
   "theme_color": "#000",
   "dir": "ltr",
