@@ -3,6 +3,8 @@
 
 [Макет игры](https://www.figma.com/file/nkYREB7Z1jGgTfgTREfjVg/pacman?type=design&node-id=0-1&mode=design&t=mbv4aOLVpyIENO5y-0)
 
+[Видео-демонстрация](https://www.loom.com/share/edcd20f603f448d69f80c758a56375c5?sid=8bae34a8-ee0f-4782-9990-ed8fd49705cf) работы за 5-6 спринт
+
 ![image](https://github.com/ivanK333/pac-man/assets/108727043/9162237a-0dc5-4f85-aaff-fdabfaf63049)
 
 ## О проекте 
