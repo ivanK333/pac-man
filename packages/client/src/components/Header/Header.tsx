@@ -33,6 +33,16 @@ const Header = () => {
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
+            to={ROUTES.main.lending}
+            className={({ isActive }) =>
+              isActive ? styles.linkActive : styles.link
+            }
+          >
+            About
+          </NavLink>
+        </li>
+        <li className={styles.listItem}>
+          <NavLink
             to={ROUTES.main.root}
             className={({ isActive }) =>
               isActive ? styles.linkActive : styles.link

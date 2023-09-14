@@ -8,6 +8,7 @@ import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
 import { useReadLocalStorage } from './hooks/useLocalStorage';
+import Lending from './pages/Lending/Lending';
 
 const App = () => {
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
@@ -49,6 +50,7 @@ const App = () => {
         }
       />
 
+      <Route path={ROUTES.main.lending} element={<Lending />} />
       <Route path={ROUTES.error.internalError} element={<EternalErrorPage />} />
       <Route path={ROUTES.error.notFound} element={<NotFoundPage />} />
     </Routes>

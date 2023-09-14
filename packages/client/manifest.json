@@ -3,7 +3,7 @@
   "name": "Pacman",
   "lang": "ru",
   "description": "Game pacman",
-  "start_url": "http://localhost:3000/",
+  "start_url": "/",
   "background_color": "#000",
   "theme_color": "#000",
   "dir": "ltr",

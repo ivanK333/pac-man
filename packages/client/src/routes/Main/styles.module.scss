@@ -3,7 +3,6 @@
 
 .main {
   display: flex;
-  position: relative;
-  background: $color-palette-black;
+  flex: 1 0;
   height: 100%;
 }
