@@ -9,10 +9,7 @@ export const Auth = () => {
     <Routes>
       <Route path={ROUTES.auth.register} element={<Register />} />
       <Route path={ROUTES.auth.login} element={<Login />} />
-      <Route
-        path="/*"
-        element={<Navigate replace to={ROUTES.error.notFound} />}
-      />
+      <Route path="/*" element={<Navigate replace to={ROUTES.auth.login} />} />
     </Routes>
   );
 };

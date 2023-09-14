@@ -4,16 +4,18 @@ import styles from './styles.module.scss';
 import Avatar from '../../components/Avatar/Avatar';
 import ProfileForm from './components/ProfileForms/ProfileForm';
 import ChangePasswordForm from './components/ProfileForms/ChangePasswordForm';
-import { ProfileAPI, TUserResponse } from '../../api/ProfileAPI';
+import { User } from '../../api';
+import { authController } from '../../controllers/AuthController';
 import Modal from '../../components/Modal/Modal';
 import AvatarForm from './components/ProfileForms/AvatarForm';
 
 const initialState = {
   avatar: '',
   display_name: '',
+  password: '',
   email: '',
   first_name: '',
-  id: '',
+  id: 0,
   login: '',
   phone: '',
   second_name: '',
@@ -22,9 +24,9 @@ const initialState = {
 const Profile = () => {
   const [isPasswordEdit, setIsPasswordEdit] = useState<boolean>(true);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [user, setUser] = useState<TUserResponse>(initialState);
+  const [user, setUser] = useState<User>(initialState);
 
-  const { getUser } = ProfileAPI();
+  const { getUser } = authController();
   const handleShowProfile = () => {
     setIsPasswordEdit(true);
   };
@@ -42,14 +44,19 @@ const Profile = () => {
 
   const { first_name, display_name, second_name, email, phone, login } = user;
 
-  const refreshUserData = (data: TUserResponse) => {
+  const refreshUserData = (data: User) => {
     setUser(data);
   };
 
+  const getUserInfo = async () => {
+    const response = await getUser();
+    if (response?.data) {
+      setUser(response.data);
+    }
+  };
+
   useLayoutEffect(() => {
-    getUser()
-      .then((data) => setUser(data))
-      .catch((e) => console.error(e));
+    getUserInfo();
   }, []);
 
   return (

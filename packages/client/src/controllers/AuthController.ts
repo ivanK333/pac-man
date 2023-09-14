@@ -1,81 +1,65 @@
+import { AxiosResponse } from 'axios';
+
+import { authAPI, SignInData, SignUpData } from '../api';
 import {
-  AuthAPI,
-  SigninData,
-  AuthResponse,
-  userError,
-  SignupData,
-} from '../api/AuthAPI';
+  readLocalStorage,
+  removeItemLocalStorage,
+} from '../utils/useReadLocalStorage';
 
-class AuthController {
-  private readonly api: AuthAPI;
+export const authController = () => {
+  const api = authAPI();
 
-  constructor() {
-    this.api = new AuthAPI();
-  }
-
-  async signin(data: SigninData): Promise<AuthResponse> {
+  const signIn = async (data: SignInData) => {
     try {
-      const response = await this.api.signin(data);
-      // check if errors, they come as {reason: error}
-      if (response.reason) {
-        return userError(response.reason);
-      }
-      localStorage.setItem('isAuthenticated', 'true');
-      return await this.fetchUser();
-    } catch (error: unknown) {
-      return userError(error);
-    }
-  }
-
-  async signup(data: SignupData): Promise<AuthResponse> {
-    try {
-      const response = await this.api.signup(data);
-      // check if errors, they come as {reason: error}
-      if (response.reason) {
-        return userError(response.reason);
-      }
-      localStorage.setItem('isAuthenticated', 'true');
-
-      alert('Регистрация прошла');
-
+      const response = await api.signIn(data);
+      readLocalStorage('isAuthenticated', 'true');
       return response;
-    } catch (error: unknown) {
-      alert((error as Record<string, string>).reason);
-      return userError(error);
-    }
-  }
-
-  async fetchUser(): Promise<AuthResponse> {
-    try {
-      const user = await this.api.read();
-      // check if errors, they come as {reason: error}
-      if (user.reason) {
-        return userError(user.reason);
+    } catch (error: any) {
+      // если юзер залогинен выполнеем перелогин, иначе сыпятся ошибки
+      if (error.response?.data?.reason === 'User already in system') {
+        await logout();
+        const res = await api.signIn(data);
+        readLocalStorage('isAuthenticated', 'true');
+        return res;
       }
-      return {
-        success: true,
-        user,
-      };
-    } catch (error: unknown) {
-      return userError(error);
+      return error.response?.data?.reason;
     }
-  }
+  };
 
-  async signout() {
+  const getUser = async () => {
     try {
-      const response = await this.api.signout();
-      // check if errors, they come as {error: error}
-      if (response.success) {
-        localStorage.setItem('isAuthenticated', 'false');
-      }
-      window.location.href = '/auth/login';
+      return await api.getUser();
+    } catch (error: any) {
+      return error.response?.data?.reason;
+    }
+  };
+
+  const logout = async (): Promise<AxiosResponse | string> => {
+    try {
+      const response = await api.logout();
+      removeItemLocalStorage('isAuthenticated');
       return response;
-    } catch (error: unknown) {
-      return userError(error);
+    } catch (error: any) {
+      return error.response?.data?.reason;
     }
-  }
-}
+  };
 
-const controller = new AuthController();
+  const signUp = async (data: SignUpData) => {
+    try {
+      return await api.signUp(data);
+    } catch (error: any) {
+      // если юзер существует выполнеем логин
+      if (error.response?.data?.reason === 'Login already exists') {
+        return await signIn({ login: data.login, password: data.password });
+      }
+      // если юзер залогинен выполнеем перелогин, иначе сыпятся ошибки
+      if (error.response?.data?.reason === 'User already in system') {
+        await logout();
+        return await signIn({ login: data.login, password: data.password });
+      }
+      return error.response?.data?.reason;
+    }
+  };
 
-export default controller;
+  return { signIn, signUp, getUser, logout };
+};

@@ -1,11 +1,11 @@
-import { SyntheticEvent, useEffect, useState } from 'react';
+import { SyntheticEvent, useEffect, useState, FC } from 'react';
 
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import Input from '../../../../components/FormComponent/InputWithLabel/InputWithLabel';
 import { validation } from '../../../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import { ProfileAPI, TProfileForm } from '../../../../api/ProfileAPI';
+import { userAPI, TProfileForm } from '../../../../api';
 import { ROUTES } from '../../../../constants/routes';
 import { Colors } from '../../../../constants/colors';
 import CustomLink from '../../../../components/CustomLink/CustomLink';
@@ -15,19 +15,20 @@ type TProfileFormProps = {
   user: TProfileForm;
 };
 
-const ProfileForm: React.FC<TProfileFormProps> = ({ handleSwitch, user }) => {
+const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const formMethods = useForm<TProfileForm>({
     defaultValues: user,
   });
 
-  const { changeProfile } = ProfileAPI();
+  const { changeProfile } = userAPI();
 
   const handleSubmit: SubmitHandler<TProfileForm> = (data: TProfileForm) => {
     if (!formMethods.formState.isValid) {
       return;
     }
+
     changeProfile(data)
       .then(
         ({ first_name, second_name, display_name, login, email, phone }) => {

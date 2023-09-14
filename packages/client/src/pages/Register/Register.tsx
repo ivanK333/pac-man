@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
@@ -9,8 +10,7 @@ import Input from '../../components/FormComponent/InputWithLabel/InputWithLabel'
 import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
-import { redirect } from '../LoginPage/LoginPage';
-import AuthController from '../../controllers/AuthController';
+import { authController } from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';
 
 type FormValues = {
@@ -25,6 +25,9 @@ type FormValues = {
 
 const Register = () => {
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const { signUp } = authController();
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     if (submitData.confirm_password !== submitData.password) {
@@ -33,14 +36,14 @@ const Register = () => {
     }
 
     delete submitData.confirm_password;
-    const response = await AuthController.signup(submitData);
+    const response = await signUp(submitData);
 
-    if (!response.success) {
-      setError(`${response.error}`);
+    if (!response?.data) {
+      setError(`${response}`);
       return;
     }
 
-    redirect(ROUTES.main.root);
+    navigate(ROUTES.main.root);
   };
 
   return (
@@ -49,6 +52,7 @@ const Register = () => {
         <FormHeading text="Register" />
         {error && <p className={styles.submitError}>{error}</p>}
         <Input
+          value="user@erfvrrrrrrrf.com"
           label="Email"
           type="email"
           name="email"
@@ -56,6 +60,7 @@ const Register = () => {
           validation={validation.email}
         />
         <Input
+          value="IvanKew"
           label="Login"
           type="login"
           name="login"
@@ -63,6 +68,7 @@ const Register = () => {
           validation={validation.login}
         />
         <Input
+          value="IvanKew"
           label="Name"
           type="text"
           name="first_name"
@@ -70,6 +76,7 @@ const Register = () => {
           validation={validation.first_name}
         />
         <Input
+          value="IvanKew"
           label="Surname"
           type="text"
           name="second_name"
@@ -77,6 +84,7 @@ const Register = () => {
           validation={validation.second_name}
         />
         <Input
+          value="+79098087766"
           label="Phone"
           type="phone"
           name="phone"
@@ -84,6 +92,7 @@ const Register = () => {
           validation={validation.phone}
         />
         <Input
+          value="1234567A"
           label="Password"
           type="password"
           name="password"
@@ -91,6 +100,7 @@ const Register = () => {
           validation={validation.password}
         />
         <Input
+          value="1234567A"
           label="Password"
           type="password"
           name="confirm_password"

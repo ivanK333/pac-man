@@ -1,11 +1,11 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, FC } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Input from '../../../../components/FormComponent/InputWithLabel/InputWithLabel';
 import { validation } from '../../../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import { emptyResponse, ProfileAPI } from '../../../../api/ProfileAPI';
+import { userAPI } from '../../../../api';
 
 type TChangePasswordFormProps = {
   handleSwitch: () => void;
@@ -16,11 +16,9 @@ type TChangePasswordForm = {
   password: string;
 };
 
-const ChangePasswordForm: React.FC<TChangePasswordFormProps> = ({
-  handleSwitch,
-}) => {
+const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
   const formMethods = useForm<TChangePasswordForm>();
-  const { changePassword } = ProfileAPI();
+  const { changePassword } = userAPI();
 
   const handleChangePassword = (data: TChangePasswordForm) => {
     if (!formMethods.formState.isValid) {
@@ -29,7 +27,7 @@ const ChangePasswordForm: React.FC<TChangePasswordFormProps> = ({
     const { oldPassword, password } = data;
     changePassword({ oldPassword, newPassword: password })
       .then((data) => {
-        data === emptyResponse.ok && formMethods.reset();
+        data === 'ok' && formMethods.reset();
       })
       .catch((e) => console.error(e));
   };

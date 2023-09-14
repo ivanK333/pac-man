@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
-import AuthController from '../../controllers/AuthController';
+import { authController } from '../../controllers/AuthController';
 import useFullScreen from '../../hooks/useFullSrceen';
 
 const Header = () => {
@@ -17,8 +17,10 @@ const Header = () => {
     [styles.linkActive]: match,
   });
 
+  const { logout } = authController();
+
   const handleLogout = () => {
-    AuthController.signout();
+    logout();
   };
 
   const { fullScreen, open } = useFullScreen();
