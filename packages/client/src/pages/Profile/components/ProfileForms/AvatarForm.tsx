@@ -52,7 +52,7 @@ const AvatarForm: FC<TAvatarFormProps> = ({
       //       handleClose();
       //     })
       //     .catch((e) => console.error(e));
-      const avatar = await changeAvatar(data);
+      const avatar = form.checkValidity() && (await changeAvatar(data));
       console.log(avatar);
     }
   };
