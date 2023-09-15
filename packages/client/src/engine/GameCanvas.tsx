@@ -186,6 +186,8 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
   /** keyboard handler */
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
+      if (pacman.dead) return;
+
       switch (e.code) {
         case 'ArrowRight':
           pacman.setNextDirection(Direction.Right);
@@ -211,22 +213,6 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           }
 
           break;
-
-        case 'KeyS':
-          sprites.blinky.setNextDirection(Direction.Right);
-          break;
-        case 'KeyA':
-          sprites.blinky.setNextDirection(Direction.Left);
-          break;
-        case 'KeyW':
-          sprites.blinky.setNextDirection(Direction.Up);
-          break;
-        case 'KeyZ':
-          sprites.blinky.setNextDirection(Direction.Down);
-          break;
-
-        default:
-          break;
       }
     };
     window.addEventListener('keydown', keyboardHandler);
@@ -242,11 +228,27 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     redraw();
   }, [time]);
 
+  const catchUp = () => {
+    const gostsPositions: Record<string, number[]> = {};
+
+    gostsPositions.blinky = sprites.blinky.currentBlock;
+    gostsPositions.inky = sprites.inky.currentBlock;
+    gostsPositions.pinky = sprites.pinky.currentBlock;
+    gostsPositions.clyde = sprites.clyde.currentBlock;
+
+    if (pacman.intersection(gostsPositions)) {
+      pacman.die(updateLives);
+    }
+    return;
+  };
+
   const redraw = () => {
-    pacman.render(time);
+    catchUp();
+
     Object.values(sprites).forEach((sprite) => {
       sprite.render(time);
     });
+    pacman.render(time);
   };
 
   const animatePacman = () => {

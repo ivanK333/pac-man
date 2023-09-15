@@ -2,6 +2,7 @@ import spritePng from '../../assets/images/sprites.png';
 import { Direction } from '../GameCanvas';
 import { backGroundColor } from '../config';
 import { Character, CharacterProps } from './character';
+import { isEqual } from '../Primitives/isEqual';
 
 const packmanDead: number[] = [456, 0, 256, 16];
 
@@ -110,7 +111,17 @@ export class Pacman extends Character {
     this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
 
+  intersection(positions: Record<string, number[]>) {
+    for (const key in positions) {
+      if (isEqual(this.currentBlock, positions[key])) {
+        return true;
+      }
+    }
+  }
+
   die(callback: (n: number) => void) {
+    if (this.dead) return;
+
     this.stop();
     this.dead = true;
 
