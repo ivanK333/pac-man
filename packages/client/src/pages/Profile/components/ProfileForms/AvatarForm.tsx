@@ -40,18 +40,20 @@ const AvatarForm: FC<TAvatarFormProps> = ({
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (values: any) => {
     const form = formRef.current;
-
+    console.log(form);
     if (form) {
       const data = new FormData(form);
-      form.checkValidity() &&
-        changeAvatar(data)
-          .then((data) => {
-            refreshUserData(data);
-            handleClose();
-          })
-          .catch((e) => console.error(e));
+      // form.checkValidity() &&
+      //   changeAvatar(data)
+      //     .then((data) => {
+      //       refreshUserData(data);
+      //       handleClose();
+      //     })
+      //     .catch((e) => console.error(e));
+      const avatar = await changeAvatar(data);
+      console.log(avatar);
     }
   };
 
@@ -75,7 +77,7 @@ const AvatarForm: FC<TAvatarFormProps> = ({
         ref={formRef}
         noValidate={true}
         className={styles.avatarForm}
-        onSubmit={formMethods.handleSubmit(() => handleSubmit())}
+        onSubmit={formMethods.handleSubmit((data) => handleSubmit(data))}
       >
         <FormHeading text="Load avatar" />
         <div className={styles.previewContainer}>

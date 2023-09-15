@@ -1,4 +1,3 @@
-import { HEADERS } from '../../constants/api';
 import {
   URL_USER_PROFILE,
   URL_USER_PASSWORD,
@@ -6,55 +5,19 @@ import {
   TProfileForm,
   TChangePasswordData,
 } from '.';
+import { baseFetch } from '../../libs/api';
 
 export const userAPI = () => {
-  const changeProfile = async (data: TProfileForm): Promise<TProfileForm> => {
-    const response = await fetch(URL_USER_PROFILE, {
-      method: 'PUT',
-      headers: HEADERS,
-      credentials: 'include',
-      body: JSON.stringify(data),
+  const changeProfile = async (data: TProfileForm) =>
+    await baseFetch.put(URL_USER_PROFILE, data, { withCredentials: true });
+
+  const changePassword = async (data: TChangePasswordData) =>
+    await baseFetch.put(URL_USER_PASSWORD, data, { withCredentials: true });
+
+  const changeAvatar = async (data: FormData) =>
+    await baseFetch.put(URL_USER_PROFILE_AVATAR, data, {
+      withCredentials: true,
     });
-
-    if (response.status === 200)
-      return {
-        success: true,
-        error: null,
-      };
-
-    return response.json();
-  };
-  const changePassword = async (data: TChangePasswordData) => {
-    const response = await fetch(URL_USER_PASSWORD, {
-      method: 'PUT',
-      headers: HEADERS,
-      credentials: 'include',
-      body: JSON.stringify(data),
-    });
-
-    if (response.status === 200)
-      return {
-        success: true,
-        error: null,
-      };
-
-    return response.json();
-  };
-  const changeAvatar = async (data: FormData) => {
-    const response = await fetch(URL_USER_PROFILE_AVATAR, {
-      method: 'PUT',
-      credentials: 'include',
-      body: data,
-    });
-
-    if (response.status === 200)
-      return {
-        success: true,
-        error: null,
-      };
-
-    return response.json();
-  };
 
   return { changeAvatar, changePassword, changeProfile };
 };

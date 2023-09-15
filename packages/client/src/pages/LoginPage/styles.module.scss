@@ -7,6 +7,13 @@
   background-color: variables.$color-palette-yellow;
 }
 
+.contentContainer {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  background-color: variables.$color-palette-yellow;
+}
+
 .submitError {
   @include mixins.typography-s;
 
