@@ -40,82 +40,6 @@ const getNeighbors = (point: Point): Point[] => [
   { x: point.x, y: point.y + 1 },
 ];
 
-export const findShortestPath = (
-  matrix: number[][],
-  start: Point,
-  end: Point,
-): PathItem[] | null => {
-  const numRows = matrix.length;
-  const numCols = matrix[0].length;
-  let searching = true;
-
-  //   console.log('start =>', start, matrix[start.y][start.x]);
-  //   console.log(matrix[end.y][end.x]);
-  const visited: boolean[][] = Array.from({ length: numRows }, () =>
-    Array(numCols).fill(false),
-  );
-
-  const queue: QueueItem[] = [{ point: start, distance: 0 }];
-  const path: PathItem[] = [];
-
-  // while (queue.length > 0) {
-  //   for (let i = 0; i < 12; i++) {
-  while (searching) {
-    const { point, distance } = queue.shift()!;
-    visited[point.y][point.x] = true;
-
-    // Reconstruct the path
-    if (point.x === end.x && point.y === end.y) {
-      //   let current = end;
-      //   while (current.x !== start.x || current.y !== start.y) {
-      //     const prevStep = path[path.length - 1];
-      //     current = prevStep!.point;
-      //     prevStep!.nextStep = current;
-      //   }
-
-      const traceback = findPathToRoot(path, end);
-      console.log('=!!!=====>', JSON.parse(JSON.stringify(traceback)));
-      searching = false;
-
-      if (!traceback) return null;
-      return traceback.reverse();
-    }
-
-    // Find paths
-    const neighbors = getNeighbors(point);
-    // console.log('=======', neighbors);
-    for (const neighbor of neighbors) {
-      //   console.log(
-      //     neighbor,
-      //     isInsideMatrix(neighbor, matrix),
-      //     isPassage(neighbor, matrix),
-      //     !isVisited(visited, neighbor),
-      //   );
-      //   if (isInsideMatrix(neighbor, matrix))
-      //     console.log('====>', matrix[neighbor.y][neighbor.x]);
-
-      if (
-        isInsideMatrix(neighbor, matrix) &&
-        isPassage(neighbor, matrix) &&
-        !isVisited(visited, neighbor)
-      ) {
-        // console.log(
-        //   JSON.parse(
-        //     JSON.stringify({ point: neighbor, distance: distance + 1 }),
-        //   ),
-        // );
-        queue.push({ point: neighbor, distance: distance + 1 });
-        visited[neighbor.y][neighbor.x] = true;
-        path.push({ point: neighbor, parent: point, distance: distance + 1 });
-      }
-    }
-
-    // console.log('queue after: ', JSON.parse(JSON.stringify(queue)));
-  }
-
-  return null; // No path found
-};
-
 const findPathToRoot = (
   tree: PathItem[],
   targetPoint: { x: number; y: number },
@@ -143,4 +67,54 @@ const findPathToRoot = (
   }
 
   return path;
+};
+
+export const findShortestPath = (
+  matrix: number[][],
+  start: Point,
+  end: Point,
+): PathItem[] | null => {
+  const numRows = matrix.length;
+  const numCols = matrix[0].length;
+  let searching = true;
+
+  //   console.log('start =>', start, matrix[start.y][start.x]);
+  //   console.log(matrix[end.y][end.x]);
+  const visited: boolean[][] = Array.from({ length: numRows }, () =>
+    Array(numCols).fill(false),
+  );
+
+  const queue: QueueItem[] = [{ point: start, distance: 0 }];
+  const path: PathItem[] = [];
+
+  while (searching) {
+    const { point, distance } = queue.shift()!;
+    visited[point.y][point.x] = true;
+
+    // Reconstruct the path
+    if (point.x === end.x && point.y === end.y) {
+      const traceback = findPathToRoot(path, end);
+      searching = false;
+
+      if (!traceback) return null;
+      return traceback.reverse();
+    }
+
+    // Find paths
+    const neighbors = getNeighbors(point);
+    // console.log('=======', neighbors);
+    for (const neighbor of neighbors) {
+      if (
+        isInsideMatrix(neighbor, matrix) &&
+        isPassage(neighbor, matrix) &&
+        !isVisited(visited, neighbor)
+      ) {
+        queue.push({ point: neighbor, distance: distance + 1 });
+        visited[neighbor.y][neighbor.x] = true;
+        path.push({ point: neighbor, parent: point, distance: distance + 1 });
+      }
+    }
+  }
+
+  return null; // No path found
 };
