@@ -174,7 +174,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
     drawBackground(context);
     drawWalls(context, layer);
-    drawFood(context, layer);
+    // drawFood(context, layer);
 
     /** start animation */
     loop();
@@ -263,7 +263,8 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
       console.log('No path found.');
     }
     if (Math.floor(time! / 100) % 10 === 0) {
-      drawFood(context, layer);
+      // drawFood(context, layer);
+      drawWalls(context, layer);
     }
 
     /** end testing BreadthFirstSearchAlgo */
