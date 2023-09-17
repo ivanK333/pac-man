@@ -8,6 +8,11 @@ import { drawWalls } from './Map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
 import { Sprite, SpriteNames } from './AnimatedCharacters/sprite';
 import { drawBackground } from './Primitives/drawBackground';
+import {
+  findShortestPath,
+  Point,
+} from './AnimatedCharacters/BreadthFirstSearchAlgo';
+import { drawCircle } from './Primitives/drawCircle';
 
 export enum Direction {
   Right = 'right',
@@ -226,6 +231,42 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
     if (!context) return;
     redraw();
+
+    /** testing BreadthFirstSearchAlgo */
+    // console.log(pacman.x, pacman.y);
+    // console.log(sprites.blinky.x, )
+    console.log(pacman.currentBlock);
+    console.log(sprites.blinky.currentBlock);
+    const start: Point = {
+      x: pacman.currentBlock[1],
+      y: pacman.currentBlock[0],
+    };
+    const end: Point = {
+      x: sprites.blinky.currentBlock[1],
+      y: sprites.blinky.currentBlock[0],
+    };
+    const shortestPath = findShortestPath(map, start, end);
+
+    if (shortestPath) {
+      console.log('Shortest Path:');
+      for (const step of shortestPath) {
+        console.log(step.point);
+        drawCircle({
+          ctx: context,
+          x: step.point.x * blockSize + blockSize / 2,
+          y: step.point.y * blockSize + blockSize / 2,
+          radius: 2,
+          strokeColor: 'red',
+        });
+      }
+    } else {
+      console.log('No path found.');
+    }
+    if (Math.floor(time! / 100) % 10 === 0) {
+      drawFood(context, layer);
+    }
+
+    /** end testing BreadthFirstSearchAlgo */
   }, [time]);
 
   const catchUp = () => {

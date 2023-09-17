@@ -5,7 +5,7 @@ import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
-const delay = 2000;
+const delay = 0;
 
 const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
