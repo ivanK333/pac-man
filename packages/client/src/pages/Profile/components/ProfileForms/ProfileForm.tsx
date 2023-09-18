@@ -24,26 +24,27 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
 
   const { changeProfile } = userAPI();
 
-  const handleSubmit: SubmitHandler<TProfileForm> = (data: TProfileForm) => {
+  const handleSubmit: SubmitHandler<TProfileForm> = async (
+    data: TProfileForm,
+  ) => {
     if (!formMethods.formState.isValid) {
       return;
     }
 
-    changeProfile(data)
-      .then(
-        ({ first_name, second_name, display_name, login, email, phone }) => {
-          formMethods.reset({
-            first_name,
-            second_name,
-            display_name,
-            login,
-            email,
-            phone,
-          });
-        },
-      )
-      .catch((e) => console.error(e));
-    setIsEdit(false);
+    const response = await changeProfile(data);
+
+    if (response?.data) {
+      formMethods.reset({
+        first_name: data.first_name,
+        second_name: data.second_name,
+        display_name: data.display_name,
+        login: data.login,
+        email: data.email,
+        phone: data.phone,
+      });
+
+      setIsEdit(false);
+    }
   };
 
   useEffect(() => {

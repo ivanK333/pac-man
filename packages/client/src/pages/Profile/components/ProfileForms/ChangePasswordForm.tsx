@@ -20,16 +20,19 @@ const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
   const formMethods = useForm<TChangePasswordForm>();
   const { changePassword } = userAPI();
 
-  const handleChangePassword = (data: TChangePasswordForm) => {
+  const handleChangePassword = async (data: TChangePasswordForm) => {
     if (!formMethods.formState.isValid) {
       return;
     }
     const { oldPassword, password } = data;
-    changePassword({ oldPassword, newPassword: password })
-      .then((data) => {
-        data === 'ok' && formMethods.reset();
-      })
-      .catch((e) => console.error(e));
+    const response = await changePassword({
+      oldPassword,
+      newPassword: password,
+    });
+
+    if (response.data) {
+      formMethods.reset();
+    }
   };
 
   return (
@@ -44,7 +47,7 @@ const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
         <div className={styles.inputContainer}>
           <Input
             label="Old password"
-            type="password"
+            // type="password"
             name="oldPassword"
             placeholder="Enter old password"
             validation={validation.password_old}
@@ -52,7 +55,7 @@ const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
           />
           <Input
             label="New password"
-            type="password"
+            // type="password"
             name="password"
             placeholder="Enter new password"
             validation={validation.password_new}
@@ -60,7 +63,7 @@ const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
           />
           <Input
             label="Password confirmation"
-            type="password"
+            // type="password"
             name="password"
             placeholder="Repeat new password"
             validation={validation.password}

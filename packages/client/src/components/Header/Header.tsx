@@ -7,8 +7,10 @@ import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import { authController } from '../../controllers/AuthController';
 import useFullScreen from '../../hooks/useFullSrceen';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
+  const isAuthenticated = useReadLocalStorage('isAuthenticated');
   const match = useMatch({
     path: ROUTES.main.forum.root,
     end: false,
@@ -27,9 +29,11 @@ const Header = () => {
 
   return (
     <header className={styles.header}>
-      <button className={styles.exitButton} onClick={handleLogout}>
-        Log out
-      </button>
+      {isAuthenticated ? (
+        <button className={styles.exitButton} onClick={handleLogout}>
+          Log out
+        </button>
+      ) : null}
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink

@@ -42,19 +42,14 @@ const AvatarForm: FC<TAvatarFormProps> = ({
 
   const handleSubmit = async () => {
     const form = formRef.current;
-    console.log(form);
     if (form) {
       const formData = new FormData(form);
-      await console.log(formData.values());
-      // form.checkValidity() &&
-      //   changeAvatar(data)
-      //     .then((data) => {
-      //       refreshUserData(data);
-      //       handleClose();
-      //     })
-      //     .catch((e) => console.error(e));
-      await changeAvatar(formData);
-      // console.log(avatar);
+      const response = await changeAvatar(formData);
+
+      if (response.data) {
+        refreshUserData(response.data);
+        handleClose();
+      }
     }
   };
 

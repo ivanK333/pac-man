@@ -17,6 +17,8 @@ export const userAPI = () => {
   const changeAvatar = async (data: FormData) =>
     await baseFetch.put(URL_USER_PROFILE_AVATAR, data, {
       withCredentials: true,
+      headers: undefined,
+      transformRequest: [(data) => data],
     });
 
   return { changeAvatar, changePassword, changeProfile };

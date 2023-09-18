@@ -25,8 +25,6 @@ const App = () => {
   //   fetchServerData();
   // }, []);
 
-  console.log(isAuthenticated);
-
   return (
     <Routes>
       <Route
