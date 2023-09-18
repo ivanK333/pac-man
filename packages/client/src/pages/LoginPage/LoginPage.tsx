@@ -1,8 +1,9 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
-import AuthController from '../../controllers/AuthController';
+import { authController } from '../../controllers/AuthController';
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
 import Input from '../../components/FormComponent/InputWithLabel/InputWithLabel';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
@@ -10,10 +11,7 @@ import spriteSvg from '../../assets/images/blueSprite.svg';
 import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
-
-export const redirect = (url: string) => {
-  window.location.href = url;
-};
+import { ROUTES } from '../../constants/routes';
 
 type FormValues = {
   login: string;
@@ -23,46 +21,52 @@ type FormValues = {
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
 
+  const navigate = useNavigate();
+
+  const { signIn } = authController();
+
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     setError(null);
 
-    const response = await AuthController.signin(submitData);
-    if (!response.success) {
-      setError(`${response.error}`);
+    const response = await signIn(submitData);
+    if (!response.data) {
+      setError(response);
       return;
     }
 
-    redirect('/');
+    navigate(ROUTES.main.root);
   };
 
   return (
     <div className={styles.container}>
-      <FormGroup onSubmit={submit}>
-        <FormHeading text="Login" />
-        {error && <p className={styles.submitError}>{error}</p>}
-        <Input
-          label="Login"
-          type="text"
-          name="login"
-          placeholder="Enter your login"
-          autoFocus={true}
-          validation={validation.login}
-        />
-        <Input
-          label="Password"
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          validation={validation.password}
-        />
-        <FormButtonGroup
-          title="Login"
-          spriteImg={spriteSvg}
-          bottomText="Don&rsquo;t have an account yet?"
-          linkName="Register"
-          link="/auth/register"
-        />
-      </FormGroup>
+      <div className={styles.contentContainer}>
+        <FormGroup onSubmit={submit}>
+          <FormHeading text="Login" />
+          {error && <p className={styles.submitError}>{error}</p>}
+          <Input
+            label="Login"
+            type="text"
+            name="login"
+            placeholder="Enter your login"
+            autoFocus={true}
+            validation={validation.login}
+          />
+          <Input
+            label="Password"
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            validation={validation.password}
+          />
+          <FormButtonGroup
+            title="Login"
+            spriteImg={spriteSvg}
+            bottomText="Don&rsquo;t have an account yet?"
+            linkName="Register"
+            link="/auth/register"
+          />
+        </FormGroup>
+      </div>
     </div>
   );
 };

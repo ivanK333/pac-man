@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react';
-
 import { withErrorBoundary } from 'react-error-boundary';
 import { Routes, Route, Navigate } from 'react-router';
 
-import AuthController from '../src/controllers/AuthController';
 import { Auth } from './routes/Auth/Auth';
 import { Main } from './routes/Main/Main';
 import { ROUTES } from './constants/routes';
 import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
-import useAuth from './hooks/useAuth';
+import { useReadLocalStorage } from './hooks/useLocalStorage';
 import Lending from './pages/Lending/Lending';
 
 const App = () => {
-  const { isAuthenticated, login } = useAuth();
+  const isAuthenticated = useReadLocalStorage('isAuthenticated');
 
   // временно выключил неиспользуемый запрос к серверу, у меня на него ошибка в консоли
   // useEffect(() => {
@@ -27,15 +24,6 @@ const App = () => {
 
   //   fetchServerData();
   // }, []);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const response = await AuthController.fetchUser();
-      if (response.success) login();
-    };
-
-    fetchUserData();
-  }, []);
 
   return (
     <Routes>
@@ -70,3 +58,7 @@ const App = () => {
 export default withErrorBoundary(App, {
   FallbackComponent: () => <ErrorBoundaryPage />,
 });
+
+// user@ivan.com
+// ivan
+// 1234567A
