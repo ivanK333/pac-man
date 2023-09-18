@@ -49,6 +49,18 @@ export const validation: Record<string, RegisterOptions> = {
     },
   },
 
+  oldPassword: {
+    required: 'Old password is required',
+    minLength: minVal(8),
+    maxLength: maxVal(40),
+    validate: {
+      latinLetters,
+      atLeastOneUppercaseLetter,
+      atLeastOneDigit,
+      noSpaces,
+    },
+  },
+
   display_name: {
     required: 'Display name is required',
     minLength: minVal(3),

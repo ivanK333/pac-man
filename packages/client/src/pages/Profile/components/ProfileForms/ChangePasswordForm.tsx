@@ -50,7 +50,7 @@ const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
             // type="password"
             name="oldPassword"
             placeholder="Enter old password"
-            validation={validation.password_old}
+            validation={validation.oldPassword}
             required={true}
           />
           <Input
@@ -58,15 +58,15 @@ const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
             // type="password"
             name="password"
             placeholder="Enter new password"
-            validation={validation.password_new}
+            validation={validation.password}
             required={true}
           />
           <Input
             label="Password confirmation"
             // type="password"
-            name="password"
+            name="confirm_password"
             placeholder="Repeat new password"
-            validation={validation.password}
+            validation={validation.confirm_password}
             required={true}
           />
         </div>
