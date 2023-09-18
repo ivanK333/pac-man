@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import defaultAvatar from '../../assets/images/default-avatar.svg';
-import { RESOURCES_URL } from '../../api/config';
+import { RESOURCES_URL } from '../../constants/api';
 
 type TAvatarProps = {
   avatar: string;

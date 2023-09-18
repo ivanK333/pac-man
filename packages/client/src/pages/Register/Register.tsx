@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
@@ -9,8 +10,7 @@ import Input from '../../components/FormComponent/InputWithLabel/InputWithLabel'
 import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
-import { redirect } from '../LoginPage/LoginPage';
-import AuthController from '../../controllers/AuthController';
+import { authController } from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';
 
 type FormValues = {
@@ -25,6 +25,9 @@ type FormValues = {
 
 const Register = () => {
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const { signUp } = authController();
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     if (submitData.confirm_password !== submitData.password) {
@@ -33,14 +36,14 @@ const Register = () => {
     }
 
     delete submitData.confirm_password;
-    const response = await AuthController.signup(submitData);
+    const response = await signUp(submitData);
 
-    if (!response.success) {
-      setError(`${response.error}`);
+    if (!response?.data) {
+      setError(`${response}`);
       return;
     }
 
-    redirect(ROUTES.main.root);
+    navigate(ROUTES.main.root);
   };
 
   return (

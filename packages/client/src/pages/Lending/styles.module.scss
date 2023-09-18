@@ -1,0 +1,194 @@
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
+
+.page {
+  position: relative;
+  padding: 55px 0;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  padding: 0 135px;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  z-index: -1;
+}
+
+.title {
+  margin-bottom: 25px;
+  color: variables.$color-palette-yellow;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.subtitle {
+  @include mixins.typography-l;
+
+  margin-left: 45px;
+  font-weight: 400;
+
+  span {
+    @include mixins.typography-xl;
+
+    color: variables.$color-palette-yellow;
+    font-weight: 600;
+  }
+}
+
+.edition {
+  @include mixins.typography-l;
+
+  margin: 15px 0 35px 275px;
+  font-weight: 400;
+}
+
+.logo {
+  display: block;
+  z-index: 1;
+  margin: 0 auto;
+  min-width: 200px;
+  min-height: 14px;
+}
+
+.description {
+  max-width: 388px;
+}
+
+.aboutGame {
+  position: relative;
+  margin-top: 40px;
+  background: variables.$color-palette-yellow;
+  padding: 0 135px;
+  height: 430px;
+}
+
+.gameTitle {
+  @include mixins.typography-m;
+
+  padding-top: 45px;
+  color: variables.$color-palette-black;
+  font-weight: 400;
+
+  span {
+    @include mixins.typography-l;
+
+    color: variables.$color-palette-blue;
+    font-weight: 700;
+  }
+}
+
+.gameDescription {
+  @include mixins.typography-m;
+
+  margin-top: 20px;
+  width: 723px;
+  color: variables.$color-palette-black;
+}
+
+.gameQuote {
+  @include mixins.typography-m;
+
+  margin: 100px 120px 20px auto;
+  width: 740px;
+  text-align: right;
+  color: variables.$color-palette-black;
+}
+
+.gameAuthor {
+  @include mixins.typography-m;
+
+  margin-right: 120px;
+  text-align: end;
+  color: variables.$color-palette-blue;
+  font-weight: 600;
+}
+
+.authorImg {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 580px;
+}
+
+.aboutUs {
+  margin: 45px 135px;
+}
+
+.usDescription {
+  width: 480px;
+}
+
+.btn {
+  display: block;
+  margin: 40px auto;
+  width: 280px;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 40px auto;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.name {
+  @include mixins.typography-l;
+
+  margin-bottom: 15px;
+  cursor: pointer;
+  text-align: center;
+  font-weight: 500;
+
+  &:hover {
+    color: variables.$color-palette-yellow;
+  }
+}
+
+.sprite {
+  margin: 0 auto;
+}
+
+.photo {
+  transform: rotateY(180deg);
+}
+
+.sprite,
+.photo {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  transition: 1s all ease;
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap {
+  position: relative;
+  cursor: pointer;
+  width: 120px;
+  height: 120px;
+}
+
+.wrap:hover .sprite {
+  transform: rotateY(180deg);
+}
+
+.wrap:hover .photo {
+  transform: rotateY(360deg);
+}

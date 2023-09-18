@@ -1,21 +1,21 @@
-import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState, FC } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
 import styles from './styles.module.scss';
 import defaultImage from '../../../../assets/images/default-avatar.svg';
 import FormHeading from '../../../../components/FormComponent/FormHeading/FormHeading';
-import { ProfileAPI, TUserResponse } from '../../../../api/ProfileAPI';
-import { RESOURCES_URL } from '../../../../api/config';
+import { userAPI, User } from '../../../../api';
+import { RESOURCES_URL } from '../../../../constants/api';
 import FormButton from '../../../../components/FormComponent/FormButtonGroup/FormButton';
 
 type TAvatarFormProps = {
   handleClose: () => void;
   avatar: string;
-  refreshUserData: (data: TUserResponse) => void;
+  refreshUserData: (data: User) => void;
 };
 
-const AvatarForm: React.FC<TAvatarFormProps> = ({
+const AvatarForm: FC<TAvatarFormProps> = ({
   handleClose,
   avatar,
   refreshUserData,
@@ -26,7 +26,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
 
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  const { changeAvatar } = ProfileAPI();
+  const { changeAvatar } = userAPI();
 
   const preview = (e: SyntheticEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -40,18 +40,16 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const form = formRef.current;
-
     if (form) {
-      const data = new FormData(form);
-      form.checkValidity() &&
-        changeAvatar(data)
-          .then((data) => {
-            refreshUserData(data);
-            handleClose();
-          })
-          .catch((e) => console.error(e));
+      const formData = new FormData(form);
+      const response = await changeAvatar(formData);
+
+      if (response.data) {
+        refreshUserData(response.data);
+        handleClose();
+      }
     }
   };
 
@@ -75,7 +73,7 @@ const AvatarForm: React.FC<TAvatarFormProps> = ({
         ref={formRef}
         noValidate={true}
         className={styles.avatarForm}
-        onSubmit={formMethods.handleSubmit(() => handleSubmit())}
+        onSubmit={formMethods.handleSubmit(handleSubmit)}
       >
         <FormHeading text="Load avatar" />
         <div className={styles.previewContainer}>

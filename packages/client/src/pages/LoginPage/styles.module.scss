@@ -2,8 +2,9 @@
 @use '../../assets/styles/mixins';
 
 .container {
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex: 1 0;
+  background-color: variables.$color-palette-yellow;
 }
 
 .contentContainer {
@@ -11,8 +12,6 @@
   flex: 1;
   align-items: center;
   background-color: variables.$color-palette-yellow;
-  width: 100%;
-  height: 100%;
 }
 
 .submitError {

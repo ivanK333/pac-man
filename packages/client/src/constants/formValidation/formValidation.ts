@@ -30,7 +30,7 @@ export const validation: Record<string, RegisterOptions> = {
     minLength: minVal(8),
     maxLength: maxVal(40),
     validate: {
-      latinLetters,
+      // latinLetters,
       atLeastOneUppercaseLetter,
       atLeastOneDigit,
       noSpaces,
@@ -39,6 +39,18 @@ export const validation: Record<string, RegisterOptions> = {
 
   confirm_password: {
     required: 'Confirm password is required',
+    minLength: minVal(8),
+    maxLength: maxVal(40),
+    validate: {
+      latinLetters,
+      atLeastOneUppercaseLetter,
+      atLeastOneDigit,
+      noSpaces,
+    },
+  },
+
+  oldPassword: {
+    required: 'Old password is required',
     minLength: minVal(8),
     maxLength: maxVal(40),
     validate: {

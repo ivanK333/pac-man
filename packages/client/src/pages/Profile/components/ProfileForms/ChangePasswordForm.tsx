@@ -1,11 +1,11 @@
-import { SyntheticEvent } from 'react';
+import { SyntheticEvent, FC } from 'react';
 
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Input from '../../../../components/FormComponent/InputWithLabel/InputWithLabel';
 import { validation } from '../../../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
-import { emptyResponse, ProfileAPI } from '../../../../api/ProfileAPI';
+import { userAPI } from '../../../../api';
 
 type TChangePasswordFormProps = {
   handleSwitch: () => void;
@@ -16,22 +16,23 @@ type TChangePasswordForm = {
   password: string;
 };
 
-const ChangePasswordForm: React.FC<TChangePasswordFormProps> = ({
-  handleSwitch,
-}) => {
+const ChangePasswordForm: FC<TChangePasswordFormProps> = ({ handleSwitch }) => {
   const formMethods = useForm<TChangePasswordForm>();
-  const { changePassword } = ProfileAPI();
+  const { changePassword } = userAPI();
 
-  const handleChangePassword = (data: TChangePasswordForm) => {
+  const handleChangePassword = async (data: TChangePasswordForm) => {
     if (!formMethods.formState.isValid) {
       return;
     }
     const { oldPassword, password } = data;
-    changePassword({ oldPassword, newPassword: password })
-      .then((data) => {
-        data === emptyResponse.ok && formMethods.reset();
-      })
-      .catch((e) => console.error(e));
+    const response = await changePassword({
+      oldPassword,
+      newPassword: password,
+    });
+
+    if (response.data) {
+      formMethods.reset();
+    }
   };
 
   return (
@@ -46,26 +47,26 @@ const ChangePasswordForm: React.FC<TChangePasswordFormProps> = ({
         <div className={styles.inputContainer}>
           <Input
             label="Old password"
-            type="password"
+            // type="password"
             name="oldPassword"
             placeholder="Enter old password"
-            validation={validation.password_old}
+            validation={validation.oldPassword}
             required={true}
           />
           <Input
             label="New password"
-            type="password"
+            // type="password"
             name="password"
             placeholder="Enter new password"
-            validation={validation.password_new}
+            validation={validation.password}
             required={true}
           />
           <Input
             label="Password confirmation"
-            type="password"
-            name="password"
+            // type="password"
+            name="confirm_password"
             placeholder="Repeat new password"
-            validation={validation.password}
+            validation={validation.confirm_password}
             required={true}
           />
         </div>

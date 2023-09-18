@@ -10,7 +10,7 @@ export interface FormButtonProps {
   bottomText: string;
   link?: string;
   onClick?: () => void;
-  linkName: string;
+  linkName?: string;
   disabled?: boolean;
 }
 

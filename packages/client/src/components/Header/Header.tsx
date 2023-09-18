@@ -3,8 +3,14 @@ import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
+import fullScreenOn from '../../assets/images/fullscreen_on.svg';
+import fullScreenOff from '../../assets/images/fullscreen-off.svg';
+import { authController } from '../../controllers/AuthController';
+import useFullScreen from '../../hooks/useFullSrceen';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
+  const isAuthenticated = useReadLocalStorage('isAuthenticated');
   const match = useMatch({
     path: ROUTES.main.forum.root,
     end: false,
@@ -13,16 +19,32 @@ const Header = () => {
     [styles.linkActive]: match,
   });
 
+  const { logout } = authController();
+
   const handleLogout = () => {
-    console.log('logout logic');
+    logout();
   };
+
+  const { fullScreen, open } = useFullScreen();
 
   return (
     <header className={styles.header}>
-      <button className={styles.exitButton} onClick={handleLogout}>
-        Log out
-      </button>
+      {isAuthenticated ? (
+        <button className={styles.exitButton} onClick={handleLogout}>
+          Log out
+        </button>
+      ) : null}
       <ul className={styles.list}>
+        <li className={styles.listItem}>
+          <NavLink
+            to={ROUTES.main.lending}
+            className={({ isActive }) =>
+              isActive ? styles.linkActive : styles.link
+            }
+          >
+            About
+          </NavLink>
+        </li>
         <li className={styles.listItem}>
           <NavLink
             to={ROUTES.main.root}
@@ -59,6 +81,13 @@ const Header = () => {
           </Link>
         </li>
       </ul>
+      <img
+        onClick={open}
+        id="toggle_fullscreen"
+        className={styles.fullscreen}
+        src={fullScreen ? fullScreenOn : fullScreenOff}
+        alt="fullscreen"
+      />
     </header>
   );
 };
