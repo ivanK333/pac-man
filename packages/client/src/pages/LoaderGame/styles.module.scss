@@ -2,7 +2,7 @@
 @import '../../assets/styles/variables';
 
 $size: 50px;
-$dot-size: $size / 6;
+$dot-size: calc($size / 6);
 $time: 175;
 
 .container {
