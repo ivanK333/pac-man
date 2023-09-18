@@ -52,7 +52,6 @@ const Register = () => {
         <FormHeading text="Register" />
         {error && <p className={styles.submitError}>{error}</p>}
         <Input
-          value="user@erfvrrrrrrrf.com"
           label="Email"
           type="email"
           name="email"
@@ -60,7 +59,6 @@ const Register = () => {
           validation={validation.email}
         />
         <Input
-          value="IvanKew"
           label="Login"
           type="login"
           name="login"
@@ -68,7 +66,6 @@ const Register = () => {
           validation={validation.login}
         />
         <Input
-          value="IvanKew"
           label="Name"
           type="text"
           name="first_name"
@@ -76,7 +73,6 @@ const Register = () => {
           validation={validation.first_name}
         />
         <Input
-          value="IvanKew"
           label="Surname"
           type="text"
           name="second_name"
@@ -84,7 +80,6 @@ const Register = () => {
           validation={validation.second_name}
         />
         <Input
-          value="+79098087766"
           label="Phone"
           type="phone"
           name="phone"
@@ -92,7 +87,6 @@ const Register = () => {
           validation={validation.phone}
         />
         <Input
-          value="1234567A"
           label="Password"
           type="password"
           name="password"
@@ -100,7 +94,6 @@ const Register = () => {
           validation={validation.password}
         />
         <Input
-          value="1234567A"
           label="Password"
           type="password"
           name="confirm_password"
