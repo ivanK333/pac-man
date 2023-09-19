@@ -12,11 +12,11 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "jest .",
-    "ssr-dev": "yarn run dev"
+    "ssr-dev": "yarn run dev",
+    "clean": "rimraf dist/"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.3",
-    "clean": "rimraf dist/",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
