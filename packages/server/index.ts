@@ -9,6 +9,10 @@ dotenv.config();
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
+import helmet from 'helmet';
+
+import limiter from './limiter/limiter';
+import { errorLogger, requestLogger } from './middlewares/logger';
 
 //import { createClientAndConnect } from './db';
 
@@ -17,12 +21,14 @@ const port = Number(process.env.SERVER_PORT) || 5000;
 async function startServer() {
   //createClientAndConnect();
   const app = express();
+  app.use(requestLogger); // request logger
   app.use(
     cors({
-      origin: '*',
+      origin: '*', // allow all cors requests when develop
     }),
   );
-
+  app.use(helmet()); // ddos protection middleware lib
+  app.use(limiter); // rate limiter for request from ip
   app.use(
     '/api/v2',
     createProxyMiddleware({
@@ -100,6 +106,7 @@ async function startServer() {
       next(e);
     }
   });
+  app.use(errorLogger); // error logger
 
   app.listen(port);
 }
