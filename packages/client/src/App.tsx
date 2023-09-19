@@ -7,11 +7,11 @@ import { ROUTES } from './constants/routes';
 import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
-import { useReadLocalStorage } from './hooks/useLocalStorage';
+//import { useReadLocalStorage } from './hooks/useLocalStorage';
 import Lending from './pages/Lending/Lending';
 
 const App = () => {
-  const isAuthenticated = useReadLocalStorage('isAuthenticated');
+  const isAuthenticated = true; //useReadLocalStorage('isAuthenticated');
 
   // временно выключил неиспользуемый запрос к серверу, у меня на него ошибка в консоли
   // useEffect(() => {

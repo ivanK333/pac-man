@@ -7,10 +7,10 @@ import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import { authController } from '../../controllers/AuthController';
 import useFullScreen from '../../hooks/useFullSrceen';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+//import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
-  const isAuthenticated = useReadLocalStorage('isAuthenticated');
+  const isAuthenticated = true; //useReadLocalStorage('isAuthenticated');
   const match = useMatch({
     path: ROUTES.main.forum.root,
     end: false,
