@@ -7,6 +7,8 @@ import { createServer as createViteServer } from 'vite';
 import type { ViteDevServer } from 'vite';
 dotenv.config();
 import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import cookieParser from 'cookie-parser';
 
 //import { createClientAndConnect } from './db';
 
@@ -16,6 +18,17 @@ async function startServer() {
   //createClientAndConnect();
   const app = express();
   app.use(cors());
+
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    }),
+  );
 
   let vite: ViteDevServer | undefined;
   const distPath = path.resolve(__dirname, '../../client/dist');
@@ -36,7 +49,7 @@ async function startServer() {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
 
-  app.use('*', async (req, res, next) => {
+  app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl;
 
     try {

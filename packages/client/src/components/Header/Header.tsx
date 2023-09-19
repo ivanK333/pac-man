@@ -1,5 +1,6 @@
 import { Link, NavLink, useMatch } from 'react-router-dom';
 import classNames from 'classnames';
+import { useNavigate } from 'react-router';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
@@ -7,10 +8,10 @@ import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import { authController } from '../../controllers/AuthController';
 import useFullScreen from '../../hooks/useFullSrceen';
-import { getCookie } from '../../utils/cookie';
+//import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
-  const isAuthenticated = getCookie('auth');
+  const isAuthenticated = true; //useReadLocalStorage('isAuthenticated');
   const match = useMatch({
     path: ROUTES.main.forum.root,
     end: false,
@@ -18,11 +19,13 @@ const Header = () => {
   const classname = classNames(styles.link, {
     [styles.linkActive]: match,
   });
+  const navigate = useNavigate();
 
   const { logout } = authController();
 
   const handleLogout = () => {
     logout();
+    navigate(`/${ROUTES.auth.login}`);
   };
 
   const { fullScreen, open } = useFullScreen();

@@ -8,22 +8,10 @@ import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
 import Lending from './pages/Lending/Lending';
-import { getCookie } from './utils/cookie';
+//import { useReadLocalStorage } from './hooks/useLocalStorage';
 
 const App = () => {
-  const isAuthenticated = getCookie('auth');
-
-  // временно выключил неиспользуемый запрос к серверу, у меня на него ошибка в консоли
-  // useEffect(() => {
-  //   const fetchServerData = async () => {
-  //     const url = `http://localhost:${__SERVER_PORT__}`;
-  //     const response = await fetch(url);
-  //     const data = await response.json();
-  //     console.log(data);
-  //   };
-
-  //   fetchServerData();
-  // }, []);
+  const isAuthenticated = true; //useReadLocalStorage('isAuthenticated');
 
   return (
     <Routes>

@@ -15,6 +15,8 @@
     "ssr-dev": "yarn run dev"
   },
   "dependencies": {
+    "@types/cookie-parser": "^1.4.3",
+    "clean": "rimraf dist/",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
@@ -22,7 +24,7 @@
     "express": "^4.18.1",
     "http-proxy-middleware": "^2.0.6",
     "pg": "^8.8.0",
-    "clean": "rimraf dist/"
+    "rimraf": "^5.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
