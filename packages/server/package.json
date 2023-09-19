@@ -12,8 +12,8 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "jest .",
-    "ssr-dev": "yarn run dev",
-    "clean": "rimraf dist/"
+    "ssr-dev": "yarn run dev && yarn run clean",
+    "clean": "rimraf error.log && rimraf request.log"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.3",
