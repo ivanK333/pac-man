@@ -17,7 +17,11 @@ const port = Number(process.env.SERVER_PORT) || 5000;
 async function startServer() {
   //createClientAndConnect();
   const app = express();
-  app.use(cors());
+  app.use(
+    cors({
+      origin: '*',
+    }),
+  );
 
   app.use(
     '/api/v2',
