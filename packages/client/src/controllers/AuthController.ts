@@ -1,10 +1,7 @@
 import { AxiosResponse } from 'axios';
 
 import { authAPI, SignInData, SignUpData } from '../api';
-import {
-  readLocalStorage,
-  removeItemLocalStorage,
-} from '../utils/useReadLocalStorage';
+import { deleteCookie, setCookie } from '../utils/cookie';
 
 export const authController = () => {
   const api = authAPI();
@@ -12,14 +9,14 @@ export const authController = () => {
   const signIn = async (data: SignInData) => {
     try {
       const response = await api.signIn(data);
-      readLocalStorage('isAuthenticated', 'true');
+      setCookie('auth', 'true', { expires: 9999 });
       return response;
     } catch (error: any) {
       // если юзер залогинен выполнеем перелогин, иначе сыпятся ошибки
       if (error.response?.data?.reason === 'User already in system') {
         await logout();
         const res = await api.signIn(data);
-        readLocalStorage('isAuthenticated', 'true');
+        setCookie('auth', 'true', { expires: 9999 });
         return res;
       }
       return error.response?.data?.reason;
@@ -37,7 +34,7 @@ export const authController = () => {
   const logout = async (): Promise<AxiosResponse | string> => {
     try {
       const response = await api.logout();
-      removeItemLocalStorage('isAuthenticated');
+      deleteCookie('auth');
       return response;
     } catch (error: any) {
       return error.response?.data?.reason;
