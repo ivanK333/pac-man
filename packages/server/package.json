@@ -13,6 +13,7 @@
     "format": "prettier --write .",
     "test": "jest .",
     "ssr-dev": "yarn run dev && yarn run clean",
+    "ssr-prod": "yarn run prod && yarn run clean",
     "clean": "rimraf error.log && rimraf request.log"
   },
   "dependencies": {

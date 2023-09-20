@@ -14,7 +14,8 @@
     "type-check": "lerna run type-check",
     "format": "lerna run format",
     "preview": "lerna run preview",
-    "ssr-dev": "lerna run ssr-build --scope=client && lerna run ssr-dev --scope=server"
+    "ssr-dev": "lerna run clean && lerna run ssr-build --scope=client && lerna run ssr-dev --scope=server",
+    "ssr-prod": "lerna run clean && lerna run build --scope=client && lerna run ssr-build --scope=client && lerna run ssr-prod --scope=server"
   },
   "license": "MIT",
   "workspaces": [
