@@ -14,7 +14,13 @@ import { errorLogger, requestLogger } from './middlewares/logger';
 
 //import { createClientAndConnect } from './db';
 
+interface SSRModule {
+  render: (uri: string) => Promise<string>;
+}
+
 const isDev = () => process.env.NODE_ENV === 'development';
+const isProd = () => process.env.NODE_ENV === 'production';
+
 const port = Number(process.env.SERVER_PORT) || 5000;
 
 async function startServer() {
@@ -52,37 +58,23 @@ async function startServer() {
     app.use(vite.middlewares);
   }
 
-  if (!isDev()) {
+  if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
 
   app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl;
+    let mod: SSRModule;
+    let template: string;
 
     try {
-      let template: string;
-
-      if (!isDev()) {
-        template = fs.readFileSync(
-          path.resolve(distPath, 'index.html'),
-          'utf-8',
-        );
-      } else {
-        template = fs.readFileSync(
-          path.resolve(srcPath, 'index.html'),
-          'utf-8',
-        );
-
-        template = await vite!.transformIndexHtml(url, template);
-      }
-
-      interface SSRModule {
-        render: (uri: string) => Promise<string>;
-      }
-
-      let mod: SSRModule;
+      template = fs.readFileSync(
+        path.resolve(isDev() ? srcPath : distPath, 'index.html'),
+        'utf-8',
+      );
 
       if (isDev()) {
+        template = await vite!.transformIndexHtml(url, template);
         mod = (await vite!.ssrLoadModule(
           path.resolve(srcPath, 'ssr.tsx'),
         )) as SSRModule;
@@ -91,6 +83,7 @@ async function startServer() {
       }
 
       const { render } = mod;
+
       const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml);
@@ -103,6 +96,7 @@ async function startServer() {
       next(e);
     }
   });
+
   app.use(errorLogger); // error logger
 
   app.listen(port);
