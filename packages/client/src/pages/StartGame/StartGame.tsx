@@ -1,7 +1,10 @@
+import { useEffect } from 'react';
+
 import logo from '../../assets/images/logo.svg';
 import play from '../../assets/images/play.svg';
-import { useEventListener } from '../../hooks/useEventListener';
 import styles from './styles.module.scss';
+
+//import { useEventListener } from '../../hooks/useEventListener';
 
 type Props = {
   startGame: () => void;
@@ -13,11 +16,16 @@ const StartGame = ({ startGame }: Props) => {
     }
   };
 
-  useEventListener({
+  /*  useEventListener({
     eventName: 'keydown',
     handler: handlerButtonRestart,
     container: window,
-  });
+  });*/
+
+  useEffect(() => {
+    document.addEventListener('keydown', handlerButtonRestart);
+    return () => document.removeEventListener('keydown', handlerButtonRestart);
+  }, []);
 
   return (
     <div className={styles.container}>

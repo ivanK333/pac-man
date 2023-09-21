@@ -16,6 +16,7 @@ import { errorLogger, requestLogger } from './middlewares/logger';
 
 const isDev = () => process.env.NODE_ENV === 'development';
 const port = Number(process.env.SERVER_PORT) || 5000;
+
 async function startServer() {
   //createClientAndConnect();
   const app = express();
@@ -112,4 +113,5 @@ startServer().then(() => {
     `  ➜ 🎸 Server is listening on port: ${port}`,
     `http://localhost:${port}/`,
   );
+  console.log(process.env.NODE_ENV);
 });

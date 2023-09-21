@@ -1,11 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { useNavigate } from 'react-router';
 
 import Button from '../../components/ButtonSubmit/Button';
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
-import { useEventListener } from '../../hooks/useEventListener';
+//import { useEventListener } from '../../hooks/useEventListener';
 
 type Props = {
   restartGame: () => void;
@@ -27,12 +27,17 @@ const GameOver = ({ restartGame: reset }: Props) => {
       restartGame();
     }
   }, []);
-
+  /*
   useEventListener({
     eventName: 'keydown',
     handler: handlerButtonRestart,
     container: window,
-  });
+  });*/
+
+  useEffect(() => {
+    document.addEventListener('keydown', handlerButtonRestart);
+    return () => document.removeEventListener('keydown', handlerButtonRestart);
+  }, []);
 
   return (
     <div className={styles.container}>
