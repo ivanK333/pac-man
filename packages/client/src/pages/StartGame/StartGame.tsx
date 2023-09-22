@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import logo from '../../assets/images/logo.svg';
 import play from '../../assets/images/play.svg';
 import styles from './styles.module.scss';
-
-//import { useEventListener } from '../../hooks/useEventListener';
+import { useEventListener } from '../../hooks/useEventListener';
 
 type Props = {
   startGame: () => void;
 };
+
 const StartGame = ({ startGame }: Props) => {
   const handlerButtonRestart = (event: Event) => {
     if (event instanceof KeyboardEvent && event.key === 'Enter') {
@@ -16,16 +16,21 @@ const StartGame = ({ startGame }: Props) => {
     }
   };
 
-  /*  useEventListener({
-    eventName: 'keydown',
-    handler: handlerButtonRestart,
-    container: window,
-  });*/
+  const hasWindow = typeof window !== 'undefined';
 
-  useEffect(() => {
-    document.addEventListener('keydown', handlerButtonRestart);
-    return () => document.removeEventListener('keydown', handlerButtonRestart);
-  }, []);
+  if (hasWindow) {
+    useEventListener({
+      eventName: 'keydown',
+      handler: handlerButtonRestart,
+      container: window,
+    });
+  } else {
+    useEffect(() => {
+      document.addEventListener('keydown', handlerButtonRestart);
+      return () =>
+        document.removeEventListener('keydown', handlerButtonRestart);
+    }, []);
+  }
 
   return (
     <div className={styles.container}>
