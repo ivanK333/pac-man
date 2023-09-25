@@ -79,26 +79,6 @@ const getFromCache = async (request) => {
   return result || Promise.reject('no-match');
 };
 
-const updateCaches = () => {
-  setTimeout(() => {
-    caches
-      .keys()
-      .then((cacheNames) => {
-        return Promise.all(
-          cacheNames
-            .filter((name) => name === CACHE_NAME)
-            .map((name) => {
-              caches.delete(name);
-            }),
-        );
-      })
-      .then(() => {
-        cacheAssets();
-        cacheUrls(URLS);
-      });
-  }, 1000);
-};
-
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     getFromNetwork(event.request, timeout).catch(() =>
