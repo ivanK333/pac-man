@@ -1,22 +1,10 @@
-enum MapElements {
-  NONE = 0,
-  WALL = 1,
-  FOOD = 2,
-}
-
-export type MapProps = {
-  level: number[][]; // можно потом поменять на просто номер уровня и сделать метод как взять
-  blockSize: number;
-  mapElements: MapElements;
-};
-
+import { TMapProps } from '../types';
 export class Map {
   level: number[][];
   blockSize: number;
 
-  constructor(props: MapProps) {
+  constructor(props: TMapProps) {
     this.level = props.level;
     this.blockSize = props.blockSize;
-    // this.elements =
   }
 }

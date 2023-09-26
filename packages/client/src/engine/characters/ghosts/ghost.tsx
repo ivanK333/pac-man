@@ -1,42 +1,28 @@
-import spritePng from '../../assets/images/sprites.png';
-import { MapElements, backGroundColor } from '../config';
-import { drawSimpleFood } from '../Primitives/drawSimpleFood';
-import { drawRectangle } from '../Primitives/drawRectangle';
-import { Character, CharacterProps } from './character';
-import { drawCherry } from '../Primitives/drawCherry';
-import { Direction } from '../GameCanvas';
+import spritePng from '../../../assets/images/sprites.png';
+import Character from '../character';
+import draw from '../../helpers/Draw';
+import {
+  MapElements,
+  backGroundColor,
+  Direction,
+  Modes,
+  GhostNames,
+  ghostAvatars,
+  ghostAnimationPositions,
+} from '../../config';
+import { TGhostsProps } from '../../types';
 
-export enum SpriteNames {
-  blinky = 'blinky',
-  pinky = 'pinky',
-  inky = 'inky',
-  clyde = 'clyde',
-}
-
-/** расположение изображений спрайтов на PNG */
-const spriteAvatars: Record<SpriteNames, [number, number, number, number]> = {
-  blinky: [457, 64, 128, 16],
-  pinky: [457, 80, 128, 16],
-  inky: [457, 96, 128, 16],
-  clyde: [457, 112, 128, 16],
-};
-
-/** сдвиг для каждого отдельного аватара для имитации болтания ногами */
-const spriteAnimationPositions: Record<string, [number, number]> = {
-  right: [0, 16],
-  left: [32, 48],
-  up: [64, 80],
-  down: [96, 112],
-};
-
-export class Sprite extends Character {
+class Ghost extends Character {
   image: string;
   crop: [number, number, number, number];
   patchRedraw: MapElements;
   legsPosition: 0 | 1;
-  name: SpriteNames;
-  targetBlock?: number[];
-  constructor(props: CharacterProps, name: SpriteNames) {
+  name: GhostNames;
+  targetBlock: number[];
+  defaultTargetBlock: number[];
+
+  mode: Modes;
+  constructor(props: TGhostsProps, name: GhostNames) {
     super(props);
 
     this.image = spritePng;
@@ -45,13 +31,25 @@ export class Sprite extends Character {
     this.legsPosition = 0;
     this.name = name;
     this.direction = props.startDirection;
-    this.crop = spriteAvatars[this.name];
-    this.targetBlock = props.targetBlock;
+    this.crop = ghostAvatars[this.name];
+    this.targetBlock = props.defaultTargetBlock;
+
+    this.defaultTargetBlock = props.defaultTargetBlock;
+    this.mode = Modes.scatter;
   }
 
   setPatchRedraw(patchRedraw: MapElements) {
     this.patchRedraw = patchRedraw;
   }
+
+  setTargetBlock = (target: number[]) => {
+    this.targetBlock = target;
+    if (!this.ctx) return;
+  };
+
+  setMode = (newMode: Modes) => {
+    this.mode = newMode;
+  };
 
   /** RENDERING */
   private drawPatch() {
@@ -60,7 +58,7 @@ export class Sprite extends Character {
     const y = this.y;
     const width = this.size;
     const height = this.size;
-    drawRectangle({
+    draw.drawRectangle({
       ctx: this.ctx,
       x,
       y,
@@ -71,14 +69,14 @@ export class Sprite extends Character {
 
     const [i, j] = this.currentBlock;
     if (this.patchRedraw === MapElements.FOOD) {
-      drawSimpleFood(this.ctx, i, j);
+      draw.drawSimpleFood(this.ctx, i, j);
     }
     if (this.patchRedraw === MapElements.CHERRY) {
-      drawCherry(this.ctx, i, j);
+      draw.drawCherry(this.ctx, i, j);
     }
   }
 
-  private drawSpriteItself() {
+  private drawGhostItself() {
     if (!this.ctx) return;
     const wallThickness = 3;
 
@@ -96,7 +94,7 @@ export class Sprite extends Character {
     this.ctx.drawImage(
       image,
       /**выбираем какая картинка в зависимости от направления и положения ног */
-      sx + spriteAnimationPositions[direction][legsPosition],
+      sx + ghostAnimationPositions[direction][legsPosition],
       sy,
       /**  каждому спрайту соответствует 8 картинок одинаковой ширины */
       sw / 8,
@@ -106,16 +104,70 @@ export class Sprite extends Character {
       dw,
       dh,
     );
-    spriteAnimationPositions[this.direction];
+    ghostAnimationPositions[this.direction];
   }
 
+  // Метод разбега
   scatter() {
-    if (this.atBlockCenter) {
-      this.calculateChoise();
-    }
-    this.step();
+    this.setTargetBlock(this.defaultTargetBlock);
   }
 
+  // Метод охоты
+  chase(
+    pacmanCurrentBlock: number[],
+    pacmanPredictionBlock: (predictionDistance: number) => number[],
+    blinkyCurrentBlock: number[],
+  ) {
+    let targetY: number;
+    let targetX: number;
+    let distance: number;
+
+    switch (this.name) {
+      case 'blinky':
+        this.setTargetBlock(pacmanCurrentBlock);
+        break;
+      case 'inky':
+        targetY =
+          (pacmanPredictionBlock(2)[0] - blinkyCurrentBlock[0]) * 2 +
+          blinkyCurrentBlock[0];
+        targetX =
+          (pacmanPredictionBlock(2)[1] - blinkyCurrentBlock[1]) * 2 +
+          blinkyCurrentBlock[1];
+
+        this.setTargetBlock([targetY, targetX]);
+        break;
+      case 'pinky':
+        this.setTargetBlock(pacmanPredictionBlock(4));
+        break;
+      case 'clyde':
+        distance = Math.floor(
+          this.countDistance(pacmanCurrentBlock, this.currentBlock),
+        );
+
+        if (distance < 4) {
+          this.setTargetBlock(this.defaultTargetBlock);
+        } else {
+          this.setTargetBlock(pacmanCurrentBlock);
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  // Метод страха
+  frightened(dimentions: number[]) {
+    this.setSpeed(1);
+
+    const newTarget = [
+      Math.floor(Math.random() * (dimentions[0] + 1)),
+      Math.floor(Math.random() * (dimentions[1] + 1)),
+    ];
+
+    this.setTargetBlock(newTarget);
+  }
+
+  // Расчет кротчайшего пути до целевой клетки
   calculateChoise() {
     const entries = Object.entries(this.restricted);
     const options: string[] = [];
@@ -184,15 +236,18 @@ export class Sprite extends Character {
     this.setDirection(shortestWay as Direction);
   }
 
-  // расчет дистанции
-  countDistance(current: number[], target: number[]) {
+  countDistance = (current: number[], target: number[]) => {
     return Math.sqrt(
       Math.pow(current[0] - target[0], 2) + Math.pow(current[1] - target[1], 2),
     );
-  }
+  };
 
   move() {
-    this.scatter();
+    if (this.atBlockCenter) {
+      this.calculateChoise();
+    }
+
+    this.step();
   }
 
   render(time: number | null) {
@@ -203,6 +258,8 @@ export class Sprite extends Character {
 
     this.drawPatch();
 
-    this.drawSpriteItself();
+    this.drawGhostItself();
   }
 }
+
+export default Ghost;

@@ -1,18 +1,16 @@
-import spritePng from '../../assets/images/sprites.png';
-import { Direction } from '../GameCanvas';
-import { backGroundColor } from '../config';
-import { Character, CharacterProps } from './character';
-import { isEqual } from '../Primitives/isEqual';
+import spritePng from '../../../assets/images/sprites.png';
+import Character from '../character';
+import { isEqual } from '../../../utils/isEqual';
+import { backGroundColor, Direction, packmanDead } from '../../config';
+import { TCharacterProps } from '../../types';
 
-const packmanDead: number[] = [456, 0, 256, 16];
-
-export class Pacman extends Character {
+class Pacman extends Character {
   lives: number;
   radius: number;
   mouthOpen: boolean;
   dead: boolean;
 
-  constructor(props: CharacterProps) {
+  constructor(props: TCharacterProps) {
     super(props);
 
     this.lives = 3;
@@ -149,6 +147,11 @@ export class Pacman extends Character {
     }, 2000);
   }
 
+  move() {
+    this.controlDirection();
+    this.step();
+  }
+
   render(time: number | null) {
     if (!time) return;
 
@@ -163,3 +166,5 @@ export class Pacman extends Character {
     this.drawPacmanItself();
   }
 }
+
+export default Pacman;

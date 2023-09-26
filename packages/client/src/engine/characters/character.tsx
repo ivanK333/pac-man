@@ -1,15 +1,7 @@
-import { Direction, Restrictions } from '../GameCanvas';
+import { Direction } from '../config';
+import { TRestrictions, TCharacterProps } from '../types';
 
-export type CharacterProps = {
-  size: number;
-  speed: number;
-  startPosition: number[];
-  startDirection: Direction;
-  targetBlock?: number[];
-  currentBlock?: [number, number];
-  previousBlock?: string;
-};
-export class Character {
+class Character {
   ctx: CanvasRenderingContext2D | null;
   speed: number;
   size: number;
@@ -21,10 +13,10 @@ export class Character {
   startDirection: Direction = Direction.Stop;
   direction: Direction;
   nextDirection: Direction;
-  restricted: Restrictions;
+  restricted: TRestrictions;
   previousBlock: string;
 
-  constructor(props: CharacterProps) {
+  constructor(props: TCharacterProps) {
     this.ctx = null;
     this.size = props.size;
 
@@ -82,7 +74,7 @@ export class Character {
     return this.restricted[this.direction];
   }
 
-  setRestrictions(restricted: Restrictions) {
+  setRestrictions(restricted: TRestrictions) {
     this.restricted = restricted;
   }
 
@@ -169,10 +161,22 @@ export class Character {
     }
   }
 
-  move() {
-    this.controlDirection();
-    this.step();
-  }
+  predictionBlock = (predictionDistance: number) => {
+    const [y, x] = this.currentBlock;
+
+    switch (this.direction) {
+      case 'right':
+        return [y, x + predictionDistance];
+      case 'down':
+        return [y + predictionDistance, x];
+      case 'left':
+        return [y, x - predictionDistance];
+      case 'up':
+        return [y - predictionDistance, x];
+      default:
+        return [y, x];
+    }
+  };
 
   step() {
     switch (this.direction) {
@@ -194,3 +198,5 @@ export class Character {
     }
   }
 }
+
+export default Character;

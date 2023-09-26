@@ -1,6 +1,6 @@
 import { getObstacles, updateMap } from './GameCanvas';
 import { MapElements } from './config';
-import { map as layer } from './Layers/layer_001';
+import { map as layer } from './map/levels/level_001';
 describe('Тест логики изменения карты', () => {
   let map: number[][];
 
