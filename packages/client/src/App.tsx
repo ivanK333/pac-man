@@ -8,10 +8,10 @@ import NotFoundPage from './pages/404/NotFoundPage';
 import EternalErrorPage from './pages/500/EternalErrorPage';
 import ErrorBoundaryPage from './pages/ErrorBoundaryPage/ErrorBoundaryPage';
 import Lending from './pages/Lending/Lending';
-//import { useReadLocalStorage } from './hooks/useLocalStorage';
+import { useReadLocalStorage } from './hooks/useLocalStorage';
 
 const App = () => {
-  const isAuthenticated = true; //useReadLocalStorage('isAuthenticated');
+  const isAuthenticated = useReadLocalStorage('isAuthenticated');
 
   return (
     <Routes>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { useNavigate } from 'react-router';
 
@@ -28,21 +28,11 @@ const GameOver = ({ restartGame: reset }: Props) => {
     }
   }, []);
 
-  const hasWindow = typeof window !== 'undefined';
-
-  if (hasWindow) {
-    useEventListener({
-      eventName: 'keydown',
-      handler: handlerButtonRestart,
-      container: window,
-    });
-  } else {
-    useEffect(() => {
-      document.addEventListener('keydown', handlerButtonRestart);
-      return () =>
-        document.removeEventListener('keydown', handlerButtonRestart);
-    }, []);
-  }
+  useEventListener({
+    eventName: 'keydown',
+    handler: handlerButtonRestart,
+    container: window,
+  });
 
   return (
     <div className={styles.container}>

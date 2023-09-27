@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Link, NavLink, useMatch } from 'react-router-dom';
 import classNames from 'classnames';
 import { useNavigate } from 'react-router';
@@ -8,17 +10,20 @@ import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import { authController } from '../../controllers/AuthController';
 import useFullScreen from '../../hooks/useFullSrceen';
-//import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
-  const isAuthenticated = true; //useReadLocalStorage('isAuthenticated');
+  const isAuthenticated = useReadLocalStorage('isAuthenticated');
+
   const match = useMatch({
     path: ROUTES.main.forum.root,
     end: false,
   });
-  const classname = classNames(styles.link, {
+
+  const linkClassname = classNames(styles.link, {
     [styles.linkActive]: match,
   });
+
   const navigate = useNavigate();
 
   const { logout } = authController();
@@ -30,13 +35,19 @@ const Header = () => {
 
   const { fullScreen, open } = useFullScreen();
 
+  const [mounted, setMounted] = useState<string | null | undefined>(null);
+  useEffect(() => {
+    setMounted(isAuthenticated);
+  }, [isAuthenticated]);
+
   return (
     <header className={styles.header}>
-      {isAuthenticated ? (
+      {mounted ? (
         <button className={styles.exitButton} onClick={handleLogout}>
           Log out
         </button>
       ) : null}
+
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
@@ -79,7 +90,7 @@ const Header = () => {
           </NavLink>
         </li>
         <li className={styles.listItem}>
-          <Link to={ROUTES.main.forum.root} className={classname}>
+          <Link to={ROUTES.main.forum.root} className={linkClassname}>
             Forum
           </Link>
         </li>
