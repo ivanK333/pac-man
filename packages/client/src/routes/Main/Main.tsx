@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Routes, Route, Navigate } from 'react-router';
 
 import styles from './styles.module.scss';
@@ -10,6 +12,14 @@ import Topic from '../../pages/Topic/Topic';
 import Game from '../../pages/Game/Game';
 
 export const Main = () => {
+  const [render, setRender] = useState(false);
+  useEffect(() => {
+    setRender(true);
+  }, []);
+
+  if (!render) {
+    return <></>;
+  }
   return (
     <>
       <Header />

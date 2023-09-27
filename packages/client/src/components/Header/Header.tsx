@@ -13,6 +13,7 @@ import useFullScreen from '../../hooks/useFullSrceen';
 import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
+  const [render, setRender] = useState(false);
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
 
   const match = useMatch({
@@ -35,18 +36,20 @@ const Header = () => {
 
   const { fullScreen, open } = useFullScreen();
 
-  const [mounted, setMounted] = useState<string | null | undefined>(null);
   useEffect(() => {
-    setMounted(isAuthenticated);
-  }, [isAuthenticated]);
+    setRender(true);
+  }, []);
 
+  if (!render) {
+    return <></>;
+  }
   return (
     <header className={styles.header}>
-      {mounted ? (
+      {isAuthenticated && (
         <button className={styles.exitButton} onClick={handleLogout}>
           Log out
         </button>
-      ) : null}
+      )}
 
       <ul className={styles.list}>
         <li className={styles.listItem}>
