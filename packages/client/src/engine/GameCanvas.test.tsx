@@ -1,4 +1,4 @@
-import { dimentions } from './config';
+import { dimentions, Direction } from './config';
 import Game from './Game';
 import { map as testMap } from './map/levels/level_001';
 import pacman from './characters/pacman';
@@ -65,6 +65,13 @@ describe('Тест класса GameCanvas', () => {
     pacman.move();
 
     expect(pacman.currentBlock).toEqual([10, 0]);
+    pacman.setNextDirection(Direction.Right);
+
+    for (let i = 0; i < 6 * 15 + 1; i++) {
+      game.animatePacman();
+    }
+
+    expect(pacman.currentBlock).toEqual([10, 6]);
   });
 });
 
