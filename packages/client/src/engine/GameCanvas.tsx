@@ -32,7 +32,7 @@ const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
 
   /** create canvas and draw map */
   useEffect(() => {
-    game.start(canvasRef);
+    game.start(canvasRef.current!);
   }, [restart]);
 
   // keyboard handler

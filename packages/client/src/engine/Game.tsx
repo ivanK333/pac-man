@@ -217,13 +217,13 @@ class Game {
     pacman.render(this.time);
   };
 
-  public start = (canvasRef: React.RefObject<HTMLCanvasElement>) => {
+  public start = (canvasRef: HTMLCanvasElement) => {
     /** make a deep copy. will need it for restart */
     this.setMap(layer.map((innerArr) => [...innerArr]));
     /** TODO: this is temporary, whole restart should be redone */
     pacman.lives = 3;
 
-    const context = canvasRef.current?.getContext('2d');
+    const context = canvasRef.getContext('2d');
     if (!context) return;
 
     // make pacman contextaware
