@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Routes, Route, Navigate } from 'react-router';
 
 import styles from './styles.module.scss';
@@ -11,6 +13,14 @@ import Game from '../../pages/Game/Game';
 import startSW from '../../../startServiceWorker';
 
 export const Main = () => {
+  const [render, setRender] = useState(false);
+  useEffect(() => {
+    setRender(true);
+  }, []);
+
+  if (!render) {
+    return <></>;
+  }
   return (
     <>
       <Header />

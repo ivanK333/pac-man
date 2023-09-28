@@ -1,20 +1,111 @@
+import * as fs from 'fs';
+import * as path from 'path';
+
 import dotenv from 'dotenv';
 import cors from 'cors';
+import { createServer as createViteServer } from 'vite';
+import type { ViteDevServer } from 'vite';
 dotenv.config();
 import express from 'express';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import cookieParser from 'cookie-parser';
 
-import { createClientAndConnect } from './db';
+import { errorLogger, requestLogger } from './middlewares/logger';
 
-const app = express();
-app.use(cors());
-const port = Number(process.env.SERVER_PORT) || 3001;
+//import { createClientAndConnect } from './db';
 
-createClientAndConnect();
+interface SSRModule {
+  render: (uri: string) => Promise<string>;
+}
 
-app.get('/', (_, res) => {
-  res.json('👋 Howdy from the server :)');
-});
+const isDev = () => process.env.NODE_ENV === 'development';
+const isProd = () => process.env.NODE_ENV === 'production';
 
-app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
+const port = Number(process.env.SERVER_PORT) || 5000;
+
+async function startServer() {
+  //createClientAndConnect();
+  const app = express();
+  app.use(requestLogger); // request logger
+  app.use(
+    cors({
+      origin: '*', // allow all cors requests when develop
+    }),
+  );
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    }),
+  );
+
+  let vite: ViteDevServer | undefined;
+  const distPath = path.resolve(__dirname, '../../packages/client/dist');
+  const srcPath = path.resolve(__dirname, '../../packages/client');
+  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
+
+  if (isDev()) {
+    vite = await createViteServer({
+      server: { middlewareMode: true },
+      root: srcPath,
+      appType: 'custom',
+    });
+
+    app.use(vite.middlewares);
+  }
+
+  if (isProd()) {
+    app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+  }
+
+  app.use('*', cookieParser(), async (req, res, next) => {
+    const url = req.originalUrl;
+    let mod: SSRModule;
+    let template: string;
+
+    try {
+      template = fs.readFileSync(
+        path.resolve(isDev() ? srcPath : distPath, 'index.html'),
+        'utf-8',
+      );
+
+      if (isDev()) {
+        template = await vite!.transformIndexHtml(url, template);
+        mod = (await vite!.ssrLoadModule(
+          path.resolve(srcPath, 'ssr.tsx'),
+        )) as SSRModule;
+      } else {
+        mod = await import(ssrClientPath);
+      }
+
+      const { render } = mod;
+
+      const appHtml = await render(url);
+
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+    } catch (e) {
+      if (isDev()) {
+        vite!.ssrFixStacktrace(e as Error);
+      }
+      next(e);
+    }
+  });
+
+  app.use(errorLogger); // error logger
+
+  app.listen(port);
+}
+
+startServer().then(() => {
+  console.log(
+    `  ➜ 🎸 Server is listening on port: ${port}`,
+    `http://localhost:${port}/`,
+  );
+  console.log(process.env.NODE_ENV);
 });
