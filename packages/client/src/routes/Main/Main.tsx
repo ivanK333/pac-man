@@ -8,6 +8,7 @@ import Leaderboard from '../../pages/Leaderboard/Leaderboard';
 import Forum from '../../pages/Forum/Forum';
 import Topic from '../../pages/Topic/Topic';
 import Game from '../../pages/Game/Game';
+import startSW from '../../../startServiceWorker';
 
 export const Main = () => {
   return (
@@ -31,3 +32,5 @@ export const Main = () => {
     </>
   );
 };
+
+startSW();
