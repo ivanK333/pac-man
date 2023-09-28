@@ -16,9 +16,9 @@ interface ICanvasProps {
 
 type TGameProps = {
   time: number | null;
-  setTime: React.Dispatch<React.SetStateAction<number | null>>;
+  setTime: (number: number) => void;
   map: number[][];
-  setMap: React.Dispatch<React.SetStateAction<number[][]>>;
+  setMap: (map: number[][]) => void;
   updateScore: (value: number) => void;
   updateLives: (value: number) => void;
   restart: number;

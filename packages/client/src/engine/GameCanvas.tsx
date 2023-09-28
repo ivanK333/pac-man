@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, useRef } from 'react';
 
 import Game from './Game';
-import { map as layer } from './map/levels/level_001';
 import { blockSize, dimentions } from './config';
 import { ICanvasProps } from './types';
+import { map as layer } from './map/levels/level_001';
 
 const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
   const { updateScore, updateLives, restart } = props;
@@ -12,11 +12,18 @@ const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  const gameSetTime = (time: number) => {
+    setTime(time);
+  };
+  const gameSetMap = (map: number[][]) => {
+    setMap(map);
+  };
+
   const game = new Game({
     time,
-    setTime,
+    setTime: gameSetTime,
     map,
-    setMap,
+    setMap: gameSetMap,
     updateScore,
     updateLives,
     restart,

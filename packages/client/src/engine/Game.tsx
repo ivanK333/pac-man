@@ -9,9 +9,9 @@ import { TGameProps, TRestrictions } from './types';
 
 class Game {
   private time: number | null;
-  private setTime: React.Dispatch<React.SetStateAction<number | null>>;
+  private setTime: (number: number) => void;
   private map: number[][];
-  private setMap: React.Dispatch<React.SetStateAction<number[][]>>;
+  private setMap: (map: number[][]) => void;
   private updateScore: (value: number) => void;
   private updateLives: (value: number) => void;
   private restart: number;
@@ -41,7 +41,7 @@ class Game {
 
   public loop = () => {
     const animation = (now: number) => {
-      this.setTime(() => now);
+      this.setTime(now);
       window.requestAnimationFrame(animation);
     };
     animation(performance.now());
