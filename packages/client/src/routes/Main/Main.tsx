@@ -16,6 +16,7 @@ export const Main = () => {
   const [render, setRender] = useState(false);
   useEffect(() => {
     setRender(true);
+    startSW();
   }, []);
 
   if (!render) {
@@ -42,5 +43,3 @@ export const Main = () => {
     </>
   );
 };
-
-startSW();
