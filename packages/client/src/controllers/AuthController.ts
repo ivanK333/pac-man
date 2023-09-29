@@ -61,5 +61,29 @@ export const authController = () => {
     }
   };
 
-  return { signIn, signUp, getUser, logout };
+  const getServiceId = async () => {
+    try {
+      const response = await api.getServiceId();
+
+      const {
+        data: { service_id },
+      } = response;
+
+      return service_id;
+    } catch (error: any) {
+      return error.response?.data?.reason;
+    }
+  };
+
+  const signInWithOAuth = async (code: string) => {
+    try {
+      const response = await api.OAuth(code);
+      readLocalStorage('isAuthenticated', 'true');
+      return response;
+    } catch (error: any) {
+      return error.response?.data?.reason;
+    }
+  };
+
+  return { signIn, signUp, getUser, logout, getServiceId, signInWithOAuth };
 };
