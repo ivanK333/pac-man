@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { authController } from '../../controllers/AuthController';
@@ -12,6 +13,7 @@ import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { ROUTES } from '../../constants/routes';
+import { addUser } from '../../store/slices/user/user';
 
 type FormValues = {
   login: string;
@@ -20,6 +22,7 @@ type FormValues = {
 
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -33,6 +36,9 @@ const LoginForm = () => {
       setError(response);
       return;
     }
+
+    const user = response.data;
+    dispatch(addUser(user));
 
     navigate(ROUTES.main.root);
   };
