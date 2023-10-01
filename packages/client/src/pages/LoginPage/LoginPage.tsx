@@ -26,7 +26,7 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  const { signIn } = authController();
+  const { signIn, getUser } = authController();
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     setError(null);
@@ -37,8 +37,11 @@ const LoginForm = () => {
       return;
     }
 
-    const user = response.data;
-    dispatch(addUser(user));
+    const user = await getUser();
+
+    if (user.data) {
+      dispatch(addUser(user.data));
+    }
 
     navigate(ROUTES.main.root);
   };
@@ -50,6 +53,7 @@ const LoginForm = () => {
           <FormHeading text="Login" />
           {error && <p className={styles.submitError}>{error}</p>}
           <Input
+            value="IvanKew"
             label="Login"
             type="text"
             name="login"
@@ -58,6 +62,7 @@ const LoginForm = () => {
             validation={validation.login}
           />
           <Input
+            value="1234567A"
             label="Password"
             type="password"
             name="password"
