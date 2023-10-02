@@ -48,7 +48,6 @@ const LoginForm = () => {
           <FormHeading text="Login" />
           {error && <p className={styles.submitError}>{error}</p>}
           <Input
-            value="IvanKew"
             label="Login"
             type="text"
             name="login"
@@ -57,7 +56,6 @@ const LoginForm = () => {
             validation={validation.login}
           />
           <Input
-            value="1234567A"
             label="Password"
             type="password"
             name="password"
