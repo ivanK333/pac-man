@@ -21,7 +21,7 @@ interface SSRModule {
 const isDev = () => process.env.NODE_ENV === 'development';
 const isProd = () => process.env.NODE_ENV === 'production';
 
-const port = Number(process.env.SERVER_PORT) || 5000;
+const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
   //createClientAndConnect();

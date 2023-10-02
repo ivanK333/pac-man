@@ -5,13 +5,24 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import App from './App';
-import { store } from './store';
+import { createStore } from './store';
+import { UserService } from './api/auth/UserService';
+import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import './assets/styles/index.scss';
+
+const initialState = window.initialState;
+
+delete window.initialState;
 
 ReactDOM.hydrateRoot(
   document.getElementById('root') as HTMLElement,
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider
+      store={createStore(
+        new UserService(new YandexAPIRepository()),
+        initialState,
+      )}
+    >
       <BrowserRouter>
         <App />
       </BrowserRouter>

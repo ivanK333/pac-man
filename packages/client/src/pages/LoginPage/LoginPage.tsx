@@ -13,7 +13,7 @@ import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { ROUTES } from '../../constants/routes';
-import { addUser } from '../../store/slices/user/user';
+import { loadMe, useAppDispatch } from '../../store';
 
 type FormValues = {
   login: string;
@@ -22,11 +22,11 @@ type FormValues = {
 
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
-  const { signIn, getUser } = authController();
+  const { signIn } = authController();
 
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     setError(null);
@@ -37,11 +37,7 @@ const LoginForm = () => {
       return;
     }
 
-    const user = await getUser();
-
-    if (user.data) {
-      dispatch(addUser(user.data));
-    }
+    dispatch(loadMe());
 
     navigate(ROUTES.main.root);
   };
