@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import { authController } from '../../controllers/AuthController';

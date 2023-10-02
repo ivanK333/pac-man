@@ -5,7 +5,9 @@ import {
 } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
-import { User } from '../api';
+import { URL_AUTH_LOGOUT, User } from '../api';
+import { removeItemLocalStorage } from '../utils/useReadLocalStorage';
+import { baseFetch } from '../libs/api';
 
 interface IUserService {
   getCurrentUser(): Promise<User>;
@@ -19,13 +21,17 @@ const loadMe = createAsyncThunk<User>(
   },
 );
 
-// const logout = createAsyncThunk('root/logout', async () => {
-//   try {
-//     return await logoutUser();
-//   } catch (e) {
-//     return null;
-//   }
-// });
+const logout = createAsyncThunk('root/logout', async () => {
+  try {
+    const response = await baseFetch.post(URL_AUTH_LOGOUT, undefined, {
+      withCredentials: true,
+    });
+    removeItemLocalStorage('isAuthenticated');
+    return response;
+  } catch (error: any) {
+    return error.response?.data?.reason;
+  }
+});
 
 interface UserSlice {
   profile: User | null;
@@ -45,10 +51,10 @@ function createStore(service: IUserService, initialState?: StoreState) {
     } as UserSlice,
     reducers: {},
     extraReducers: (builder) => {
-      // builder.addCase(logout.fulfilled, (store) => {
-      //   store.isLoaded = true;
-      //   store.profile = null;
-      // });
+      builder.addCase(logout.fulfilled, (store) => {
+        store.isLoaded = true;
+        store.profile = null;
+      });
       builder.addCase(loadMe.pending, (store) => {
         store.isLoaded = false;
       });
@@ -82,4 +88,4 @@ function createStore(service: IUserService, initialState?: StoreState) {
 export type AppDispatch = ReturnType<typeof createStore>['dispatch'];
 export const useAppDispatch: () => AppDispatch = useDispatch;
 
-export { createStore, loadMe };
+export { createStore, loadMe, logout };
