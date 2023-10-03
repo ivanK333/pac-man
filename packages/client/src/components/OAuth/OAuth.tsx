@@ -12,14 +12,14 @@ export const OAuth = () => {
 
   const [serviceId, setServiceId] = useState<string>();
 
-  const OAuth = useCallback(async () => {
+  const loadServiceId = useCallback(async () => {
     const serviceId = await getServiceId();
 
     setServiceId(serviceId);
   }, []);
 
   useEffect(() => {
-    OAuth();
+    loadServiceId();
   }, []);
 
   const getYandexOauthButton = useCallback(() => {

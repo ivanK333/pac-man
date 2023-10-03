@@ -71,6 +71,7 @@ export const authController = () => {
 
       return service_id;
     } catch (error: any) {
+      console.log(error);
       return error.response?.data?.reason;
     }
   };
@@ -81,6 +82,7 @@ export const authController = () => {
       readLocalStorage('isAuthenticated', 'true');
       return response;
     } catch (error: any) {
+      console.log(error);
       return error.response?.data?.reason;
     }
   };
