@@ -10,18 +10,17 @@ import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
 
+import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 
-//import { createClientAndConnect } from './db';
-
 interface SSRModule {
-  render: (uri: string) => Promise<string>;
+  render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
 }
 
 const isDev = () => process.env.NODE_ENV === 'development';
 const isProd = () => process.env.NODE_ENV === 'production';
 
-const port = Number(process.env.SERVER_PORT) || 5000;
+const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
   //createClientAndConnect();
@@ -84,9 +83,16 @@ async function startServer() {
 
       const { render } = mod;
 
-      const appHtml = await render(url);
+      const [initialState, appHtml] = await render(
+        url,
+        new YandexAPIRepository(req.headers['cookie']),
+      );
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+      const initStateSerialized = JSON.stringify(initialState);
+
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace('<!--store-data-->', initStateSerialized);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
