@@ -70,9 +70,8 @@ export const authController = () => {
       } = response;
 
       return service_id;
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
-      return error.response?.data?.reason;
     }
   };
 
@@ -81,9 +80,8 @@ export const authController = () => {
       const response = await api.OAuth(code);
       readLocalStorage('isAuthenticated', 'true');
       return response;
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
-      return error.response?.data?.reason;
     }
   };
 
