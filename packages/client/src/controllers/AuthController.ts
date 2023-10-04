@@ -48,5 +48,29 @@ export const authController = () => {
     }
   };
 
-  return { signIn, signUp, getUser };
+  const getServiceId = async () => {
+    try {
+      const response = await api.getServiceId();
+
+      const {
+        data: { service_id },
+      } = response;
+
+      return service_id;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signInWithOAuth = async (code: string) => {
+    try {
+      const response = await api.OAuth(code);
+      readLocalStorage('isAuthenticated', 'true');
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { signIn, signUp, getUser, logout, getServiceId, signInWithOAuth };
 };

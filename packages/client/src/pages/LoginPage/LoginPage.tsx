@@ -12,6 +12,7 @@ import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { ROUTES } from '../../constants/routes';
+import { OAuth } from '../../components/OAuth/OAuth';
 import { loadMe, useAppDispatch } from '../../store';
 
 type FormValues = {
@@ -62,6 +63,7 @@ const LoginForm = () => {
             placeholder="Enter your password"
             validation={validation.password}
           />
+          <OAuth />
           <FormButtonGroup
             title="Login"
             spriteImg={spriteSvg}
