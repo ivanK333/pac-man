@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './styles.module.scss';
 import Avatar from '../../components/Avatar/Avatar';
@@ -55,7 +55,7 @@ const Profile = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     getUserInfo();
   }, []);
 
