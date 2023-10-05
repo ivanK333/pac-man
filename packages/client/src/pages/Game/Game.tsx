@@ -5,6 +5,8 @@ import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
+import { leaderboardController } from '../../controllers/LeaderboardController';
+
 const delay = 2000;
 
 const Game = () => {
@@ -13,6 +15,8 @@ const Game = () => {
   const [score, setScore] = useState<number>(0);
   const [lives, setLives] = useState<number>(3);
   const [attempts, setAttempts] = useState<number>(0);
+
+  const { addUserToLeaderboard } = leaderboardController();
 
   const restartGame = useCallback(() => {
     setScore(0);
@@ -40,6 +44,10 @@ const Game = () => {
 
   const updateLives = (lives: number) => {
     setLives(lives);
+
+    if (lives <= 0) {
+      addUserToLeaderboard(score);
+    }
   };
 
   return (

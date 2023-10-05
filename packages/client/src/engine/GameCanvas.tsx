@@ -1,10 +1,11 @@
+/* eslint-disable import/no-unresolved */
 import { FC, useState, useEffect, useRef } from 'react';
 
 import { blockSize, MapElements, speed } from './config';
 import { map as layer } from './Layers/layer_001';
 import { countOccurrences } from './utils';
-import { drawFood } from './Map/Food';
-import { drawWalls } from './Map/Walls';
+import { drawFood } from './map/Food';
+import { drawWalls } from './map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
 import { Sprite, SpriteNames } from './AnimatedCharacters/sprite';
 import { drawBackground } from './Primitives/drawBackground';
@@ -146,7 +147,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     CanvasRenderingContext2D | null | undefined
   >(null);
 
-  let spaceDisabled = false;
+  // let spaceDisabled = false;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -202,17 +203,17 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           pacman.setNextDirection(Direction.Down);
           break;
 
-        case 'Space':
-          /** выключаю пробел пока пакман умирает */
-          if (!spaceDisabled) {
-            pacman.die(updateLives);
-            spaceDisabled = true;
-            setTimeout(() => {
-              spaceDisabled = false;
-            }, 2000);
-          }
+        // case 'Space':
+        //   /** выключаю пробел пока пакман умирает */
+        //   if (!spaceDisabled) {
+        //     pacman.die(updateLives);
+        //     spaceDisabled = true;
+        //     setTimeout(() => {
+        //       spaceDisabled = false;
+        //     }, 2000);
+        //   }
 
-          break;
+        //   break;
       }
     };
     window.addEventListener('keydown', keyboardHandler);
