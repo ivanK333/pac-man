@@ -10,6 +10,7 @@ import fullScreenOff from '../../assets/images/fullscreen-off.svg';
 import { logout, useAppDispatch } from '../../store';
 import useFullScreen from '../../hooks/useFullSrceen';
 import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Header = () => {
   const [render, setRender] = useState(false);
@@ -40,11 +41,14 @@ const Header = () => {
   }
   return (
     <header className={styles.header}>
-      {isAuthenticated && (
-        <button className={styles.exitButton} onClick={handleLogout}>
-          Log out
-        </button>
-      )}
+      <section className={styles.edition}>
+        <ThemeToggle />
+        {isAuthenticated && (
+          <button className={styles.exitButton} onClick={handleLogout}>
+            Log out
+          </button>
+        )}
+      </section>
 
       <ul className={styles.list}>
         <li className={styles.listItem}>

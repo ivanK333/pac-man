@@ -11,6 +11,13 @@
   padding: 20px 40px 4px;
 }
 
+.edition {
+  display: flex;
+  align-items: center;
+  width: 160px;
+  justify-content: space-between;
+}
+
 .list {
   display: flex;
   gap: 100px;
