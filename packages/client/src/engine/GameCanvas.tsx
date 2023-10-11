@@ -8,6 +8,7 @@ import { drawWalls } from './Map/Walls';
 import { Pacman } from './AnimatedCharacters/pacman';
 import { Sprite, SpriteNames } from './AnimatedCharacters/sprite';
 import { drawBackground } from './Primitives/drawBackground';
+import { SoundEffects, Sounds } from './Sound/sound';
 
 export enum Direction {
   Right = 'right',
@@ -105,9 +106,12 @@ export const updateMap = (
   map[i][j] = value;
 };
 interface CanvasProps {
+  // sounds: Sounds;
   updateScore: (value: number) => void;
   updateLives: (value: number) => void;
   restart: number;
+  // volume: number;
+  sounds: Sounds | null;
 }
 
 export const getObstacles = (
@@ -139,15 +143,14 @@ const limitToTheMap = (j: number, char: Pacman | Sprite) => {
 };
 
 const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
-  const { updateScore, updateLives, restart } = props;
-  const [time, setTime] = useState<number | null>(null);
+  const { updateScore, updateLives, restart, sounds } = props;
+  const [time, setTime] = useState<number>(performance.now());
   const [map, setMap] = useState<number[][]>(layer);
   const [context, setContext] = useState<
     CanvasRenderingContext2D | null | undefined
   >(null);
 
   let spaceDisabled = false;
-
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   /** create canvas and draw map */
@@ -170,9 +173,12 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     drawBackground(context);
     drawWalls(context, layer);
     drawFood(context, layer);
+    redraw();
 
     /** start animation */
-    loop();
+    setTimeout(() => {
+      loop();
+    }, 4500);
   }, [restart]);
 
   const loop = () => {
@@ -238,6 +244,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
 
     if (pacman.intersection(gostsPositions)) {
       pacman.die(updateLives);
+      sounds?.playSound(SoundEffects.Death);
     }
     return;
   };
@@ -255,8 +262,17 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     const [i, j] = pacman.currentBlock;
     limitToTheMap(j, pacman);
 
+    /** play eating sounds */
+    if (map[i][j] === MapElements.FOOD) {
+      sounds?.playSound(SoundEffects.Chomp);
+    }
+    if (map[i][j] === MapElements.CHERRY) {
+      sounds?.playSound(SoundEffects.EatFruit);
+    }
+
     /** update score state */
     updateMap(map, i, j, MapElements.NONE);
+
     const score =
       foodAmount -
       countOccurrences(map, MapElements.FOOD) +
