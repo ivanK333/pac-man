@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
+
+import { Link, useSearchParams } from 'react-router-dom';
 
 import Header from '../../components/Header/Header';
 import styles from './styles.module.scss';
@@ -20,8 +22,22 @@ import Ilya from '../../assets/images/Ilya.png';
 import Ivan from '../../assets/images/Ivan.png';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
 import { ROUTES } from '../../constants/routes';
+import { authController } from '../../controllers/AuthController';
 
 const Lending = () => {
+  const { signInWithOAuth } = authController();
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    try {
+      const code = searchParams.get('code');
+      if (code) {
+        signInWithOAuth(code);
+      }
+    } catch (error) {
+      console.error((error as Error).message);
+    }
+  }, []);
   return (
     <>
       <Header />
