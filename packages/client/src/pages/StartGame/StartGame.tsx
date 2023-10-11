@@ -1,11 +1,12 @@
 import logo from '../../assets/images/logo.svg';
 import play from '../../assets/images/play.svg';
-import { useEventListener } from '../../hooks/useEventListener';
 import styles from './styles.module.scss';
+import { useEventListener } from '../../hooks/useEventListener';
 
 type Props = {
   startGame: () => void;
 };
+
 const StartGame = ({ startGame }: Props) => {
   const handlerButtonRestart = (event: Event) => {
     if (event instanceof KeyboardEvent && event.key === 'Enter') {
