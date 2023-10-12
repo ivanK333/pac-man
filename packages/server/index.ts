@@ -13,6 +13,7 @@ import cookieParser from 'cookie-parser';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './forum/init';
+import router from './forum/routes/routes';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -24,7 +25,6 @@ const isProd = () => process.env.NODE_ENV === 'production';
 const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
-  //createClientAndConnect();
   const app = express();
   app.use(requestLogger); // request logger
   app.use(
@@ -42,6 +42,8 @@ async function startServer() {
       target: 'https://ya-praktikum.tech',
     }),
   );
+
+  app.use('/forum', router);
 
   let vite: ViteDevServer | undefined;
   const distPath = path.resolve(__dirname, '../../packages/client/dist');
@@ -63,6 +65,7 @@ async function startServer() {
   }
 
   app.use('*', cookieParser(), async (req, res, next) => {
+    console.log(req.headers);
     const url = req.originalUrl;
     let mod: SSRModule;
     let template: string;
