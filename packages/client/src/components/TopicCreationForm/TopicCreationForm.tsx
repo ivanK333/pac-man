@@ -1,58 +1,51 @@
 import { useForm } from 'react-hook-form';
 
-import styles from './styles.module.scss';
 import FormHeading from '../FormComponent/FormHeading/FormHeading';
 import FormGroup from '../FormComponent/FormGroup/FormGroup';
 import InputWithLabel from '../FormComponent/InputWithLabel/InputWithLabel';
 import FormButton from '../FormComponent/FormButtonGroup/FormButton';
+import TextAreaWithLabel from '../FormComponent/TextAreaWithLabel/TextAreaWithLabel';
+import { TCreateTopic } from '../../api';
 
 type TTopicCreationFormProps = {
   handleCloseModal: () => void;
+  onSubmit: (data: TCreateTopic) => void;
 };
 
 const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
   handleCloseModal,
+  onSubmit,
 }) => {
   const formMethods = useForm();
-  const handleSubmit = () => {
-    console.log(formMethods.formState.isValid);
-  };
+  const { formState } = formMethods;
 
   return (
-    <FormGroup onSubmit={handleSubmit}>
+    <FormGroup onSubmit={onSubmit}>
       <FormHeading text="Create a topic" />
       <InputWithLabel
         label="Topic"
         type="text"
-        name="topic"
+        name="title"
         placeholder="Enter topic name"
         autoFocus={true}
         required={true}
       />
-      <article className={styles.group}>
-        <label className={styles.label} htmlFor="message">
-          Message:
-        </label>
-        <textarea
-          className={styles.textArea}
-          {...formMethods.register('messageArea')}
-          required={true}
-          placeholder="Enter message text"
-          name="message"
-        />
-        {formMethods.formState.errors['message'] && (
-          <div className={styles.error}>
-            <p>{formMethods.formState.errors['message']?.message as string}</p>
-          </div>
-        )}
-      </article>
+
+      <TextAreaWithLabel
+        label="Message:"
+        id="description"
+        name="description"
+        placeholder="Enter description"
+        autoFocus={false}
+        required={true}
+      />
 
       <FormButton
         title="Create"
         linkName="Close"
         bottomText="Don't want to create?"
         onClick={handleCloseModal}
-        disabled={!formMethods.formState.isValid}
+        disabled={!formState.isValid}
       />
     </FormGroup>
   );

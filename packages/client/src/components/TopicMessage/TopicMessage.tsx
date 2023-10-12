@@ -1,42 +1,44 @@
 import { useState } from 'react';
 
+import { forumController } from '../../controllers/ForumController';
 import styles from './styles.module.scss';
 import AvatarImage from '../AvatarImage/AvatarImage';
 import TopicForm from '../TopicForm/TopicForm';
 import { TTopicForm } from '../../pages/Topic/Topic';
 import CommentItem from '../CommentItem/CommentItem';
-import { TComment } from '../../constants/fakeTopics';
+import { TComment, TMessage } from '../../api';
 
 type TTopicMessageProps = {
-  image: string;
-  username: string;
-  message: string;
-  time: string;
-  comments: TComment[];
+  message: TMessage;
 };
 
-const TopicMessage: React.FC<TTopicMessageProps> = ({
-  image,
-  username,
-  message,
-  time,
-  comments,
-}) => {
+const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
+  const { id, createdAt, comments, user } = message;
+  const { avatar, name } = user;
+  const { leaveComment } = forumController();
+
   const [isShow, setIsShow] = useState<boolean>(false);
-  const handleSubmit = (data: TTopicForm) => {
-    console.log(data);
+  const [thisComments, setThisComments] = useState<TComment[]>(comments);
+  const hasComments = thisComments && thisComments.length > 0;
+
+  const submitComment = async (data: TTopicForm) => {
+    const response = await leaveComment({ ...data, messageId: id as string });
+    if (response?.data) {
+      const updatedComments: TComment[] = [response.data, ...thisComments];
+      setThisComments(updatedComments);
+    }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
-        <h4 className={styles.username}>{username}</h4>
-        <p className={styles.time}>{time}</p>
+        <h4 className={styles.username}>{name}</h4>
+        <p className={styles.time}>{createdAt}</p>
       </div>
       <div className={styles.userContainer}>
-        <AvatarImage image={image} />
+        <AvatarImage image={avatar} />
         <div className={styles.messageContainer}>
-          <p className={styles.message}>{message}</p>
+          <p className={styles.message}>{message.message}</p>
           <div className={styles.buttonContainer}>
             <p
               className={styles.commentsLength}
@@ -44,8 +46,8 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
                 setIsShow(!isShow);
               }}
             >
-              {comments && comments.length > 0
-                ? `${comments.length} comment(s).`
+              {hasComments
+                ? `${thisComments.length} comment(s).`
                 : 'leave a comment.'}
               <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
             </p>
@@ -53,22 +55,15 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
 
           {isShow && (
             <div className={styles.comments}>
-              {comments && comments.length
-                ? comments.map((comment) => (
-                    <CommentItem
-                      comment={comment.comment}
-                      avatar={comment.user.avatar}
-                      userName={comment.user.name}
-                      time={comment.time}
-                      id={comment.id}
-                      key={comment.id}
-                    />
+              {hasComments
+                ? thisComments.map((comment) => (
+                    <CommentItem comment={comment} key={comment.id} />
                   ))
                 : null}
 
               <TopicForm
                 placeholder="Enter a comment"
-                onSubmit={handleSubmit}
+                onSubmit={submitComment}
               />
             </div>
           )}

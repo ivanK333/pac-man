@@ -1,38 +1,9 @@
+import { TTopic } from '../api';
 import defaultImage from '../../src/assets/images/default-avatar.svg';
 import image1 from '../../src/assets/images/сорри.jpg';
 import image2 from '../../src/assets/images/несорри.jpg';
 
-export type TMessageUser = {
-  name: string;
-  id: string;
-  avatar: string;
-};
-
-export type TComment = {
-  user: TMessageUser;
-  comment: string;
-  time: string;
-  likes: string[];
-  emojis: string[];
-  id: string;
-};
-
-export type TMessage = {
-  message: string;
-  user: TMessageUser;
-  time: string;
-  id: string;
-  comments: TComment[];
-  likes: string[];
-  emojis: string[];
-};
-
-export type TFakeTopics = {
-  topicName: string;
-  messages: TMessage[];
-  id: string;
-};
-export const fakeTopics: TFakeTopics[] = [
+export const fakeTopics: TTopic[] = [
   {
     topicName: 'Pacman',
     messages: [
@@ -42,12 +13,12 @@ export const fakeTopics: TFakeTopics[] = [
         Integer aliquam lacus odio, id ornare libero placerat in. 
         Donec volutpat laoreet elementum. Duis laoreet eleifend pellentesque. 
         Etiam efficitur nisi urna, id pulvinar nisi tempor quis. In eu volutpat sem, eu lacinia mauris.`,
+        createdAt: '12:33',
         user: {
           name: '20lettersloginlength',
           avatar: image1,
           id: '234234',
         },
-        time: '12:33',
         id: '1',
         comments: [
           {
@@ -63,7 +34,7 @@ export const fakeTopics: TFakeTopics[] = [
             Aenean pulvinar vulputate nisi tincidunt sollicitudin. 
             Donec feugiat rhoncus lacus, vehicula rhoncus erat varius vitae. 
             Pellentesque faucibus vestibulum molestie.`,
-            time: '12:48',
+            createdAt: '12:33',
             likes: [],
             emojis: [],
             id: '1',
@@ -82,7 +53,7 @@ export const fakeTopics: TFakeTopics[] = [
             dolor tellus eleifend nunc, et placerat turpis neque in nulla. 
             Suspendisse hendrerit nisl et enim molestie molestie. 
             Nunc et molestie purus. Nullam condimentum laoreet maximus.`,
-            time: '12:48',
+            createdAt: '12:33',
             likes: [],
             emojis: [],
             id: '2',
@@ -102,7 +73,7 @@ export const fakeTopics: TFakeTopics[] = [
           avatar: image2,
           id: '234254',
         },
-        time: '12:35',
+        createdAt: '12:33',
         id: '2',
         comments: [],
         likes: [],
@@ -122,7 +93,7 @@ export const fakeTopics: TFakeTopics[] = [
           avatar: defaultImage,
           id: '111111',
         },
-        time: '12:43',
+        createdAt: '12:43',
         id: '3',
         likes: [],
         emojis: [],
@@ -140,7 +111,7 @@ export const fakeTopics: TFakeTopics[] = [
             Aenean pulvinar vulputate nisi tincidunt sollicitudin. 
             Donec feugiat rhoncus lacus, vehicula rhoncus erat varius vitae. 
             Pellentesque faucibus vestibulum molestie.`,
-            time: '12:48',
+            createdAt: '12:33',
             likes: [],
             emojis: [],
             id: '1',
@@ -164,7 +135,7 @@ export const fakeTopics: TFakeTopics[] = [
           avatar: image1,
           id: '234234',
         },
-        time: '12:33',
+        createdAt: '12:33',
         id: '1',
         comments: [],
         likes: [],
@@ -181,7 +152,7 @@ export const fakeTopics: TFakeTopics[] = [
           avatar: image2,
           id: '234254',
         },
-        time: '12:35',
+        createdAt: '12:33',
         id: '2',
         comments: [],
         likes: [],
@@ -201,7 +172,7 @@ export const fakeTopics: TFakeTopics[] = [
           avatar: defaultImage,
           id: '111111',
         },
-        time: '12:43',
+        createdAt: '12:43',
         id: '3',
         likes: [],
         emojis: [],
@@ -219,7 +190,7 @@ export const fakeTopics: TFakeTopics[] = [
             Aenean pulvinar vulputate nisi tincidunt sollicitudin. 
             Donec feugiat rhoncus lacus, vehicula rhoncus erat varius vitae. 
             Pellentesque faucibus vestibulum molestie.`,
-            time: '12:48',
+            createdAt: '12:48',
             likes: [],
             emojis: [],
             id: '1',
