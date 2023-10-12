@@ -147,6 +147,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     CanvasRenderingContext2D | null | undefined
   >(null);
 
+  // переменная необходимая только для разработки/тестирования
   // let spaceDisabled = false;
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -203,6 +204,7 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           pacman.setNextDirection(Direction.Down);
           break;
 
+        // блок кода необходимый только для разработки/тестирования
         // case 'Space':
         //   /** выключаю пробел пока пакман умирает */
         //   if (!spaceDisabled) {

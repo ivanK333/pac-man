@@ -4,19 +4,20 @@ import styles from './styles.module.scss';
 import LeaderboardItem from './components/LeaderboardItem/LeaderboardItem';
 import { leaderboardController } from '../../controllers/LeaderboardController';
 
-type leaderboardData = Record<
-  string,
-  {
+export interface IGetLeaderboardData {
+  data: {
     avatar: string;
     index: number;
     name: string;
     score: number;
     id: number;
-  }
->[];
+  };
+}
 
 const Leaderboard = () => {
-  const [data, setData] = useState<leaderboardData>([]);
+  const [leaderboardData, setLeaderboardData] = useState<IGetLeaderboardData[]>(
+    [],
+  );
 
   const { getTeamLeaderboard } = leaderboardController();
 
@@ -24,15 +25,7 @@ const Leaderboard = () => {
     const response = await getTeamLeaderboard();
 
     if (response?.data) {
-      response.data.forEach(
-        (item: Record<string, Record<string, string | number>>, i: number) => {
-          item.data.id = i + 1;
-          item.data.index = i + 1;
-          item.data.avatar = `https://ya-praktikum.tech/api/v2/resources${item.data.avatar}`;
-        },
-      );
-
-      setData(response.data);
+      setLeaderboardData(response.data);
     }
   };
 
@@ -43,13 +36,13 @@ const Leaderboard = () => {
   return (
     <div className={styles.container}>
       <ul className={styles.list}>
-        {data.map((i) => (
+        {leaderboardData.map((item) => (
           <LeaderboardItem
-            image={i.data.avatar}
-            index={i.data.index}
-            name={i.data.name}
-            score={i.data.score}
-            key={i.data.id}
+            image={item.data.avatar}
+            index={item.data.index}
+            name={item.data.name}
+            score={item.data.score}
+            key={item.data.id}
           />
         ))}
       </ul>
