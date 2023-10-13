@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  margin: 55px 0 40px;
+  background: rgba(255, 255, 255, 0.4);
+  width: 100%;
+  height: calc(100% - 95px);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+} /*# sourceMappingURL=styles.module.css.map */

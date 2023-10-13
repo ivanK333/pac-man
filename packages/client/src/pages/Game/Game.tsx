@@ -8,7 +8,7 @@ import MuteButton from '../../components/MuteButton/MuteButton';
 import { SoundEffects, Sounds } from '../../engine/Sound/sound';
 import styles from './styles.module.scss';
 import { leaderboardController } from '../../controllers/LeaderboardController';
-        
+
 const delay = 0;
 
 const Game = () => {

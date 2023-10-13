@@ -1,0 +1,74 @@
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+/**
+  Text mixins
+ */
+/**
+  Form sprite animation
+ */
+@keyframes slide-animation {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+  20% {
+    transform: translateX(-80%) translateY(-10px);
+  }
+  40% {
+    transform: translateX(-60%) translateY(10px);
+  }
+  60% {
+    transform: translateX(-40%) translateY(0);
+  }
+  80% {
+    transform: translateX(-20%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+/** common styles */
+.link {
+  line-height: 14px;
+  font-size: 12px;
+}
+.link span {
+  color: #fff;
+}
+.link a {
+  margin: 10px;
+  color: #ffdf00;
+}
+
+/** flavor specific styles */
+/** style login link */
+.login {
+  line-height: 14px;
+  font-size: 12px;
+}
+.login span {
+  color: #fff;
+}
+.login a {
+  margin: 10px;
+}
+
+/**  style register link */
+.register {
+  line-height: 14px;
+  font-size: 12px;
+}
+.register span {
+  color: #fff;
+}
+.register a {
+  margin: 10px;
+  color: #f50100;
+} /*# sourceMappingURL=styles.module.css.map */
