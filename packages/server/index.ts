@@ -13,6 +13,7 @@ import cookieParser from 'cookie-parser';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './forum/init';
+import { auth } from './middlewares/auth';
 import router from './forum/routes/routes';
 
 interface SSRModule {
@@ -26,12 +27,8 @@ const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
   const app = express();
-  app.use(requestLogger); // request logger
-  app.use(
-    cors({
-      origin: '*', // allow all cors requests when develop
-    }),
-  );
+  app.use(requestLogger);
+
   app.use(
     '/api/v2',
     createProxyMiddleware({
@@ -43,7 +40,11 @@ async function startServer() {
     }),
   );
 
-  app.use('/forum', router);
+  app.use(
+    cors({
+      origin: '*',
+    }),
+  );
 
   let vite: ViteDevServer | undefined;
   const distPath = path.resolve(__dirname, '../../packages/client/dist');
@@ -63,13 +64,12 @@ async function startServer() {
   if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
-
+  app.use('/forum', cookieParser(), router);
   app.use('*', cookieParser(), async (req, res, next) => {
-    console.log(req.headers);
     const url = req.originalUrl;
     let mod: SSRModule;
     let template: string;
-
+    app.use(auth);
     try {
       template = fs.readFileSync(
         path.resolve(isDev() ? srcPath : distPath, 'index.html'),
