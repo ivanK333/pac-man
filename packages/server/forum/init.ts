@@ -6,6 +6,7 @@ import TopicModel from './models/topicModel';
 import MessageModel from './models/messageModel';
 
 dotenv.config();
+
 /*
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
