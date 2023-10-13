@@ -2,18 +2,37 @@ import type { Request, Response } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import TopicModel from '../models/topicModel';
+import MessageModel from '../models/messageModel';
 
 const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({
-    order: [[Sequelize.col('createdAt'), 'DESC']],
+    attributes: [
+      'id',
+      'title',
+      'text',
+      'owner_id',
+      'owner_login',
+      'owner_avatar',
+      [Sequelize.fn('COUNT', Sequelize.col('messages.id')), 'message_count'],
+    ],
+    include: [
+      {
+        model: MessageModel,
+        as: 'messages',
+        attributes: [],
+      },
+    ],
+    group: 'TopicModel.id',
+    order: [[Sequelize.col('TopicModel.createdAt'), 'DESC']],
   })
-    .then((topics) => {
-      res.status(200).json(topics);
+    .then((topic) => {
+      res.status(200).json(topic);
     })
-    .catch(() => {
-      res.status(400).json({ message: 'Bad request' });
+    .catch((error) => {
+      res.status(400).json({ message: error });
     });
 };
+
 const postTopic = (req: Request, res: Response) => {
   TopicModel.create({
     ...req.body,

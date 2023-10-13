@@ -8,7 +8,7 @@ import { ROUTES } from '../../constants/routes';
 import Modal from '../../components/Modal/Modal';
 import TopicCreationForm from '../../components/TopicCreationForm/TopicCreationForm';
 import { forumController } from '../../controllers/ForumController';
-import { TCreateTopic, TTopicHeader } from '../../api';
+import { TCreateTopic, TTopic } from '../../api';
 import TopicItem from '../../components/TopicItem/TopicItem';
 
 const Forum = () => {
@@ -17,9 +17,9 @@ const Forum = () => {
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
   const isForumRoot = Boolean(matchForumRoot);
 
-  const { getAllTopicsHeaders, createTopic } = forumController();
+  const { getAllTopics, createTopic } = forumController();
 
-  const [topics, setTopics] = useState<TTopicHeader[]>([]);
+  const [topics, setTopics] = useState<TTopic[]>([]);
 
   const handleOpenModal = () => {
     setIsOpenModal(true);
@@ -31,7 +31,17 @@ const Forum = () => {
 
   useEffect(() => {
     const getTopics = async () => {
-      const response = await getAllTopicsHeaders();
+      const response = await getAllTopics();
+      //   {
+      //     "id": "5b6c908c-9337-4caf-a93e-a357706917b9",
+      //     "title": "test",
+      //     "text": "test",
+      //     "owner_id": "550e8400-e29b-41d4-a716-446655440000\n",
+      //     "owner_login": "test",
+      //     "owner_avatar": "test",
+      //     "createdAt": "2023-10-13T11:18:40.832Z",
+      //     "updatedAt": "2023-10-13T11:18:40.832Z"
+      // }
       if (response?.data) {
         console.log(response.data);
         setTopics(response.data);
