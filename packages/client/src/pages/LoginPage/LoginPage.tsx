@@ -12,6 +12,8 @@ import { validation } from '../../constants/formValidation/formValidation';
 import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { ROUTES } from '../../constants/routes';
+import { OAuth } from '../../components/OAuth/OAuth';
+import { loadMe, useAppDispatch } from '../../store';
 
 type FormValues = {
   login: string;
@@ -20,6 +22,7 @@ type FormValues = {
 
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -33,6 +36,8 @@ const LoginForm = () => {
       setError(response);
       return;
     }
+
+    dispatch(loadMe());
 
     navigate(ROUTES.main.root);
   };
@@ -58,6 +63,7 @@ const LoginForm = () => {
             placeholder="Enter your password"
             validation={validation.password}
           />
+          <OAuth />
           <FormButtonGroup
             title="Login"
             spriteImg={spriteSvg}

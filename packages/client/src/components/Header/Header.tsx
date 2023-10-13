@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Link, NavLink, useMatch } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -5,35 +7,45 @@ import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 import fullScreenOn from '../../assets/images/fullscreen_on.svg';
 import fullScreenOff from '../../assets/images/fullscreen-off.svg';
-import { authController } from '../../controllers/AuthController';
+import { logout, useAppDispatch } from '../../store';
 import useFullScreen from '../../hooks/useFullSrceen';
 import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Header = () => {
+  const [render, setRender] = useState(false);
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
+  const dispatch = useAppDispatch();
+
   const match = useMatch({
     path: ROUTES.main.forum.root,
     end: false,
   });
-  const classname = classNames(styles.link, {
+
+  const linkClassname = classNames(styles.link, {
     [styles.linkActive]: match,
   });
 
-  const { logout } = authController();
-
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await dispatch(logout());
   };
 
   const { fullScreen, open } = useFullScreen();
 
+  useEffect(() => {
+    setRender(true);
+  }, []);
+
+  if (!render) {
+    return <></>;
+  }
   return (
     <header className={styles.header}>
-      {isAuthenticated ? (
+      {isAuthenticated && (
         <button className={styles.exitButton} onClick={handleLogout}>
           Log out
         </button>
-      ) : null}
+      )}
+
       <ul className={styles.list}>
         <li className={styles.listItem}>
           <NavLink
@@ -76,7 +88,7 @@ const Header = () => {
           </NavLink>
         </li>
         <li className={styles.listItem}>
-          <Link to={ROUTES.main.forum.root} className={classname}>
+          <Link to={ROUTES.main.forum.root} className={linkClassname}>
             Forum
           </Link>
         </li>
