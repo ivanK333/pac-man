@@ -12,6 +12,7 @@ import cookieParser from 'cookie-parser';
 
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
+import { dbConnect } from './forum/init';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -107,11 +108,12 @@ async function startServer() {
 
   app.listen(port);
 }
-
-startServer().then(() => {
-  console.log(
-    `  ➜ 🎸 Server is listening on port: ${port}`,
-    `http://localhost:${port}/`,
-  );
-  console.log(process.env.NODE_ENV);
+dbConnect().then(() => {
+  startServer().then(() => {
+    console.log(
+      `  ➜ 🎸 Server is listening on port: ${port}`,
+      `http://localhost:${port}/`,
+    );
+    console.log(process.env.NODE_ENV);
+  });
 });
