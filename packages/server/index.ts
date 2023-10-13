@@ -43,6 +43,8 @@ async function startServer() {
     }),
   );
 
+  app.use('/forum', router);
+
   let vite: ViteDevServer | undefined;
   const distPath = path.resolve(__dirname, '../../packages/client/dist');
   const srcPath = path.resolve(__dirname, '../../packages/client');
