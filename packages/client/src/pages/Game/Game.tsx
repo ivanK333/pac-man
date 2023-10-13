@@ -7,6 +7,8 @@ import GameCanvas from '../../engine/GameCanvas';
 import MuteButton from '../../components/MuteButton/MuteButton';
 import { SoundEffects, Sounds } from '../../engine/Sound/sound';
 import styles from './styles.module.scss';
+import { leaderboardController } from '../../controllers/LeaderboardController';
+
 const delay = 0;
 
 const Game = () => {
@@ -17,6 +19,8 @@ const Game = () => {
   const [lives, setLives] = useState<number>(3);
   const [attempts, setAttempts] = useState<number>(0);
   const [sounds, setSounds] = useState<Sounds | null>(null);
+
+  const { addUserToLeaderboard } = leaderboardController();
 
   const restartGame = useCallback(() => {
     setScore(0);
@@ -59,6 +63,10 @@ const Game = () => {
 
   const updateLives = (lives: number) => {
     setLives(lives);
+
+    if (lives <= 0) {
+      addUserToLeaderboard(score);
+    }
   };
 
   const toggleMute = () => {

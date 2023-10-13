@@ -1,0 +1,88 @@
+@import 'https://fonts.googleapis.com/css?family=Press+Start+2P:regular';
+@import 'https://fonts.googleapis.com/css?family=Quicksand:300,regular,500,600,700';
+@import 'https://fonts.googleapis.com/css?family=Oi:regular';
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div[id='root'] {
+  display: flex;
+  flex-direction: column;
+  border: 0;
+  overflow-x: hidden;
+  font-family: Quicksand, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #000;
+  padding: 0;
+  color: #fff;
+}
+
+#root {
+  width: 100dvw;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  border: none;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  box-shadow: none;
+  cursor: pointer;
+}
+
+input {
+  outline: none;
+}
+
+img {
+  max-width: 100%;
+} /*# sourceMappingURL=index.css.map */

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { FC, useState, useEffect, useRef } from 'react';
 
 import { blockSize, MapElements, speed } from './config';
@@ -150,7 +151,9 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
     CanvasRenderingContext2D | null | undefined
   >(null);
 
-  let spaceDisabled = false;
+  // переменная необходимая только для разработки/тестирования
+  // let spaceDisabled = false;
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   /** create canvas and draw map */
@@ -208,17 +211,18 @@ const GameCanvas: FC<CanvasProps> = (props: CanvasProps) => {
           pacman.setNextDirection(Direction.Down);
           break;
 
-        case 'Space':
-          /** выключаю пробел пока пакман умирает */
-          if (!spaceDisabled) {
-            pacman.die(updateLives);
-            spaceDisabled = true;
-            setTimeout(() => {
-              spaceDisabled = false;
-            }, 2000);
-          }
+        // блок кода необходимый только для разработки/тестирования
+        // case 'Space':
+        //   /** выключаю пробел пока пакман умирает */
+        //   if (!spaceDisabled) {
+        //     pacman.die(updateLives);
+        //     spaceDisabled = true;
+        //     setTimeout(() => {
+        //       spaceDisabled = false;
+        //     }, 2000);
+        //   }
 
-          break;
+        //   break;
       }
     };
     window.addEventListener('keydown', keyboardHandler);
