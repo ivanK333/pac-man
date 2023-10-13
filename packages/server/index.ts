@@ -45,6 +45,9 @@ async function startServer() {
       origin: '*',
     }),
   );
+  app.use(express.json());
+
+  app.use(cookieParser());
 
   let vite: ViteDevServer | undefined;
   const distPath = path.resolve(__dirname, '../../packages/client/dist');
@@ -64,8 +67,8 @@ async function startServer() {
   if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
-  app.use('/forum', cookieParser(), router);
-  app.use('*', cookieParser(), async (req, res, next) => {
+  app.use('/forum', router);
+  app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;
     let template: string;
