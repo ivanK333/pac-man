@@ -4,47 +4,27 @@ import axios from 'axios';
 import { TCreateTopic, TLeaveComment, TLeaveMessage } from './types';
 import { fakeTopics } from '../../constants/fakeTopics';
 import image1 from '../../../src/assets/images/сорри.jpg';
-const dockerHost = '127.0.0.1';
-const port = 5432;
+
+const URL_DB = 'localhost:3001/forum';
 
 const getRandomInt = (max: number) => {
   return Math.floor(Math.random() * max);
 };
+const fetchData = async (url: string) => {
+  try {
+    const response = await axios.get(url);
+    return { status: 200, data: response.data };
+  } catch (error) {
+    console.error('Error:', error);
+    return { error };
+  }
+};
 
 export const forumAPI = () => {
   const getAllTopics = async () => {
-    return { status: 200, data: fakeTopics };
-  };
-
-  const getAllTopicsHeaders = async () => {
-    // will have a query to get only this data, not all topics data
-
-    // await baseFetch.get(URL, data, { withCredentials: true });
-    console.log('--->', 'getAllTopics');
-
-    // console.log('===getReferences====>', siteId)
-    // const searchParams = new URLSearchParams({ siteId });
-    // const url = new URL(`/topics`);
-    // url.search = searchParams.toString();
-    // console.log('===getReferences== url==>', url)
-    // const response = await fetch(url);
-    // console.log('===>', response);
-    const dockerHost = 'localhost:3005/forum';
-    axios
-      .get(`http://${dockerHost}/topics`)
-      .then(function (response) {
-        console.log('----->', response.data);
-      })
-      .catch(function (error) {
-        console.error('Error:', error);
-      });
-
-    const headers = fakeTopics.map((topic) => ({
-      topicName: topic.topicName,
-      count: topic.messages.length,
-      id: topic.id,
-    }));
-    return { status: 200, data: headers };
+    const res = await fetchData(`http://${URL_DB}/topics`);
+    console.log('res API', res);
+    return res;
   };
 
   const getTopicById = async (id: string) => {
@@ -108,7 +88,6 @@ export const forumAPI = () => {
   return {
     createTopic,
     getAllTopics,
-    getAllTopicsHeaders,
     getTopicById,
     leaveMessage,
     leaveComment,

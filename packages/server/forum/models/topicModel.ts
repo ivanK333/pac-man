@@ -42,6 +42,8 @@ class TopicModel extends Model<TopicModel> {
   owner_avatar: string;
 
   @HasMany(() => MessageModel, {
+    foreignKey: 'topic_id',
+    as: 'messages',
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
     hooks: true,

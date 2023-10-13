@@ -39,13 +39,13 @@ export type TMessage = {
 };
 
 export type TTopic = {
-  topicName: string;
-  messages: TMessage[];
   id: string;
-};
-
-export type TTopicHeader = {
-  topicName: string;
-  count: number;
-  id: string;
+  title: string;
+  text: string;
+  ownerId: string;
+  ownerLogin: string;
+  ownerAvatar: string;
+  createdAt: string;
+  updatedAt: string;
+  messageCount: string;
 };
