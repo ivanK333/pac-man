@@ -7,20 +7,22 @@ import styles from './styles.module.scss';
 import blueGhost from '../../assets/images/blueSprite.svg';
 import TopicForm from '../../components/TopicForm/TopicForm';
 import TopicMessage from '../../components/TopicMessage/TopicMessage';
-import { TTopic } from '../../api';
+import { TTopic, TTopicWithMEssages } from '../../api';
 
 export type TTopicForm = { message: string };
 
 const Topic = () => {
   const { id } = useParams();
   const history = useNavigate();
-  const { leaveMessage, getTopicById } = forumController();
+  const { leaveMessage, getTopicWithMessages } = forumController();
 
-  const [topic, setTopic] = useState<TTopic | null>(null);
+  const [topic, setTopic] = useState<TTopicWithMEssages | null>(null);
 
   useEffect(() => {
     const getTopic = async () => {
-      const response = await getTopicById(id as string);
+      const response = await getTopicWithMessages(id as string);
+      console.log(response.data);
+
       if (response?.data) {
         setTopic(response.data);
       }
@@ -28,10 +30,13 @@ const Topic = () => {
     getTopic();
   }, []);
 
-  const submitMessage = async (data: TTopicForm) => {
-    const response = await leaveMessage({ ...data, topicId: id as string });
+  const submitMessage = async (data: any) => {
+    const { message: text } = data;
+    const response = await leaveMessage({ text, topicId: id as string });
+
     if (topic && response?.data) {
-      const updatedTopic: TTopic = {
+      console.log(topic.messages, response.data);
+      const updatedTopic: TTopicWithMEssages = {
         ...topic,
         messages: [response.data, ...(topic?.messages || [])],
       };
@@ -43,7 +48,7 @@ const Topic = () => {
     <div className={styles.container}>
       <div className={styles.textContainer}>
         <div className={styles.headingContainer}>
-          <h3 className={styles.heading}>{topic && topic.topicName}</h3>
+          <h3 className={styles.heading}>{topic && topic.title}</h3>
           <img className={styles.image} src={blueGhost} alt="ghost" />
         </div>
 

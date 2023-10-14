@@ -17,7 +17,7 @@ const Forum = () => {
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
   const isForumRoot = Boolean(matchForumRoot);
 
-  const { getAllTopics, createTopic } = forumController();
+  const { getTopics, createTopic } = forumController();
 
   const [topics, setTopics] = useState<TTopic[]>([]);
 
@@ -30,31 +30,21 @@ const Forum = () => {
   };
 
   useEffect(() => {
-    const getTopics = async () => {
-      const response = await getAllTopics();
-      //   {
-      //     "id": "5b6c908c-9337-4caf-a93e-a357706917b9",
-      //     "title": "test",
-      //     "text": "test",
-      //     "owner_id": "550e8400-e29b-41d4-a716-446655440000\n",
-      //     "owner_login": "test",
-      //     "owner_avatar": "test",
-      //     "createdAt": "2023-10-13T11:18:40.832Z",
-      //     "updatedAt": "2023-10-13T11:18:40.832Z"
-      // }
-      if (response?.data) {
-        console.log(response.data);
-        setTopics(response.data);
+    const getTopicsInfo = async () => {
+      const res = await getTopics();
+      if (res?.data) {
+        console.log('Forum getTopics===>', res.data);
+        setTopics(res.data);
       }
     };
 
-    getTopics();
+    getTopicsInfo();
   }, []);
 
   const submitTopic = async (data: TCreateTopic) => {
-    const response = await createTopic(data);
-    if (response?.data) {
-      setTopics([response.data, ...topics]);
+    const res = await createTopic(data);
+    if (res?.data) {
+      setTopics([res.data, ...topics]);
       handleCloseModal();
     }
   };
@@ -82,6 +72,7 @@ const Forum = () => {
           <Outlet />
         )}
       </div>
+
       {isOpenModal && (
         <Modal>
           <TopicCreationForm
