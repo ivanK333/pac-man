@@ -1,0 +1,95 @@
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+/**
+  Text mixins
+ */
+/**
+  Form sprite animation
+ */
+@keyframes slide-animation {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+  20% {
+    transform: translateX(-80%) translateY(-10px);
+  }
+  40% {
+    transform: translateX(-60%) translateY(10px);
+  }
+  60% {
+    transform: translateX(-40%) translateY(0);
+  }
+  80% {
+    transform: translateX(-20%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+.containerBlack,
+.containerBlue,
+.containerYellow {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 530px;
+}
+
+.containerYellow {
+  background-color: #ffdf00;
+}
+
+.containerBlue {
+  background-color: #163bf3;
+}
+
+.containerBlack {
+  background-color: #000;
+}
+
+.image {
+  max-width: 512px;
+  max-height: 522px;
+}
+
+.title {
+  margin: 46px 0 0;
+  line-height: 11px;
+  font-family: 'Press Start 2P', sans-serif;
+  font-size: 20px;
+}
+
+.link {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+} /*# sourceMappingURL=styles.module.css.map */

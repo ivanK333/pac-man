@@ -2,7 +2,15 @@ const CACHE_NAME = 'my-site-cache-v1';
 const timeout = 400;
 
 const URLS = [
-  '/index.html',
+  '/',
+  '/game',
+  '/profile',
+  '/game-over',
+  '/forum',
+  '/topic',
+  '/lead',
+  '/404',
+  '/500',
   '/src/assets/images/404-image.svg',
   '/src/assets/images/500-image.svg',
   '/src/assets/images/addCommentImage.png',
@@ -18,12 +26,16 @@ const URLS = [
   '/src/assets/images/blueSprite.svg',
   '/src/assets/images/fullscreen-on.svg',
   '/src/assets/images/fullscreen_off.svg',
-];
+].filter((url) => !url.startsWith('chrome-extension'));
 
 const addToCache = async (urls) => {
   try {
     const cache = await caches.open(CACHE_NAME);
-    await cache.addAll(urls);
+    for (const url of urls) {
+      const request = new Request(url, { method: 'GET' });
+      const response = await fetch(request);
+      await cache.put(request, response);
+    }
   } catch (error) {
     console.log(error);
   }
@@ -50,11 +62,11 @@ const getFromNetwork = (request, timeout) => {
       clearTimeout(timeoutId);
 
       const responseClone = response.clone();
-
-      caches
-        .open(CACHE_NAME)
-        .then((cache) => cache.put(request, responseClone));
-
+      if (request.url.startsWith('http')) {
+        caches
+          .open(CACHE_NAME)
+          .then((cache) => cache.put(request, responseClone));
+      }
       resolve(response);
     }, reject);
   });

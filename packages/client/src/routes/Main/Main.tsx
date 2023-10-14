@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import { Routes, Route, Navigate } from 'react-router';
 
 import styles from './styles.module.scss';
@@ -8,8 +10,18 @@ import Leaderboard from '../../pages/Leaderboard/Leaderboard';
 import Forum from '../../pages/Forum/Forum';
 import Topic from '../../pages/Topic/Topic';
 import Game from '../../pages/Game/Game';
+import startSW from '../../../startServiceWorker';
 
 export const Main = () => {
+  const [render, setRender] = useState(false);
+  useEffect(() => {
+    setRender(true);
+    startSW();
+  }, []);
+
+  if (!render) {
+    return <></>;
+  }
   return (
     <>
       <Header />
