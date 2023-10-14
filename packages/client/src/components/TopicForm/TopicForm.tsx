@@ -13,7 +13,9 @@ const TopicForm: React.FC<TTopicFormProps> = ({ onSubmit, placeholder }) => {
   const { formState, register, handleSubmit, setValue } = formMethods;
 
   const submit = async (data: TTopicForm) => {
-    console.log(data);
+    if (!data.message || data.message === '') {
+      return;
+    }
     onSubmit(data);
     setValue('message', '');
   };

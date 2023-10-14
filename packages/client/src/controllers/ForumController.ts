@@ -1,10 +1,7 @@
 import { forumAPI, TCreateTopic, TLeaveComment, TLeaveMessage } from '../api';
-// import { readLocalStorage } from '../utils/useReadLocalStorage';
-// import { logout, useAppDispatch } from '../store';
 
 export const forumController = () => {
   const api = forumAPI();
-  //   const dispatch = useAppDispatch();
 
   const getTopics = async () => {
     try {
@@ -51,11 +48,11 @@ export const forumController = () => {
       return error.res?.data?.reason;
     }
   };
-  return {
-    createTopic,
-    getTopics,
-    getTopicWithMessages,
-    leaveMessage,
-    leaveComment,
-  };
+  // return {
+  //   createTopic,
+  //   getTopics,
+  //   getTopicWithMessages,
+  //   leaveMessage,
+  //   leaveComment,
+  // };
 };
