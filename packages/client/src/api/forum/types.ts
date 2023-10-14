@@ -9,7 +9,7 @@ export type TLeaveMessage = {
 };
 
 export type TLeaveComment = {
-  message: string;
+  text: string;
   messageId: string;
 };
 
@@ -20,12 +20,14 @@ export type TMessageUser = {
 };
 
 export type TComment = {
-  user: TMessageUser;
-  comment: string;
-  createdAt: string;
-  likes: string[];
-  emojis: string[];
   id: string;
+  text: string;
+  ownerAvatar: string;
+  ownerId: string;
+  ownerLogin: string;
+  messageId: string;
+  updatedAt: string;
+  createdAt: string;
 };
 
 export type TMessage = {

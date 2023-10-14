@@ -2,26 +2,24 @@ import { useEffect, useState } from 'react';
 
 import { useNavigate, useParams } from 'react-router';
 
-import { forumController } from '../../controllers/ForumController';
 import styles from './styles.module.scss';
 import blueGhost from '../../assets/images/blueSprite.svg';
 import TopicForm from '../../components/TopicForm/TopicForm';
 import TopicMessage from '../../components/TopicMessage/TopicMessage';
-import { TTopic, TTopicWithMEssages } from '../../api';
+import { TTopic, TTopicWithMEssages, forumAPI } from '../../api';
 
 export type TTopicForm = { message: string };
 
 const Topic = () => {
   const { id } = useParams();
   const history = useNavigate();
-  const { leaveMessage, getTopicWithMessages } = forumController();
+  const { leaveMessage, getTopicWithMessages } = forumAPI();
 
   const [topic, setTopic] = useState<TTopicWithMEssages | null>(null);
 
   useEffect(() => {
     const getTopic = async () => {
       const response = await getTopicWithMessages(id as string);
-      console.log(response.data);
 
       if (response?.data) {
         setTopic(response.data);
@@ -35,7 +33,6 @@ const Topic = () => {
     const response = await leaveMessage({ text, topicId: id as string });
 
     if (topic && response?.data) {
-      console.log(topic.messages, response.data);
       const updatedTopic: TTopicWithMEssages = {
         ...topic,
         messages: [response.data, ...(topic?.messages || [])],

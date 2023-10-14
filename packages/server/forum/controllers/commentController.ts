@@ -36,6 +36,7 @@ const postComment = (req: Request, res: Response) => {
       res.status(400).json({ message: 'Bad request' });
     });
 };
+
 const updateComment = (req: Request, res: Response) => {
   const { id } = req.params;
 

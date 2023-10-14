@@ -7,8 +7,7 @@ import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 import Modal from '../../components/Modal/Modal';
 import TopicCreationForm from '../../components/TopicCreationForm/TopicCreationForm';
-import { forumController } from '../../controllers/ForumController';
-import { TCreateTopic, TTopic } from '../../api';
+import { TCreateTopic, TTopic, forumAPI } from '../../api';
 import TopicItem from '../../components/TopicItem/TopicItem';
 
 const Forum = () => {
@@ -17,7 +16,7 @@ const Forum = () => {
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
   const isForumRoot = Boolean(matchForumRoot);
 
-  const { getTopics, createTopic } = forumController();
+  const { getTopics, createTopic } = forumAPI();
 
   const [topics, setTopics] = useState<TTopic[]>([]);
 
@@ -30,15 +29,21 @@ const Forum = () => {
   };
 
   useEffect(() => {
+    console.log('refresh');
     const getTopicsInfo = async () => {
       const res = await getTopics();
       if (res?.data) {
-        console.log('Forum getTopics===>', res.data);
         setTopics(res.data);
       }
     };
 
+    // const unlisten = history.listen(() => {
     getTopicsInfo();
+    // });
+
+    // return () => {
+    //   unlisten();
+    // };
   }, []);
 
   const submitTopic = async (data: TCreateTopic) => {
