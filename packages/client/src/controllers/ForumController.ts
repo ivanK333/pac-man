@@ -1,86 +1,60 @@
 import { forumAPI, TCreateTopic, TLeaveComment, TLeaveMessage } from '../api';
-import { readLocalStorage } from '../utils/useReadLocalStorage';
-import { logout, useAppDispatch } from '../store';
-
-const convertKeysToCamelCase = (
-  obj: Record<string, any>,
-): Record<string, any> => {
-  if (obj === null || typeof obj !== 'object') {
-    return obj;
-  }
-
-  if (Array.isArray(obj)) {
-    return obj.map((item) => convertKeysToCamelCase(item));
-  }
-
-  const camelCaseObj: Record<string, any> = {};
-  for (const key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      const camelCaseKey = key.replace(/_(\w)/g, (_, letter) => {
-        return letter.toUpperCase();
-      });
-      camelCaseObj[camelCaseKey] = convertKeysToCamelCase(obj[key]);
-    }
-  }
-
-  return camelCaseObj;
-};
+// import { readLocalStorage } from '../utils/useReadLocalStorage';
+// import { logout, useAppDispatch } from '../store';
 
 export const forumController = () => {
   const api = forumAPI();
   //   const dispatch = useAppDispatch();
 
-  const getAllTopics = async () => {
+  const getTopics = async () => {
     try {
-      const response = await api.getAllTopics();
-      response.data = response.data.map((data: Record<string, any>) =>
-        convertKeysToCamelCase(data),
-      );
-      return response;
+      const res = await api.getTopics();
+      return res;
     } catch (error: any) {
-      return error.response?.data?.reason;
+      return error.res?.data?.reason;
     }
   };
 
-  const getTopicById = async (id: string) => {
+  const getTopicWithMessages = async (id: string) => {
     try {
-      const response = await api.getTopicById(id);
-      return response;
+      const res = await api.getTopicWithMessages(id);
+      return res;
     } catch (error: any) {
-      return error.response?.data?.reason;
+      return error.res?.data?.reason;
     }
   };
 
   const createTopic = async (data: TCreateTopic) => {
+    console.log('createTopic===>', data);
     try {
-      const response = await api.createTopic(data);
-      return response;
+      const res = await api.createTopic(data);
+      return res;
     } catch (error: any) {
-      return error.response?.data?.reason;
+      return error.res?.data?.reason;
     }
   };
 
   const leaveMessage = async (data: TLeaveMessage) => {
     try {
-      const response = await api.leaveMessage(data);
-      return response;
+      const res = await api.leaveMessage(data);
+      return res;
     } catch (error: any) {
-      return error.response?.data?.reason;
+      return error.res?.data?.reason;
     }
   };
 
   const leaveComment = async (data: TLeaveComment) => {
     try {
-      const response = await api.leaveComment(data);
-      return response;
+      const res = await api.leaveComment(data);
+      return res;
     } catch (error: any) {
-      return error.response?.data?.reason;
+      return error.res?.data?.reason;
     }
   };
   return {
     createTopic,
-    getAllTopics,
-    getTopicById,
+    getTopics,
+    getTopicWithMessages,
     leaveMessage,
     leaveComment,
   };

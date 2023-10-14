@@ -41,6 +41,12 @@ class TopicModel extends Model<TopicModel> {
   @Column(DataType.STRING)
   owner_avatar: string;
 
+  @Column({
+    type: DataType.INTEGER,
+    defaultValue: 0,
+  })
+  messages_count: number;
+
   @HasMany(() => MessageModel, {
     foreignKey: 'topic_id',
     as: 'messages',
@@ -48,7 +54,7 @@ class TopicModel extends Model<TopicModel> {
     onDelete: 'CASCADE',
     hooks: true,
   })
-  message: MessageModel[];
+  messages: MessageModel[];
 }
 
 export default TopicModel;

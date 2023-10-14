@@ -33,9 +33,9 @@ const TopicCreationForm: React.FC<TTopicCreationFormProps> = ({
 
       <TextAreaWithLabel
         label="Message:"
-        id="description"
-        name="description"
-        placeholder="Enter description"
+        id="text"
+        name="text"
+        placeholder="Enter text"
         autoFocus={false}
         required={true}
       />

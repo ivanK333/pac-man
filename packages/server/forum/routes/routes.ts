@@ -2,6 +2,7 @@ import express from 'express';
 
 import {
   getTopics,
+  getTopicWithMessages,
   deleteTopic,
   postTopic,
   updateTopic,
@@ -24,6 +25,7 @@ const router = express.Router();
 router.use(auth);
 
 router.get('/topics', getTopics); // get all topics
+router.get('/topics/:id', getTopicWithMessages); // get all topics
 router.get('/messages/:topic_id', getMessages); // get topic messages
 router.get('/comments/:message_id', getComments); // get message comments
 

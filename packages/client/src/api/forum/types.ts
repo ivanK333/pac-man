@@ -1,10 +1,10 @@
 export type TCreateTopic = {
   title: string;
-  description: string;
+  text: string;
 };
 
 export type TLeaveMessage = {
-  message: string;
+  text: string;
   topicId: string;
 };
 
@@ -29,13 +29,14 @@ export type TComment = {
 };
 
 export type TMessage = {
-  message: string;
-  user: TMessageUser;
-  id: string;
-  comments: TComment[];
-  likes: string[];
-  emojis: string[];
   createdAt: string;
+  id: string;
+  ownerAvatar: string;
+  ownerId: string;
+  ownerLogin: string;
+  text: string;
+  updatedAt: string;
+  commentsCount: string;
 };
 
 export type TTopic = {
@@ -47,5 +48,9 @@ export type TTopic = {
   ownerAvatar: string;
   createdAt: string;
   updatedAt: string;
-  messageCount: string;
+  messagesCount: string;
 };
+
+export interface TTopicWithMEssages extends Omit<TTopic, 'messagesCount'> {
+  messages: TMessage[];
+}

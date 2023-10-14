@@ -13,13 +13,16 @@ type TTopicMessageProps = {
 };
 
 const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
-  const { id, createdAt, comments, user } = message;
-  const { avatar, name } = user;
+  // console.log('message: ', message);
+  const { id, text, ownerAvatar, ownerLogin, commentsCount, createdAt } =
+    message;
+  const comments: TComment[] = [];
+
   const { leaveComment } = forumController();
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const [thisComments, setThisComments] = useState<TComment[]>(comments);
-  const hasComments = thisComments && thisComments.length > 0;
+  const hasComments = parseInt(commentsCount) > 0;
 
   const submitComment = async (data: TTopicForm) => {
     const response = await leaveComment({ ...data, messageId: id as string });
@@ -32,13 +35,13 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
-        <h4 className={styles.username}>{name}</h4>
+        <h4 className={styles.username}>{ownerLogin}</h4>
         <p className={styles.time}>{createdAt}</p>
       </div>
       <div className={styles.userContainer}>
-        <AvatarImage image={avatar} />
+        <AvatarImage image={ownerAvatar} />
         <div className={styles.messageContainer}>
-          <p className={styles.message}>{message.message}</p>
+          <p className={styles.message}>{text}</p>
           <div className={styles.buttonContainer}>
             <p
               className={styles.commentsLength}
@@ -47,7 +50,9 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
               }}
             >
               {hasComments
-                ? `${thisComments.length} comment(s).`
+                ? `${commentsCount} comment${
+                    parseInt(commentsCount) > 1 ? 's' : ''
+                  }.`
                 : 'leave a comment.'}
               <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
             </p>

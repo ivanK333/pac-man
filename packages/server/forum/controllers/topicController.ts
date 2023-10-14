@@ -6,23 +6,6 @@ import MessageModel from '../models/messageModel';
 
 const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({
-    attributes: [
-      'id',
-      'title',
-      'text',
-      'owner_id',
-      'owner_login',
-      'owner_avatar',
-      [Sequelize.fn('COUNT', Sequelize.col('messages.id')), 'message_count'],
-    ],
-    include: [
-      {
-        model: MessageModel,
-        as: 'messages',
-        attributes: [],
-      },
-    ],
-    group: 'TopicModel.id',
     order: [[Sequelize.col('TopicModel.createdAt'), 'DESC']],
   })
     .then((topic) => {
@@ -45,6 +28,26 @@ const postTopic = (req: Request, res: Response) => {
     })
     .catch(() => {
       res.status(400).json({ message: 'Bad request' });
+    });
+};
+
+const getTopicWithMessages = (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  TopicModel.findOne({
+    where: { id },
+    include: [
+      {
+        model: MessageModel,
+      },
+    ],
+  })
+    .then((topic) => {
+      // console.log('====>', topic);
+      res.status(200).json(topic);
+    })
+    .catch((error) => {
+      res.status(400).json({ message: error });
     });
 };
 
@@ -82,4 +85,4 @@ const deleteTopic = (req: Request, res: Response) => {
     });
 };
 
-export { getTopics, postTopic, deleteTopic, updateTopic };
+export { getTopics, getTopicWithMessages, postTopic, deleteTopic, updateTopic };

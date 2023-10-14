@@ -10,7 +10,7 @@ type TTopicItemProps = {
 };
 
 const TopicItem: React.FC<TTopicItemProps> = ({ topic }) => {
-  const { id, title, messageCount } = topic;
+  const { id, title, messagesCount } = topic;
   return (
     <div className={styles.topic}>
       <div className={styles.imageContainer}>
@@ -20,7 +20,7 @@ const TopicItem: React.FC<TTopicItemProps> = ({ topic }) => {
         <p className={styles.text}>{title}</p>
 
         <div className={styles.topicGroup}>
-          <p className={styles.counter}>{messageCount}</p>
+          <p className={styles.counter}>{messagesCount}</p>
           <Link to={`topic/${id}`}>
             <img
               className={styles.linkImage}
