@@ -1,0 +1,29 @@
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+.formContainer {
+  display: flex;
+  margin: auto;
+  border-radius: 12px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.14);
+  background-color: #000;
+  padding: 28px 30px;
+  width: 340px;
+  height: -moz-fit-content;
+  height: fit-content;
+  min-height: 450px;
+}
+
+.form {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+} /*# sourceMappingURL=styles.module.css.map */

@@ -1,0 +1,113 @@
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+/**
+  Text mixins
+ */
+/**
+  Form sprite animation
+ */
+@keyframes slide-animation {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+  20% {
+    transform: translateX(-80%) translateY(-10px);
+  }
+  40% {
+    transform: translateX(-60%) translateY(10px);
+  }
+  60% {
+    transform: translateX(-40%) translateY(0);
+  }
+  80% {
+    transform: translateX(-20%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.userContainer {
+  display: flex;
+  gap: 21px;
+  width: 100%;
+}
+
+.loginContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.username {
+  line-height: 22px;
+  font-size: 20px;
+  display: flex;
+  padding: 10px;
+  color: #163bf3;
+}
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  border-left: 2px solid #fff;
+  padding: 0 0 0 15px;
+  width: 100%;
+  height: 100%;
+}
+
+.message {
+  line-height: 18px;
+  font-size: 16px;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 70px;
+  color: #163bf3;
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commentsLength {
+  line-height: 16px;
+  font-size: 14px;
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
+  color: #163bf3;
+} /*# sourceMappingURL=styles.module.css.map */
