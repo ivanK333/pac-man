@@ -7,8 +7,8 @@ const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({
     order: [[Sequelize.col('createdAt'), 'DESC']],
   })
-    .then(() => {
-      res.status(200).json(res.locals.user);
+    .then((topics) => {
+      res.status(200).json(topics);
     })
     .catch(() => {
       res.status(400).json({ message: 'Bad request' });
