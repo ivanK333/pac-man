@@ -9,6 +9,7 @@ dotenv.config();
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
+import { errors } from 'celebrate';
 
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
@@ -28,7 +29,6 @@ const port = Number(process.env.SERVER_PORT) || 3005;
 async function startServer() {
   const app = express();
   app.use(requestLogger);
-
   app.use(
     '/api/v2',
     createProxyMiddleware({
@@ -109,7 +109,7 @@ async function startServer() {
       next(e);
     }
   });
-
+  app.use(errors());
   app.use(errorLogger); // error logger
 
   app.listen(port);
