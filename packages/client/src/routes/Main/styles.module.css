@@ -1,0 +1,51 @@
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+/**
+  Text mixins
+ */
+/**
+  Form sprite animation
+ */
+@keyframes slide-animation {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+  20% {
+    transform: translateX(-80%) translateY(-10px);
+  }
+  40% {
+    transform: translateX(-60%) translateY(10px);
+  }
+  60% {
+    transform: translateX(-40%) translateY(0);
+  }
+  80% {
+    transform: translateX(-20%) translateY(-10px);
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+  }
+}
+/* flexbox */
+/* Grey palette */
+/* blue palette */
+/* red palette */
+/* green palette */
+/* white palette */
+/* black palette */
+/* input-sizes */
+/* button-sizes */
+/* font-variables */
+.main {
+  display: flex;
+  flex: 1 0;
+  height: 100%;
+} /*# sourceMappingURL=styles.module.css.map */
