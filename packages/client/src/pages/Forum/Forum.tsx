@@ -37,13 +37,7 @@ const Forum = () => {
       }
     };
 
-    // const unlisten = history.listen(() => {
     getTopicsInfo();
-    // });
-
-    // return () => {
-    //   unlisten();
-    // };
   }, []);
 
   const submitTopic = async (data: TCreateTopic) => {
