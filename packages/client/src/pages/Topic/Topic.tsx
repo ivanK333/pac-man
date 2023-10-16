@@ -1,28 +1,51 @@
+import { useEffect, useState } from 'react';
+
 import { useNavigate, useParams } from 'react-router';
 
 import styles from './styles.module.scss';
 import blueGhost from '../../assets/images/blueSprite.svg';
 import TopicForm from '../../components/TopicForm/TopicForm';
 import TopicMessage from '../../components/TopicMessage/TopicMessage';
-import { fakeTopics } from '../../constants/fakeTopics';
+import { TTopic, TTopicWithMEssages, forumAPI } from '../../api';
 
 export type TTopicForm = { message: string };
 
 const Topic = () => {
   const { id } = useParams();
   const history = useNavigate();
+  const { leaveMessage, getTopicWithMessages } = forumAPI();
 
-  const handleSubmit = (data: TTopicForm) => {
-    console.log(data, id);
+  const [topic, setTopic] = useState<TTopicWithMEssages | null>(null);
+
+  useEffect(() => {
+    const getTopic = async () => {
+      const response = await getTopicWithMessages(id as string);
+
+      if (response?.data) {
+        setTopic(response.data);
+      }
+    };
+    getTopic();
+  }, []);
+
+  const submitMessage = async (data: any) => {
+    const { message: text } = data;
+    const response = await leaveMessage({ text, topicId: id as string });
+
+    if (topic && response?.data) {
+      const updatedTopic: TTopicWithMEssages = {
+        ...topic,
+        messages: [response.data, ...(topic?.messages || [])],
+      };
+      setTopic(updatedTopic);
+    }
   };
-
-  const topic = fakeTopics.find((topic) => topic.id === id);
 
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
         <div className={styles.headingContainer}>
-          <h3 className={styles.heading}>{topic && topic.topicName}</h3>
+          <h3 className={styles.heading}>{topic && topic.title}</h3>
           <img className={styles.image} src={blueGhost} alt="ghost" />
         </div>
 
@@ -33,18 +56,14 @@ const Topic = () => {
 
       <div className={styles.messages}>
         <div className={styles.formContainer}>
-          <TopicForm onSubmit={handleSubmit} placeholder="Enter your message" />
+          <TopicForm
+            onSubmit={submitMessage}
+            placeholder="Enter your message"
+          />
         </div>
         <div className={styles.messageList}>
           {topic?.messages?.map((message) => (
-            <TopicMessage
-              message={message.message}
-              image={message.user.avatar}
-              time="12:33"
-              username={message.user.name}
-              comments={message.comments}
-              key={message.id}
-            />
+            <TopicMessage message={message} key={message.id} />
           ))}
         </div>
       </div>
