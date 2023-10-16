@@ -1,13 +1,15 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 
+/** Этот файл, за исключением использования sql тригеров, создан другим участником команды */
+
 // import CommentModel from './models/commentModel';
 // import TopicModel from './models/topicModel';
 // import MessageModel from './models/messageModel';
-// import {
-//   registerCommentsCountQuery,
-//   registerMessagesCountQuery,
-// } from './triggers';
+import {
+  registerCommentsCountQuery,
+  registerMessagesCountQuery,
+} from './triggers';
 
 dotenv.config();
 
@@ -34,8 +36,8 @@ export async function dbConnect() {
     await sequelize.sync(); // Синхронизация базы данных
     console.log('Connection has been established successfully.');
 
-    // await sequelize.query(registerCommentsCountQuery);
-    // await sequelize.query(registerMessagesCountQuery);
+    await sequelize.query(registerCommentsCountQuery);
+    await sequelize.query(registerMessagesCountQuery);
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
