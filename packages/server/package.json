@@ -29,6 +29,7 @@
     "http-proxy-middleware": "^2.0.6",
     "pg": "^8.8.0",
     "rimraf": "^5.0.1",
+    "sequelize-typescript": "^2.1.5",
     "winston": "^3.10.0"
   },
   "devDependencies": {
