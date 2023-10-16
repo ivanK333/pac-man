@@ -6,12 +6,7 @@ import TopicModel from './models/topicModel';
 import MessageModel from './models/messageModel';
 
 dotenv.config();
-/*
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_HOST=localhost
-POSTGRES_DB=forum
-POSTGRES_PORT=5432;*/
+
 const sequelizeOptions: SequelizeOptions = {
   host: process.env.POSTGRES_HOST!,
   port: Number(process.env.POSTGRES_PORT!),
