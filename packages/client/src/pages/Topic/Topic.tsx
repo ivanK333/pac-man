@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './styles.module.scss';
 import blueGhost from '../../assets/images/blueSprite.svg';
 import TopicForm from '../../components/TopicForm/TopicForm';
 import TopicMessage from '../../components/TopicMessage/TopicMessage';
-import { TTopic, TTopicWithMEssages, forumAPI } from '../../api';
+import { TTopicWithMEssages, forumAPI } from '../../api';
 
 export type TTopicForm = { message: string };
 

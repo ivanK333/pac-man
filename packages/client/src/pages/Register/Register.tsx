@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
