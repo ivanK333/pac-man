@@ -39,7 +39,15 @@ class MessageModel extends Model<MessageModel> {
   @Column(DataType.STRING)
   owner_avatar: string;
 
+  @Column({
+    type: DataType.INTEGER,
+    defaultValue: 0,
+  })
+  comments_count: number;
+
   @HasMany(() => CommentModel, {
+    foreignKey: 'message_id',
+    as: 'comments',
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
     hooks: true,

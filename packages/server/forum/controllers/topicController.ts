@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import TopicModel from '../models/topicModel';
+import MessageModel from '../models/messageModel';
 
 const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({
@@ -14,6 +15,7 @@ const getTopics = (_: Request, res: Response) => {
       res.status(400).json({ message: 'Bad request' });
     });
 };
+
 const postTopic = (req: Request, res: Response) => {
   const { user } = res.locals;
   const { id, login, avatar } = user;
@@ -29,6 +31,26 @@ const postTopic = (req: Request, res: Response) => {
     })
     .catch(() => {
       res.status(400).json({ message: 'Bad request' });
+    });
+};
+
+const getTopicWithMessages = (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  TopicModel.findOne({
+    where: { id },
+    include: [
+      {
+        model: MessageModel,
+      },
+    ],
+  })
+    .then((topic) => {
+      // console.log('====>', topic);
+      res.status(200).json(topic);
+    })
+    .catch((error) => {
+      res.status(400).json({ message: error });
     });
 };
 
@@ -86,4 +108,4 @@ const deleteTopic = (req: Request, res: Response) => {
     });
 };
 
-export { getTopics, postTopic, deleteTopic, updateTopic };
+export { getTopics, getTopicWithMessages, postTopic, deleteTopic, updateTopic };
