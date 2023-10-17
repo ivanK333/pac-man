@@ -14,17 +14,13 @@ import ThemeToggle from '../ThemeToggle/ThemeToggle';
 
 const Header = () => {
   const [render, setRender] = useState(false);
+
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+
+  const availableChangeThemeToDark = isLightTheme === 'true';
+
   const dispatch = useAppDispatch();
-
-  const match = useMatch({
-    path: ROUTES.main.forum.root,
-    end: false,
-  });
-
-  const linkClassname = classNames(styles.link, {
-    [styles.linkActive]: match,
-  });
 
   const handleLogout = async () => {
     await dispatch(logout());
@@ -39,8 +35,15 @@ const Header = () => {
   if (!render) {
     return <></>;
   }
+
   return (
-    <header className={styles.header}>
+    <header
+      className={classNames(
+        [styles.header],
+        { [styles.header_light]: availableChangeThemeToDark },
+        { [styles.header_noauth]: !isAuthenticated },
+      )}
+    >
       <section className={styles.edition}>
         <ThemeToggle />
         {isAuthenticated && (
@@ -49,9 +52,8 @@ const Header = () => {
           </button>
         )}
       </section>
-
       <ul className={styles.list}>
-        <li className={styles.listItem}>
+        <li>
           <NavLink
             to={ROUTES.main.lending}
             className={({ isActive }) =>
@@ -61,49 +63,61 @@ const Header = () => {
             About
           </NavLink>
         </li>
-        <li className={styles.listItem}>
-          <NavLink
-            to={ROUTES.main.root}
-            className={({ isActive }) =>
-              isActive ? styles.linkActive : styles.link
-            }
-          >
-            Game
-          </NavLink>
-        </li>
-        <li className={styles.listItem}>
-          <NavLink
-            to={ROUTES.main.lead}
-            className={({ isActive }) =>
-              isActive ? styles.linkActive : styles.link
-            }
-          >
-            Leaderboard
-          </NavLink>
-        </li>
-        <li className={styles.listItemActive}>
-          <NavLink
-            to={ROUTES.main.profile}
-            className={({ isActive }) =>
-              isActive ? styles.linkActive : styles.link
-            }
-          >
-            Profile
-          </NavLink>
-        </li>
-        <li className={styles.listItem}>
-          <Link to={ROUTES.main.forum.root} className={linkClassname}>
-            Forum
-          </Link>
-        </li>
+        {isAuthenticated && (
+          <>
+            {' '}
+            <li>
+              <NavLink
+                to={ROUTES.main.root}
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                Game
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={ROUTES.main.profile}
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={ROUTES.main.forum.root}
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                Forum
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={ROUTES.main.lead}
+                className={({ isActive }) =>
+                  isActive ? styles.linkActive : styles.link
+                }
+              >
+                Leaderboard
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
-      <img
-        onClick={open}
-        id="toggle_fullscreen"
-        className={styles.fullscreen}
-        src={fullScreen ? fullScreenOn : fullScreenOff}
-        alt="fullscreen"
-      />
+      {isAuthenticated && (
+        <img
+          onClick={open}
+          id="toggle_fullscreen"
+          className={styles.fullscreen}
+          src={fullScreen ? fullScreenOn : fullScreenOff}
+          alt="fullscreen"
+        />
+      )}
     </header>
   );
 };

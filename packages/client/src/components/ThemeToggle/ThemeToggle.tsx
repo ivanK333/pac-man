@@ -1,17 +1,34 @@
-import { useState } from 'react';
+import classNames from 'classnames';
 
 import styles from './styles.module.scss';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import { readLocalStorage } from '../../utils/useReadLocalStorage';
 
 const ThemeToggle = () => {
-  const [x, setX] = useState(false);
-  console.log(x);
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const availableChangeThemeToDark = isLightTheme === 'true';
+
+  const toggleTheme = () => {
+    if (isLightTheme === 'true') {
+      readLocalStorage('isLightTheme', 'false');
+    } else {
+      readLocalStorage('isLightTheme', 'true');
+    }
+  };
   return (
     <>
       <input
         id="toggle"
-        className={styles.toggle}
-        checked={x}
-        onChange={() => setX(!x)}
+        className={classNames(
+          [styles.theme],
+          {
+            [styles.dark]: !availableChangeThemeToDark,
+          },
+          {
+            [styles.light]: availableChangeThemeToDark,
+          },
+        )}
+        onChange={() => toggleTheme()}
         type="checkbox"
       />
     </>

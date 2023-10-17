@@ -1,13 +1,20 @@
 import { useCallback, useState } from 'react';
 
+import classNames from 'classnames';
+
 import LoaderGame from '../LoaderGame/LoaderGame';
 import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
 import GameCanvas from '../../engine/GameCanvas';
 import styles from './styles.module.scss';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+
 const delay = 2000;
 
 const Game = () => {
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const availableChangeThemeToDark = isLightTheme === 'true';
+
   const [loader, setLoader] = useState<boolean>(true);
   const [start, setStart] = useState<boolean>(false);
   const [score, setScore] = useState<number>(0);
@@ -51,7 +58,11 @@ const Game = () => {
       {start && loader && <LoaderGame />}
 
       {start && !loader && lives > 0 && (
-        <div className={styles.container}>
+        <div
+          className={classNames([styles.container], {
+            [styles.container_light]: availableChangeThemeToDark,
+          })}
+        >
           <div className={styles.info}>
             <div className={styles.score}>
               <span>LEVEL: </span>

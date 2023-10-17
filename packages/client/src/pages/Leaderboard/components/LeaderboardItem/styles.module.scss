@@ -1,5 +1,5 @@
-@import '../../../../assets/styles/variables';
-@import '../../../../assets/styles/mixins';
+@use '../../../../assets/styles/variables';
+@use '../../../../assets/styles/mixins';
 
 .container {
   display: flex;
@@ -9,29 +9,33 @@
 }
 
 .index {
-  @include typography-xxl;
+  @include mixins.typography-xxl;
 
   margin: 0 45px 0 0;
   min-width: 144px;
   text-align: center;
   line-height: normal;
-  font-family: $font-press-start-2p;
+  font-family: variables.$font-press-start-2p;
+}
+
+.index_light{
+  color: variables.$color-palette-black;
 }
 
 .score {
-  @include typography-xl;
+  @include mixins.typography-xl;
 
   margin: 0 28px 0 0;
   width: 100%;
   min-width: 100px;
   max-width: 100px;
-  color: $color-palette-yellow;
-  font-family: $font-press-start-2p;
+  color: variables.$color-palette-blue;
+  font-family: variables.$font-press-start-2p;
 }
 
 .name {
-  @include typography-xl;
+  @include mixins.typography-xl;
 
   margin: 0 0 0 40px;
-  color: $color-palette-red;
+  color: variables.$color-palette-red;
 }

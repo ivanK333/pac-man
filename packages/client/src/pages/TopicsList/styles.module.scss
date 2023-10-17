@@ -1,8 +1,8 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .container {
-  @include scrollbars;
+  @include mixins.scrollbars;
 
   display: flex;
   flex-direction: column;
@@ -26,11 +26,11 @@
 }
 
 .button {
-  @include typography-xl;
+  @include mixins.typography-xl;
 
   border: none;
   background: none;
   padding: 5px;
   letter-spacing: 2.4px;
-  color: $color-palette-green;
+  color: variables.$color-palette-green;
 }

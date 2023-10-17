@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .container {
   display: flex;
@@ -21,31 +21,31 @@
 }
 
 .username {
-  @include typography-l;
+  @include mixins.typography-l;
 
   display: flex;
   padding: 10px;
-  color: $color-palette-blue;
+  color: variables.$color-palette-red;
 }
 
 .messageContainer {
   display: flex;
   flex-direction: column;
   gap: 30px;
-  border-left: 2px solid #fff;
+  border-left: 2px solid variables.$color-palette-blue;
   padding: 0 0 0 15px;
   width: 100%;
   height: 100%;
 }
 
 .message {
-  @include typography-m;
+  @include mixins.typography-m;
 
   display: flex;
   align-items: flex-start;
   width: 100%;
   min-height: 70px;
-  color: $color-palette-blue;
+  color: variables.$color-palette-black;
 }
 
 .comments {
@@ -61,10 +61,10 @@
 }
 
 .commentsLength {
-  @include typography-s;
+  @include mixins.typography-s;
 
   display: flex;
   gap: 5px;
   cursor: pointer;
-  color: $color-palette-blue;
+  color: variables.$color-palette-black;
 }

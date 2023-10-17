@@ -1,7 +1,11 @@
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
 import defaultImage from '../../assets/images/default-avatar.svg';
 import avatar from '../../assets/images/сорри.jpg';
 import LeaderboardItem from './components/LeaderboardItem/LeaderboardItem';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+
 const Leaderboard = () => {
   const testLeaderboardData = [
     { image: defaultImage, index: 1, name: 'Test1', score: 9999, id: 1 },
@@ -16,8 +20,15 @@ const Leaderboard = () => {
     { image: defaultImage, index: 10, name: 'Test10', score: 100, id: 10 },
   ];
 
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const availableChangeThemeToDark = isLightTheme === 'true';
+
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames([styles.container], {
+        [styles.container_light]: availableChangeThemeToDark,
+      })}
+    >
       <ul className={styles.list}>
         {testLeaderboardData.map((i) => (
           <LeaderboardItem
