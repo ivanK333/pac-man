@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '../../components/ButtonSubmit/Button';
 import styles from './styles.module.scss';

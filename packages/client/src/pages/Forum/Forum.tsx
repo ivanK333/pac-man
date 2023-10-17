@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Outlet } from 'react-router';
+import { Outlet } from 'react-router-dom';
 import { useMatch } from 'react-router-dom';
 
 import styles from './styles.module.scss';
