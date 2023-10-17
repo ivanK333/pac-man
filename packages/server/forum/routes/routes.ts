@@ -50,14 +50,14 @@ router.get('/messages/:topic_id', getMessages); // get topic messages
 router.get('/comments/:message_id', getComments); // get message comments
 router.get('/topic/:topic_id/reactions', getTopicReactions); // get all topic reactions
 router.get('/message/:message_id/reactions', getMessageReactions); // get all message reactions
-router.get('/coment/:coment_id/reactions', getCommentReactions); // get all coment reactions
+router.get('/comment/:comment_id/reactions', getCommentReactions); // get all comment reactions
 
 router.post('/topics', topicValidation, postTopic); // post topic
 router.post('/messages/:topic_id', messageValidation, postMessage); // post message
 router.post('/comments/:message_id', commentValidation, postComment); // post comment
 router.post('/topic/:topic_id/reactions', postTopicReaction); // post topic reaction
 router.post('/message/:message_id/reactions', postMessageReaction); // post message reaction
-router.post('/coment/:coment_id/reactions', postCommentReaction); // post coment reaction
+router.post('/comment/:comment_id/reactions', postCommentReaction); // post comment reaction
 
 router.delete('/topics/:id', deleteTopic); // delete topic
 router.delete('/messages/:id', deleteMessage); // delete message
@@ -68,9 +68,9 @@ router.delete(
   deleteMessageReaction,
 ); // delete message reaction
 router.delete(
-  '/coment/:coment_id/reactions/:reaction_id',
+  '/comment/:comment_id/reactions/:reaction_id',
   deleteCommentReaction,
-); // delete coment reaction
+); // delete comment reaction
 
 router.patch('/topics/:id', topicValidation, updateTopic); // update topic
 router.patch('/messages/:id', messageValidation, updateMessage); // update message
