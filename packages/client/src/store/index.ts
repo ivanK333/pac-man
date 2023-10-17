@@ -8,6 +8,8 @@ import { useDispatch } from 'react-redux';
 import { URL_AUTH_LOGOUT, User } from '../api';
 import { removeItemLocalStorage } from '../utils/useReadLocalStorage';
 import { baseFetch } from '../libs/api';
+// import { ThemeSlice } from './slice/themeSlice';
+// import ThemeReducer from './slice/themeSlice';
 
 interface IUserService {
   getCurrentUser(): Promise<User>;
@@ -40,6 +42,7 @@ interface UserSlice {
 
 export interface StoreState {
   user: UserSlice;
+  // isLightTheme: ThemeSlice;
 }
 
 function createStore(service: IUserService, initialState?: StoreState) {
@@ -73,6 +76,7 @@ function createStore(service: IUserService, initialState?: StoreState) {
   return configureStore({
     reducer: {
       user: rootSlice.reducer,
+      // isLightTheme: ThemeReducer,
     },
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) => {
