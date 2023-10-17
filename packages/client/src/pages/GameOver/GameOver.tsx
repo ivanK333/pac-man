@@ -1,17 +1,22 @@
 import { useCallback } from 'react';
 
 import { useNavigate } from 'react-router';
+import classNames from 'classnames';
 
-import Button from '../../components/ButtonSubmit/Button';
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 import { useEventListener } from '../../hooks/useEventListener';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import Button from '../../components/ButtonSubmit/Button';
 
 type Props = {
   restartGame: () => void;
 };
 
 const GameOver = ({ restartGame: reset }: Props) => {
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const availableChangeThemeToDark = isLightTheme === 'true';
+
   const navigate = useNavigate();
 
   const restartGame = useCallback(() => {
@@ -35,12 +40,14 @@ const GameOver = ({ restartGame: reset }: Props) => {
   });
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames([styles.container], {
+        [styles.container_light]: availableChangeThemeToDark,
+      })}
+    >
       <h1 className={styles.title}>GAME OVER</h1>
-
       <div className={styles.buttonWrapper}>
         <Button onClick={restartGame} label="Restart" />
-
         <Button onClick={goToLeaderboard} label="Leaderboard" />
       </div>
     </div>

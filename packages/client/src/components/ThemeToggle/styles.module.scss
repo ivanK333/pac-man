@@ -1,28 +1,29 @@
 @use '../../assets/styles/mixins';
 @use '../../assets/styles/variables';
 
-.toggle {
+.theme {
   --size: 2rem;
 
   appearance: none;
+  transition: all 500ms;
   outline: none;
+  border-radius: 999px;
+  box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
   cursor: pointer;
-
   width: var(--size);
   height: var(--size);
-  box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
-  border-radius: 999px;
+}
+
+.dark {
   color: variables.$color-palette-white;
+}
 
-  transition: all 500ms;
-
-  &:checked {
+.light {
     --ray-size: calc(var(--size) * -0.4);
     --offset-orthogonal: calc(var(--size) * 0.65);
     --offset-diagonal: calc(var(--size) * 0.45);
 
     transform: scale(0.75);
-    color: variables.$color-palette-yellow;
     box-shadow:
       inset 0 0 0 var(--size),
       calc(var(--offset-orthogonal) * -1) 0 0 var(--ray-size),
@@ -34,5 +35,5 @@
       var(--offset-diagonal) var(--offset-diagonal) 0 var(--ray-size),
       calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
       var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
-  }
+    color: variables.$color-palette-yellow;
 }

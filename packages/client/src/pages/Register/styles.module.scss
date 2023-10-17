@@ -7,6 +7,10 @@
   background-color: variables.$color-palette-yellow;
 }
 
+.registerPage_light {
+  background-color: variables.$color-palette-white;
+}
+
 .submitError {
   @include mixins.typography-s;
 

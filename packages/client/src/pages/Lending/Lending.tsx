@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
 import { Link, useSearchParams } from 'react-router-dom';
+import classNames from 'classnames';
 
 import Header from '../../components/Header/Header';
 import styles from './styles.module.scss';
@@ -23,10 +24,14 @@ import Ivan from '../../assets/images/Ivan.png';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
 import { ROUTES } from '../../constants/routes';
 import { authController } from '../../controllers/AuthController';
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Lending = () => {
   const { signInWithOAuth } = authController();
   const [searchParams] = useSearchParams();
+
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const availableChangeThemeToDark = isLightTheme === 'true';
 
   useEffect(() => {
     try {
@@ -40,17 +45,33 @@ const Lending = () => {
   }, []);
   return (
     <>
-      <Header />
-      <div className={styles.page}>
+      <div
+        className={classNames([styles.page], {
+          [styles.page_light]: availableChangeThemeToDark,
+        })}
+      >
         <section className={styles.container}>
           <img
             src={background}
             alt="background"
             className={styles.background}
           />
-          <h1 className={styles.title}>Приветствуем!</h1>
+          <h1
+            className={classNames([styles.title], {
+              [styles.text_blue]: availableChangeThemeToDark,
+            })}
+          >
+            Приветствуем!
+          </h1>
           <h3 className={styles.subtitle}>
-            На связи команда <span>16 bit games</span>
+            На связи команда{' '}
+            <span
+              className={classNames({
+                [styles.text_blue]: availableChangeThemeToDark,
+              })}
+            >
+              16 bit games
+            </span>
           </h3>
           <h3 className={styles.edition}>и наше творение</h3>
           <img src={logo} alt="logo" className={styles.logo} />
@@ -58,9 +79,20 @@ const Lending = () => {
             Учебный проект яндекс-практикума на курсе Мидл фронтенд-разработчик.
           </p>
         </section>
-        <section className={styles.aboutGame}>
+        <section
+          className={classNames([styles.aboutGame], {
+            [styles.aboutGame_light]: availableChangeThemeToDark,
+          })}
+        >
           <h3 className={styles.gameTitle}>
-            <span>Pac-Man</span>— одна из знаковых видеоигр всех времен
+            <span
+              className={classNames({
+                [styles.text_white]: availableChangeThemeToDark,
+              })}
+            >
+              Pac-Man
+            </span>
+            — одна из знаковых видеоигр всех времен
           </h3>
           <p className={styles.gameDescription}>
             Большинство людей (даже не геймеров) по крайней мере знакомы с ней.
@@ -77,7 +109,13 @@ const Lending = () => {
             особенно, которые понравились бы девушкам. Я хотел придумать
             «комическую» игру, которой могли бы наслаждаться даже девушки»
           </p>
-          <p className={styles.gameAuthor}>— Toru Iwatani, создатель Pac-Man</p>
+          <p
+            className={classNames([styles.gameAuthor], {
+              [styles.text_white]: availableChangeThemeToDark,
+            })}
+          >
+            — Toru Iwatani, создатель Pac-Man
+          </p>
           <img src={author} alt="logo" className={styles.authorImg} />
         </section>
         <section className={styles.aboutUs}>
@@ -92,7 +130,13 @@ const Lending = () => {
               bottomText="Join us!"
             />
           </Link>
-          <h3 className={styles.title}>Это мы:</h3>
+          <h3
+            className={classNames([styles.title], {
+              [styles.text_blue]: availableChangeThemeToDark,
+            })}
+          >
+            Это мы:
+          </h3>
           <ul className={styles.list}>
             <li className={styles.item}>
               <Link to={'https://github.com/ivanK333'} className={styles.name}>
