@@ -22,6 +22,12 @@
   align-items: center;
 }
 
+.topicMainMessage {
+  padding: 15px;
+  border-bottom: 1px solid $color-palette-blue;
+  border-radius: 15px;
+}
+
 .heading {
   @include typography-xl;
 

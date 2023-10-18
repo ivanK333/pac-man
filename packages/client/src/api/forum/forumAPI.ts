@@ -49,11 +49,11 @@ export const forumAPI = () => {
 
   const leaveMessage = async (data: TLeaveMessage) => {
     try {
-      const { topicId } = data;
-      const res = await baseFetch.post(
-        `http://${URL_DB}/messages/${topicId}`,
-        data,
-      );
+      const { topicId, text } = data;
+      const res = await baseFetch.post(`http://${URL_DB}/messages/${topicId}`, {
+        topic_id: topicId,
+        text,
+      });
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -63,11 +63,14 @@ export const forumAPI = () => {
 
   const leaveComment = async (data: TLeaveComment) => {
     try {
-      const { messageId } = data;
+      const { messageId, text } = data;
       // console.log('=====>', data);
       const res = await baseFetch.post(
         `http://${URL_DB}/comments/${messageId}`,
-        data,
+        {
+          message_id: messageId,
+          text,
+        },
       );
       const resCamelCase = snakeToCamel(res);
       // console.log('+++++>', resCamelCase);
