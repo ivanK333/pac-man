@@ -3,7 +3,7 @@ import { baseFetch } from '../../libs/api';
 import { TCreateTopic, TLeaveComment, TLeaveMessage, TTopic } from './types';
 import { camelToSnake, snakeToCamel } from './utils';
 
-const URL_DB = 'localhost:3001/forum';
+const URL_DB = 'localhost:3005/forum';
 
 export const forumAPI = () => {
   const getTopics = async () => {
