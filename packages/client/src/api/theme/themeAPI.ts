@@ -8,6 +8,7 @@ export const themeAPI = () => {
   const getTheme = async () => {
     try {
       const res = await baseFetch.get(`http://${URL_DB}`);
+      console.log('===>', res);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {

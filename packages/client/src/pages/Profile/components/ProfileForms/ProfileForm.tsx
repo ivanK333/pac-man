@@ -9,6 +9,7 @@ import { userAPI, TProfileForm } from '../../../../api';
 import { ROUTES } from '../../../../constants/routes';
 import { Colors } from '../../../../constants/colors';
 import CustomLink from '../../../../components/CustomLink/CustomLink';
+import { themeAPI } from '../../../../api/theme';
 
 type TProfileFormProps = {
   handleSwitch: () => void;
@@ -17,12 +18,15 @@ type TProfileFormProps = {
 
 const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isLightTheme, setIsLightTheme] = useState<boolean>(false);
 
   const formMethods = useForm<TProfileForm>({
     defaultValues: user,
   });
 
   const { changeProfile } = userAPI();
+
+  const { getTheme, createTheme, updateTheme } = themeAPI();
 
   const handleSubmit: SubmitHandler<TProfileForm> = async (
     data: TProfileForm,
@@ -49,7 +53,20 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
 
   useEffect(() => {
     formMethods.reset(user);
+    console.log('--->', user);
   }, [user]);
+
+  useEffect(() => {
+    const loadTheme = async () => {
+      const theme = await getTheme();
+      console.log(theme);
+    };
+    loadTheme();
+  }, []);
+
+  const handleThemeToggle = () => {
+    console.log(isLightTheme);
+  };
 
   const linkPath = ROUTES.main.root;
   const linkText = 'back to the game';
@@ -170,6 +187,17 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
               >
                 edit password
               </button>
+
+              <button
+                className={styles.editButton}
+                onClick={(e: SyntheticEvent) => {
+                  e.preventDefault();
+                  handleThemeToggle();
+                }}
+              >
+                change theme
+              </button>
+
               <CustomLink
                 linkPath={linkPath}
                 linkText={linkText}

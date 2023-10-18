@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import CommentModel from './models/commentModel';
 import TopicModel from './models/topicModel';
 import MessageModel from './models/messageModel';
+import ThemeModel from './models/themeModel';
 import {
   registerCommentsCountQuery,
   registerMessagesCountQuery,
@@ -21,7 +22,7 @@ const sequelizeOptions: SequelizeOptions = {
   logging: (msg) => console.log(msg),
 };
 export const sequelize = new Sequelize(sequelizeOptions);
-sequelize.addModels([CommentModel, TopicModel, MessageModel]);
+sequelize.addModels([CommentModel, TopicModel, MessageModel, ThemeModel]);
 export async function dbConnect() {
   try {
     await sequelize.authenticate(); // Проверка аутентификации в БД
