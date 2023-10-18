@@ -21,8 +21,8 @@ WORKDIR /app
 
 COPY --from=builder /app/packages/server/ /app/server/
 COPY --from=builder /app/packages/client/ /app/server/client/
-RUN cd ./server/ && yarn install
-RUN cd ./server/client/ && yarn install
+RUN cd ./server/ && yarn install --production
+RUN cd ./server/client/ && yarn install --production
 
 EXPOSE $SERVER_PORT
 CMD [ "node", "/app/server/dist/index.js" ]
