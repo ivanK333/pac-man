@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import styles from './styles.module.scss';
 import AvatarImage from '../../../../components/AvatarImage/AvatarImage';
+import { RESOURCES_URL } from '../../../../constants/api';
 
 type TLeaderboardItemProps = {
   index: number;
@@ -20,7 +21,7 @@ const LeaderboardItem: FC<TLeaderboardItemProps> = ({
     <li className={styles.container}>
       <h2 className={styles.index}>{index}</h2>
       <p className={styles.score}>{score}</p>
-      <AvatarImage image={image} />
+      <AvatarImage image={`${RESOURCES_URL}${image}`} />
       <p className={styles.name}>{name}</p>
     </li>
   );
