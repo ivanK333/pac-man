@@ -2,6 +2,7 @@ import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import defaultImage from '../../assets/images/default-avatar.svg';
+import { RESOURCES_URL } from '../../constants/api';
 
 export enum Size {
   small = 'small',
@@ -30,7 +31,11 @@ const AvatarImage: React.FC<TAvatarImage> = ({ image, size = Size.normal }) => {
       {isDefault ? (
         <img className={isSmallDefaultImage} src={defaultImage} alt="avatar" />
       ) : (
-        <img className={styles.image} src={image} alt="avatar" />
+        <img
+          className={styles.image}
+          src={`${RESOURCES_URL}${image}`}
+          alt="avatar"
+        />
       )}
     </div>
   );
