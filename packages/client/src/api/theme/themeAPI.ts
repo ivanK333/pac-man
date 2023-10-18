@@ -2,13 +2,13 @@ import { baseFetch } from '../../libs/api';
 import { TCreateTheme } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
 
-const URL_DB = 'localhost:3001/theme';
+const port = __SERVER_PORT__ || 3005;
+const baseUrl = `http://localhost:${port}/profile/theme`;
 
 export const themeAPI = () => {
-  const getTheme = async () => {
+  const getTheme = async (id: string) => {
     try {
-      const res = await baseFetch.get(`http://${URL_DB}`);
-      console.log('===>', res);
+      const res = await baseFetch.get(`${baseUrl}/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -16,10 +16,9 @@ export const themeAPI = () => {
     }
   };
 
-  const createTheme = async (data: TCreateTheme) => {
+  const createTheme = async (id: string) => {
     try {
-      const dataSnakeCase = camelToSnake(data);
-      const res = await baseFetch.patch(`http://${URL_DB}`, dataSnakeCase);
+      const res = await baseFetch.post(`${baseUrl}/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -29,8 +28,9 @@ export const themeAPI = () => {
 
   const updateTheme = async (data: TCreateTheme) => {
     try {
-      const dataSnakeCase = camelToSnake(data);
-      const res = await baseFetch.post(`http://${URL_DB}`, dataSnakeCase);
+      const { id, lightTheme } = data;
+      const dataSnakeCase = camelToSnake({ lightTheme });
+      const res = await baseFetch.patch(`${baseUrl}/${id}`, dataSnakeCase);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {

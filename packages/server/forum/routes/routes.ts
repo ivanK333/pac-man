@@ -40,18 +40,18 @@ router.get('/messages/:topic_id', getMessages); // get topic messages
 router.get('/comments/:message_id', getComments); // get message comments
 router.get('/theme/:user_id', getThemeByUserId); // get theme
 
-router.post('/theme/:user_id', createThemeByUserId); // create theme for user
 router.post('/topics', topicValidation, postTopic); // post topic
 router.post('/messages/:topic_id', messageValidation, postMessage); // post message
 router.post('/comments/:message_id', commentValidation, postComment); // post comment
+router.post('/theme/:user_id', createThemeByUserId); // create theme for user
 
 router.delete('/topics/:id', deleteTopic); // delete topic
 router.delete('/messages/:id', deleteMessage); // delete message
 router.delete('/comments/:id', deleteComment); // delete comment
 
-router.patch('/theme/:user_id', updateThemeByUserId); // update theme
 router.patch('/topics/:id', topicValidation, updateTopic); // update topic
 router.patch('/messages/:id', messageValidation, updateMessage); // update message
 router.patch('/comments/:id', commentValidation, updateComment); // update comment
+router.patch('/theme/:user_id', updateThemeByUserId); // update theme
 
 export default router;

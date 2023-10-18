@@ -53,19 +53,34 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
 
   useEffect(() => {
     formMethods.reset(user);
-    console.log('--->', user);
-  }, [user]);
-
-  useEffect(() => {
+    const { id } = user;
+    if (!id) return;
     const loadTheme = async () => {
-      const theme = await getTheme();
-      console.log(theme);
+      const res = await getTheme(id.toString());
+
+      if (res.data) {
+        const { userId, lightTheme } = res.data;
+        console.log(
+          `Loaded theme is light ${lightTheme} for user ID ${userId}`,
+        );
+        setIsLightTheme(lightTheme);
+      }
     };
     loadTheme();
-  }, []);
+  }, [user]);
 
-  const handleThemeToggle = () => {
-    console.log(isLightTheme);
+  const handleThemeToggle = async () => {
+    const { id } = user;
+    if (!id) return;
+    const res = await updateTheme({
+      id: id.toString(),
+      lightTheme: !isLightTheme,
+    });
+    if (res.status === 200) {
+      const { userId, lightTheme } = res.data;
+      console.log(`Updated theme is light ${lightTheme} for user ID ${userId}`);
+      setIsLightTheme(!isLightTheme);
+    }
   };
 
   const linkPath = ROUTES.main.root;

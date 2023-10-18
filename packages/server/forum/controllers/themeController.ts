@@ -6,12 +6,12 @@ export const getThemeByUserId = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { userId } = req.params;
+  const { user_id } = req.params;
 
   try {
     const theme = await ThemeModel.findOne({
       where: {
-        user_id: userId,
+        user_id,
       },
     });
 
@@ -27,23 +27,24 @@ export const getThemeByUserId = async (
   }
 };
 
-interface ThemeCreationAttributes {
-  user_id: string;
-  light_theme: boolean;
-}
-
 export const createThemeByUserId = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { userId, lightTheme } = req.body;
+  const { user_id } = req.params;
+  console.log('===req.body====>', req.body);
 
   try {
-    const theme: ThemeCreationAttributes = {
-      user_id: userId,
-      light_theme: lightTheme,
-    };
-    res.status(201).json(theme);
+    ThemeModel.create({
+      ...req.body,
+      user_id,
+    })
+      .then((message) => {
+        res.status(200).json(message);
+      })
+      .catch(() => {
+        res.status(400).json({ message: 'Bad request' });
+      });
   } catch (error) {
     res.status(500).json({ message: 'Internal server error.' });
   }
@@ -53,15 +54,14 @@ export const updateThemeByUserId = async (
   req: Request,
   res: Response,
 ): Promise<void> => {
-  const { userId } = req.params;
-  const { lightTheme } = req.body;
-
+  const { user_id } = req.params;
+  const { light_theme } = req.body;
   try {
     const [updatedRowsCount, updatedThemes] = await ThemeModel.update(
-      { light_theme: lightTheme },
+      { light_theme },
       {
         where: {
-          user_id: userId,
+          user_id,
         },
         returning: true,
       },

@@ -1,3 +1,4 @@
 export type TCreateTheme = {
-  light_theme: boolean;
+  id: string;
+  lightTheme: boolean;
 };
