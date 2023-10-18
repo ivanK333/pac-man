@@ -29,6 +29,7 @@ const port = Number(process.env.SERVER_PORT) || 3005;
 async function startServer() {
   const app = express();
   app.use(requestLogger);
+  app.use(express.json());
   app.use(
     '/api/v2',
     createProxyMiddleware({
@@ -68,6 +69,7 @@ async function startServer() {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
   app.use('/forum', router);
+  app.use('/profile', router);
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
@@ -12,6 +12,7 @@ import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { authController } from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';
+import { themeAPI } from '../../api/theme';
 
 type FormValues = {
   first_name: string;
@@ -29,6 +30,8 @@ const Register = () => {
 
   const { signUp } = authController();
 
+  const { createTheme } = themeAPI();
+
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     if (submitData.confirm_password !== submitData.password) {
       setError(`Passwords don't match`);
@@ -41,6 +44,12 @@ const Register = () => {
     if (!response?.data) {
       setError(`${response}`);
       return;
+    }
+    const { id } = response.data;
+    const res = await createTheme(id.toString());
+    if (res.data) {
+      const { userId, lightTheme } = res.data;
+      console.log(`Created theme is light ${lightTheme} for user ID ${userId}`);
     }
 
     navigate(ROUTES.main.root);
