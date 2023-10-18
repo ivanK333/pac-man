@@ -6,13 +6,13 @@ import MessageModel from '../models/messageModel';
 
 const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({
-    order: [[Sequelize.col('TopicModel.createdAt'), 'DESC']],
+    order: [[Sequelize.col('createdAt'), 'DESC']],
   })
     .then((topics) => {
       res.status(200).json(topics);
     })
-    .catch((error) => {
-      res.status(400).json({ message: error });
+    .catch(() => {
+      res.status(400).json({ message: 'Bad request' });
     });
 };
 

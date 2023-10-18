@@ -28,7 +28,6 @@ const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
   const app = express();
-  app.use(express.json());
   app.use(requestLogger);
   app.use(
     '/api/v2',
