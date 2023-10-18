@@ -1,48 +1,42 @@
-import { useState, useLayoutEffect } from 'react';
+import classNames from 'classnames';
 
 import styles from './styles.module.scss';
+import defaultImage from '../../assets/images/default-avatar.svg';
+import avatar from '../../assets/images/сорри.jpg';
 import LeaderboardItem from './components/LeaderboardItem/LeaderboardItem';
-import { leaderboardController } from '../../controllers/LeaderboardController';
-
-export interface IGetLeaderboardData {
-  data: {
-    avatar: string;
-    index: number;
-    name: string;
-    score: number;
-    id: number;
-  };
-}
+import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 
 const Leaderboard = () => {
-  const [leaderboardData, setLeaderboardData] = useState<IGetLeaderboardData[]>(
-    [],
-  );
+  const testLeaderboardData = [
+    { image: defaultImage, index: 1, name: 'Test1', score: 9999, id: 1 },
+    { image: defaultImage, index: 2, name: 'Test2', score: 8000, id: 2 },
+    { image: avatar, index: 3, name: 'Test3', score: 7000, id: 3 },
+    { image: defaultImage, index: 4, name: 'Test4', score: 6000, id: 4 },
+    { image: defaultImage, index: 5, name: 'Test5', score: 5000, id: 5 },
+    { image: defaultImage, index: 6, name: 'Test6', score: 4000, id: 6 },
+    { image: defaultImage, index: 7, name: 'Test7', score: 2000, id: 7 },
+    { image: defaultImage, index: 8, name: 'Test8', score: 1000, id: 8 },
+    { image: defaultImage, index: 9, name: 'Test9', score: 500, id: 9 },
+    { image: defaultImage, index: 10, name: 'Test10', score: 100, id: 10 },
+  ];
 
-  const { getTeamLeaderboard } = leaderboardController();
-
-  const getLeaderboardData = async () => {
-    const response = await getTeamLeaderboard();
-
-    if (response?.data) {
-      setLeaderboardData(response.data);
-    }
-  };
-
-  useLayoutEffect(() => {
-    getLeaderboardData();
-  }, []);
+  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const availableChangeThemeToDark = isLightTheme === 'true';
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames([styles.container], {
+        [styles.container_light]: availableChangeThemeToDark,
+      })}
+    >
       <ul className={styles.list}>
-        {leaderboardData.map((item) => (
+        {testLeaderboardData.map((i) => (
           <LeaderboardItem
-            image={item.data.avatar}
-            index={item.data.index}
-            name={item.data.name}
-            score={item.data.score}
-            key={item.data.id}
+            image={i.image}
+            index={i.index}
+            name={i.name}
+            score={i.score}
+            key={i.id}
           />
         ))}
       </ul>

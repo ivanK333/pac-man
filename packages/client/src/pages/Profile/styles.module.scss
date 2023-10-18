@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .container {
   display: flex;
@@ -12,6 +12,12 @@
   background-position-x: -5px;
 }
 
+.container_light {
+  background: url('../../assets/images/pacman-background_light.svg') no-repeat;
+  background-color: variables.$color-palette-white !important;
+}
+
+
 .avatarContainer {
   display: flex;
   flex-direction: column;
@@ -20,15 +26,21 @@
 }
 
 .username {
-  @include typography-s;
+  @include mixins.typography-s;
 
-  color: $color-palette-red;
-  font-family: $font-press-start-2p;
+  color: variables.$color-palette-red;
+  font-family: variables.$font-press-start-2p;
 }
 
 .formContainer {
   margin: 0 200px 0 105px;
+  border-radius: 12px;
+  padding: 30px;
   min-width: 280px;
   max-width: 280px;
   min-height: 465px;
+}
+
+.formContainer_light {
+  background-color: variables.$color-palette-black;
 }

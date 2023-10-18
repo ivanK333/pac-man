@@ -1,35 +1,35 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .form {
   display: flex;
-  border-bottom: 2px solid $color-palette-blue;
+  border-bottom: 2px solid variables.$color-palette-blue;
   padding: 0 0 5px 16px;
   width: 100%;
 }
 
 .input {
-  @include typography-m;
+  @include mixins.typography-m;
 
   border: none;
   background: inherit;
   width: 100%;
-  color: $color-palette-blue;
+  color: variables.$color-palette-black;
 }
 
 .input::placeholder {
-  @include typography-m;
+  @include mixins.typography-m;
 
-  color: $color-palette-blue;
+  color: variables.$color-palette-black;
 }
 
 .submit {
-  @include typography-xl;
+  @include mixins.typography-xl;
 
   border: none;
   border-radius: 50%;
-  background: $color-palette-blue;
+  background: variables.$color-palette-blue;
   width: 30px;
   height: 30px;
-  color: $color-palette-black;
+  color: variables.$color-palette-black;
 }

@@ -1,11 +1,15 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .container {
-  @include flexbox;
+  @include mixins.flexbox;
 
   flex-direction: column;
   width: 100%;
+}
+
+.container_light{
+  background-color: variables.$color-palette-white;
 }
 
 .logo {
@@ -13,12 +17,12 @@
 }
 
 .button {
-  @include typography-xxl;
+  @include mixins.typography-xxl;
 
   transition: transform 0.2s;
   border: none;
   border-radius: 500px;
-  background: $color-palette-yellow;
+  background: variables.$color-palette-yellow;
   padding: 20px 42px;
 
   &:hover {

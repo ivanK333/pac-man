@@ -1,13 +1,15 @@
+@use '../../assets/styles/variables';
+
 .oauth {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-top: 80px;
   
   &__link {
-    height: 56px;
-    cursor: pointer;
-    background-color: #fff;
     border-radius: 13px;
+    background-color:  variables.$color-palette-white;
+    cursor: pointer;
+    height: 56px;
   }
 }
