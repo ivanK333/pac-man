@@ -50,9 +50,9 @@ async function startServer() {
   app.use(cookieParser());
 
   let vite: ViteDevServer | undefined;
-  const distPath = path.resolve(__dirname, '../../packages/client/dist');
-  const srcPath = path.resolve(__dirname, '../../packages/client');
-  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
+  const distPath = path.resolve(__dirname, '../client/dist');
+  const srcPath = path.resolve(__dirname, '../client');
+  const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/ssr.cjs');
 
   if (isDev()) {
     vite = await createViteServer({

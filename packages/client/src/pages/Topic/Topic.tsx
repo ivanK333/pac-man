@@ -55,6 +55,22 @@ const Topic = () => {
       </div>
 
       <div className={styles.messages}>
+        <div className={styles.topicMainMessage}>
+          {topic ? (
+            <TopicMessage
+              message={{
+                createdAt: topic.createdAt,
+                id: topic.id,
+                ownerAvatar: topic.ownerAvatar,
+                ownerId: topic.ownerId,
+                ownerLogin: topic.ownerLogin,
+                text: topic.text,
+                updatedAt: topic.updatedAt,
+              }}
+              withForm={false}
+            />
+          ) : null}
+        </div>
         <div className={styles.formContainer}>
           <TopicForm
             onSubmit={submitMessage}

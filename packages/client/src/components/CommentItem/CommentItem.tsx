@@ -2,6 +2,7 @@ import styles from './styles.module.scss';
 import AvatarImage, { Size } from '../AvatarImage/AvatarImage';
 import { TComment } from '../../api';
 import { formatDateString } from '../../utils/dateFormatter';
+import { RESOURCES_URL } from '../../constants/api';
 
 type TCommentItemProps = {
   comment: TComment;

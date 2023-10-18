@@ -23,4 +23,10 @@ export default defineConfig({
   ssr: {
     format: 'cjs',
   },
+  server: {
+    hmr: {
+      protocol: 'ws',
+      host: '0.0.0.0',
+    },
+  },
 });
