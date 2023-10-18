@@ -10,10 +10,14 @@ type TTopicFormProps = {
 
 const TopicForm: React.FC<TTopicFormProps> = ({ onSubmit, placeholder }) => {
   const formMethods = useForm<TTopicForm>();
+  const { formState, register, handleSubmit, setValue } = formMethods;
 
-  const handleSubmit = (data: TTopicForm) => {
-    formMethods.formState.isValid && onSubmit(data);
-    console.log(formMethods.formState.isValid);
+  const submit = async (data: TTopicForm) => {
+    if (!data.message || data.message === '') {
+      return;
+    }
+    onSubmit(data);
+    setValue('message', '');
   };
 
   return (
@@ -21,20 +25,21 @@ const TopicForm: React.FC<TTopicFormProps> = ({ onSubmit, placeholder }) => {
       <form
         noValidate={true}
         className={styles.form}
-        onSubmit={formMethods.handleSubmit((data) => handleSubmit(data))}
+        onSubmit={handleSubmit(submit)}
       >
         <input
           className={styles.input}
           type="text"
           placeholder={placeholder}
-          {...formMethods.register('message')}
+          {...register('message')}
           required={true}
           autoFocus={true}
         />
 
         <button
           className={styles.submit}
-          disabled={!formMethods.formState.isValid}
+          disabled={!formState.isValid}
+          type="submit"
         >
           &#62;
         </button>

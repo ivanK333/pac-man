@@ -1,32 +1,24 @@
 import styles from './styles.module.scss';
 import AvatarImage, { Size } from '../AvatarImage/AvatarImage';
+import { TComment } from '../../api';
+import { formatDateString } from '../../utils/dateFormatter';
 
 type TCommentItemProps = {
-  userName: string;
-  time: string;
-  avatar: string;
-  comment: string;
-  id: string;
+  comment: TComment;
 };
 
-const CommentItem: React.FC<TCommentItemProps> = ({
-  userName,
-  time,
-  avatar,
-  comment,
-  id,
-}) => {
-  console.log(id);
+const CommentItem: React.FC<TCommentItemProps> = ({ comment }) => {
+  const { createdAt, text, ownerAvatar, ownerLogin } = comment;
   return (
     <section className={styles.container}>
       <div className={styles.headingContainer}>
-        <h5 className={styles.username}>{userName}</h5>
-        <p className={styles.time}>{time}</p>
+        <h5 className={styles.username}>{ownerLogin}</h5>
+        <p className={styles.time}>{formatDateString(createdAt)}</p>
       </div>
       <div className={styles.contentContainer}>
-        <AvatarImage image={avatar} size={Size.small} />
+        <AvatarImage image={ownerAvatar} size={Size.small} />
         <div className={styles.textContainer}>
-          <p className={styles.text}>{comment}</p>
+          <p className={styles.text}>{text}</p>
         </div>
       </div>
     </section>
