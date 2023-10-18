@@ -38,7 +38,7 @@ export type TMessage = {
   ownerLogin: string;
   text: string;
   updatedAt: string;
-  commentsCount: string;
+  commentsCount?: string;
 };
 
 export type TTopic = {

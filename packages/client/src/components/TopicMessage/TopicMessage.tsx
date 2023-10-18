@@ -10,9 +10,13 @@ import { formatDateString } from '../../utils/dateFormatter';
 
 type TTopicMessageProps = {
   message: TMessage;
+  withForm?: boolean;
 };
 
-const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
+const TopicMessage: React.FC<TTopicMessageProps> = ({
+  message,
+  withForm = true,
+}) => {
   // console.log('message: ', message);
   const { id, text, ownerAvatar, ownerLogin, commentsCount, createdAt } =
     message;
@@ -22,7 +26,10 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
 
   const [isShow, setIsShow] = useState<boolean>(false);
   const [thisComments, setThisComments] = useState<TComment[]>(comments);
-  const commentsNumber = Math.max(thisComments.length, parseInt(commentsCount));
+  const commentsNumber = Math.max(
+    thisComments.length,
+    parseInt(commentsCount!),
+  );
   const hasComments = commentsNumber > 0;
 
   const submitComment = async (data: TTopicForm) => {
@@ -58,16 +65,18 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({ message }) => {
         <AvatarImage image={ownerAvatar} />
         <div className={styles.messageContainer}>
           <p className={styles.message}>{text}</p>
-          <div className={styles.buttonContainer}>
-            <p className={styles.commentsLength} onClick={toggleShow}>
-              {hasComments
-                ? `${commentsNumber} comment${commentsNumber > 1 ? 's' : ''}.`
-                : 'leave a comment.'}
-              <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
-            </p>
-          </div>
+          {withForm ? (
+            <div className={styles.buttonContainer}>
+              <p className={styles.commentsLength} onClick={toggleShow}>
+                {hasComments
+                  ? `${commentsNumber} comment${commentsNumber > 1 ? 's' : ''}.`
+                  : 'leave a comment.'}
+                <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
+              </p>
+            </div>
+          ) : null}
 
-          {isShow && (
+          {withForm && isShow && (
             <div className={styles.comments}>
               {hasComments
                 ? thisComments.map((comment) => (
