@@ -3,7 +3,9 @@ import { baseFetch } from '../../libs/api';
 import { TCreateTopic, TLeaveComment, TLeaveMessage } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
 
-const host = 'http://localhost:3005';
+const port = Number(process.env.REACT_APP_SERVER_PORT) || 3005;
+
+const host = `http://localhost:${port}`;
 const URL_DB = `${host}/forum`;
 
 export const forumAPI = () => {
