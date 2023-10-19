@@ -83,6 +83,7 @@
  POSTGRES_HOST=postgres
 ```
 
+
 `docker compose up` - запустит три сервиса
 
 1. nginx, раздающий клиентскую статику (client)
