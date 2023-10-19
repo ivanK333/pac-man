@@ -3,58 +3,56 @@
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
 3. Выполните команду `yarn dev`
-3. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
-4. Выполните команду `yarn dev --scope=server` чтобы запустить только server
-
+4. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
+5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
 ### Как добавить зависимости?
+
 В этом проекте используется `monorepo` на основе [`lerna`](https://github.com/lerna/lerna)
 
-Чтобы добавить зависимость для клиента 
-```yarn lerna add {your_dep} --scope client```
+Чтобы добавить зависимость для клиента
+`yarn lerna add {your_dep} --scope client`
 
 Для сервера
-```yarn lerna add {your_dep} --scope server```
+`yarn lerna add {your_dep} --scope server`
 
 И для клиента и для сервера
-```yarn lerna add {your_dep}```
-
+`yarn lerna add {your_dep}`
 
 Если вы хотите добавить dev зависимость, проделайте то же самое, но с флагом `dev`
-```yarn lerna add {your_dep} --dev --scope server```
-
+`yarn lerna add {your_dep} --dev --scope server`
 
 ### Тесты
 
 Для клиента используется [`react-testing-library`](https://testing-library.com/docs/react-testing-library/intro/)
 
-```yarn test```
+`yarn test`
 
 ### Линтинг
 
-```yarn lint``` - проверка ошибок;
+`yarn lint` - проверка ошибок;
 
-```yarn type-check``` - проверка ошибок типизации (typescript);
+`yarn type-check` - проверка ошибок типизации (typescript);
 
-```yarn eslint-fix``` - исправление ошибок eslint;
+`yarn eslint-fix` - исправление ошибок eslint;
 
-```yarn stylelint-fix``` - исправление ошибок stylelint;
+`yarn stylelint-fix` - исправление ошибок stylelint;
 
 ### Форматирование prettier
 
-```yarn format```
+`yarn format`
 
 ### Production build
 
-```yarn build```
+`yarn build`
 
 И чтобы посмотреть что получилось
-
 
 `yarn preview --scope client`
 `yarn preview --scope server`
 
 ## Хуки
+
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)
 Если очень-очень нужно пропустить проверки, используйте `--no-verify` (но не злоупотребляйте :)
 
@@ -63,6 +61,7 @@
 Откройте issue, я приду :)
 
 ## Автодеплой статики на vercel
+
 Зарегистрируйте аккаунт на [vercel](https://vercel.com/)
 Следуйте [инструкции](https://vitejs.dev/guide/static-deploy.html#vercel-for-git)
 В качестве `root directory` укажите `packages/client`
@@ -70,22 +69,48 @@
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
 ## Production окружение в докере
+
 Перед первым запуском необходимо создать в корне `.env` с переменными:
-   ```
-    CLIENT_PORT=3000
-    SERVER_PORT=3005
-    POSTGRES_USER=postgres
-    POSTGRES_PASSWORD=postgres
-    POSTGRES_DB=postgres
-    POSTGRES_PORT=5432
-    NODE_ENV=production
-    POSTGRES_HOST=localhost
-   ```
+
+```
+ CLIENT_PORT=3000
+ SERVER_PORT=3005
+ POSTGRES_USER=postgres
+ POSTGRES_PASSWORD=postgres
+ POSTGRES_DB=postgres
+ POSTGRES_PORT=5432
+ NODE_ENV=production
+ POSTGRES_HOST=postgres
+```
+
 
 `docker compose up` - запустит три сервиса
+
 1. nginx, раздающий клиентскую статику (client)
 2. node, ваш сервер (server)
 3. postgres, вашу базу данных (postgres)
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+#### Потенциальные утечки памяти в React приложении и их исправление
+
+При разработке React приложений, особенно с увеличением сложности и объема данных, можно столкнуться с утечками памяти. Важно активно решать следующие аспекты для избежания потенциальных утечек памяти:
+
+##### 1. Освобождение ресурсов:
+
+Проблема: Неправильное управление ресурсами, такими как массивы, объекты и сложные структуры данных, после завершения их использования может привести к утечкам памяти.
+
+Исправление: Было исправлено путем явного удаления ссылок на объекты и использования подходящих методов очистки памяти после завершения операций.
+
+##### 2. Использование функций для обновления состояния:
+
+Проблема: Неправильное использование состояния компоненты, особенно когда в состоянии сохраняются ссылки на объекты напрямую, может привести к утечкам памяти.
+
+Исправление: Было исправлено путем использования функций для обновления состояния компоненты. Это позволяет избежать сохранения ссылок на объекты в состоянии, обновляя состояние с учетом предыдущего состояния и предотвращая утечки памяти.
+
+##### 3. Управление подписками и событиями:
+
+Проблема: Неуправляемые подписки на события, особенно с использованием глобальных слушателей событий через `window.addEventListener`, могут привести к утечкам памяти.
+
+Исправление: Было исправлено путем аккуратного управления подписками на события. Слушатели событий добавляются при монтировании компоненты и удаляются при размонтировании, обеспечивая корректное управление памятью и избежание утечек.
