@@ -5,6 +5,8 @@
 
 [Видео-демонстрация](https://www.loom.com/share/edcd20f603f448d69f80c758a56375c5?sid=8bae34a8-ee0f-4782-9990-ed8fd49705cf) работы за 5-6 спринт
 
+[Видео-демонстрация](https://www.loom.com/share/0c51df1a81bd46e994c60c3ecde6eaa2) работы за 7-8 спринт
+
 ![image](https://github.com/ivanK333/pac-man/assets/108727043/9162237a-0dc5-4f85-aaff-fdabfaf63049)
 
 ## О проекте 
