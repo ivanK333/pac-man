@@ -29,7 +29,6 @@ const port = Number(process.env.SERVER_PORT) || 3005;
 async function startServer() {
   const app = express();
   app.use(requestLogger);
-  app.use(express.json());
   app.use(
     '/api/v2',
     createProxyMiddleware({

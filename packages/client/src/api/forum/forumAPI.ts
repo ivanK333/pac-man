@@ -2,7 +2,7 @@ import { baseFetch } from '../../libs/api';
 import { TCreateTopic, TLeaveComment, TLeaveMessage } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
 
-const port = __SERVER_PORT__ || 3005;
+const port = process.env.__SERVER_PORT__ || 3005;
 const baseUrl = `http://localhost:${port}/forum`;
 
 export const forumAPI = () => {

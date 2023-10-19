@@ -2,7 +2,7 @@ import { baseFetch } from '../../libs/api';
 import { TCreateTheme } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
 
-const port = __SERVER_PORT__ || 3005;
+const port = process.env.__SERVER_PORT__ || 3005;
 const baseUrl = `http://localhost:${port}/profile/theme`;
 
 export const themeAPI = () => {
