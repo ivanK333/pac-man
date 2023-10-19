@@ -79,7 +79,7 @@
     POSTGRES_DB=postgres
     POSTGRES_PORT=5432
     NODE_ENV=production
-    POSTGRES_HOST=localhost
+    POSTGRES_HOST=postgres
    ```
 
 `docker compose up` - запустит три сервиса
