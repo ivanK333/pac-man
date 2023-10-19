@@ -68,6 +68,7 @@ async function startServer() {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
   app.use('/forum', router);
+  app.use('/profile', router);
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;
