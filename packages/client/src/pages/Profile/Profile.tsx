@@ -50,7 +50,8 @@ const Profile = () => {
     setIsOpenModal(true);
   };
 
-  const { first_name, display_name, second_name, email, phone, login } = user;
+  const { id, first_name, display_name, second_name, email, phone, login } =
+    user;
 
   const refreshUserData = (data: User) => {
     setUser(data);
@@ -85,6 +86,7 @@ const Profile = () => {
         {isPasswordEdit ? (
           <ProfileForm
             user={{
+              id,
               first_name,
               display_name,
               second_name,

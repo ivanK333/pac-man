@@ -31,6 +31,8 @@ const Register = () => {
 
   const { signUp } = authController();
 
+  const { createTheme } = themeAPI();
+
   const submit: SubmitHandler<FormValues> = async (submitData) => {
     if (submitData.confirm_password !== submitData.password) {
       setError(`Passwords don't match`);
@@ -43,6 +45,12 @@ const Register = () => {
     if (!response?.data) {
       setError(`${response}`);
       return;
+    }
+    const { id } = response.data;
+    const res = await createTheme(id.toString());
+    if (res.data) {
+      const { userId, lightTheme } = res.data;
+      console.log(`Created theme is light ${lightTheme} for user ID ${userId}`);
     }
 
     navigate(ROUTES.main.root);

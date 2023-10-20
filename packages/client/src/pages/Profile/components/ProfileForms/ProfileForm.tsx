@@ -9,6 +9,7 @@ import { userAPI, TProfileForm } from '../../../../api';
 import { ROUTES } from '../../../../constants/routes';
 import { Colors } from '../../../../constants/colors';
 import CustomLink from '../../../../components/CustomLink/CustomLink';
+import { themeAPI } from '../../../../api/theme';
 
 type TProfileFormProps = {
   handleSwitch: () => void;
@@ -17,12 +18,15 @@ type TProfileFormProps = {
 
 const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
 
   const formMethods = useForm<TProfileForm>({
     defaultValues: user,
   });
 
   const { changeProfile } = userAPI();
+
+  const { getTheme, updateTheme } = themeAPI();
 
   const handleSubmit: SubmitHandler<TProfileForm> = async (
     data: TProfileForm,
@@ -49,7 +53,35 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
 
   useEffect(() => {
     formMethods.reset(user);
+    const { id } = user;
+    if (!id) return;
+    const loadTheme = async () => {
+      const res = await getTheme(id.toString());
+
+      if (res.data) {
+        const { userId, lightTheme } = res.data;
+        console.log(
+          `Loaded theme is light ${lightTheme} for user ID ${userId}`,
+        );
+        setIsLightTheme(lightTheme);
+      }
+    };
+    loadTheme();
   }, [user]);
+
+  const handleThemeToggle = async () => {
+    const { id } = user;
+    if (!id) return;
+    const res = await updateTheme({
+      id: id.toString(),
+      lightTheme: !isLightTheme,
+    });
+    if (res.status === 200) {
+      const { userId, lightTheme } = res.data;
+      console.log(`Updated theme is light ${lightTheme} for user ID ${userId}`);
+      setIsLightTheme(!isLightTheme);
+    }
+  };
 
   const linkPath = ROUTES.main.root;
   const linkText = 'back to the game';
@@ -170,6 +202,17 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
               >
                 edit password
               </button>
+
+              <button
+                className={styles.editButton}
+                onClick={(e: SyntheticEvent) => {
+                  e.preventDefault();
+                  handleThemeToggle();
+                }}
+              >
+                change theme
+              </button>
+
               <CustomLink
                 linkPath={linkPath}
                 linkText={linkText}

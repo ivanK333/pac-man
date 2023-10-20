@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';

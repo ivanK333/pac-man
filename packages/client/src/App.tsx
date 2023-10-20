@@ -1,5 +1,5 @@
 import { withErrorBoundary } from 'react-error-boundary';
-import { Routes, Route, Navigate } from 'react-router';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Auth } from './routes/Auth/Auth';
 import { Main } from './routes/Main/Main';

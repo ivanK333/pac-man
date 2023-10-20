@@ -1,6 +1,11 @@
 import express from 'express';
 
 import {
+  getThemeByUserId,
+  createThemeByUserId,
+  updateThemeByUserId,
+} from '../controllers/themeController';
+import {
   getTopics,
   getTopicWithMessages,
   deleteTopic,
@@ -20,18 +25,18 @@ import {
   postComment,
 } from '../controllers/commentController';
 import {
-  getTopicReactions,
-  postTopicReaction,
+  // getTopicReactions,
+  // postTopicReaction,
   deleteTopicReaction,
 } from '../controllers/topicReactionController';
 import {
-  getMessageReactions,
-  postMessageReaction,
+  // getMessageReactions,
+  // postMessageReaction,
   deleteMessageReaction,
 } from '../controllers/messageReactionController';
 import {
-  getCommentReactions,
-  postCommentReaction,
+  // getCommentReactions,
+  // postCommentReaction,
   deleteCommentReaction,
 } from '../controllers/commentReactionController';
 import { auth } from '../../middlewares/auth';
@@ -48,16 +53,12 @@ router.get('/topics', getTopics); // get all topics
 router.get('/topics/:id', getTopicWithMessages); // get all topics
 router.get('/messages/:topic_id', getMessages); // get topic messages
 router.get('/comments/:message_id', getComments); // get message comments
-router.get('/topic/:topic_id/reactions', getTopicReactions); // get all topic reactions
-router.get('/message/:message_id/reactions', getMessageReactions); // get all message reactions
-router.get('/comment/:comment_id/reactions', getCommentReactions); // get all comment reactions
+router.get('/theme/:user_id', getThemeByUserId); // get theme
 
 router.post('/topics', topicValidation, postTopic); // post topic
 router.post('/messages/:topic_id', messageValidation, postMessage); // post message
 router.post('/comments/:message_id', commentValidation, postComment); // post comment
-router.post('/topic/:topic_id/reactions', postTopicReaction); // post topic reaction
-router.post('/message/:message_id/reactions', postMessageReaction); // post message reaction
-router.post('/comment/:comment_id/reactions', postCommentReaction); // post comment reaction
+router.post('/theme/:user_id', createThemeByUserId); // create theme for user
 
 router.delete('/topics/:id', deleteTopic); // delete topic
 router.delete('/messages/:id', deleteMessage); // delete message
@@ -75,5 +76,6 @@ router.delete(
 router.patch('/topics/:id', topicValidation, updateTopic); // update topic
 router.patch('/messages/:id', messageValidation, updateMessage); // update message
 router.patch('/comments/:id', commentValidation, updateComment); // update comment
+router.patch('/theme/:user_id', updateThemeByUserId); // update theme
 
 export default router;

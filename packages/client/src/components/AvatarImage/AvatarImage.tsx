@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
@@ -14,7 +16,7 @@ type TAvatarImage = {
   size?: Size.normal | Size.small;
 };
 
-const AvatarImage: React.FC<TAvatarImage> = ({ image, size = Size.normal }) => {
+const AvatarImage: FC<TAvatarImage> = ({ image, size = Size.normal }) => {
   const isSmallContainer = classNames({
     [styles.imageContainer]: size === Size.normal,
     [styles.imageContainerSmall]: size === Size.small,
