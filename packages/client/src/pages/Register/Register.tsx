@@ -14,6 +14,7 @@ import FormHeading from '../../components/FormComponent/FormHeading/FormHeading'
 import { authController } from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';
 import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import { themeAPI } from '../../api/theme/themeAPI';
 
 type FormValues = {
   first_name: string;
