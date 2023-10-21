@@ -1,32 +1,32 @@
 import { useEffect, useState } from 'react';
 
-import { Link, NavLink, useMatch } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
-import fullScreenOn from '../../assets/images/fullscreen_on.svg';
-import fullScreenOff from '../../assets/images/fullscreen-off.svg';
+import fullScreenOn from '../../assets/images/fullscreen_on.png';
+import fullScreenOff from '../../assets/images/fullscreen_off.png';
 import { logout, useAppDispatch } from '../../store';
 import useFullScreen from '../../hooks/useFullSrceen';
 import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 import ThemeToggle from '../ThemeToggle/ThemeToggle';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const Header = () => {
   const [render, setRender] = useState(false);
 
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
-  const isLightTheme = useReadLocalStorage('isLightTheme');
 
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
+
+  const { fullScreen, open } = useFullScreen();
 
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
     await dispatch(logout());
   };
-
-  const { fullScreen, open } = useFullScreen();
 
   useEffect(() => {
     setRender(true);
@@ -63,6 +63,18 @@ const Header = () => {
             About
           </NavLink>
         </li>
+        {!isAuthenticated && (
+          <li>
+            <NavLink
+              to={ROUTES.auth.login}
+              className={({ isActive }) =>
+                isActive ? styles.linkActive : styles.link
+              }
+            >
+              Auth
+            </NavLink>
+          </li>
+        )}
         {isAuthenticated && (
           <>
             {' '}

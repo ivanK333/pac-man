@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import styles from './styles.module.scss';
 import AvatarImage from '../../../../components/AvatarImage/AvatarImage';
-import { useReadLocalStorage } from '../../../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../../../hooks/useCheckLightTheme';
 
 type TLeaderboardItemProps = {
   index: number;
@@ -19,8 +19,7 @@ const LeaderboardItem: FC<TLeaderboardItemProps> = ({
   image,
   score,
 }) => {
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   return (
     <li className={styles.container}>

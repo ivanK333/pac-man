@@ -6,16 +6,15 @@ import classNames from 'classnames';
 import styles from './styles.module.scss';
 import { ROUTES } from '../../constants/routes';
 import { useEventListener } from '../../hooks/useEventListener';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 import Button from '../../components/ButtonSubmit/Button';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 type Props = {
   restartGame: () => void;
 };
 
 const GameOver = ({ restartGame: reset }: Props) => {
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const navigate = useNavigate();
 

@@ -15,7 +15,7 @@ import FormHeading from '../../components/FormComponent/FormHeading/FormHeading'
 import { ROUTES } from '../../constants/routes';
 import { OAuth } from '../../components/OAuth/OAuth';
 import { loadMe, useAppDispatch } from '../../store';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 type FormValues = {
   login: string;
@@ -44,8 +44,7 @@ const LoginForm = () => {
     navigate(ROUTES.main.root);
   };
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   return (
     <div className={styles.container}>

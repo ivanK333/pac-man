@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 import { readLocalStorage } from '../../utils/useReadLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const ThemeToggle = () => {
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark, isLightTheme } = useCheckLightTheme();
 
   const toggleTheme = () => {
     if (isLightTheme === 'true') {

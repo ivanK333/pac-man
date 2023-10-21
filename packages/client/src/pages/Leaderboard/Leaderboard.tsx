@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import styles from './styles.module.scss';
 import LeaderboardItem from './components/LeaderboardItem/LeaderboardItem';
 import { leaderboardController } from '../../controllers/LeaderboardController';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 export interface IGetLeaderboardData {
   data: {
@@ -22,8 +22,7 @@ const Leaderboard = () => {
     [],
   );
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const { getTeamLeaderboard } = leaderboardController();
 

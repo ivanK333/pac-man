@@ -1,12 +1,11 @@
 import classNames from 'classnames';
 
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 import styles from './styles.module.scss';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const DOTS_NUMBER = 8;
 const LoaderGame = () => {
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   return (
     <div

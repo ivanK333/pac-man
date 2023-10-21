@@ -13,8 +13,8 @@ import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { authController } from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 import { themeAPI } from '../../api/theme/themeAPI';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 type FormValues = {
   first_name: string;
@@ -57,8 +57,7 @@ const Register = () => {
     navigate(ROUTES.main.root);
   };
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   return (
     <div

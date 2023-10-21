@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Outlet } from 'react-router-dom';
-import { useMatch } from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
@@ -10,7 +9,7 @@ import Modal from '../../components/Modal/Modal';
 import TopicCreationForm from '../../components/TopicCreationForm/TopicCreationForm';
 import { TCreateTopic, TTopic, forumAPI } from '../../api';
 import TopicItem from '../../components/TopicItem/TopicItem';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const Forum = () => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -18,8 +17,7 @@ const Forum = () => {
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
   const isForumRoot = Boolean(matchForumRoot);
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const { getTopics, createTopic } = forumAPI();
 
@@ -70,7 +68,7 @@ const Forum = () => {
           <div className={styles.listContainer}>
             <div className={styles.topicList}>
               <div className={styles.buttonContainer}>
-                <button onClick={handleOpenModal} className={styles.button}>
+                <button className={styles.button} onClick={handleOpenModal}>
                   Create a topic &gt;
                 </button>
               </div>

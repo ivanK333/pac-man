@@ -4,7 +4,7 @@ import logo from '../../assets/images/logo.svg';
 import play from '../../assets/images/play.svg';
 import styles from './styles.module.scss';
 import { useEventListener } from '../../hooks/useEventListener';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 type Props = {
   startGame: () => void;
@@ -23,8 +23,7 @@ const StartGame = ({ startGame }: Props) => {
     container: window,
   });
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   return (
     <div

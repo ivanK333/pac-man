@@ -25,13 +25,13 @@ import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/Form
 import { ROUTES } from '../../constants/routes';
 import { authController } from '../../controllers/AuthController';
 import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const Lending = () => {
   const { signInWithOAuth } = authController();
   const [searchParams] = useSearchParams();
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   useEffect(() => {
     try {

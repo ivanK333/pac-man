@@ -10,7 +10,7 @@ import { User } from '../../api';
 import { authController } from '../../controllers/AuthController';
 import Modal from '../../components/Modal/Modal';
 import AvatarForm from './components/ProfileForms/AvatarForm';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const initialState = {
   avatar: '',
@@ -31,8 +31,7 @@ const Profile = () => {
 
   const { getUser } = authController();
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const handleShowProfile = () => {
     setIsPasswordEdit(true);

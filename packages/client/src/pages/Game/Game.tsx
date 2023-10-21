@@ -10,7 +10,7 @@ import MuteButton from '../../components/MuteButton/MuteButton';
 import { SoundEffects, Sounds } from '../../engine/Sound/sound';
 import styles from './styles.module.scss';
 import { leaderboardController } from '../../controllers/LeaderboardController';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const delay = 0;
 
@@ -23,8 +23,7 @@ const Game = () => {
   const [attempts, setAttempts] = useState<number>(0);
   const [sounds, setSounds] = useState<Sounds | null>(null);
 
-  const isLightTheme = useReadLocalStorage('isLightTheme');
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const { addUserToLeaderboard } = leaderboardController();
 
