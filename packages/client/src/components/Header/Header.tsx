@@ -77,7 +77,6 @@ const Header = () => {
         )}
         {isAuthenticated && (
           <>
-            {' '}
             <li>
               <NavLink
                 to={ROUTES.main.root}

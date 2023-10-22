@@ -5,7 +5,7 @@ function useCheckLightTheme() {
 
   const availableChangeThemeToDark = isLightTheme === 'true';
 
-  return { availableChangeThemeToDark, isLightTheme };
+  return { availableChangeThemeToDark };
 }
 
 export default useCheckLightTheme;

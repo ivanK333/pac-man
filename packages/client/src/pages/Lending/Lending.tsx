@@ -64,7 +64,7 @@ const Lending = () => {
             Приветствуем!
           </h1>
           <h3 className={styles.subtitle}>
-            На связи команда{' '}
+            На связи команда
             <span
               className={classNames({
                 [styles.text_blue]: availableChangeThemeToDark,

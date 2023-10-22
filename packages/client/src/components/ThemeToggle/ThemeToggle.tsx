@@ -1,17 +1,17 @@
 import classNames from 'classnames';
 
 import styles from './styles.module.scss';
-import { readLocalStorage } from '../../utils/useReadLocalStorage';
+import { setLocalStorage } from '../../utils/useReadLocalStorage';
 import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const ThemeToggle = () => {
-  const { availableChangeThemeToDark, isLightTheme } = useCheckLightTheme();
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const toggleTheme = () => {
-    if (isLightTheme === 'true') {
-      readLocalStorage('isLightTheme', 'false');
+    if (availableChangeThemeToDark) {
+      setLocalStorage('isLightTheme', 'false');
     } else {
-      readLocalStorage('isLightTheme', 'true');
+      setLocalStorage('isLightTheme', 'true');
     }
   };
   return (
@@ -27,7 +27,7 @@ const ThemeToggle = () => {
             [styles.light]: availableChangeThemeToDark,
           },
         )}
-        onChange={() => toggleTheme()}
+        onChange={toggleTheme}
         type="checkbox"
       />
     </>
