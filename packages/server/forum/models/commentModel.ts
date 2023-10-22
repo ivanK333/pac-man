@@ -1,5 +1,6 @@
 import {
   AllowNull,
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -9,6 +10,7 @@ import {
 } from 'sequelize-typescript';
 
 import MessageModel from './messageModel';
+import UserModel from './userModel';
 
 @Table({
   tableName: 'comments',
@@ -27,10 +29,6 @@ class CommentModel extends Model<CommentModel> {
 
   @AllowNull(false)
   @Column(DataType.STRING)
-  owner_id: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
   owner_login: string;
 
   @AllowNull(false)
@@ -40,6 +38,13 @@ class CommentModel extends Model<CommentModel> {
   @ForeignKey(() => MessageModel)
   @Column(DataType.UUID)
   message_id: MessageModel;
+
+  @BelongsTo(() => UserModel)
+  public user: UserModel;
+
+  @ForeignKey(() => UserModel)
+  @Column
+  owner_id: string;
 }
 
 export default CommentModel;

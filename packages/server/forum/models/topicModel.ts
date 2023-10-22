@@ -1,7 +1,9 @@
 import {
   AllowNull,
+  BelongsTo,
   Column,
   DataType,
+  ForeignKey,
   HasMany,
   Model,
   PrimaryKey,
@@ -9,6 +11,7 @@ import {
 } from 'sequelize-typescript';
 
 import MessageModel from './messageModel';
+import UserModel from './userModel';
 
 @Table({
   tableName: 'topics',
@@ -28,10 +31,6 @@ class TopicModel extends Model<TopicModel> {
   @AllowNull(false)
   @Column(DataType.STRING)
   text: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_id: string;
 
   @AllowNull(false)
   @Column(DataType.STRING)
@@ -55,6 +54,13 @@ class TopicModel extends Model<TopicModel> {
     hooks: true,
   })
   messages: MessageModel[];
+
+  @BelongsTo(() => UserModel)
+  public user: UserModel;
+
+  @ForeignKey(() => UserModel)
+  @Column
+  owner_id: string;
 }
 
 export default TopicModel;
