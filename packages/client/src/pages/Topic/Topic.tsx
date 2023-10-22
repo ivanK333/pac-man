@@ -40,7 +40,7 @@ const Topic = () => {
       setTopic(updatedTopic);
     }
   };
-  console.log(topic);
+
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
