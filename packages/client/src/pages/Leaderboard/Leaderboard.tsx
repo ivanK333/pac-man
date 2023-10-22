@@ -1,8 +1,11 @@
 import { useState, useLayoutEffect } from 'react';
 
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
 import LeaderboardItem from './components/LeaderboardItem/LeaderboardItem';
 import { leaderboardController } from '../../controllers/LeaderboardController';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 export interface IGetLeaderboardData {
   data: {
@@ -19,6 +22,8 @@ const Leaderboard = () => {
     [],
   );
 
+  const { availableChangeThemeToDark } = useCheckLightTheme();
+
   const { getTeamLeaderboard } = leaderboardController();
 
   const getLeaderboardData = async () => {
@@ -34,7 +39,11 @@ const Leaderboard = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames([styles.container], {
+        [styles.container_light]: availableChangeThemeToDark,
+      })}
+    >
       <ul className={styles.list}>
         {leaderboardData.map((item) => (
           <LeaderboardItem

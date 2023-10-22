@@ -1,9 +1,18 @@
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const DOTS_NUMBER = 8;
 const LoaderGame = () => {
+  const { availableChangeThemeToDark } = useCheckLightTheme();
+
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames([styles.container], {
+        [styles.container_light]: availableChangeThemeToDark,
+      })}
+    >
       <div className={styles.loaderContainer}>
         <div className={styles.sprite} />
         <div className={styles.pacman} />

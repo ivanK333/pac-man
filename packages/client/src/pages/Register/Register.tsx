@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import { SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import classNames from 'classnames';
 
 import FormGroup from '../../components/FormComponent/FormGroup/FormGroup';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
@@ -12,7 +13,8 @@ import styles from './styles.module.scss';
 import FormHeading from '../../components/FormComponent/FormHeading/FormHeading';
 import { authController } from '../../controllers/AuthController';
 import { ROUTES } from '../../constants/routes';
-import { themeAPI } from '../../api/theme';
+import { themeAPI } from '../../api/theme/themeAPI';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 type FormValues = {
   first_name: string;
@@ -55,8 +57,14 @@ const Register = () => {
     navigate(ROUTES.main.root);
   };
 
+  const { availableChangeThemeToDark } = useCheckLightTheme();
+
   return (
-    <div className={styles.registerPage}>
+    <div
+      className={classNames([styles.registerPage], {
+        [styles.registerPage_light]: availableChangeThemeToDark,
+      })}
+    >
       <FormGroup onSubmit={submit}>
         <FormHeading text="Register" />
         {error && <p className={styles.submitError}>{error}</p>}

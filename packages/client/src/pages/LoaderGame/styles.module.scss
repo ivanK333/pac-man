@@ -1,22 +1,26 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 $size: 50px;
 $dot-size: calc($size / 6);
 $time: 175;
 
 .container {
-  @include flexbox;
+  @include mixins.flexbox;
 
-  background: $color-palette-yellow;
+  background: variables.$color-palette-yellow;
   width: 100%;
+}
+
+.container_light {
+  background: variables.$color-palette-white;
 }
 
 .loaderContainer {
   position: relative;
-  border: solid 5px $color-palette-blue;
+  border: solid 5px variables.$color-palette-blue;
   border-radius: 50px;
-  background: $color-palette-black;
+  background: variables.$color-palette-black;
   width: 570px;
   height: 66px;
   overflow: hidden;
@@ -104,8 +108,8 @@ $time: 175;
     background-image: linear-gradient(
       -45deg,
       transparent 50%,
-      $color-palette-yellow 50%,
-      $color-palette-yellow
+      variables.$color-palette-yellow 50%,
+      variables.$color-palette-yellow
     );
     animation: chomp #{$time}ms ease-in alternate infinite;
   }
@@ -115,8 +119,8 @@ $time: 175;
     background-image: linear-gradient(
       -180deg,
       transparent 50%,
-      $color-palette-yellow 50%,
-      $color-palette-yellow
+      variables.$color-palette-yellow 50%,
+      variables.$color-palette-yellow
     );
     animation: chomp #{$time}ms ease-out alternate-reverse infinite;
   }
@@ -135,8 +139,8 @@ $time: 175;
 
 .dot {
   border-radius: 50%;
-  box-shadow: 0 0 10px $color-palette-green;
-  background-color: $color-palette-green;
+  box-shadow: 0 0 10px variables.$color-palette-green;
+  background-color: variables.$color-palette-green;
   width: $dot-size;
   height: $dot-size;
 

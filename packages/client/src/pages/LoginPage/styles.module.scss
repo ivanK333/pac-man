@@ -14,6 +14,10 @@
   background-color: variables.$color-palette-yellow;
 }
 
+.contentContainer_light {
+  background-color: variables.$color-palette-white;
+}
+
 .submitError {
   @include mixins.typography-s;
 
