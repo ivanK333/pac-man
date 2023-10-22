@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import CommentModel from '../models/commentModel';
+import UserModel from '../models/userModel';
 
 const getComments = (req: Request, res: Response) => {
   const { message_id } = req.params;
@@ -11,6 +12,11 @@ const getComments = (req: Request, res: Response) => {
       message_id,
     },
     order: [[Sequelize.col('createdAt'), 'ASC']],
+    include: [
+      {
+        model: UserModel,
+      },
+    ],
   })
     .then((comments) => {
       res.status(200).json(comments);
@@ -22,17 +28,28 @@ const getComments = (req: Request, res: Response) => {
 const postComment = (req: Request, res: Response) => {
   const { message_id } = req.params;
   const { user } = res.locals;
-  const { id, login, avatar } = user;
+  const { id } = user;
 
   CommentModel.create({
     ...req.body,
-    owner_avatar: avatar,
     owner_id: id,
-    owner_login: login,
     message_id,
   })
     .then((comment) => {
-      res.status(200).json(comment);
+      CommentModel.findOne({
+        where: {
+          id: comment.id,
+        },
+        include: {
+          model: UserModel,
+        },
+      })
+        .then((comment) => {
+          res.status(200).json(comment);
+        })
+        .catch(() => {
+          res.status(400).json({ message: 'Bad request' });
+        });
     })
     .catch(() => {
       res.status(400).json({ message: 'Bad request' });
@@ -42,21 +59,32 @@ const postComment = (req: Request, res: Response) => {
 const updateComment = (req: Request, res: Response) => {
   const { id } = req.params;
   const { user } = res.locals;
-  const { login, avatar } = user;
 
   CommentModel.findOne({ where: { id } }).then((comment) => {
     if (comment && String(user.id) === comment.owner_id) {
       CommentModel.update(
         {
           ...req.body,
-          owner_avatar: avatar,
-          owner_id: user.id,
-          owner_login: login,
         },
-        { where: { id }, returning: true },
+        {
+          where: { id },
+        },
       )
-        .then((comment) => {
-          res.status(200).json(comment[1][0]);
+        .then(() => {
+          CommentModel.findOne({
+            where: {
+              id,
+            },
+            include: {
+              model: UserModel,
+            },
+          })
+            .then((comment) => {
+              res.status(200).json(comment);
+            })
+            .catch(() => {
+              res.status(400).json({ message: 'Bad request' });
+            });
         })
         .catch(() => {
           res.status(400).json({ message: 'Bad request' });

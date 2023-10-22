@@ -9,6 +9,7 @@ import {
   registerCommentsCountQuery,
   registerMessagesCountQuery,
 } from './triggers';
+import UserModel from './models/userModel';
 
 dotenv.config();
 
@@ -22,11 +23,17 @@ const sequelizeOptions: SequelizeOptions = {
   logging: (msg) => console.log(msg),
 };
 export const sequelize = new Sequelize(sequelizeOptions);
-sequelize.addModels([CommentModel, TopicModel, MessageModel, ThemeModel]);
+sequelize.addModels([
+  CommentModel,
+  TopicModel,
+  MessageModel,
+  ThemeModel,
+  UserModel,
+]);
 export async function dbConnect() {
   try {
     await sequelize.authenticate(); // Проверка аутентификации в БД
-    await sequelize.sync(); // Синхронизация базы данных
+    await sequelize.sync(/*{ force: true }*/); // Синхронизация базы данных
     console.log('Connection has been established successfully.');
 
     await sequelize.query(registerCommentsCountQuery);

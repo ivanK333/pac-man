@@ -3,10 +3,16 @@ import { Sequelize } from 'sequelize-typescript';
 
 import TopicModel from '../models/topicModel';
 import MessageModel from '../models/messageModel';
+import UserModel from '../models/userModel';
 
 const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({
     order: [[Sequelize.col('createdAt'), 'DESC']],
+    include: [
+      {
+        model: UserModel,
+      },
+    ],
   })
     .then((topics) => {
       res.status(200).json(topics);
@@ -18,16 +24,27 @@ const getTopics = (_: Request, res: Response) => {
 
 const postTopic = (req: Request, res: Response) => {
   const { user } = res.locals;
-  const { id, login, avatar } = user;
+  const { id } = user;
 
   TopicModel.create({
     ...req.body,
-    owner_avatar: avatar,
     owner_id: id,
-    owner_login: login,
   })
     .then((topic) => {
-      res.status(200).json(topic);
+      TopicModel.findOne({
+        where: {
+          id: topic.id,
+        },
+        include: {
+          model: UserModel,
+        },
+      })
+        .then((topic) => {
+          res.status(200).json(topic);
+        })
+        .catch(() => {
+          res.status(400).json({ message: 'Bad request' });
+        });
     })
     .catch(() => {
       res.status(400).json({ message: 'Bad request' });
@@ -42,7 +59,9 @@ const getTopicWithMessages = (req: Request, res: Response) => {
     include: [
       {
         model: MessageModel,
+        include: [{ model: UserModel }],
       },
+      { model: UserModel },
     ],
   })
     .then((topic) => {
@@ -56,21 +75,31 @@ const getTopicWithMessages = (req: Request, res: Response) => {
 
 const updateTopic = (req: Request, res: Response) => {
   const { user } = res.locals;
-  const { id, login, avatar } = user;
+  const { id } = user;
 
   TopicModel.findOne({ where: { id } }).then((topic) => {
     if (topic && String(user.id) === topic.owner_id) {
       TopicModel.update(
         {
           ...req.body,
-          owner_avatar: avatar,
-          owner_id: id,
-          owner_login: login,
         },
-        { where: { id }, returning: true },
+        { where: { id } },
       )
-        .then((topic) => {
-          res.status(200).json(topic[1][0]);
+        .then(() => {
+          TopicModel.findOne({
+            where: {
+              id,
+            },
+            include: {
+              model: UserModel,
+            },
+          })
+            .then((topic) => {
+              res.status(200).json(topic);
+            })
+            .catch(() => {
+              res.status(400).json({ message: 'Bad request' });
+            });
         })
         .catch(() => {
           res.status(400).json({ message: 'Bad request' });

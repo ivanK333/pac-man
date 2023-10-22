@@ -18,8 +18,8 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
   withForm = true,
 }) => {
   // console.log('message: ', message);
-  const { id, text, ownerAvatar, ownerLogin, commentsCount, createdAt } =
-    message;
+  const { id, text, user, commentsCount, createdAt } = message;
+  console.log(user);
   const comments: TComment[] = [];
 
   const { leaveComment, getComments } = forumAPI();
@@ -58,11 +58,11 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
-        <h4 className={styles.username}>{ownerLogin}</h4>
+        <h4 className={styles.username}>{user.login}</h4>
         <p className={styles.time}>{formatDateString(createdAt)}</p>
       </div>
       <div className={styles.userContainer}>
-        <AvatarImage image={ownerAvatar} />
+        <AvatarImage image={user.avatar} />
         <div className={styles.messageContainer}>
           <p className={styles.message}>{text}</p>
           {withForm ? (

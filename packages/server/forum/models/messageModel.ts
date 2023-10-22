@@ -29,14 +29,6 @@ class MessageModel extends Model<MessageModel> {
   @Column(DataType.STRING)
   text: string;
 
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_login: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_avatar: string;
-
   @Column({
     type: DataType.INTEGER,
     defaultValue: 0,

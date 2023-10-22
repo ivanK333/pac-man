@@ -11,7 +11,6 @@ import {
 import MessageModel from './messageModel';
 import TopicModel from './topicModel';
 import CommentModel from './commentModel';
-
 @Table({
   tableName: 'users',
   timestamps: false,
@@ -28,10 +27,6 @@ class UserModel extends Model<UserModel> {
   @AllowNull(false)
   @Column(DataType.STRING)
   avatar: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  theme: string;
 
   @HasMany(() => TopicModel, {
     onUpdate: 'CASCADE',

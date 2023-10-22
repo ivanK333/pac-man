@@ -32,14 +32,6 @@ class TopicModel extends Model<TopicModel> {
   @Column(DataType.STRING)
   text: string;
 
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_login: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_avatar: string;
-
   @Column({
     type: DataType.INTEGER,
     defaultValue: 0,

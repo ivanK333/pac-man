@@ -11,7 +11,6 @@ import {
 
 import MessageModel from './messageModel';
 import UserModel from './userModel';
-
 @Table({
   tableName: 'comments',
 })
@@ -26,14 +25,6 @@ class CommentModel extends Model<CommentModel> {
   @AllowNull(false)
   @Column(DataType.STRING)
   text: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_login: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_avatar: string;
 
   @ForeignKey(() => MessageModel)
   @Column(DataType.UUID)
