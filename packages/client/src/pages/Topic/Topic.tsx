@@ -61,9 +61,8 @@ const Topic = () => {
               message={{
                 createdAt: topic.createdAt,
                 id: topic.id,
-                ownerAvatar: topic.ownerAvatar,
+                user: { ...topic.user },
                 ownerId: topic.ownerId,
-                ownerLogin: topic.ownerLogin,
                 text: topic.text,
                 updatedAt: topic.updatedAt,
               }}

@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import MessageModel from '../models/messageModel';
+import UserModel from '../models/userModel';
 
 const getMessages = (req: Request, res: Response) => {
   const { topic_id } = req.params;
@@ -11,6 +12,11 @@ const getMessages = (req: Request, res: Response) => {
       topic_id,
     },
     order: [[Sequelize.col('createdAt'), 'ASC']],
+    include: [
+      {
+        model: UserModel,
+      },
+    ],
   })
     .then((comments) => {
       res.status(200).json(comments);
@@ -22,17 +28,32 @@ const getMessages = (req: Request, res: Response) => {
 const postMessage = (req: Request, res: Response) => {
   const { topic_id } = req.params;
   const { user } = res.locals;
-  const { login, avatar } = user;
 
-  MessageModel.create({
-    ...req.body,
-    owner_avatar: avatar,
-    owner_id: user.id,
-    owner_login: login,
-    topic_id,
-  })
+  MessageModel.create(
+    {
+      ...req.body,
+      owner_id: user.id,
+      topic_id,
+    },
+    {
+      returning: true,
+    },
+  )
     .then((message) => {
-      res.status(200).json(message);
+      MessageModel.findOne({
+        where: {
+          id: message.id,
+        },
+        include: {
+          model: UserModel,
+        },
+      })
+        .then((message) => {
+          res.status(200).json(message);
+        })
+        .catch(() => {
+          res.status(400).json({ message: 'Bad request' });
+        });
     })
     .catch(() => {
       res.status(400).json({ message: 'Bad request' });
@@ -41,21 +62,30 @@ const postMessage = (req: Request, res: Response) => {
 const updateMessage = (req: Request, res: Response) => {
   const { id } = req.params;
   const { user } = res.locals;
-  const { login, avatar } = user;
 
   MessageModel.findOne({ where: { id } }).then((message) => {
     if (message && String(user.id) === message.owner_id) {
       MessageModel.update(
         {
           ...req.body,
-          owner_avatar: avatar,
-          owner_id: user.id,
-          owner_login: login,
         },
-        { where: { id }, returning: true },
+        { where: { id } },
       )
-        .then((message) => {
-          res.status(200).json(message[1][0]);
+        .then(() => {
+          MessageModel.findOne({
+            where: {
+              id,
+            },
+            include: {
+              model: UserModel,
+            },
+          })
+            .then((message) => {
+              res.status(200).json(message);
+            })
+            .catch(() => {
+              res.status(400).json({ message: 'Bad request' });
+            });
         })
         .catch(() => {
           res.status(400).json({ message: 'Bad request' });

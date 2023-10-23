@@ -14,7 +14,7 @@ export type TLeaveComment = {
 };
 
 export type TMessageUser = {
-  name: string;
+  login: string;
   id: string;
   avatar: string;
 };
@@ -22,9 +22,8 @@ export type TMessageUser = {
 export type TComment = {
   id: string;
   text: string;
-  ownerAvatar: string;
   ownerId: string;
-  ownerLogin: string;
+  user: TMessageUser;
   messageId: string;
   updatedAt: string;
   createdAt: string;
@@ -33,9 +32,8 @@ export type TComment = {
 export type TMessage = {
   createdAt: string;
   id: string;
-  ownerAvatar: string;
   ownerId: string;
-  ownerLogin: string;
+  user: TMessageUser;
   text: string;
   updatedAt: string;
   commentsCount?: string;
@@ -46,8 +44,7 @@ export type TTopic = {
   title: string;
   text: string;
   ownerId: string;
-  ownerLogin: string;
-  ownerAvatar: string;
+  user: TMessageUser;
   createdAt: string;
   updatedAt: string;
   messagesCount: string;

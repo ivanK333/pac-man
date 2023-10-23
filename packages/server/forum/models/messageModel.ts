@@ -1,5 +1,6 @@
 import {
   AllowNull,
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -11,6 +12,7 @@ import {
 
 import CommentModel from './commentModel';
 import TopicModel from './topicModel';
+import UserModel from './userModel';
 
 @Table({
   tableName: 'messages',
@@ -26,18 +28,6 @@ class MessageModel extends Model<MessageModel> {
   @AllowNull(false)
   @Column(DataType.STRING)
   text: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_id: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_login: string;
-
-  @AllowNull(false)
-  @Column(DataType.STRING)
-  owner_avatar: string;
 
   @Column({
     type: DataType.INTEGER,
@@ -57,6 +47,13 @@ class MessageModel extends Model<MessageModel> {
   @ForeignKey(() => TopicModel)
   @Column(DataType.UUID)
   topic_id: TopicModel;
+
+  @BelongsTo(() => UserModel)
+  public user: UserModel;
+
+  @ForeignKey(() => UserModel)
+  @Column
+  owner_id: string;
 }
 
 export default MessageModel;
