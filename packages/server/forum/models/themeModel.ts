@@ -14,7 +14,7 @@ class ThemeModel extends Model<ThemeModel> {
   @Column({
     type: DataType.BOOLEAN,
     allowNull: false,
-    defaultValue: true,
+    defaultValue: false,
   })
   light_theme: boolean;
 }

@@ -46,7 +46,9 @@ const Register = () => {
       return;
     }
     const { id } = response.data;
+    console.log('==registered==>', id);
     const res = await createTheme(id.toString());
+    console.log(res);
     if (res.data) {
       const { userId, lightTheme } = res.data;
       console.log(`Created theme is light ${lightTheme} for user ID ${userId}`);

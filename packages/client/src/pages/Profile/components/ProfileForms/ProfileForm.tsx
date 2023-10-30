@@ -18,7 +18,7 @@ type TProfileFormProps = {
 
 const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false);
-  const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
+  const [isLightTheme, setIsLightTheme] = useState<boolean>(false);
 
   const formMethods = useForm<TProfileForm>({
     defaultValues: user,

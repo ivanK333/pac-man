@@ -32,9 +32,27 @@ export const createThemeByUserId = async (
   res: Response,
 ): Promise<void> => {
   const { user_id } = req.params;
-  console.log('===req.body====>', req.body);
+  const { ...themeData } = req.body;
 
   try {
+    // ThemeModel.findOrCreate({
+    //   where: { user_id: user_id },
+    //   defaults: themeData,
+    // })
+    //   .then(([theme, created]) => {
+    //     if (created) {
+    //       res.status(200).json(theme);
+    //     } else {
+    //       res
+    //         .status(400)
+    //         .json({ message: 'Theme already exists for the specified user' });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error creating theme:', error);
+    //     res.status(500).json({ message: 'Internal Server Error' });
+    //   });
+
     ThemeModel.create({
       ...req.body,
       user_id,
