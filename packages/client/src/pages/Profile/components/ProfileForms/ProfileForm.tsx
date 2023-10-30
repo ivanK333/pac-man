@@ -71,6 +71,7 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
 
   const handleThemeToggle = async () => {
     const { id } = user;
+    console.log('====>', user);
     if (!id) return;
     const res = await updateTheme({
       id: id.toString(),
