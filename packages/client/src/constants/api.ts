@@ -1,4 +1,4 @@
-export const API_URL = 'http://16bitgames.ya-praktikum.tech/api';
+export const API_URL = 'https://16bitgames.ya-praktikum.tech/api/v2';
 
 export const RESOURCES_URL = `${API_URL}/resources`;
 

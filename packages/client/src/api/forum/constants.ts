@@ -1,1 +1,1 @@
-export const API_URL = 'http://localhost:3005/forum';
+export const API_URL = 'https://16bitgames.ya-praktikum.tech/forum';
