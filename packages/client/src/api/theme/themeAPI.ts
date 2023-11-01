@@ -25,11 +25,9 @@ export const themeAPI = () => {
   };
 
   const updateTheme = async (data: TCreateTheme) => {
-    console.log('updateTheme');
     try {
       const { id, lightTheme } = data;
       const dataSnakeCase = camelToSnake({ lightTheme });
-      console.log(`${API_URL}/${id}`, dataSnakeCase);
       const res = await baseFetch.patch(`${API_URL}/${id}`, dataSnakeCase);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;

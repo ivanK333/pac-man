@@ -18,7 +18,7 @@ const initialState = {
   password: '',
   email: '',
   first_name: '',
-  id: 1,
+  id: 0,
   login: '',
   phone: '',
   second_name: '',

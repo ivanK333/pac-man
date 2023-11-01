@@ -18,9 +18,27 @@ export const getThemeByUserId = async (
     if (theme) {
       res.status(200).json(theme);
     } else {
-      res
-        .status(404)
-        .json({ message: 'Theme not found for the given user ID.' });
+      // Creating default theme if doesn't exist for the user
+      try {
+        ThemeModel.create({
+          ...req.body,
+          user_id,
+        });
+        const theme = await ThemeModel.findOne({
+          where: {
+            user_id,
+          },
+        });
+        if (theme) {
+          res.status(200).json(theme);
+        } else {
+          res
+            .status(404)
+            .json({ message: 'Theme not found for the given user ID.' });
+        }
+      } catch (error) {
+        res.status(500).json({ message: 'Internal server error.' });
+      }
     }
   } catch (error) {
     res.status(500).json({ message: 'Internal server error.' });
@@ -32,7 +50,6 @@ export const createThemeByUserId = async (
   res: Response,
 ): Promise<void> => {
   const { user_id } = req.params;
-  console.log('===req.body====>', req.body);
 
   try {
     ThemeModel.create({

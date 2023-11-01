@@ -57,8 +57,9 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
     if (!id) return;
     const loadTheme = async () => {
       const res = await getTheme(id.toString());
+      console.log('===res loadTheme===>', res);
 
-      if (res.data) {
+      if (res?.data) {
         const { userId, lightTheme } = res.data;
         console.log(
           `Loaded theme is light ${lightTheme} for user ID ${userId}`,
@@ -72,13 +73,14 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   const handleThemeToggle = async () => {
     const { id } = user;
     console.log('===user===>', user);
-    console.log(!id);
     if (!id) return;
+
     const res = await updateTheme({
       id: id.toString(),
       lightTheme: !isLightTheme,
     });
-    if (res.status === 200) {
+    console.log('===res handleThemeToggle===>', res);
+    if (res?.status === 200) {
       const { userId, lightTheme } = res.data;
       console.log(`Updated theme is light ${lightTheme} for user ID ${userId}`);
       setIsLightTheme(!isLightTheme);
