@@ -9,9 +9,13 @@ dotenv.config();
 import express from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
+import { errors } from 'celebrate';
 
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
+import { dbConnect } from './forum/init';
+import { auth } from './middlewares/auth';
+import router from './forum/routes/routes';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -23,14 +27,8 @@ const isProd = () => process.env.NODE_ENV === 'production';
 const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
-  //createClientAndConnect();
   const app = express();
-  app.use(requestLogger); // request logger
-  app.use(
-    cors({
-      origin: '*', // allow all cors requests when develop
-    }),
-  );
+  app.use(requestLogger);
   app.use(
     '/api/v2',
     createProxyMiddleware({
@@ -42,10 +40,19 @@ async function startServer() {
     }),
   );
 
+  app.use(
+    cors({
+      origin: '*',
+    }),
+  );
+  app.use(express.json());
+
+  app.use(cookieParser());
+
   let vite: ViteDevServer | undefined;
-  const distPath = path.resolve(__dirname, '../../packages/client/dist');
-  const srcPath = path.resolve(__dirname, '../../packages/client');
-  const ssrClientPath = require.resolve('client/ssr-dist/ssr.cjs');
+  const distPath = path.resolve(__dirname, '../client/dist');
+  const srcPath = path.resolve(__dirname, '../client');
+  const ssrClientPath = path.resolve(__dirname, '../client/ssr-dist/ssr.cjs');
 
   if (isDev()) {
     vite = await createViteServer({
@@ -60,12 +67,13 @@ async function startServer() {
   if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
-
-  app.use('*', cookieParser(), async (req, res, next) => {
+  app.use('/forum', router);
+  app.use('/profile', router);
+  app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;
     let template: string;
-
+    app.use(auth);
     try {
       template = fs.readFileSync(
         path.resolve(isDev() ? srcPath : distPath, 'index.html'),
@@ -102,16 +110,17 @@ async function startServer() {
       next(e);
     }
   });
-
+  app.use(errors());
   app.use(errorLogger); // error logger
 
   app.listen(port);
 }
-
-startServer().then(() => {
-  console.log(
-    `  ➜ 🎸 Server is listening on port: ${port}`,
-    `http://localhost:${port}/`,
-  );
-  console.log(process.env.NODE_ENV);
+dbConnect().then(() => {
+  startServer().then(() => {
+    console.log(
+      `  ➜ 🎸 Server is listening on port: ${port}`,
+      `http://localhost:${port}/`,
+    );
+    console.log(process.env.NODE_ENV);
+  });
 });

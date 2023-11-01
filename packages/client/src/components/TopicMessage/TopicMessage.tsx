@@ -5,70 +5,88 @@ import AvatarImage from '../AvatarImage/AvatarImage';
 import TopicForm from '../TopicForm/TopicForm';
 import { TTopicForm } from '../../pages/Topic/Topic';
 import CommentItem from '../CommentItem/CommentItem';
-import { TComment } from '../../constants/fakeTopics';
+import { TComment, TMessage, forumAPI } from '../../api';
+import { formatDateString } from '../../utils/dateFormatter';
 
 type TTopicMessageProps = {
-  image: string;
-  username: string;
-  message: string;
-  time: string;
-  comments: TComment[];
+  message: TMessage;
+  withForm?: boolean;
 };
 
 const TopicMessage: React.FC<TTopicMessageProps> = ({
-  image,
-  username,
   message,
-  time,
-  comments,
+  withForm = true,
 }) => {
+  // console.log('message: ', message);
+  const { id, text, user, commentsCount, createdAt } = message;
+  console.log(user);
+  const comments: TComment[] = [];
+
+  const { leaveComment, getComments } = forumAPI();
+
   const [isShow, setIsShow] = useState<boolean>(false);
-  const handleSubmit = (data: TTopicForm) => {
-    console.log(data);
+  const [thisComments, setThisComments] = useState<TComment[]>(comments);
+  const commentsNumber = Math.max(
+    thisComments.length,
+    parseInt(commentsCount!),
+  );
+  const hasComments = commentsNumber > 0;
+
+  const submitComment = async (data: TTopicForm) => {
+    const { message: text } = data;
+    const response = await leaveComment({ text, messageId: id as string });
+    if (response?.data) {
+      const updatedComments: TComment[] = [...thisComments, response.data];
+      setThisComments(updatedComments);
+    }
+  };
+
+  const loadComments = async () => {
+    const response = await getComments(id as string);
+    if (response?.data) {
+      setThisComments(response.data);
+    }
+  };
+
+  const toggleShow = () => {
+    setIsShow(!isShow);
+    if (thisComments.length === 0) {
+      loadComments();
+    }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginContainer}>
-        <h4 className={styles.username}>{username}</h4>
-        <p className={styles.time}>{time}</p>
+        <h4 className={styles.username}>{user.login}</h4>
+        <p className={styles.time}>{formatDateString(createdAt)}</p>
       </div>
       <div className={styles.userContainer}>
-        <AvatarImage image={image} />
+        <AvatarImage image={user.avatar} />
         <div className={styles.messageContainer}>
-          <p className={styles.message}>{message}</p>
-          <div className={styles.buttonContainer}>
-            <p
-              className={styles.commentsLength}
-              onClick={() => {
-                setIsShow(!isShow);
-              }}
-            >
-              {comments && comments.length > 0
-                ? `${comments.length} comment(s).`
-                : 'leave a comment.'}
-              <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
-            </p>
-          </div>
+          <p className={styles.message}>{text}</p>
+          {withForm ? (
+            <div className={styles.buttonContainer}>
+              <p className={styles.commentsLength} onClick={toggleShow}>
+                {hasComments
+                  ? `${commentsNumber} comment${commentsNumber > 1 ? 's' : ''}.`
+                  : 'leave a comment.'}
+                <span className={styles.span}>{isShow ? 'hide' : 'show'}</span>
+              </p>
+            </div>
+          ) : null}
 
-          {isShow && (
+          {withForm && isShow && (
             <div className={styles.comments}>
-              {comments && comments.length
-                ? comments.map((comment) => (
-                    <CommentItem
-                      comment={comment.comment}
-                      avatar={comment.user.avatar}
-                      userName={comment.user.name}
-                      time={comment.time}
-                      id={comment.id}
-                      key={comment.id}
-                    />
+              {hasComments
+                ? thisComments.map((comment) => (
+                    <CommentItem comment={comment} key={comment.id} />
                   ))
                 : null}
 
               <TopicForm
                 placeholder="Enter a comment"
-                onSubmit={handleSubmit}
+                onSubmit={submitComment}
               />
             </div>
           )}

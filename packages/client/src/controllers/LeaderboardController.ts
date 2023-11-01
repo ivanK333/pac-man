@@ -35,7 +35,6 @@ export const leaderboardController = () => {
       response.data.forEach((item: IGetLeaderboardData, i: number) => {
         item.data.id = i + 1;
         item.data.index = i + 1;
-        item.data.avatar = `https://ya-praktikum.tech/api/v2/resources${item.data.avatar}`;
       });
 
       return response;

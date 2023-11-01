@@ -7,9 +7,10 @@ dotenv.config();
 export default defineConfig({
   server: {
     port: Number(process.env.CLIENT_PORT) || 3000,
-  },
-  define: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+    hmr: {
+      protocol: 'ws',
+      host: '0.0.0.0',
+    },
   },
   plugins: [react()],
 });

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 export function useReadLocalStorage(nameItem: string) {
   const hasWindow = typeof window === 'object' || typeof window !== 'undefined';
   const [value, setValue] = useState(

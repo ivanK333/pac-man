@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import classNames from 'classnames';
+
 import styles from './styles.module.scss';
 import Avatar from '../../components/Avatar/Avatar';
 import ProfileForm from './components/ProfileForms/ProfileForm';
@@ -8,6 +10,7 @@ import { User } from '../../api';
 import { authController } from '../../controllers/AuthController';
 import Modal from '../../components/Modal/Modal';
 import AvatarForm from './components/ProfileForms/AvatarForm';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const initialState = {
   avatar: '',
@@ -27,9 +30,13 @@ const Profile = () => {
   const [user, setUser] = useState<User>(initialState);
 
   const { getUser } = authController();
+
+  const { availableChangeThemeToDark } = useCheckLightTheme();
+
   const handleShowProfile = () => {
     setIsPasswordEdit(true);
   };
+
   const handleShowPasswordEdit = () => {
     setIsPasswordEdit(false);
   };
@@ -42,7 +49,8 @@ const Profile = () => {
     setIsOpenModal(true);
   };
 
-  const { first_name, display_name, second_name, email, phone, login } = user;
+  const { id, first_name, display_name, second_name, email, phone, login } =
+    user;
 
   const refreshUserData = (data: User) => {
     setUser(data);
@@ -60,15 +68,24 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames([styles.container], {
+        [styles.container_light]: availableChangeThemeToDark,
+      })}
+    >
       <div className={styles.avatarContainer}>
         <Avatar avatar={user.avatar} handleOpenModal={handleOpenModal} />
         <p className={styles.username}>{user.login}</p>
       </div>
-      <div className={styles.formContainer}>
+      <div
+        className={classNames([styles.formContainer], {
+          [styles.formContainer_light]: availableChangeThemeToDark,
+        })}
+      >
         {isPasswordEdit ? (
           <ProfileForm
             user={{
+              id,
               first_name,
               display_name,
               second_name,

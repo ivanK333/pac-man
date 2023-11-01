@@ -1,5 +1,5 @@
-@import '../../assets/styles/mixins';
-@import '../../assets/styles/variables';
+@use '../../assets/styles/mixins';
+@use '../../assets/styles/variables';
 
 .container {
   display: flex;
@@ -22,11 +22,17 @@
   align-items: center;
 }
 
-.heading {
-  @include typography-xl;
+.topicMainMessage {
+  padding: 15px;
+  border-bottom: 1px solid variables.$color-palette-blue;
+  border-radius: 15px;
+}
 
-  color: $color-palette-blue;
-  font-family: $font-press-start-2p;
+.heading {
+  @include mixins.typography-xl;
+
+  color: variables.$color-palette-blue;
+  font-family: variables.$font-press-start-2p;
 }
 
 .image {
@@ -40,21 +46,22 @@
   border: none;
   background: none;
   padding: 0;
-  color: $color-palette-green;
+  color: variables.$color-palette-green;
   font-size: 24px;
 }
 
 .messages {
   display: flex;
   flex-direction: column;
+  border: 1px solid variables.$color-palette-black;
   border-radius: 20px 10px 10px 20px;
-  background: $color-palette-green;
+  background: variables.$color-palette-white;
   padding: 0 0 29px;
   height: 72vh;
 }
 
 .messageList {
-  @include scrollbars;
+  @include mixins.scrollbars;
 
   display: flex;
   position: relative;

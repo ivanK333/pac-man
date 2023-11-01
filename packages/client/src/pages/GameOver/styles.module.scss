@@ -9,6 +9,10 @@
   width: 100%;
 }
 
+.container_light {
+  background-color: variables.$color-palette-white;
+}
+
 .buttonWrapper {
   display: flex;
 

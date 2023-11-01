@@ -4,6 +4,7 @@ export type TChangePasswordData = {
 };
 
 export type TProfileForm = {
+  id?: string | number;
   first_name: string;
   second_name: string;
   display_name: string;

@@ -1,5 +1,5 @@
 import { authAPI, SignInData, SignUpData } from '../api';
-import { readLocalStorage } from '../utils/useReadLocalStorage';
+import { setLocalStorage } from '../utils/useReadLocalStorage';
 import { logout, useAppDispatch } from '../store';
 
 export const authController = () => {
@@ -9,14 +9,14 @@ export const authController = () => {
   const signIn = async (data: SignInData) => {
     try {
       const response = await api.signIn(data);
-      readLocalStorage('isAuthenticated', 'true');
+      setLocalStorage('isAuthenticated', 'true');
       return response;
     } catch (error: any) {
       // если юзер залогинен выполнеем перелогин, иначе сыпятся ошибки
       if (error.response?.data?.reason === 'User already in system') {
         await dispatch(logout());
         const res = await api.signIn(data);
-        readLocalStorage('isAuthenticated', 'true');
+        setLocalStorage('isAuthenticated', 'true');
         return res;
       }
       return error.response?.data?.reason;
@@ -65,7 +65,7 @@ export const authController = () => {
   const signInWithOAuth = async (code: string) => {
     try {
       const response = await api.OAuth(code);
-      readLocalStorage('isAuthenticated', 'true');
+      setLocalStorage('isAuthenticated', 'true');
       return response;
     } catch (error) {
       console.log(error);

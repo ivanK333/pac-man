@@ -1,5 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
+import classNames from 'classnames';
+
 import LoaderGame from '../LoaderGame/LoaderGame';
 import GameOver from '../GameOver/GameOver';
 import StartGame from '../StartGame/StartGame';
@@ -8,6 +10,7 @@ import MuteButton from '../../components/MuteButton/MuteButton';
 import { SoundEffects, Sounds } from '../../engine/Sound/sound';
 import styles from './styles.module.scss';
 import { leaderboardController } from '../../controllers/LeaderboardController';
+import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const delay = 0;
 
@@ -19,6 +22,8 @@ const Game = () => {
   const [lives, setLives] = useState<number>(3);
   const [attempts, setAttempts] = useState<number>(0);
   const [sounds, setSounds] = useState<Sounds | null>(null);
+
+  const { availableChangeThemeToDark } = useCheckLightTheme();
 
   const { addUserToLeaderboard } = leaderboardController();
 
@@ -84,7 +89,11 @@ const Game = () => {
       {start && loader && <LoaderGame />}
 
       {start && !loader && lives > 0 && (
-        <div className={styles.container}>
+        <div
+          className={classNames([styles.container], {
+            [styles.container_light]: availableChangeThemeToDark,
+          })}
+        >
           <div className={styles.info}>
             <div className={styles.score}>
               <span>LEVEL: </span>

@@ -7,8 +7,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: $color-palette-black;
+  background-color: $color-palette-black;
   padding: 20px 40px 4px;
+  width: 100%;
+}
+
+.header_light{
+  background-color: $color-palette-white !important;
+}
+
+.header_noauth{
+  background-color: $color-palette-yellow;
+}
+
+.edition {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 160px;
 }
 
 .list {
@@ -21,11 +37,11 @@
 }
 
 .link {
-  color: $color-palette-white;
+  color: $color-palette-blue;
 }
 
 .linkActive {
-  color: $color-palette-yellow;
+  color: $color-palette-red;
 }
 
 .exitButton {
@@ -38,6 +54,6 @@
 
 .fullscreen {
   cursor: pointer;
-  width: 45px;
-  height: 45px;
+  width: 25px;
+  height: 25px;
 }
