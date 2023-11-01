@@ -32,7 +32,6 @@ export const createThemeByUserId = async (
   res: Response,
 ): Promise<void> => {
   const { user_id } = req.params;
-  console.log('===req.body====>', req.body);
 
   try {
     ThemeModel.create({

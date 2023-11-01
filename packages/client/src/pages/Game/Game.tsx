@@ -94,20 +94,28 @@ const Game = () => {
             [styles.container_light]: availableChangeThemeToDark,
           })}
         >
-          <div className={styles.info}>
-            <div className={styles.score}>
-              <span>LEVEL: </span>
-              <span>1</span>
-            </div>
-            <div className={styles.score}>
-              <span>SCORE: </span>
-              <span>{score}</span>
-            </div>
-            <div className={styles.score}>
-              <span>LIVES: </span>
-              <span>{lives}</span>
-            </div>
+          <div className={styles.muteButton}>
             <MuteButton mute={mute} onClick={toggleMute} />
+          </div>
+
+          <div className={styles.info}>
+            <span>LEVEL: </span>
+            <span>1</span>
+
+            <span>SCORE: </span>
+            <span className={styles.score}>{score}</span>
+
+            <span>LIVES: </span>
+            {Array.from({ length: 3 }, (_, index) => (
+              <span
+                className={classNames([styles.hearts], {
+                  [styles.hidden]: index >= lives,
+                })}
+                key={index}
+              >
+                &hearts;
+              </span>
+            ))}
           </div>
 
           <div className={styles.canvasContainer}>
