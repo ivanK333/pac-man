@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 
-import Header from '../../components/Header/Header';
 import styles from './styles.module.scss';
 import spriteSvg from '../../assets/images/greenSprite.svg';
 import logo from '../../assets/images/logo.svg';
@@ -24,7 +23,6 @@ import Ivan from '../../assets/images/Ivan.png';
 import FormButtonGroup from '../../components/FormComponent/FormButtonGroup/FormButton';
 import { ROUTES } from '../../constants/routes';
 import { authController } from '../../controllers/AuthController';
-import { useReadLocalStorage } from '../../hooks/useLocalStorage';
 import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const Lending = () => {
@@ -36,6 +34,7 @@ const Lending = () => {
   useEffect(() => {
     try {
       const code = searchParams.get('code');
+      console.log('code', code);
       if (code) {
         signInWithOAuth(code);
       }
