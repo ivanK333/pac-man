@@ -23,8 +23,8 @@ export const OAuth = () => {
   }, []);*/
 
   const getYandexOauthButton = useCallback(() => {
-    const href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=
-      55c27cf80ba64bb39209404becf9820a&redirect_uri=${REDIRECT_URI}`;
+    const client_id = '55c27cf80ba64bb39209404becf9820a';
+    const href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${client_id}&redirect_uri=${REDIRECT_URI}`;
 
     return (
       <Link to={href} className={styles.oauth__link}>
