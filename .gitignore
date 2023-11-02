@@ -6,3 +6,5 @@ dist
 tmp
 yarn.lock
 yarn-error.log
+pacman
+pacman.pub

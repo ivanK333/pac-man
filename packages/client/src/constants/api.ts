@@ -4,3 +4,7 @@ export const RESOURCES_URL = `${API_URL}/resources`;
 
 export const REDIRECT_URI =
   typeof window === 'undefined' ? '' : window.location.origin;
+
+export const THEME_API_URL = 'http://localhost:3005/profile/theme';
+
+export const FORUM_API_URL = 'http://localhost:3005/forum';
