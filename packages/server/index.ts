@@ -15,7 +15,8 @@ import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './forum/init';
 import { auth } from './middlewares/auth';
-import router from './forum/routes/routes';
+import forumRouter from './forum/routes/routes';
+import themeRouter from './theme/routes/routes';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -67,8 +68,8 @@ async function startServer() {
   if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
-  app.use('/forum', router);
-  app.use('/profile', router);
+  app.use('/forum', forumRouter);
+  app.use('/theme', themeRouter);
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;

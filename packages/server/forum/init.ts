@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import CommentModel from './models/commentModel';
 import TopicModel from './models/topicModel';
 import MessageModel from './models/messageModel';
-import ThemeModel from './models/themeModel';
+import ThemeModel from '../theme/models/themeModel';
 import {
   registerCommentsCountQuery,
   registerMessagesCountQuery,
