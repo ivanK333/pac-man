@@ -1,1 +1,2 @@
-export const API_URL = 'https://16bitgames.ya-praktikum.tech/profile/theme';
+const localhost = 'http://localhost:3005';
+export const API_URL = `${localhost}/profile/theme`;

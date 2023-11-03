@@ -1,12 +1,13 @@
 import { baseFetch } from '../../libs/api';
 import { TCreateTopic, TLeaveComment, TLeaveMessage } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
-import { API_URL } from './constants';
+const localhost = 'http://localhost:3005';
 
+const API_URL = `${localhost}/forum/`;
 export const forumAPI = () => {
   const getTopics = async () => {
     try {
-      const res = await baseFetch.get(`${API_URL}/topics`);
+      const res = await baseFetch.get(`${API_URL}topics`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {

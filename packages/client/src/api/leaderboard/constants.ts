@@ -1,8 +1,8 @@
-import { API_URL } from '../../constants/api';
+const localhost = 'http://localhost:3005';
 
 export const TEAM_NAME = '16-bit_games';
 
-export const BASE_URL_LEADEERBOARD = `${API_URL}/leaderboard`;
+export const BASE_URL_LEADEERBOARD = `${localhost}/leaderboard`;
 
 export const URL_LEADEERBOARD_ALL = `${BASE_URL_LEADEERBOARD}/all`;
 
