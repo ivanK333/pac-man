@@ -1,0 +1,14 @@
+@use '../../assets/styles/variables';
+
+.container_light {
+  background-color: variables.$color-palette-white !important;
+}
+
+.container_dark {
+  background-color: variables.$color-palette-black !important;
+}
+
+.muteButton {
+  border: none;
+  font-size: 2rem;
+}
