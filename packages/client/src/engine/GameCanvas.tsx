@@ -132,12 +132,12 @@ export const getObstacles = (
 
 const limitToTheMap = (j: number, char: Pacman | Sprite) => {
   if (j < 0) {
-    alert('STOP BEFORE HE RAN AWAY!!!!');
+    //alert('STOP BEFORE HE RAN AWAY!!!!');
     char.setDirection(Direction.Right);
     char.setNextDirection(Direction.Right);
   }
   if (j >= dimentions[1] - 3) {
-    alert('STOP BEFORE HE RAN AWAY!!!!');
+    //alert('STOP BEFORE HE RAN AWAY!!!!');
     char.setDirection(Direction.Left);
     char.setNextDirection(Direction.Left);
   }
