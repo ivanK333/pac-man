@@ -34,7 +34,6 @@ const Lending = () => {
   useEffect(() => {
     try {
       const code = searchParams.get('code');
-      console.log('code', code);
       if (code) {
         signInWithOAuth(code);
       }
