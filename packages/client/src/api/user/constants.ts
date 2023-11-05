@@ -1,6 +1,6 @@
-import { API_URL } from '../../constants/api';
+const localhost = 'http://localhost:3005';
 
-export const BASE_URL_USER = `${API_URL}/user`;
+export const BASE_URL_USER = `${localhost}/user`;
 
 export const URL_USER_PROFILE = `${BASE_URL_USER}/profile`;
 

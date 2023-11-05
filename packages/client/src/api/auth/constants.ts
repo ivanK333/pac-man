@@ -1,6 +1,6 @@
-import { API_URL } from '../../constants/api';
+import { API_URL, localhost } from '../../constants/api';
 
-export const BASE_URL_AUTH = `${API_URL}/auth`;
+export const BASE_URL_AUTH = `${localhost}/auth`;
 
 export const URL_AUTH_SIGN_IN = `${BASE_URL_AUTH}/signin`;
 
