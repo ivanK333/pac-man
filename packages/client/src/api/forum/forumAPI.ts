@@ -1,9 +1,9 @@
 import { baseFetch } from '../../libs/api';
 import { TCreateTopic, TLeaveComment, TLeaveMessage } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
-const localhost = 'http://localhost:3005';
+import { LOCAL_API_URL } from '../../constants/api';
 
-const API_URL = `${localhost}/forum`;
+const API_URL = `${LOCAL_API_URL}/forum`;
 export const forumAPI = () => {
   const getTopics = async () => {
     try {
