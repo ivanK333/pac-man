@@ -1,6 +1,11 @@
 import express from 'express';
 
 import {
+  getThemeByUserId,
+  createThemeByUserId,
+  updateThemeByUserId,
+} from '../../theme/controllers/themeController';
+import {
   getTopics,
   getTopicWithMessages,
   deleteTopic,
@@ -34,7 +39,7 @@ import {
   // postCommentReaction,
   deleteCommentReaction,
 } from '../controllers/commentReactionController';
-import { auth } from '../../middlewares/auth';
+import { auth } from '../../../middlewares/auth';
 import {
   commentValidation,
   messageValidation,
@@ -48,10 +53,11 @@ router.get('/topics', getTopics); // get all topics
 router.get('/topics/:id', getTopicWithMessages); // get all topics
 router.get('/messages/:topic_id', getMessages); // get topic messages
 router.get('/comments/:message_id', getComments); // get message comments
+router.get('/theme/:user_id', getThemeByUserId); // get theme
 
-router.post('/topics', topicValidation, postTopic); // post topic
-router.post('/messages/:topic_id', messageValidation, postMessage); // post message
-router.post('/comments/:message_id', commentValidation, postComment); // post comment
+router.post('/topics', postTopic); // post topic
+router.post('/messages/:topic_id', postMessage); // post message
+router.post('/comments/:message_id', postComment); // post comment
 router.post('/theme/:user_id', createThemeByUserId); // create theme for user
 
 router.delete('/topics/:id', deleteTopic); // delete topic
