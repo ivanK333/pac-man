@@ -109,7 +109,7 @@ async function startServer() {
     }
   });
   app.use(errors());
-  app.use(errorLogger); // error logger
+  app.use(errorLogger);
 
   app.listen(port);
 }
