@@ -14,7 +14,6 @@ import { errors } from 'celebrate';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './forum/init';
-import { auth } from './middlewares/auth';
 import router from './forum/routes/routes';
 
 interface SSRModule {
@@ -73,7 +72,6 @@ async function startServer() {
     const url = req.originalUrl;
     let mod: SSRModule;
     let template: string;
-    app.use(auth);
     try {
       template = fs.readFileSync(
         path.resolve(isDev() ? srcPath : distPath, 'index.html'),
