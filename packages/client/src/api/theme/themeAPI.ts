@@ -6,7 +6,7 @@ import { BASE_URL } from '../../constants/api';
 export const themeAPI = () => {
   const getTheme = async (id: string) => {
     try {
-      const res = await baseFetch.get(`${BASE_URL}/${id}`);
+      const res = await baseFetch.get(`${BASE_URL}/theme/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -16,7 +16,7 @@ export const themeAPI = () => {
 
   const createTheme = async (id: string) => {
     try {
-      const res = await baseFetch.post(`${BASE_URL}/${id}`);
+      const res = await baseFetch.post(`${BASE_URL}/theme/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -28,7 +28,10 @@ export const themeAPI = () => {
     try {
       const { id, lightTheme } = data;
       const dataSnakeCase = camelToSnake({ lightTheme });
-      const res = await baseFetch.patch(`${BASE_URL}/${id}`, dataSnakeCase);
+      const res = await baseFetch.patch(
+        `${BASE_URL}/theme/${id}`,
+        dataSnakeCase,
+      );
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
