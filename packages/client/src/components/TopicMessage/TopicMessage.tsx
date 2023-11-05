@@ -19,7 +19,7 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
 }) => {
   // console.log('message: ', message);
   const { id, text, user, commentsCount, createdAt } = message;
-  console.log(user);
+
   const comments: TComment[] = [];
 
   const { leaveComment, getComments } = forumAPI();

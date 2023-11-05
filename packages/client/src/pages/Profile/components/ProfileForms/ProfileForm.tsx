@@ -52,13 +52,17 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   };
 
   useEffect(() => {
+    /**  Этот блок загрузки темы из базы данных
+     * если нет записи темы для юзера в БД, создается дефолтная
+     * блок можно перенести в другую часть проекта, в логин например,
+     * и хранить значение lightTheme
+     */
     formMethods.reset(user);
     const { id } = user;
     if (!id) return;
     const loadTheme = async () => {
       const res = await getTheme(id.toString());
-
-      if (res.data) {
+      if (res?.data) {
         const { userId, lightTheme } = res.data;
         console.log(
           `Loaded theme is light ${lightTheme} for user ID ${userId}`,
@@ -70,13 +74,17 @@ const ProfileForm: FC<TProfileFormProps> = ({ handleSwitch, user }) => {
   }, [user]);
 
   const handleThemeToggle = async () => {
+    /**  Этот блок переключения темы и изменения в базе данных
+     * блок можно перенести в другую часть проекта
+     */
     const { id } = user;
     if (!id) return;
+
     const res = await updateTheme({
       id: id.toString(),
       lightTheme: !isLightTheme,
     });
-    if (res.status === 200) {
+    if (res?.status === 200) {
       const { userId, lightTheme } = res.data;
       console.log(`Updated theme is light ${lightTheme} for user ID ${userId}`);
       setIsLightTheme(!isLightTheme);

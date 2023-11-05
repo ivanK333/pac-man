@@ -1,11 +1,6 @@
 import express from 'express';
 
 import {
-  getThemeByUserId,
-  createThemeByUserId,
-  updateThemeByUserId,
-} from '../controllers/themeController';
-import {
   getTopics,
   getTopicWithMessages,
   deleteTopic,
@@ -53,7 +48,6 @@ router.get('/topics', getTopics); // get all topics
 router.get('/topics/:id', getTopicWithMessages); // get all topics
 router.get('/messages/:topic_id', getMessages); // get topic messages
 router.get('/comments/:message_id', getComments); // get message comments
-router.get('/theme/:user_id', getThemeByUserId); // get theme
 
 router.post('/topics', topicValidation, postTopic); // post topic
 router.post('/messages/:topic_id', messageValidation, postMessage); // post message

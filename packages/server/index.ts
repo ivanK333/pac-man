@@ -13,8 +13,9 @@ import { errors } from 'celebrate';
 
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
-import { dbConnect } from './forum/init';
-import router from './forum/routes/routes';
+import { dbConnect } from './postgres/init';
+import forumRouter from './postgres/forum/routes/routes';
+import themeRouter from './postgres/theme/routes/routes';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -66,8 +67,8 @@ async function startServer() {
   if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
-  app.use('/forum', router);
-  app.use('/profile', router);
+  app.use('/forum', forumRouter);
+  app.use('/theme', themeRouter);
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;
