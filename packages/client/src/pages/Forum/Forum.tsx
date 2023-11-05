@@ -32,7 +32,6 @@ const Forum = () => {
   };
 
   useEffect(() => {
-    console.log('refresh');
     const getTopicsInfo = async () => {
       const res = await getTopics();
       if (res?.data) {
