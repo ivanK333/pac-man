@@ -66,6 +66,15 @@ async function startServer() {
 
   if (isProd()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+    app.use(
+      '/src/assets/sounds',
+      express.static(
+        path.resolve(
+          path.resolve(__dirname, '../client/src/assets/sounds'),
+          'assets',
+        ),
+      ),
+    );
   }
   app.use('/forum', forumRouter);
   app.use('/theme', themeRouter);
