@@ -28,18 +28,20 @@
   flex-direction: row;
   justify-content: space-between;
   margin: 2rem;
+
   // margin-bottom: 30px;
   width: 480px;
   font-family: 'Press Start 2P', sans-serif;
 }
 
 .hearts {
-  font-size: 1.2rem;
-  width: 1.2 rem;
-  color: red;
-  padding: 0;
   margin-top: -0.2rem;
+  padding: 0;
+  width: 1.2rem;
+  color: red;
+  font-size: 1.2rem;
 }
+
 .score {
   width: 3rem;
   text-align: right;
@@ -48,8 +50,9 @@
 .hidden {
   visibility: hidden;
 }
+
 .muteButton {
+  padding: 1rem 3rem 0 0;
   width: 100%;
   text-align: right;
-  padding: 1rem 3rem 0 0;
 }
