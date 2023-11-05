@@ -1,9 +1,9 @@
 import { baseFetch } from '../../libs/api';
 import { TCreateTheme } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
-const localhost = 'http://localhost:3005';
+import { LOCAL_API_URL } from '../../constants/api';
 
-const API_URL = `${localhost}/theme`;
+const API_URL = `${LOCAL_API_URL}/theme`;
 export const themeAPI = () => {
   const getTheme = async (id: string) => {
     try {
