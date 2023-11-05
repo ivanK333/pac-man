@@ -1,12 +1,12 @@
 import { baseFetch } from '../../libs/api';
 import { TCreateTheme } from './types';
 import { camelToSnake, snakeToCamel } from '../utils';
-import { API_URL } from '../../constants/api';
+import { BASE_URL } from '../../constants/api';
 
 export const themeAPI = () => {
   const getTheme = async (id: string) => {
     try {
-      const res = await baseFetch.get(`${API_URL}/${id}`);
+      const res = await baseFetch.get(`${BASE_URL}/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -16,7 +16,7 @@ export const themeAPI = () => {
 
   const createTheme = async (id: string) => {
     try {
-      const res = await baseFetch.post(`${API_URL}/${id}`);
+      const res = await baseFetch.post(`${BASE_URL}/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -28,7 +28,7 @@ export const themeAPI = () => {
     try {
       const { id, lightTheme } = data;
       const dataSnakeCase = camelToSnake({ lightTheme });
-      const res = await baseFetch.patch(`${API_URL}/${id}`, dataSnakeCase);
+      const res = await baseFetch.patch(`${BASE_URL}/${id}`, dataSnakeCase);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
