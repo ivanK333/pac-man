@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import http from 'http';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -11,6 +12,8 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
 import { errors } from 'celebrate';
 
+// import { webSocketServer } from './websocket-server-setup';
+import { createWebSocketServer } from './webSockets/websocket-server';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './postgres/init';
@@ -18,6 +21,7 @@ import { auth } from './middlewares/auth';
 import forumRouter from './postgres/forum/routes/routes';
 import themeRouter from './postgres/theme/routes/routes';
 
+let webSocketServer: any;
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
 }
@@ -29,6 +33,10 @@ const port = Number(process.env.SERVER_PORT) || 3005;
 
 async function startServer() {
   const app = express();
+
+  const server = http.createServer(app);
+  webSocketServer = createWebSocketServer(server);
+
   app.use(requestLogger);
   app.use(
     '/api/v2',
@@ -116,6 +124,7 @@ async function startServer() {
 
   app.listen(port);
 }
+
 dbConnect().then(() => {
   startServer().then(() => {
     console.log(
@@ -125,3 +134,5 @@ dbConnect().then(() => {
     console.log(process.env.NODE_ENV);
   });
 });
+
+export { webSocketServer };
