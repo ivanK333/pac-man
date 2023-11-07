@@ -27,7 +27,7 @@ export const userAPI = () => {
 
   const getUserOurDB = async (id: string) => {
     try {
-      const res = await baseFetch.get(`${BASE_URL}/${id}`);
+      const res = await baseFetch.get(`${BASE_URL}/user/${id}`);
       const resCamelCase = snakeToCamel(res);
       return resCamelCase;
     } catch (error: any) {
@@ -40,7 +40,7 @@ export const userAPI = () => {
       const { id, lightTheme } = data;
       const dataSnakeCase = camelToSnake({ lightTheme });
       const res = await baseFetch.patch(
-        `${BASE_URL}/${id}/theme`,
+        `${BASE_URL}/user/${id}/theme`,
         dataSnakeCase,
       );
       const resCamelCase = snakeToCamel(res);
