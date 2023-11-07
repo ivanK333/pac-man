@@ -5,8 +5,24 @@ FROM node:$NODE_VERSION-buster as builder
 
 WORKDIR /app
 
+COPY package.json ./
+COPY yarn.lock ./
+RUN yarn install
+
 COPY . .
 
+RUN yarn lerna bootstrap
+RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+RUN rm -rf /app/packages/client/dist/ && yarn build --scope=client
+RUN rm -rf /app/packages/client/ssr-dist/ && yarn lerna run ssr-build --scope=client
+
+FROM node:$NODE_VERSION-buster-slim as base
+WORKDIR /app
+
+COPY --from=builder /app/packages/server/ /app/server/
+COPY --from=builder /app/packages/client/ /app/server/client/
+RUN cd ./server/ && yarn install
+RUN cd ./server/client/ && yarn install
 
 EXPOSE $SERVER_PORT
 CMD [ "node", "/app/server/dist/index.js" ]
