@@ -11,7 +11,12 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     'import/no-extraneous-dependencies': 'off',
     '@typescript-eslint/dot-notation': 'off',
     'import/prefer-default-export': 'off',
