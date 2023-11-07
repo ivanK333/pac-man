@@ -18,7 +18,7 @@ const Forum = () => {
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
   const isForumRoot = Boolean(matchForumRoot);
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   const { getTopics, createTopic } = forumAPI();
 
@@ -90,7 +90,7 @@ const Forum = () => {
     <>
       <div
         className={classNames([styles.container], {
-          [styles.container_light]: availableChangeThemeToDark,
+          [styles.container_light]: isLightTheme,
         })}
       >
         {isForumRoot ? (

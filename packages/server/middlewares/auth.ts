@@ -1,7 +1,7 @@
 import type { RequestHandler } from 'express';
 import axios from 'axios';
 
-import UserModel from '../postgres/forum/models/userModel';
+import UserModel from '../postgres/user/models/userModel';
 
 const AUTH_ENDPOINT = 'https://ya-praktikum.tech/api/v2/auth/user';
 
@@ -13,7 +13,6 @@ export const auth: RequestHandler = (req, res, next) => {
           headers: { Cookie: cookies },
         })
         .then(({ data }) => {
-          console.log(data.avatar, data.login, data.id);
           res.locals.user = data;
           if (!data) {
             res.status(401).json({ message: 'cookie is not valid' });

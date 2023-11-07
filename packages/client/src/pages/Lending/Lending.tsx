@@ -29,7 +29,7 @@ const Lending = () => {
   const { signInWithOAuth } = authController();
   const [searchParams] = useSearchParams();
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   useEffect(() => {
     try {
@@ -46,7 +46,7 @@ const Lending = () => {
     <>
       <div
         className={classNames([styles.page], {
-          [styles.page_light]: availableChangeThemeToDark,
+          [styles.page_light]: isLightTheme,
         })}
       >
         <section className={styles.container}>
@@ -57,7 +57,7 @@ const Lending = () => {
           />
           <h1
             className={classNames([styles.title], {
-              [styles.text_blue]: availableChangeThemeToDark,
+              [styles.text_blue]: isLightTheme,
             })}
           >
             Приветствуем!
@@ -66,7 +66,7 @@ const Lending = () => {
             На связи команда
             <span
               className={classNames({
-                [styles.text_blue]: availableChangeThemeToDark,
+                [styles.text_blue]: isLightTheme,
               })}
             >
               16 bit games
@@ -80,13 +80,13 @@ const Lending = () => {
         </section>
         <section
           className={classNames([styles.aboutGame], {
-            [styles.aboutGame_light]: availableChangeThemeToDark,
+            [styles.aboutGame_light]: isLightTheme,
           })}
         >
           <h3 className={styles.gameTitle}>
             <span
               className={classNames({
-                [styles.text_white]: availableChangeThemeToDark,
+                [styles.text_white]: isLightTheme,
               })}
             >
               Pac-Man
@@ -110,7 +110,7 @@ const Lending = () => {
           </p>
           <p
             className={classNames([styles.gameAuthor], {
-              [styles.text_white]: availableChangeThemeToDark,
+              [styles.text_white]: isLightTheme,
             })}
           >
             — Toru Iwatani, создатель Pac-Man
@@ -131,7 +131,7 @@ const Lending = () => {
           </Link>
           <h3
             className={classNames([styles.title], {
-              [styles.text_blue]: availableChangeThemeToDark,
+              [styles.text_blue]: isLightTheme,
             })}
           >
             Это мы:

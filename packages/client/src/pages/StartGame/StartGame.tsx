@@ -23,12 +23,12 @@ const StartGame = ({ startGame }: Props) => {
     container: window,
   });
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   return (
     <div
       className={classNames([styles.container], {
-        [styles.container_light]: availableChangeThemeToDark,
+        [styles.container_light]: isLightTheme,
       })}
     >
       <img src={logo} alt="logo" className={styles.logo} />

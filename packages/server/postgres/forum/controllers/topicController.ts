@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 import TopicModel from '../models/topicModel';
 import MessageModel from '../models/messageModel';
-import UserModel from '../models/userModel';
+import UserModel from '../../user/models/userModel';
 
 const getTopics = (_: Request, res: Response) => {
   TopicModel.findAll({

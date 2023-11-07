@@ -1,11 +1,11 @@
 import { useReadLocalStorage } from './useLocalStorage';
 
 function useCheckLightTheme() {
-  const isLightTheme = useReadLocalStorage('isLightTheme');
+  const isLightThemeStored = useReadLocalStorage('isLightTheme');
 
-  const availableChangeThemeToDark = isLightTheme === 'true';
+  const isLightTheme = isLightThemeStored === 'true';
 
-  return { availableChangeThemeToDark };
+  return { isLightTheme };
 }
 
 export default useCheckLightTheme;
