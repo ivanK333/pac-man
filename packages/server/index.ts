@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import http from 'http';
+import * as http from 'http';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -12,16 +12,14 @@ import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
 import { errors } from 'celebrate';
 
-// import { webSocketServer } from './websocket-server-setup';
-import { createWebSocketServer } from './webSockets/websocket-server';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './postgres/init';
 import { auth } from './middlewares/auth';
 import forumRouter from './postgres/forum/routes/routes';
 import userRouter from './postgres/user/routes/routes';
+import { setupWebSocket } from './webSockets/setupWebSocket';
 
-let webSocketServer: any;
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
 }
@@ -30,12 +28,18 @@ const isDev = () => process.env.NODE_ENV === 'development';
 const isProd = () => process.env.NODE_ENV === 'production';
 
 const port = Number(process.env.SERVER_PORT) || 3005;
+const wsPort = Number(process.env.WEBSOCKET_PORT) || 3001;
 
 async function startServer() {
   const app = express();
 
+  // Websockets server
   const server = http.createServer(app);
-  webSocketServer = createWebSocketServer(server);
+  setupWebSocket(server);
+  server.listen(wsPort, () => {
+    console.log(`WS server is listening on port ${wsPort}`);
+  });
+  /////////
 
   app.use(requestLogger);
   app.use(
@@ -134,5 +138,3 @@ dbConnect().then(() => {
     console.log(process.env.NODE_ENV);
   });
 });
-
-export { webSocketServer };

@@ -1,6 +1,6 @@
-import type { WebSocket } from 'ws';
+// import WebSocket from 'ws';
 
-const individualPipeline = (ctx: WebSocket) => {
+export const individualPipeline = (ctx: WebSocket): NodeJS.Timeout => {
   let idx = 0;
   const interval = setInterval(() => {
     ctx.send(`ping pong ${idx}`);
@@ -9,15 +9,15 @@ const individualPipeline = (ctx: WebSocket) => {
   return interval;
 };
 
-const broadcastPipeline = (clients: any) => {
+// Broadcast messages
+// One instance for all clients
+export const broadcastPipeline = (clients: Set<WebSocket>): NodeJS.Timeout => {
   let idx = 0;
   const interval = setInterval(() => {
-    for (const c of clients.values()) {
-      c.send(`broadcast message ${idx}`);
+    for (const client of clients) {
+      client.send(`broadcast message ${idx}`);
     }
     idx += 1;
   }, 3000);
   return interval;
 };
-
-export { individualPipeline, broadcastPipeline };

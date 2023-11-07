@@ -3,7 +3,7 @@ import { Sequelize } from 'sequelize-typescript';
 
 import MessageModel from '../models/messageModel';
 import UserModel from '../../user/models/userModel';
-import { webSocketServer } from '../../../index';
+// import { webSocketServer } from '../../../index';
 
 const getMessages = (req: Request, res: Response) => {
   const { topic_id } = req.params;
@@ -50,12 +50,12 @@ const postMessage = (req: Request, res: Response) => {
         },
       })
         .then((message) => {
-          const msg = message?.getDataValue('text');
-          console.log('====>', msg);
-          console.log(webSocketServer);
-          webSocketServer.broadcast(
-            JSON.stringify({ type: 'new-post', message: msg }),
-          );
+          // const msg = message?.getDataValue('text');
+          // console.log('====>', msg);
+          // console.log(webSocketServer);
+          // webSocketServer.broadcast(
+          //   JSON.stringify({ type: 'new-post', message: msg }),
+          // );
 
           res.status(200).json(message);
         })
