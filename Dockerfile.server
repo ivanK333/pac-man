@@ -5,14 +5,9 @@ FROM node:$NODE_VERSION-buster as builder
 
 WORKDIR /app
 
-COPY package.json ./
-COPY yarn.lock ./
-RUN yarn install
-
 COPY . .
 
 RUN yarn lerna bootstrap
-RUN yarn lerna run ssr-build --scope=client
 
 FROM node:$NODE_VERSION-buster-slim as base
 WORKDIR /app
