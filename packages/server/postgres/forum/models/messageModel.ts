@@ -12,7 +12,7 @@ import {
 
 import CommentModel from './commentModel';
 import TopicModel from './topicModel';
-import UserModel from './userModel';
+import UserModel from '../../user/models/userModel';
 
 @Table({
   tableName: 'messages',

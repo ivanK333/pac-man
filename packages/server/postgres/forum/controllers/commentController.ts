@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import CommentModel from '../models/commentModel';
-import UserModel from '../models/userModel';
+import UserModel from '../../user/models/userModel';
 
 const getComments = (req: Request, res: Response) => {
   const { message_id } = req.params;
