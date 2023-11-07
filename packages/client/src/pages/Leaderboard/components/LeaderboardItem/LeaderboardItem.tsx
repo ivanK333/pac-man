@@ -19,13 +19,13 @@ const LeaderboardItem: FC<TLeaderboardItemProps> = ({
   image,
   score,
 }) => {
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   return (
     <li className={styles.container}>
       <h2
         className={classNames([styles.index], {
-          [styles.index_light]: availableChangeThemeToDark,
+          [styles.index_light]: isLightTheme,
         })}
       >
         {index}

@@ -44,13 +44,13 @@ const LoginForm = () => {
     navigate(ROUTES.main.root);
   };
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   return (
     <div className={styles.container}>
       <div
         className={classNames([styles.contentContainer], {
-          [styles.contentContainer_light]: availableChangeThemeToDark,
+          [styles.contentContainer_light]: isLightTheme,
         })}
       >
         <FormGroup onSubmit={submit}>

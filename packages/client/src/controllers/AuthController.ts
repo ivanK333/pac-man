@@ -1,6 +1,9 @@
 import { authAPI, SignInData, SignUpData } from '../api';
 import { setLocalStorage } from '../utils/useReadLocalStorage';
 import { logout, useAppDispatch } from '../store';
+import { userAPI } from '../api/user';
+
+const { getUserOurDB } = userAPI();
 
 export const authController = () => {
   const api = authAPI();
@@ -9,14 +12,14 @@ export const authController = () => {
   const signIn = async (data: SignInData) => {
     try {
       const response = await api.signIn(data);
-      setLocalStorage('isAuthenticated', 'true');
+      getUser();
       return response;
     } catch (error: any) {
       // если юзер залогинен выполнеем перелогин, иначе сыпятся ошибки
       if (error.response?.data?.reason === 'User already in system') {
         await dispatch(logout());
         const res = await api.signIn(data);
-        setLocalStorage('isAuthenticated', 'true');
+        getUser();
         return res;
       }
       return error.response?.data?.reason;
@@ -24,8 +27,16 @@ export const authController = () => {
   };
 
   const getUser = async () => {
+    setLocalStorage('isAuthenticated', 'true');
     try {
-      return await api.getUser();
+      const res = await api.getUser();
+      const userId = res.data.id;
+      setLocalStorage('userId', userId);
+      // приходится добавлять запрос к нашей базе, что бы взять theme юзера
+      const user = await getUserOurDB(userId);
+      const isLightTheme = user.data.lightTheme;
+      setLocalStorage('isLightTheme', isLightTheme.toString());
+      return res;
     } catch (error: any) {
       return error.response?.data?.reason;
     }
@@ -33,7 +44,9 @@ export const authController = () => {
 
   const signUp = async (data: SignUpData) => {
     try {
-      return await api.signUp(data);
+      const response = await api.signUp(data);
+      getUser();
+      return response;
     } catch (error: any) {
       // если юзер существует выполнеем логин
       if (error.response?.data?.reason === 'Login already exists') {
@@ -65,7 +78,8 @@ export const authController = () => {
   const signInWithOAuth = async (code: string) => {
     try {
       const response = await api.OAuth(code);
-      setLocalStorage('isAuthenticated', 'true');
+      // TODO: проверить создается ли юзер в нашей базе
+      getUser();
       return response;
     } catch (error) {
       console.log(error);

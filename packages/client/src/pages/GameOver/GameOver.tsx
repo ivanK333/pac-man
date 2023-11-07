@@ -14,7 +14,7 @@ type Props = {
 };
 
 const GameOver = ({ restartGame: reset }: Props) => {
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const GameOver = ({ restartGame: reset }: Props) => {
   return (
     <div
       className={classNames([styles.container], {
-        [styles.container_light]: availableChangeThemeToDark,
+        [styles.container_light]: isLightTheme,
       })}
     >
       <h1 className={styles.title}>GAME OVER</h1>

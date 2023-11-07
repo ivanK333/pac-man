@@ -13,7 +13,6 @@ export const auth: RequestHandler = (req, res, next) => {
           headers: { Cookie: cookies },
         })
         .then(({ data }) => {
-          console.log(data.avatar, data.login, data.id);
           res.locals.user = data;
           if (!data) {
             res.status(401).json({ message: 'cookie is not valid' });

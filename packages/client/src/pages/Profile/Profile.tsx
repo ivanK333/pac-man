@@ -31,7 +31,7 @@ const Profile = () => {
 
   const { getUser } = authController();
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   const handleShowProfile = () => {
     setIsPasswordEdit(true);
@@ -70,7 +70,7 @@ const Profile = () => {
   return (
     <div
       className={classNames([styles.container], {
-        [styles.container_light]: availableChangeThemeToDark,
+        [styles.container_light]: isLightTheme,
       })}
     >
       <div className={styles.avatarContainer}>
@@ -79,7 +79,7 @@ const Profile = () => {
       </div>
       <div
         className={classNames([styles.formContainer], {
-          [styles.formContainer_light]: availableChangeThemeToDark,
+          [styles.formContainer_light]: isLightTheme,
         })}
       >
         {isPasswordEdit ? (

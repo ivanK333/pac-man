@@ -5,12 +5,12 @@ import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
 const DOTS_NUMBER = 8;
 const LoaderGame = () => {
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   return (
     <div
       className={classNames([styles.container], {
-        [styles.container_light]: availableChangeThemeToDark,
+        [styles.container_light]: isLightTheme,
       })}
     >
       <div className={styles.loaderContainer}>

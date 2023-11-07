@@ -12,12 +12,12 @@ interface ButtonProps {
 
 const MuteButton: FC<ButtonProps> = (props) => {
   const { mute, onClick } = props;
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
   return (
     <div>
       <button
         className={classNames([styles.muteButton, styles.container_dark], {
-          [styles.container_light]: availableChangeThemeToDark,
+          [styles.container_light]: isLightTheme,
         })}
         onClick={onClick}
       >
@@ -26,7 +26,7 @@ const MuteButton: FC<ButtonProps> = (props) => {
             role="img"
             aria-label="Unmute"
             className={classNames([styles.container_dark], {
-              [styles.container_light]: availableChangeThemeToDark,
+              [styles.container_light]: isLightTheme,
             })}
           >
             🔇
@@ -36,7 +36,7 @@ const MuteButton: FC<ButtonProps> = (props) => {
             role="img"
             aria-label="Mute"
             className={classNames([styles.container_dark], {
-              [styles.container_light]: availableChangeThemeToDark,
+              [styles.container_light]: isLightTheme,
             })}
           >
             🔊
