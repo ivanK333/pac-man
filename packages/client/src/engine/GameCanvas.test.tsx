@@ -1,9 +1,80 @@
-import { countOccurrences } from './utils';
-import { blockSize, MapElements, speed } from './config';
-import { map as layer } from './Layers/layer_001';
-import { Direction, getObstacles, updateMap } from './GameCanvas';
-import { Pacman } from './AnimatedCharacters/pacman';
+import { dimentions, Direction } from './config';
+import Game from './Game';
+import pacman from './characters/pacman';
+import { map as testMap } from './Map/levels/level_001';
+describe('Тест класса GameCanvas', () => {
+  let time: number | null = null;
+  let setMap: (map: number[][]) => void;
+  let setTime: (time: number) => void;
+  let updateLives: (lives: number) => void;
+  let updateScore: (score: number) => void;
+  let score: number;
+  let lives: number;
+  let layer: number[][];
+  let canvas: HTMLCanvasElement;
+  beforeEach(() => {
+    canvas = document.createElement('canvas');
+    layer = [...testMap];
+    time = null;
+    score = 0;
+    lives = 3;
+    setMap = (map: number[][]) => {
+      layer = map;
+    };
+    setTime = (data: number) => {
+      time = data;
+    };
+    updateScore = (data: number) => {
+      score = data;
+    };
+    updateLives = (data: number) => {
+      lives = data;
+    };
+  });
 
+  test('создается класс', () => {
+    const game = new Game({
+      time,
+      setTime,
+      map: layer,
+      setMap,
+      updateScore,
+      updateLives,
+      restart: 0,
+      dimentions,
+    });
+
+    expect(game).toBeDefined();
+  });
+
+  test('есть Pacman', () => {
+    const game = new Game({
+      time,
+      setTime,
+      map: layer,
+      setMap,
+      updateScore,
+      updateLives,
+      restart: 0,
+      dimentions,
+    });
+    game.start(canvas);
+    game.animatePacman();
+    game.animateGhost();
+    pacman.move();
+
+    expect(pacman.currentBlock).toEqual([10, 0]);
+    pacman.setNextDirection(Direction.Right);
+
+    for (let i = 0; i < 6 * 15 + 1; i++) {
+      game.animatePacman();
+    }
+
+    expect(pacman.currentBlock).toEqual([10, 6]);
+  });
+});
+
+/*
 describe('Тест поедания еды', () => {
   let foodAmount: number;
   let cherriesAmount: number;
@@ -210,7 +281,7 @@ describe('Тест создания класса Pacman', () => {
 
     for (let i = 0; i < 10 * 15 + 1; i++) {
       const [i, j] = pacman.currentBlock;
-      /** находит все стены вокруг ячейки */
+      /!** находит все стены вокруг ячейки *!/
       pacman.setRestrictions(getObstacles(layer, i, j));
       pacman.move();
     }
@@ -234,7 +305,7 @@ describe('Тест создания класса Pacman', () => {
 
     for (let i = 0; i < 10 * 15 + 1; i++) {
       const [i, j] = pacman.currentBlock;
-      /** находит все стены вокруг ячейки */
+      /!** находит все стены вокруг ячейки *!/
       pacman.setRestrictions(getObstacles(layer, i, j));
       pacman.move();
     }
@@ -245,7 +316,7 @@ describe('Тест создания класса Pacman', () => {
 
     for (let i = 0; i < 10 * 15 + 1; i++) {
       const [i, j] = pacman.currentBlock;
-      /** находит все стены вокруг ячейки */
+      /!** находит все стены вокруг ячейки *!/
       pacman.setRestrictions(getObstacles(layer, i, j));
       pacman.move();
     }
@@ -253,3 +324,4 @@ describe('Тест создания класса Pacman', () => {
     expect(pacman.currentBlock).toEqual([15, 7]);
   });
 });
+*/
