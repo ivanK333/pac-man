@@ -8,9 +8,9 @@ import {
   Table,
 } from 'sequelize-typescript';
 
-import MessageModel from './messageModel';
-import TopicModel from './topicModel';
-import CommentModel from './commentModel';
+import MessageModel from '../../forum/models/messageModel';
+import TopicModel from '../../forum/models/topicModel';
+import CommentModel from '../../forum/models/commentModel';
 @Table({
   tableName: 'users',
   timestamps: false,
@@ -28,6 +28,14 @@ class UserModel extends Model<UserModel> {
   @Column(DataType.STRING)
   avatar: string;
 
+  @AllowNull(false)
+  @Column({
+    type: DataType.BOOLEAN,
+    defaultValue: false,
+  })
+  light_theme: boolean;
+
+  // relations
   @HasMany(() => TopicModel, {
     onUpdate: 'CASCADE',
     hooks: true,

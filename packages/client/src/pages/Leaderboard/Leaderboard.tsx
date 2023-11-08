@@ -22,7 +22,7 @@ const Leaderboard = () => {
     [],
   );
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   const { getTeamLeaderboard } = leaderboardController();
 
@@ -41,7 +41,7 @@ const Leaderboard = () => {
   return (
     <div
       className={classNames([styles.container], {
-        [styles.container_light]: availableChangeThemeToDark,
+        [styles.container_light]: isLightTheme,
       })}
     >
       <ul className={styles.list}>

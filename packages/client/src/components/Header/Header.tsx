@@ -18,7 +18,7 @@ const Header = () => {
 
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   const { fullScreen, open } = useFullScreen();
 
@@ -40,7 +40,7 @@ const Header = () => {
     <header
       className={classNames(
         [styles.header],
-        { [styles.header_light]: availableChangeThemeToDark },
+        { [styles.header_light]: isLightTheme },
         { [styles.header_noauth]: !isAuthenticated },
       )}
     >

@@ -14,8 +14,9 @@ import { errors } from 'celebrate';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { errorLogger, requestLogger } from './middlewares/logger';
 import { dbConnect } from './postgres/init';
+import { auth } from './middlewares/auth';
 import forumRouter from './postgres/forum/routes/routes';
-import themeRouter from './postgres/theme/routes/routes';
+import userRouter from './postgres/user/routes/routes';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -68,11 +69,12 @@ async function startServer() {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
   }
   app.use('/forum', forumRouter);
-  app.use('/theme', themeRouter);
+  app.use('/user', userRouter);
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let mod: SSRModule;
     let template: string;
+    app.use(auth);
     try {
       template = fs.readFileSync(
         path.resolve(isDev() ? srcPath : distPath, 'index.html'),
@@ -110,7 +112,7 @@ async function startServer() {
     }
   });
   app.use(errors());
-  app.use(errorLogger);
+  app.use(errorLogger); // error logger
 
   app.listen(port);
 }

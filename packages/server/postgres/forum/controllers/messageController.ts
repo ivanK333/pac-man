@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import { Sequelize } from 'sequelize-typescript';
 
 import MessageModel from '../models/messageModel';
-import UserModel from '../models/userModel';
+import UserModel from '../../user/models/userModel';
 
 const getMessages = (req: Request, res: Response) => {
   const { topic_id } = req.params;

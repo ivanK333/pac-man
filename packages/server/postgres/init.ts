@@ -4,12 +4,11 @@ import dotenv from 'dotenv';
 import CommentModel from './forum/models/commentModel';
 import TopicModel from './forum/models/topicModel';
 import MessageModel from './forum/models/messageModel';
-import ThemeModel from './theme/models/themeModel';
 import {
   registerCommentsCountQuery,
   registerMessagesCountQuery,
 } from './forum/triggers';
-import UserModel from './forum/models/userModel';
+import UserModel from './user/models/userModel';
 
 dotenv.config();
 
@@ -23,13 +22,7 @@ const sequelizeOptions: SequelizeOptions = {
   logging: (msg) => console.log(msg),
 };
 export const sequelize = new Sequelize(sequelizeOptions);
-sequelize.addModels([
-  CommentModel,
-  TopicModel,
-  MessageModel,
-  ThemeModel,
-  UserModel,
-]);
+sequelize.addModels([CommentModel, TopicModel, MessageModel, UserModel]);
 export async function dbConnect() {
   try {
     await sequelize.authenticate(); // Проверка аутентификации в БД

@@ -1,3 +1,3 @@
 export * from './types';
 export * from './constants';
-export { userAPI } from './user';
+export { userAPI } from './userAPI';

@@ -12,3 +12,8 @@ export type TProfileForm = {
   email: string;
   phone: string;
 };
+
+export type TUpdateTheme = {
+  id: string;
+  lightTheme: boolean;
+};

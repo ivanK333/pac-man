@@ -23,7 +23,7 @@ const Game = () => {
   const [attempts, setAttempts] = useState<number>(0);
   const [sounds, setSounds] = useState<Sounds | null>(null);
 
-  const { availableChangeThemeToDark } = useCheckLightTheme();
+  const { isLightTheme } = useCheckLightTheme();
 
   const { addUserToLeaderboard } = leaderboardController();
 
@@ -91,7 +91,7 @@ const Game = () => {
       {start && !loader && lives > 0 && (
         <div
           className={classNames([styles.container], {
-            [styles.container_light]: availableChangeThemeToDark,
+            [styles.container_light]: isLightTheme,
           })}
         >
           <div className={styles.muteButton}>

@@ -10,7 +10,7 @@ import {
 } from 'sequelize-typescript';
 
 import MessageModel from './messageModel';
-import UserModel from './userModel';
+import UserModel from '../../user/models/userModel';
 @Table({
   tableName: 'comments',
 })
