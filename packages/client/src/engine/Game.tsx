@@ -4,7 +4,7 @@ import Ghost from './characters/ghosts/ghost';
 import pacman from './characters/pacman';
 import ghosts from './characters/ghosts';
 import draw from './helpers/Draw';
-import { MapElements, Direction, KeyCode, Modes } from './config';
+import { MapElements, Direction, KeyCode, Modes, modeTiming } from './config';
 import { TGameProps, TRestrictions } from './types';
 
 class Game {
@@ -21,6 +21,11 @@ class Game {
   private cherriesAmount: number;
   private spaceDisabled: boolean;
   private dimentions: number[];
+  private remainingCherries: number;
+
+  private previousCherryAmount: number;
+  private setPreviousCherryAmount: (amount: number) => void;
+  private setEatenBooster: (eatenBooster: boolean) => void;
 
   constructor(props: TGameProps) {
     this.time = props.time;
@@ -32,11 +37,21 @@ class Game {
     this.restart = props.restart;
 
     this.score = 0;
-    this.eatenBooster = false;
+    this.eatenBooster = props.eatenBooster;
     this.foodAmount = this.countOccurrences(layer, MapElements.FOOD);
     this.cherriesAmount = this.countOccurrences(layer, MapElements.CHERRY);
     this.spaceDisabled = false;
     this.dimentions = props.dimentions;
+
+    this.remainingCherries = this.countOccurrences(
+      this.map,
+      MapElements.CHERRY,
+    );
+
+    this.previousCherryAmount = props.previousCherryAmount;
+    this.setPreviousCherryAmount = props.gameSetPreviousCherryAmount;
+
+    this.setEatenBooster = props.gameSetEatenBooster;
   }
 
   public loop = () => {
@@ -122,6 +137,20 @@ class Game {
     }
   };
 
+  private boosterTracker = () => {
+    if (
+      !this.previousCherryAmount ||
+      this.remainingCherries === this.previousCherryAmount
+    )
+      return;
+
+    this.setEatenBooster(true);
+
+    setTimeout(() => {
+      this.setEatenBooster(false);
+    }, 4000);
+  };
+
   public animatePacman = () => {
     const [i, j] = pacman.currentBlock;
     this.limitToTheMap(j, pacman);
@@ -136,6 +165,9 @@ class Game {
         this.countOccurrences(this.map, MapElements.CHERRY)) *
         10;
     this.updateScore(this.score);
+
+    /** update previous cherry state */
+    this.setPreviousCherryAmount(this.remainingCherries);
 
     /** находит все стены вокруг ячейки */
     pacman.setRestrictions(this.getObstacles(this.map, i, j));
@@ -158,12 +190,24 @@ class Game {
 
   // Логика изменения режимов приведений
   public changeModeIfNecessary = (character: Ghost) => {
-    // if (this.eatenBooster) character.setMode(Modes.frightened);
+    if (!character.atBlockCenter) return;
+
     const timing = Math.floor(this.time! / 1000);
 
-    if (timing === 10 || timing === 37 || timing === 62 || timing === 87) {
+    if (this.eatenBooster) {
+      character.setMode(Modes.frightened);
+    } else if (
+      timing === modeTiming.chase[0] ||
+      timing === modeTiming.chase[1] ||
+      timing === modeTiming.chase[2] ||
+      timing === modeTiming.chase[3]
+    ) {
       character.setMode(Modes.chase);
-    } else if (timing === 30 || timing === 57 || timing === 85) {
+    } else if (
+      timing === modeTiming.scatter[0] ||
+      timing === modeTiming.scatter[1] ||
+      timing === modeTiming.scatter[2]
+    ) {
       character.setMode(Modes.scatter);
     }
 
@@ -188,6 +232,9 @@ class Game {
       // case 'home':
       //   character.home();
       //   break;
+      // case 'stop':
+      //   character.home();
+      //   break;
       default:
         break;
     }
@@ -210,6 +257,8 @@ class Game {
 
   public redraw = () => {
     this.catchUp();
+
+    this.boosterTracker();
 
     Object.values(ghosts).forEach((ghost) => {
       ghost.render(this.time);

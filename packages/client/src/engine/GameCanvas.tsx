@@ -10,6 +10,9 @@ const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
   const [time, setTime] = useState<number | null>(null);
   const [map, setMap] = useState<number[][]>(layer);
 
+  const [previousCherryAmount, setPreviousCherryAmount] = useState<number>(0);
+  const [eatenBooster, setEatenBooster] = useState<boolean>(false);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const gameSetTime = (time: number) => {
@@ -17,6 +20,14 @@ const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
   };
   const gameSetMap = (map: number[][]) => {
     setMap(map);
+  };
+
+  const gameSetPreviousCherryAmount = (amount: number) => {
+    setPreviousCherryAmount(amount);
+  };
+
+  const gameSetEatenBooster = (eatenBooster: boolean) => {
+    setEatenBooster(eatenBooster);
   };
 
   const game = new Game({
@@ -28,6 +39,10 @@ const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
     updateLives,
     restart,
     dimentions,
+    previousCherryAmount,
+    gameSetPreviousCherryAmount,
+    eatenBooster,
+    gameSetEatenBooster,
   });
 
   /** create canvas and draw map */

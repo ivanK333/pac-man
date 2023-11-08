@@ -84,6 +84,11 @@ const ghostAnimationPositions: Record<string, [number, number]> = {
 
 const packmanDead: number[] = [456, 0, 256, 16];
 
+const modeTiming: Record<string, number[]> = {
+  chase: [10, 37, 62, 87],
+  scatter: [30, 57, 85],
+};
+
 export {
   dimentions,
   blockSize,
@@ -105,4 +110,5 @@ export {
   ghostAvatars,
   ghostAnimationPositions,
   packmanDead,
+  modeTiming,
 };

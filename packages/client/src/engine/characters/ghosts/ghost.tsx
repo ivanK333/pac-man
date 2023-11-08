@@ -109,6 +109,7 @@ class Ghost extends Character {
 
   // Метод разбега
   scatter() {
+    this.setSpeed(2);
     this.setTargetBlock(this.defaultTargetBlock);
   }
 
@@ -121,6 +122,8 @@ class Ghost extends Character {
     let targetY: number;
     let targetX: number;
     let distance: number;
+
+    this.setSpeed(2);
 
     switch (this.name) {
       case 'blinky':

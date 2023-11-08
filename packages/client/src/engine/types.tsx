@@ -23,6 +23,10 @@ type TGameProps = {
   updateLives: (value: number) => void;
   restart: number;
   dimentions: number[];
+  previousCherryAmount: number;
+  gameSetPreviousCherryAmount: (amount: number) => void;
+  eatenBooster: boolean;
+  gameSetEatenBooster: (eatenBooster: boolean) => void;
 };
 
 type TCharacterProps = {
