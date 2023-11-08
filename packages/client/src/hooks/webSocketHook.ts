@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-export const socketUrl = 'ws://localhost:3001';
+import { WS_URL } from '../constants/api';
+
+export const socketUrl = WS_URL;
 interface WebSocketData {
   message?: any;
   timestamp: number;
