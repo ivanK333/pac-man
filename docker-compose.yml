@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:14
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     environment:
       POSTGRES_PORT: ${POSTGRES_PORT}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -21,7 +21,7 @@ services:
       start_period: 10s
     restart: unless-stopped
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ../pgdata:/var/lib/postgresql/data
 
   server:
     container_name: prakticum-server

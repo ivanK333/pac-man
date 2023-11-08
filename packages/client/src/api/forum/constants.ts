@@ -1,3 +1,5 @@
-// export const API_URL = 'https://16bitgames.ya-praktikum.tech/forum';
+import { BASE_URL } from '../../constants/api';
 
-export const API_URL = 'http://localhost/forum';
+export const API_URL = `${BASE_URL}/forum`;
+
+//export const API_URL = 'http://localhost/forum';
