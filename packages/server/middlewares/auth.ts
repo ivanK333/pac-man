@@ -14,6 +14,12 @@ export const auth: RequestHandler = (req, res, next) => {
         })
         .then(({ data }) => {
           res.locals.user = data;
+          if (
+            res.locals.user.avatar === null ||
+            res.locals.user.avatar === 'null'
+          ) {
+            res.locals.user.avatar = '';
+          }
           if (!data) {
             res.status(401).json({ message: 'cookie is not valid' });
             next();
@@ -22,9 +28,9 @@ export const auth: RequestHandler = (req, res, next) => {
           UserModel.findOrCreate({
             where: { id: String(data.id) },
             defaults: {
-              id: String(data.id) as string,
-              login: data.login as string,
-              avatar: data.avatar as string,
+              id: String(res.locals.user.id),
+              login: res.locals.user.login,
+              avatar: res.locals.user.avatar,
             } as UserModel,
           }).then(() => {
             UserModel.update(
