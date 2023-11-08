@@ -10,7 +10,7 @@ export const URL_AUTH_LOGOUT = `${BASE_URL_AUTH}/logout`;
 
 export const URL_AUTH_USER = `${BASE_URL_AUTH}/user`;
 
-export const BASE_URL_OAUTH = `https://ya-praktikum.tech/api/v2/oauth`;
+export const BASE_URL_OAUTH = `${API_URL}/oauth`;
 
 export const URL_OAUTH_YANDEX = `${BASE_URL_OAUTH}/yandex`;
 
