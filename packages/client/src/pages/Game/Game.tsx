@@ -12,7 +12,7 @@ import styles from './styles.module.scss';
 import { leaderboardController } from '../../controllers/LeaderboardController';
 import useCheckLightTheme from '../../hooks/useCheckLightTheme';
 
-const delay = 0;
+const delay = 2000;
 
 const Game = () => {
   const [loader, setLoader] = useState<boolean>(true);
@@ -36,8 +36,8 @@ const Game = () => {
   }, []);
 
   const startGame = useCallback(() => {
+    setLoader(true);
     fakeLoader();
-
     setStart(true);
   }, []);
 
