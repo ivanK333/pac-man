@@ -50,13 +50,6 @@ const postMessage = (req: Request, res: Response) => {
         },
       })
         .then((message) => {
-          // const msg = message?.getDataValue('text');
-          // console.log('====>', msg);
-          // console.log(webSocketServer);
-          // webSocketServer.broadcast(
-          //   JSON.stringify({ type: 'new-post', message: msg }),
-          // );
-
           res.status(200).json(message);
         })
         .catch(() => {
