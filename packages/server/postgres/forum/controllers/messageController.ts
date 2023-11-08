@@ -3,7 +3,6 @@ import { Sequelize } from 'sequelize-typescript';
 
 import MessageModel from '../models/messageModel';
 import UserModel from '../../user/models/userModel';
-// import { webSocketServer } from '../../../index';
 
 const getMessages = (req: Request, res: Response) => {
   const { topic_id } = req.params;
