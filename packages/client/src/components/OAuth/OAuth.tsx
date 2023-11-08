@@ -21,7 +21,6 @@ export const OAuth = () => {
   useEffect(() => {
     loadServiceId();
   }, []);
-
   const getYandexOauthButton = useCallback(() => {
     const href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URI}`;
 
@@ -30,7 +29,11 @@ export const OAuth = () => {
         <img src={img} alt="yandex-oauth" />
       </Link>
     );
-  }, []);
+  }, [serviceId]);
 
-  return <div className={styles.oauth}>{getYandexOauthButton()}</div>;
+  return (
+    <div className={styles.oauth}>
+      {serviceId ? getYandexOauthButton() : null}
+    </div>
+  );
 };
