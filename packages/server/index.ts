@@ -39,7 +39,6 @@ async function startServer() {
   server.listen(wsPort, () => {
     console.log(`WS server is listening on port ${wsPort}`);
   });
-  /////////
 
   app.use(requestLogger);
   app.use(

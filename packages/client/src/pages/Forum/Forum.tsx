@@ -10,9 +10,11 @@ import TopicCreationForm from '../../components/TopicCreationForm/TopicCreationF
 import { TCreateTopic, TTopic, forumAPI } from '../../api';
 import TopicItem from '../../components/TopicItem/TopicItem';
 import useCheckLightTheme from '../../hooks/useCheckLightTheme';
-import useWebSocket from '../../utils/webSocketHook';
+import { useWebSocket, socketUrl } from '../../hooks/webSocketHook';
 
 const Forum = () => {
+  const { send, readyState } = useWebSocket({ socketUrl });
+
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
@@ -31,35 +33,6 @@ const Forum = () => {
   const handleCloseModal = () => {
     setIsOpenModal(false);
   };
-
-  // use our hook
-  const ws = useWebSocket({
-    socketUrl: 'ws://localhost:3005',
-  });
-
-  // receive messages
-  useEffect(() => {
-    if (ws.data) {
-      const { message } = ws.data;
-      console.log(message);
-    }
-  }, [ws.data]);
-
-  // useEffect(() => {
-  //   const socket = new WebSocket('ws://localhost:3005');
-
-  //   socket.onopen = () => {
-  //     console.log('WebSocket connection established');
-  //   };
-
-  //   socket.onmessage = (event) => {
-  //     console.log('Message received from server:', event.data);
-  //   };
-
-  //   return () => {
-  //     socket.close();
-  //   };
-  // }, []);
 
   useEffect(() => {
     const getTopicsInfo = async () => {
@@ -83,6 +56,15 @@ const Forum = () => {
     if (res?.data) {
       setTopics([res.data, ...topics]);
       handleCloseModal();
+
+      // send webSocket Notifications
+      if (readyState) {
+        const message = {
+          type: 'New topic',
+          content: res.data,
+        };
+        send(message);
+      }
     }
   };
 

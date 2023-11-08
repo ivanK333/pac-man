@@ -7,10 +7,12 @@ import blueGhost from '../../assets/images/blueSprite.svg';
 import TopicForm from '../../components/TopicForm/TopicForm';
 import TopicMessage from '../../components/TopicMessage/TopicMessage';
 import { TTopicWithMEssages, forumAPI } from '../../api';
+import { useWebSocket, socketUrl } from '../../hooks/webSocketHook';
 
 export type TTopicForm = { message: string };
 
 const Topic = () => {
+  const { send, readyState } = useWebSocket({ socketUrl });
   const { id } = useParams();
   const history = useNavigate();
   const { leaveMessage, getTopicWithMessages } = forumAPI();
@@ -38,6 +40,15 @@ const Topic = () => {
         messages: [response.data, ...(topic?.messages || [])],
       };
       setTopic(updatedTopic);
+
+      // send webSocket Notifications
+      if (readyState) {
+        const message = {
+          type: 'New message',
+          content: response.data,
+        };
+        send(message);
+      }
     }
   };
 
