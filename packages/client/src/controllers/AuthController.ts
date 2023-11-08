@@ -1,7 +1,6 @@
-import { authAPI, SignInData, SignUpData } from '../api';
+import { authAPI, SignInData, SignUpData, userAPI } from '../api';
 import { setLocalStorage } from '../utils/useReadLocalStorage';
 import { logout, useAppDispatch } from '../store';
-import { userAPI } from '../api/user';
 
 const { getUserOurDB } = userAPI();
 

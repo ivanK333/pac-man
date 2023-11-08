@@ -2,7 +2,6 @@ import {
   URL_USER_PROFILE,
   URL_USER_PASSWORD,
   URL_USER_PROFILE_AVATAR,
-  BASE_URL_USER,
   TProfileForm,
   TChangePasswordData,
   TUpdateTheme,
