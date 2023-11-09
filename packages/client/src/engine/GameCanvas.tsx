@@ -3,7 +3,7 @@ import { FC, useState, useEffect, useRef } from 'react';
 import Game from './Game';
 import { blockSize, dimentions } from './config';
 import { ICanvasProps } from './types';
-import { map as layer } from './map/levels/level_001';
+import { map as layer } from './Map/levels/level_001';
 
 const GameCanvas: FC<ICanvasProps> = (props: ICanvasProps) => {
   const { updateScore, updateLives, restart } = props;

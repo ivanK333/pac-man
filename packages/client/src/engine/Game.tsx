@@ -1,4 +1,4 @@
-import { map as layer } from './map/levels/level_001';
+import { map as layer } from './Map/levels/level_001';
 import Pacman from './characters/pacman/pacman';
 import Ghost from './characters/ghosts/ghost';
 import pacman from './characters/pacman';
