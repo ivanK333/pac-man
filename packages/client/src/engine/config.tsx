@@ -38,7 +38,7 @@ enum MapElements {
 
 const PositionsOnTheMap = {
   StartPositions: {
-    Pacman: [10, 0],
+    Pacman: [13, 11],
     Blinky: [8, 10],
     Inky: [8, 12],
     Pinky: [8, 11],
