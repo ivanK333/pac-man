@@ -1,6 +1,6 @@
 export const BASE_URL = 'https://16bitgames.ya-praktikum.tech';
 export const API_URL = `${BASE_URL}/api/v2`;
-export const WS_URL = `${BASE_URL}/api/ws`;
+export const WS_URL = `wss://16bitgames.ya-praktikum.tech/api/ws`;
 
 export const RESOURCES_URL = `${API_URL}/resources`;
 
