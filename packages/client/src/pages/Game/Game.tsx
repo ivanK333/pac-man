@@ -123,7 +123,7 @@ const Game = () => {
               updateScore={updateScore}
               updateLives={updateLives}
               restart={attempts}
-              sounds={sounds}
+              // sounds={sounds}
             />
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { map as layer } from './Map/levels/level_001';
+import { map as layer } from './map/levels/level_001';
 
 const blockSize = 30;
 const wallSpaceWidth = blockSize / 1.3;
@@ -57,6 +57,7 @@ enum Modes {
   scatter = 'scatter',
   chase = 'chase',
   frightened = 'frightened',
+  respawn = 'respawn',
 }
 
 enum GhostNames {
@@ -74,6 +75,14 @@ const ghostAvatars: Record<GhostNames, [number, number, number, number]> = {
   clyde: [457, 112, 128, 16],
 };
 
+const alternativeGhostAvatars: Record<
+  string,
+  [number, number, number, number]
+> = {
+  frightened: [600, 64, 128, 16],
+  eyes: [600, 81, 128, 16],
+};
+
 /** сдвиг для каждого отдельного аватара для имитации болтания ногами */
 const ghostAnimationPositions: Record<string, [number, number]> = {
   right: [0, 16],
@@ -82,11 +91,18 @@ const ghostAnimationPositions: Record<string, [number, number]> = {
   down: [96, 112],
 };
 
+const alternativeghostAnimationPositions: Record<string, [number, number]> = {
+  right: [0, 16],
+  left: [0, 16],
+  up: [0, 16],
+  down: [0, 16],
+};
+
 const packmanDead: number[] = [456, 0, 256, 16];
 
 const modeTiming: Record<string, number[]> = {
-  chase: [10, 37, 62, 87],
-  scatter: [30, 57, 85],
+  chase: [8, 35, 60, 85],
+  scatter: [28, 55, 83],
 };
 
 export {
@@ -108,7 +124,9 @@ export {
   Modes,
   GhostNames,
   ghostAvatars,
+  alternativeGhostAvatars,
   ghostAnimationPositions,
+  alternativeghostAnimationPositions,
   packmanDead,
   modeTiming,
 };

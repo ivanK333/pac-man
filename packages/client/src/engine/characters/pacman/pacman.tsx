@@ -109,11 +109,9 @@ class Pacman extends Character {
     this.ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh);
   }
 
-  intersection(positions: Record<string, number[]>) {
-    for (const key in positions) {
-      if (isEqual(this.currentBlock, positions[key])) {
-        return true;
-      }
+  intersection(positions: number[]) {
+    if (isEqual(this.currentBlock, positions)) {
+      return true;
     }
   }
 
@@ -148,6 +146,7 @@ class Pacman extends Character {
   }
 
   move() {
+    if (this.dead) return;
     this.controlDirection();
     this.step();
   }

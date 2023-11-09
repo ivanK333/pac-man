@@ -1,4 +1,4 @@
-import { map as layer } from './Map/levels/level_001';
+import { map as layer } from './map/levels/level_001';
 import Pacman from './characters/pacman/pacman';
 import Ghost from './characters/ghosts/ghost';
 import pacman from './characters/pacman';
@@ -18,7 +18,6 @@ class Game {
   public eatenBooster: boolean;
   private foodAmount: number;
   private cherriesAmount: number;
-  private spaceDisabled: boolean;
   private dimentions: number[];
   private remainingCherries: number;
 
@@ -39,7 +38,6 @@ class Game {
     this.eatenBooster = props.eatenBooster;
     this.foodAmount = this.countOccurrences(layer, MapElements.FOOD);
     this.cherriesAmount = this.countOccurrences(layer, MapElements.CHERRY);
-    this.spaceDisabled = false;
     this.dimentions = props.dimentions;
 
     this.remainingCherries = this.countOccurrences(
@@ -74,16 +72,6 @@ class Game {
         break;
       case KeyCode.Down:
         pacman.setNextDirection(Direction.Down);
-        break;
-      case KeyCode.Space:
-        /** выключаю пробел пока пакман умирает */
-        if (!this.spaceDisabled) {
-          pacman.die(this.updateLives);
-          this.spaceDisabled = true;
-          setTimeout(() => {
-            this.spaceDisabled = false;
-          }, 2000);
-        }
         break;
       default:
         break;
@@ -189,11 +177,17 @@ class Game {
 
   // Логика изменения режимов приведений
   public changeModeIfNecessary = (character: Ghost) => {
-    if (!character.atBlockCenter) return;
+    if (
+      character.mode === Modes.respawn &&
+      character.currentBlock[0] === 8 &&
+      character.currentBlock[1] === 11
+    ) {
+      character.setMode(Modes.chase);
+    }
 
     const timing = Math.floor(this.time! / 1000);
 
-    if (this.eatenBooster) {
+    if (this.eatenBooster && character.mode !== Modes.respawn) {
       character.setMode(Modes.frightened);
     } else if (
       timing === modeTiming.chase[0] ||
@@ -214,6 +208,8 @@ class Game {
   };
 
   private modeObserver(character: Ghost) {
+    if (!character.atBlockCenter) return;
+
     switch (character.mode) {
       case 'scatter':
         character.scatter();
@@ -228,12 +224,9 @@ class Game {
       case 'frightened':
         character.frightened(this.dimentions);
         break;
-      // case 'home':
-      //   character.home();
-      //   break;
-      // case 'stop':
-      //   character.home();
-      //   break;
+      case 'respawn':
+        character.respawn();
+        break;
       default:
         break;
     }
@@ -241,16 +234,16 @@ class Game {
 
   // Пересечение пакмана с призраками
   public catchUp = () => {
-    const gostsPositions: Record<string, number[]> = {};
-
-    gostsPositions.blinky = ghosts.blinky.currentBlock;
-    gostsPositions.inky = ghosts.inky.currentBlock;
-    gostsPositions.pinky = ghosts.pinky.currentBlock;
-    gostsPositions.clyde = ghosts.clyde.currentBlock;
-
-    if (pacman.intersection(gostsPositions)) {
-      pacman.die(this.updateLives);
+    for (const key in ghosts) {
+      if (pacman.intersection(ghosts[key].currentBlock)) {
+        if (ghosts[key].weakness) {
+          ghosts[key].setMode(Modes.respawn);
+        } else {
+          pacman.die(this.updateLives);
+        }
+      }
     }
+
     return;
   };
 

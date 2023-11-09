@@ -7,7 +7,7 @@ import {
   GhostNames,
 } from '../../config';
 
-const ghosts = {
+const ghosts: { [index: string]: Ghost } = {
   blinky: new Ghost(
     {
       size: blockSize,

@@ -9,6 +9,8 @@ import {
   GhostNames,
   ghostAvatars,
   ghostAnimationPositions,
+  alternativeGhostAvatars,
+  alternativeghostAnimationPositions,
 } from '../../config';
 import { TGhostsProps } from '../../types';
 
@@ -20,8 +22,13 @@ class Ghost extends Character {
   name: GhostNames;
   targetBlock: number[];
   defaultTargetBlock: number[];
-
   mode: Modes;
+
+  weakness: boolean;
+  eyes: boolean;
+  frightenedCrop: [number, number, number, number];
+  eyesCrop: [number, number, number, number];
+  currentMode: Modes;
   constructor(props: TGhostsProps, name: GhostNames) {
     super(props);
 
@@ -33,9 +40,14 @@ class Ghost extends Character {
     this.direction = props.startDirection;
     this.crop = ghostAvatars[this.name];
     this.targetBlock = props.defaultTargetBlock;
-
     this.defaultTargetBlock = props.defaultTargetBlock;
     this.mode = Modes.scatter;
+
+    this.weakness = false;
+    this.eyes = false;
+    this.frightenedCrop = alternativeGhostAvatars.frightened;
+    this.eyesCrop = alternativeGhostAvatars.eyes;
+    this.currentMode = Modes.scatter;
   }
 
   setPatchRedraw(patchRedraw: MapElements) {
@@ -82,7 +94,13 @@ class Ghost extends Character {
 
     const image = new Image();
     image.src = spritePng;
-    const [sx, sy, sw, sh] = this.crop;
+    let [sx, sy, sw, sh] = this.crop;
+
+    if (this.weakness && !this.eyes) {
+      [sx, sy, sw, sh] = this.frightenedCrop;
+    } else if (this.eyes) {
+      [sx, sy, sw, sh] = this.eyesCrop;
+    }
 
     const direction = this.direction;
     const legsPosition = this.legsPosition;
@@ -93,10 +111,14 @@ class Ghost extends Character {
 
     this.ctx.drawImage(
       image,
-      /**выбираем какая картинка в зависимости от направления и положения ног */
-      sx + ghostAnimationPositions[direction][legsPosition],
+      /**выбираем какая картинка в зависимости от направления положения ног и mode */
+      this.weakness
+        ? this.eyes
+          ? sx + alternativeghostAnimationPositions[direction][legsPosition]
+          : sx + alternativeghostAnimationPositions[direction][legsPosition]
+        : sx + ghostAnimationPositions[direction][legsPosition],
       sy,
-      /**  каждому спрайту соответствует 8 картинок одинаковой ширины */
+      /**  каждому спрайту соответствует 8 картинок одинаковой ширины или 2 картинки при испуге */
       sw / 8,
       sh,
       dx,
@@ -104,12 +126,27 @@ class Ghost extends Character {
       dw,
       dh,
     );
-    ghostAnimationPositions[this.direction];
+
+    this.weakness
+      ? alternativeghostAnimationPositions[this.direction]
+      : ghostAnimationPositions[this.direction];
+  }
+
+  // Метод разбега
+  respawn() {
+    this.setSpeed(3);
+    this.weakness = true;
+    this.eyes = true;
+
+    this.setTargetBlock([11, 9]);
   }
 
   // Метод разбега
   scatter() {
     this.setSpeed(2);
+    this.weakness = false;
+    this.eyes = false;
+
     this.setTargetBlock(this.defaultTargetBlock);
   }
 
@@ -124,6 +161,8 @@ class Ghost extends Character {
     let distance: number;
 
     this.setSpeed(2);
+    this.weakness = false;
+    this.eyes = false;
 
     switch (this.name) {
       case 'blinky':
@@ -161,6 +200,8 @@ class Ghost extends Character {
   // Метод страха
   frightened(dimentions: number[]) {
     this.setSpeed(1);
+    this.weakness = true;
+    this.eyes = false;
 
     const newTarget = [
       Math.floor(Math.random() * (dimentions[0] + 1)),
