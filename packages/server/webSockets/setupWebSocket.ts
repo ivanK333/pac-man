@@ -7,10 +7,12 @@ export const setupWebSocket = (server: HttpServer) => {
   const wss: WebSocketServer = new WebSocketServer({ noServer: true });
 
   server.on('upgrade', function upgrade(request, socket, head) {
+    const url = request.url;
     try {
       wss.handleUpgrade(request, socket, head, (ws: WebSocket) => {
         wss.emit('connection', ws, request);
       });
+      console.log(`WebSocket connection established: ${url}`);
     } catch (err) {
       console.log('upgrade exception', err);
       socket.write('HTTP/1.1 401 Unauthorized\r\n\r\n');
