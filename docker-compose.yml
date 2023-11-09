@@ -35,9 +35,11 @@ services:
     restart: always
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${WEBSOCKET_PORT}:${WEBSOCKET_PORT}"
       - "24678:24678"
     environment:
       SERVER_PORT: ${SERVER_PORT}
+      WEBSOCKET_PORT: ${WEBSOCKET_PORT}
       NODE_ENV: ${NODE_ENV}
     env_file:
       ./.env
