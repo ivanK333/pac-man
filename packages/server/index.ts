@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as http from 'http';
 
 import dotenv from 'dotenv';
 import cors from 'cors';
@@ -17,6 +18,7 @@ import { dbConnect } from './postgres/init';
 import { auth } from './middlewares/auth';
 import forumRouter from './postgres/forum/routes/routes';
 import userRouter from './postgres/user/routes/routes';
+import { setupWebSocket } from './webSockets/setupWebSocket';
 
 interface SSRModule {
   render: (uri: string, repository: YandexAPIRepository) => Promise<string>;
@@ -26,9 +28,18 @@ const isDev = () => process.env.NODE_ENV === 'development';
 const isProd = () => process.env.NODE_ENV === 'production';
 
 const port = Number(process.env.SERVER_PORT) || 3005;
+const wsPort = Number(process.env.WEBSOCKET_PORT) || 3001;
 
 async function startServer() {
   const app = express();
+
+  // Websockets server
+  const server = http.createServer(app);
+  setupWebSocket(server);
+  server.listen(wsPort, () => {
+    console.log(`WS server is listening on port ${wsPort}`);
+  });
+
   app.use(requestLogger);
   app.use(
     '/api/v2',
@@ -116,6 +127,7 @@ async function startServer() {
 
   app.listen(port);
 }
+
 dbConnect().then(() => {
   startServer().then(() => {
     console.log(

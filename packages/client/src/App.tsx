@@ -11,11 +11,14 @@ import Lending from './pages/Lending/Lending';
 import { useReadLocalStorage } from './hooks/useLocalStorage';
 import { useAppDispatch } from './store';
 import Header from './components/Header/Header';
-
+import { useNotifications } from './hooks/useNotifications';
 const App = () => {
   const isAuthenticated = useReadLocalStorage('isAuthenticated');
 
   const dispatch = useAppDispatch();
+
+  useNotifications();
+
   return (
     <>
       <Header />

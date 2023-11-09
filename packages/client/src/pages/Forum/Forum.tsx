@@ -10,8 +10,11 @@ import TopicCreationForm from '../../components/TopicCreationForm/TopicCreationF
 import { TCreateTopic, TTopic, forumAPI } from '../../api';
 import TopicItem from '../../components/TopicItem/TopicItem';
 import useCheckLightTheme from '../../hooks/useCheckLightTheme';
+import { useWebSocket, socketUrl } from '../../hooks/webSocketHook';
 
 const Forum = () => {
+  const { send, readyState } = useWebSocket({ socketUrl });
+
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   const matchForumRoot = useMatch({ path: ROUTES.main.forum.root, end: true });
@@ -53,6 +56,15 @@ const Forum = () => {
     if (res?.data) {
       setTopics([res.data, ...topics]);
       handleCloseModal();
+
+      // send webSocket Notifications
+      if (readyState) {
+        const message = {
+          type: 'New topic',
+          content: res.data,
+        };
+        send(message);
+      }
     }
   };
 

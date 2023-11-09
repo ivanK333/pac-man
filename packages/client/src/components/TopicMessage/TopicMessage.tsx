@@ -7,6 +7,7 @@ import { TTopicForm } from '../../pages/Topic/Topic';
 import CommentItem from '../CommentItem/CommentItem';
 import { TComment, TMessage, forumAPI } from '../../api';
 import { formatDateString } from '../../utils/dateFormatter';
+import { useWebSocket, socketUrl } from '../../hooks/webSocketHook';
 
 type TTopicMessageProps = {
   message: TMessage;
@@ -19,6 +20,8 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
 }) => {
   // console.log('message: ', message);
   const { id, text, user, commentsCount, createdAt } = message;
+
+  const { send, readyState } = useWebSocket({ socketUrl });
 
   const comments: TComment[] = [];
 
@@ -38,6 +41,15 @@ const TopicMessage: React.FC<TTopicMessageProps> = ({
     if (response?.data) {
       const updatedComments: TComment[] = [...thisComments, response.data];
       setThisComments(updatedComments);
+
+      // send webSocket Notifications
+      if (readyState) {
+        const message = {
+          type: 'New comment',
+          content: response.data,
+        };
+        send(message);
+      }
     }
   };
 
