@@ -1,4 +1,4 @@
-import { map as layer } from './Map/levels/level_001';
+import { map as layer } from './map/levels/level_001';
 
 const blockSize = 30;
 const wallSpaceWidth = blockSize / 1.3;
